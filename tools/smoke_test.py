@@ -71,6 +71,13 @@ def run(pw, w, h, tag):
                               else '[%s] %s: hero not playing/visible: playing=%s visible=%s pixels-changing=%s %s' % (tag, label, playing, visible, moving, vi))
 
     p.goto(URL + '?nosplash', wait_until='networkidle'); p.wait_for_timeout(1200)
+    BR = p.evaluate("(() => { const B = window.BRAND; return {video: !!(B.home && B.home.hero && B.home.hero.video), reviews: !!(B.reviews && B.reviews.score), about: !!(B.pages && B.pages.about && B.pages.about.length), sale: Object.values(B.products).some(p => p.cp > p.p)}; })()")
+    if not BR['video']:
+        # still-image hero: the poster must be loaded and visible instead
+        def assert_hero_playing(label):
+            r = p.evaluate("() => { const i = document.querySelector('.view.top .hero img.poster'); if (!i) return null; const b = i.getBoundingClientRect(); return {ok: i.complete && i.naturalWidth > 0, op: +getComputedStyle(i).opacity, w: Math.round(b.width), h: Math.round(b.height), video: !!document.querySelector('.view.top .hero video')}; }")
+            good = r and r['ok'] and r['op'] > .95 and r['w'] > 200 and not r['video']
+            (ok if good else bad)(('%s: still hero image shown (no video on this brand) %s' % (label, r)) if good else '[%s] %s: hero image: %s' % (tag, label, r))
     # 1 welcome
     if p.locator('#welcome.show').count(): ok('welcome pop-up on open'); shot('01-welcome')
     else: bad('[%s] welcome did not show on open' % tag)
@@ -97,18 +104,19 @@ def run(pw, w, h, tag):
     order = p.evaluate("""() => { const v = document.querySelector('.view.top'); const kids = [...v.children];
         const at = s => { const e = v.querySelector(s); return e ? kids.indexOf(e.closest('.view.top > *')) : -1; };
         return {proof: at('.proof'), cats: at('.cat-grid'), rails: Math.max(...[...v.querySelectorAll('.hscroll')].map(e => kids.indexOf(e.closest('.view.top > *')))), about: at('.about'), hero: at('.hero')}; }""")
-    if order['proof'] < 0: bad('[%s] no review block on home' % tag)
+    if not BR['reviews']: (ok if order['proof'] < 0 else bad)('no review score on the site: review block left out' if order['proof'] < 0 else '[%s] review block shown without a review score' % tag)
+    elif order['proof'] < 0: bad('[%s] no review block on home' % tag)
     elif order['proof'] > order['cats'] and order['proof'] > order['rails'] and order['proof'] < order['about']: ok('review block near the bottom (after rails + categories, above About): %s' % order)
     else: bad('[%s] review block in the wrong place: %s' % (tag, order))
     # hero video
-    vi = p.evaluate("""async () => { const v = document.querySelector('.view.top .hero video'); if (!v) return null;
+    vi = None if not BR['video'] else p.evaluate("""async () => { const v = document.querySelector('.view.top .hero video'); if (!v) return null;
         const t0 = v.currentTime; let frames = 0; const t = performance.now();
         if (v.requestVideoFrameCallback) { const cb = () => { frames++; if (performance.now() - t < 2000) v.requestVideoFrameCallback(cb); }; v.requestVideoFrameCallback(cb); }
         await new Promise(r => setTimeout(r, 2100)); const r = v.getBoundingClientRect(), cs = getComputedStyle(v);
         return {autoplay: v.autoplay, muted: v.muted, loop: v.loop, playsinline: v.hasAttribute('playsinline'), preload: v.preload, fit: cs.objectFit,
                 src: v.currentSrc.split('/').pop(), vw: v.videoWidth, vh: v.videoHeight, cw: r.width, ch: r.height, dpr: devicePixelRatio, paused: v.paused,
                 ready: v.readyState, advanced: +(v.currentTime - t0).toFixed(2), fps: +(frames / 2).toFixed(1)}; }""")
-    if not vi: bad('[%s] no hero video' % tag)
+    if not vi: (ok if not BR['video'] else bad)('still-image hero (brand has no video)' if not BR['video'] else '[%s] no hero video' % tag)
     else:
         flags_ok = vi['autoplay'] and vi['muted'] and vi['loop'] and vi['playsinline'] and vi['preload'] == 'auto' and vi['fit'] == 'cover'
         playing = not vi['paused'] and vi['ready'] >= 3 and vi['advanced'] > 1
@@ -296,7 +304,8 @@ def run(pw, w, h, tag):
         (ok if 0.955 <= sc_btn <= 0.985 else bad)('button press scale %.3f' % sc_btn if 0.955 <= sc_btn <= 0.985 else '[%s] button press scale %.3f (want ~0.97)' % (tag, sc_btn))
         p.locator('.view.top .hero .btn').hover(); p.wait_for_timeout(300)
         hv = p.evaluate("() => getComputedStyle(document.querySelector('.view.top .hero .btn')).backgroundColor")
-        (ok if hv != 'rgb(255, 255, 255)' else bad)('button hover state (%s)' % hv if hv != 'rgb(255, 255, 255)' else '[%s] no hover on light button' % tag)
+        hv0 = p.evaluate("() => { const b = document.querySelector('.view.top .hero .btn').cloneNode(true); b.style.transition = 'none'; document.querySelector('.view.top .hero .hero-copy').appendChild(b); const c = getComputedStyle(b).backgroundColor; b.remove(); return c; }")
+        (ok if hv != hv0 else bad)('button hover state (%s → %s)' % (hv0, hv) if hv != hv0 else '[%s] no hover on light button' % tag)
         p.mouse.move(5, 5)
     # wishlist heart pop
     p.evaluate("document.querySelector('.view.top').scrollTop = 600"); p.wait_for_timeout(300)
@@ -358,7 +367,7 @@ def run(pw, w, h, tag):
     # bag: header pattern, quantity, totals; checkout "Change" are real buttons
     tab('bag'); p.wait_for_timeout(300)
     bg = p.evaluate("() => ({logo: !!document.querySelector('.view.top .topbar .tb-logo'), title: document.querySelector('.view.top .large-title').innerText.replace(/\\s+/g, ' ')})")
-    (ok if bg['logo'] and 'Bag' in bg['title'] else bad)('bag header: %s' % bg['title'] if bg['logo'] else '[%s] bag header: %s' % (tag, bg))
+    (ok if bg['logo'] and 'bag' in bg['title'].lower() else bad)('bag header: %s' % bg['title'] if bg['logo'] else '[%s] bag header: %s' % (tag, bg))
     q0 = p.evaluate("() => [+document.querySelector('.view.top .qty span').textContent, document.querySelector('#bagTotal').textContent]")
     p.click('.view.top .qty button[data-q="1"]'); p.wait_for_timeout(350)
     q1 = p.evaluate("() => [+document.querySelector('.view.top .qty span').textContent, document.querySelector('#bagTotal').textContent, document.querySelector('#bagBadge').textContent, document.querySelector('.view.top .large-title small').textContent]")
@@ -396,7 +405,7 @@ def run(pw, w, h, tag):
     shot('05-pdp-coming-soon'); p.click('.view.top [data-act="back"]'); p.wait_for_timeout(500)
     # 4 account: size, prefs, auth, browser
     tab('account'); t = p.text_content('.view.top')
-    for need in ['Log in', 'Sign up', 'Drop alerts', 'Be first to know', 'Your size', 'New drops', 'Early access', 'Back in stock', 'Price drops', 'Order updates', 'Help', 'About', 'Legal', 'Version 1.0, concept', '@']:
+    for need in ['Log in', 'Sign up', 'Drop alerts', 'Be first to know', 'Your size', 'New drops', 'Early access', 'Back in stock', 'Price drops', 'Order updates', 'Help'] + (['About'] if BR['about'] else []) + ['Legal', 'Version 1.0, concept', '@']:
         if need.lower() not in t.lower(): bad('[%s] account missing "%s"' % (tag, need))
     ok('account sections present')
     order_da = p.evaluate("""() => {
@@ -465,7 +474,10 @@ def run(pw, w, h, tag):
     (ok if tot1 != tot2 else bad)('APP10 applied: %s → %s' % (tot1, tot2) if tot1 != tot2 else '[%s] APP10 did not change total' % tag)
     shot('15-bag-app10')
     p.click('#checkout'); p.wait_for_timeout(700); t = p.inner_text('#sheet')
-    for need in ['Shopify checkout', 'Klarna', '3 payments', 'Shop']:
+    pays = p.evaluate("window.BRAND.payments || null")
+    needs = ['Shopify checkout', 'Shop'] + (['Klarna', '3 payments'] if not pays or 'klarna' in pays else (['PayPal'] if 'paypal' in pays else []))
+    if pays and 'klarna' not in pays and 'Klarna' in t: bad('[%s] checkout offers Klarna but the brand does not: %s' % (tag, pays))
+    for need in needs:
         if need not in t: bad('[%s] checkout missing %s' % (tag, need))
     ok('checkout: ' + ' '.join(t.split())[:160]); shot('16-checkout')
     p.click('#payNow'); p.wait_for_timeout(1800); shot('17-order'); p.keyboard.press('Escape')
@@ -474,7 +486,7 @@ def run(pw, w, h, tag):
     tab('home'); p.click('.view.top [data-act="search"]'); p.wait_for_timeout(400); p.fill('#sq', 'polo'); p.wait_for_timeout(600)
     ok('search: ' + p.inner_text('.view.top .count')); shot('18-search'); p.click('.view.top [data-act="back"]'); p.wait_for_timeout(300)
     # 7 demo pushes
-    for k in ['bag', 'restock', 'price', 'drop', 'welcome']:
+    for k in ['bag', 'restock'] + (['price'] if BR['sale'] else []) + ['drop', 'welcome']:
         if w >= 1000: p.click('.pitch [data-demo="%s"]' % k)
         else:
             to_root()
@@ -574,6 +586,8 @@ def autoplay_refused(pw, w, h):
     p.on('pageerror', lambda e: bad('[%s] pageerror: %s' % (tag, e)))
     print('== %s %dx%d' % (tag, w, h))
     p.goto(URL + '?nosplash&nowelcome&nopush', wait_until='networkidle'); p.wait_for_timeout(1500)
+    if not p.evaluate("!!(window.BRAND.home && window.BRAND.home.hero && window.BRAND.home.hero.video)"):
+        ok('brand has a still-image hero: autoplay checks not applicable'); br.close(); return
     st = p.evaluate("() => { const v = document.querySelector('.view.top .hero video'), po = document.querySelector('.view.top .hero .poster'); return {paused: v.paused, poster: +getComputedStyle(po).opacity, posterOk: po.complete && po.naturalWidth > 0}; }")
     (ok if st['paused'] and st['poster'] > 0.95 and st['posterOk'] else bad)('autoplay refused: poster shown while blocked %s' % st if st['paused'] and st['poster'] > 0.95 and st['posterOk'] else '[%s] blocked state: %s' % (tag, st))
     # first gesture anywhere (desktop: the empty stage beside the phone; phone: the bare hero), hero must start

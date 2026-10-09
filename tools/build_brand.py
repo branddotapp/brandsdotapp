@@ -155,6 +155,7 @@ def map_product(p):
             'p': round(price, 2), 'cp': round(cp, 2) if cp > price else 0, 'im': imgs, 'sz': sizes,
             'd': html_text(p.get('body_html')), 'tg': p.get('tags', [])[:30], 'pub': (p.get('published_at') or '')[:10]}
 
+MAX_COLS = 24   # menu collections taken into the app
 EDIT_RE = re.compile(r'new|sale|outlet|best|season|edit|collection|\b\d{2}\b|pre.?fall|\baw\d|\bss\d|spring|summer|autumn|winter|gift|mix|luxe|archive|essential|trend|top.?pick|offer|exclusive|limited|drop|resort|holiday|black.?friday|clearance|last.?chance|bundle|sets?\b', re.I)
 SEASON_RE = re.compile(r'^(AW|SS|FW|FALL|AUTUMN|WINTER|SPRING|SUMMER|RESORT|PRE[ -]?FALL|HOLIDAY)[ /-]*(\d{2,4})\b', re.I)
 
@@ -164,6 +165,8 @@ def nav_collections(soup, base):
     seen, out = set(), []
     for area in areas:
         for a in area.find_all('a', href=True):
+            # announcement-bar links reuse collection URLs with promo text ("Free UK delivery") — not menu names
+            if a.find_parent(class_=re.compile(r'announcement|utility-bar|topbar|ticker', re.I)): continue
             m = re.search(r'/collections/([a-z0-9][a-z0-9\-_]*)/?(?:\?|#|$)', a['href'])
             if not m: continue
             h = m.group(1)
@@ -266,6 +269,8 @@ def parse_shipping(lines):
         if re.search(r'now shipping|ships? from our', l, re.I) and len(l) < 90:
             ship['notes'].insert(0, sentence_case(l).rstrip('.') + '.'); break
     rx = re.compile(r'^(?P<name>[A-Za-z][A-Za-z0-9 ()\'&./+-]{2,60}?)\s*[:\-–—]?\s*(?P<cur>[£$€])\s?(?P<price>\d+(?:\.\d{2})?)\s*(?:[-–—:]\s*(?P<rest>.*))?$')
+    # "DPD NEXT BUSINESS DAY - FREE" → priced at 0 so it parses like the £ lines
+    first = [re.sub(r'\s[-–—:]\s*free\s*$', ' - £0', l, flags=re.I) for l in first]
     for i, l in enumerate(first):
         m = rx.match(l)
         if not m or re.match(r'^(free|over|orders?)\b', m.group('name'), re.I): continue
@@ -275,6 +280,7 @@ def parse_shipping(lines):
             rest = (rest + ' - ' + first[j].replace('*', '').strip(' -–—')).strip(' -–—'); j += 1
         fo = re.search(r'free\s+(?:on\s+)?(?:orders?\s+)?over\s*[£$€]\s?(\d+(?:\.\d{2})?)', rest, re.I)
         desc = re.sub(r'free\s+(?:on\s+)?(?:orders?\s+)?over\s*[£$€]\s?\d+(?:\.\d{2})?\s*[-–—]?\s*', '', rest, flags=re.I).strip(' -–—')
+        if re.fullmatch(r'(order|orders?|by|before)', desc, re.I): desc = ''   # a cut-off split over lines ("ORDER" / "BEFORE 8PM")
         nxt = first[j] if j < len(first) else ''
         name = nice_title(m.group('name').strip(' -–—:'))
         o = {'id': re.sub(r'[^a-z0-9]+', '-', name.lower()).strip('-'), 'name': name, 'desc': sentence_case(desc) if desc else '',
@@ -402,10 +408,10 @@ def svg_to_png(svg_bytes):
     with tempfile.TemporaryDirectory() as d:
         sp = os.path.join(d, 'l.svg'); open(sp, 'wb').write(svg_bytes)
         hp = os.path.join(d, 'l.html')
-        open(hp, 'w').write('<html><body style="margin:0;background:transparent"><img src="l.svg" style="height:120px;display:block"></body></html>')
+        open(hp, 'w').write('<html><body style="margin:0;background:transparent"><img src="l.svg" style="height:360px;display:block"></body></html>')
         op = os.path.join(d, 'o.png')
         subprocess.run([chrome, '--headless=new', '--no-sandbox', '--disable-gpu', '--hide-scrollbars', '--default-background-color=00000000',
-                        '--window-size=1200,120', '--screenshot=' + op, 'file://' + hp], capture_output=True, timeout=60)
+                        '--window-size=4000,360', '--screenshot=' + op, 'file://' + hp], capture_output=True, timeout=60)
         if not os.path.exists(op): return None
         im = Image.open(op).convert('RGBA'); bb = im.getbbox()
         if bb: im = im.crop(bb)
@@ -613,7 +619,7 @@ def homepage_videos(soup, base):
 # ---------------------------------------------------------------- scrape
 GENERIC_WORDS = r'\b(clothing|clothes|clo|apparel|official|store|shop|online|ltd|limited|uk|co|company|menswear|womenswear|london)\b'
 
-def scrape(url, slug, out_dir, do_render=True, max_products=400):
+def scrape(url, slug, out_dir, do_render=True, max_products=400, extra_cols=()):
     base = url.rstrip('/')
     if not re.match(r'^https?://', base): base = 'https://' + base
     st, hdrs, home = fetch(base + '/')
@@ -660,8 +666,18 @@ def scrape(url, slug, out_dir, do_render=True, max_products=400):
             title = nice_title(txt)
             ct = nice_title(cm.get('title', ''))
             if ct and ct.lower().startswith(title.lower()) and len(ct) > len(title): title = ct
+            # sub-menu labels like "View all" / a second "Tees" under a sub-brand: use the collection's own title
+            if ct and (re.fullmatch(r'(view|shop)? ?all', title, re.I) or title.lower() in {c['t'].lower() for c in cols}): title = ct
             cols.append({'h': h, 't': title, 'p': [p['handle'] for p in items]})
-            if len(cols) >= 18: break
+            if len(cols) >= MAX_COLS: break
+        # collections that aren't in the menu but the app wants (brand.overrides.json -> scrape.extraCollections)
+        for h in extra_cols:
+            if h in [c['h'] for c in cols]: continue
+            items = paged(base + '/collections/' + h + '/products.json?limit=250&page={page}', 'products', 2)
+            if not items: missing('Extra collection %s: no public products' % h); continue
+            for p in items: by_handle.setdefault(p['handle'], p)
+            cols.append({'h': h, 't': nice_title(colmeta.get(h, {}).get('title', h.replace('-', ' '))), 'p': [p['handle'] for p in items]})
+            found('Extra collection (from overrides): %s, %d products' % (h, len(items)))
         used = []
         for c in cols:
             for h in c['p']:
@@ -714,7 +730,13 @@ def scrape(url, slug, out_dir, do_render=True, max_products=400):
             if png: open(os.path.join(img_dir, 'logo-src.png'), 'wb').write(png); dark_url = 'file'
     lp = os.path.join(img_dir, 'logo-src.png')
     big = lambda u: (u + ('&' if '?' in u else '?') + 'width=600') if u and '/cdn/shop/' in u and 'width=' not in u else (re.sub(r'width=\d+', 'width=600', u) if u else u)
-    got = dark_url == 'file' or (dark_url and save_image(big(dark_url), lp)) or (light_url and save_image(big(light_url), lp))
+    def svg_logo(u):   # an <img src="logo.svg">: rasterise the vector itself (sharp at any size) instead of a CDN thumbnail
+        if not (u and re.search(r'\.svg(\?|$)', u, re.I) and Image): return False
+        st, _, body = fetch(re.sub(r'[?&]width=\d+', '', u))
+        png = svg_to_png(body.encode() if isinstance(body, str) else body) if st == 200 and body else None
+        if png: open(lp, 'wb').write(png)
+        return bool(png)
+    got = dark_url == 'file' or svg_logo(dark_url) or (dark_url and save_image(big(dark_url), lp)) or svg_logo(light_url) or (light_url and save_image(big(light_url), lp))
     if got and Image:
         tone, mono = logo_tone(lp)
         if mono:
@@ -850,11 +872,15 @@ def scrape(url, slug, out_dir, do_render=True, max_products=400):
         if s.lower() not in [x.lower() for x in ann] and not re.search(r'cookie|accept|close|menu|search|cart|£\d+\.\d\d', s, re.I): ann.append(s)
     perks = []
     if ship['freeOver']: perks.append('Free %s delivery over %s%g' % (ship['region'] or '', B['currency']['symbol'], ship['freeOver']))
-    perks += ann[:5]
+    perks += [x for x in ann[:6] if not re.fullmatch(r'\s*(instagram|tiktok|facebook|twitter|x|youtube|pinterest|snapchat|email|contact( us)?)\s*', x, re.I)][:5]
     if B['returns']['short'] and not any('return' in p.lower() for p in perks): perks.append(B['returns']['short'])
     for n in ship['notes'][:1]:
         if re.search(r'now shipping|warehouse', n, re.I): perks.append(n.rstrip('.'))
     B['perks'] = [re.sub(r'\s+', ' ', p).strip() for p in dict.fromkeys(perks) if p]
+    # payment methods from the store's payment icons (Shopify renders <svg aria-labelledby="pi-apple_pay">…)
+    pays = list(dict.fromkeys(re.findall(r'\bpi-([a-z_]+)"', home)))
+    if pays: B['payments'] = pays; found('Payment methods (footer icons): ' + ', '.join(pays))
+    else: missing('Payment icons not found: checkout shows the default Apple Pay / Shop Pay / Klarna set')
     (found if ann else missing)('Announcement bar: ' + (' | '.join(ann[:5]) if ann else 'nothing found (perks built from delivery/returns copy only)'))
 
     rewards_link = soup.find('a', href=re.compile(r'loyal|reward', re.I))
@@ -908,9 +934,10 @@ def scrape(url, slug, out_dir, do_render=True, max_products=400):
     if not about: missing('About copy not found')
     B['pitch'] = {'title': B['name'] + ',<br>one tap away.',
                   'copy': 'A concept for a native %s shopping app: drop alerts, early access, saved sizes and a faster path from first look to checkout. Tap around, everything works.' % B['name'],
-                  'list': ['Drops with app-only early access', 'Saved size and back-in-size alerts', 'Shopify checkout with Apple Pay, Shop Pay and Klarna']}
+                  'list': ['Drops with app-only early access', 'Saved size and back-in-size alerts', 'Shopify checkout with Apple Pay, Shop Pay and %s' % ('Klarna' if 'klarna' in (B.get('payments') or ['klarna']) else 'PayPal' if 'paypal' in B['payments'] else 'cards')]}
     B['pdpPerks'] = [p for p in [('Free %s delivery over %s%g' % (ship['region'], B['currency']['symbol'], ship['freeOver'])).replace('  ', ' ') if ship['freeOver'] else 'Tracked delivery',
-                                 'Easy returns' if B['returns']['summary'] else 'Secure checkout', 'Earn %s' % B['rewards']['name'] if B['rewards']['real'] else 'Klarna available']]
+                                 'Easy returns' if B['returns']['summary'] else 'Secure checkout', 'Earn %s' % B['rewards']['name'] if B['rewards']['real'] else
+                                 ('Klarna available' if 'klarna' in (B.get('payments') or ['klarna']) else 'PayPal available' if 'paypal' in B['payments'] else 'Secure checkout')]]
     B['report'] = {'found': FOUND, 'missing': MISSING}
     return B
 
@@ -966,6 +993,14 @@ def write_app(B, out_dir):
     rep = {'{{NAME}}': html.escape(B['name']), '{{THEME_COLOR}}': th['ink'], '{{FAVICON}}': B['assets'].get('favicon', ''),
            '{{FONT_LINK}}': ('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="%s" rel="stylesheet">' % html.escape(th['fontHref'])) if th.get('fontHref') else '',
            '{{THEME_CSS}}': theme_css(th), '{{VERSION}}': datetime.datetime.now().strftime('%Y%m%d%H%M')}
+    # optional per-brand stylesheet (<slug>/brand.css): corner radii, type scale, logo sizes... loaded after app.css
+    bcss = os.path.join(out_dir, 'brand.css')
+    if os.path.exists(bcss):
+        shutil.copy(bcss, os.path.join(out_dir, 'assets', 'brand.css'))
+        rep['{{BRAND_CSS}}'] = '<link rel="stylesheet" href="assets/brand.css?v=%s">' % rep['{{VERSION}}']
+    else:
+        rep['{{BRAND_CSS}}'] = ''
+        if os.path.exists(os.path.join(out_dir, 'assets', 'brand.css')): os.remove(os.path.join(out_dir, 'assets', 'brand.css'))
     for k, v in rep.items(): tpl = tpl.replace(k, v)
     open(os.path.join(out_dir, 'index.html'), 'w').write(tpl)
 
@@ -997,10 +1032,15 @@ def main():
         out = os.path.join(a.root, a.slug)
         os.makedirs(out, exist_ok=True)
         log('Scraping %s → %s/' % (a.url, os.path.relpath(out, a.root)))
-        B = scrape(a.url, a.slug, out, do_render=not a.no_render, max_products=a.max_products)
+        ovp = os.path.join(out, 'brand.overrides.json')
+        extra = (json.load(open(ovp)).get('scrape', {}) if os.path.exists(ovp) else {}).get('extraCollections', [])
+        B = scrape(a.url, a.slug, out, do_render=not a.no_render, max_products=a.max_products, extra_cols=extra)
     ov = os.path.join(out, 'brand.overrides.json')
     if os.path.exists(ov):
         B = deep_merge(B, json.load(open(ov)))
+        # collection titles can be renamed without replacing the whole list: "collectionTitles": {"handle": "Title"}
+        for c in B.get('collections', []):
+            if c['h'] in (B.get('collectionTitles') or {}): c['t'] = B['collectionTitles'][c['h']]
         log('· Applied overrides from %s' % os.path.relpath(ov, a.root))
     check_instagram(B, out)
     json.dump(B, open(os.path.join(out, 'brand.json'), 'w'), ensure_ascii=False, indent=1)

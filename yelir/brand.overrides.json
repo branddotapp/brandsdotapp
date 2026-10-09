@@ -1,0 +1,215 @@
+{
+ "_note": "Hand-tuned layer on top of the scraped brand.json (yelirworld.com). Run: python3 tools/build_brand.py --rebuild yelir. Hand-picked images live in assets/brand/ (cropped from the site's own SEP 26 homepage banners).",
+ "scrape": {
+  "extraCollections": [
+   "best-sellers",
+   "performance-tracksuits",
+   "performance-jackets"
+  ]
+ },
+ "name": "Yelir World",
+ "short": "YELIR WORLD",
+ "assets": {
+  "favicon": "assets/brand/favicon.png"
+ },
+ "_theme": "yelirworld.com is a white Dawn theme: #fff page, #000 text and buttons, black announcement bar, square corners everywhere, Open Sans (bold uppercase headings). No beige accents, so the template's warm sand/stone tones become neutral greys. Corner radii, type and logo sizes live in yelir/brand.css.",
+ "theme": {
+  "ink": "#000000",
+  "bg": "#ffffff",
+  "bgRgb": "255,255,255",
+  "text": "#121212",
+  "stone": "#7a7a7a",
+  "sand": "#e4e4e4",
+  "sand2": "#f2f2f2",
+  "sale": "#c8102e",
+  "stageA": "#ffffff",
+  "stageB": "#efefef",
+  "stageC": "#e2e2e2"
+ },
+ "pitch": {
+  "title": "Modern luxury,<br>one tap away.",
+  "copy": "A concept for the YELIR WORLD app: new releases and restocks with app-only early access, Yelir World and Performance in one place, a saved size that follows you round the store, and Shopify checkout with Apple Pay, Shop Pay and PayPal. Tap around, everything works.",
+  "list": [
+   "Releases 24 hours early for app users",
+   "Saved size and back-in-size alerts",
+   "Shopify checkout with Apple Pay, Shop Pay and PayPal"
+  ]
+ },
+ "home": {
+  "newCol": "latest-products",
+  "newSub": "Caps, tracksuits and outerwear for AW26",
+  "bestCol": "best-sellers",
+  "bestSub": "The Yelir World pieces on repeat",
+  "hero": {
+   "poster": "assets/brand/hero-latest-releases.jpg",
+   "eyebrow": "Yelir World",
+   "title": "LATEST RELEASES",
+   "cta": "Shop now",
+   "col": "latest-products"
+  },
+  "tiles": [
+   [
+    "headwear",
+    "Headwear"
+   ],
+   [
+    "performance",
+    "Performance"
+   ],
+   [
+    "tracksuits",
+    "Tracksuits"
+   ],
+   [
+    "tees",
+    "Tees"
+   ],
+   [
+    "outerwear",
+    "Coats"
+   ],
+   [
+    "hoodies-sweatshirts",
+    "Hoodies"
+   ]
+  ],
+  "editorial": {
+   "col": "performance",
+   "img": "assets/brand/performance.jpg",
+   "eyebrow": "Yelir World",
+   "title": "PERFORMANCE"
+  },
+  "feature": {
+   "col": "headwear",
+   "img": "assets/brand/headwear.jpg",
+   "title": "HEADWEAR",
+   "cta": "Shop now"
+  }
+ },
+ "search": {
+  "trending": [
+   "Tracksuit",
+   "Performance",
+   "Cap",
+   "Hoody",
+   "Windcheater",
+   "Quilted",
+   "Shorts",
+   "Polo"
+  ]
+ },
+ "perks": [
+  "Free UK next working day delivery",
+  "Performance restock online now",
+  "14-day exchanges and refunds",
+  "DPD Saturday delivery available"
+ ],
+ "copy": {
+  "emptyBag": "Nothing in here yet. Start with the latest releases.",
+  "heroNotif": "The latest releases are online now."
+ },
+ "rewards": {
+  "name": "YELIR WORLD Rewards"
+ },
+ "_drop": "No upcoming release is published on the site, so the Drops tab demos app early access with their real AW26 outerwear (the quilted down coats, quilted panel and padded jackets released Sept 2026, shown on their homepage under COATS SEP26). The date/time is the template's rolling placeholder.",
+ "drop": {
+  "num": "01",
+  "name": "AW26 OUTERWEAR",
+  "title": "Autumn Winter 26",
+  "col": "outerwear",
+  "image": "assets/brand/aw26-coats.jpg",
+  "products": [
+   "quilted-down-coat-black",
+   "quilted-down-coat-nine-ultimate-grey",
+   "yelir-world-quilted-panel-jacket-black",
+   "yelir-world-quilted-panel-jacket-baby-blue",
+   "grey-panel-jacket-black",
+   "padded-jacket-black",
+   "padded-jacket-blue",
+   "padded-jacket-dark-grey"
+  ],
+  "previous": {
+   "col": "latest-products",
+   "title": "LATEST RELEASES"
+  }
+ },
+ "collectionTitles": {
+  "best-sellers": "Best Sellers",
+  "performance-polos": "Performance Polos",
+  "hoodies-sweatshirts": "Hoodies",
+  "short-sets": "Shorts Sets",
+  "latest-products": "Latest Releases"
+ },
+ "shop": {
+  "kicker": "YELIR WORLD",
+  "cats": [
+   "tees",
+   "relaxed-tees",
+   "hoodies-sweatshirts",
+   "bottoms-1",
+   "tracksuits",
+   "relaxed-fit-tracksuits",
+   "jackets",
+   "windcheaters",
+   "outerwear",
+   "body-warmers",
+   "combats-1",
+   "loungewear",
+   "shorts",
+   "swimwear",
+   "headwear",
+   "accessories",
+   "socks"
+  ],
+  "edits": [
+   "latest-products",
+   "best-sellers",
+   "performance-latest-releases",
+   "performance",
+   "performance-tops",
+   "performance-polos",
+   "performance-tracksuits",
+   "performance-jackets",
+   "short-sets",
+   "swim-sets"
+  ],
+  "featureCats": {
+   "col": "latest-products",
+   "title": "LATEST RELEASES",
+   "cta": "Shop now",
+   "idx": 0,
+   "img": "assets/brand/latest-wide.jpg"
+  },
+  "featureEdits": {
+   "col": "performance",
+   "title": "PERFORMANCE",
+   "cta": "Shop now",
+   "idx": 0,
+   "img": "assets/brand/performance-wide.jpg"
+  }
+ },
+ "pdpPerks": [
+  "Free UK next working day delivery",
+  "14-day exchanges and refunds",
+  "PayPal and Apple Pay"
+ ],
+ "shipping": {
+  "options": [
+   {
+    "id": "dpd-next-business-day",
+    "name": "DPD Next Business Day",
+    "desc": "Order before 8pm, Mon–Thu",
+    "price": 0,
+    "short": "Next Business Day"
+   },
+   {
+    "id": "dpd-saturday-delivery",
+    "name": "DPD Saturday Delivery",
+    "desc": "Order before 8pm Friday",
+    "price": 9,
+    "short": "Saturday Delivery"
+   }
+  ],
+  "region": "UK"
+ }
+}

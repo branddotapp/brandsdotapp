@@ -8,6 +8,8 @@ const H = B.home || {}, SH = B.shop || {}, DR = B.drop || null, SHIP = B.shippin
 const CUR = (B.currency && B.currency.symbol) || '£';
 const DISC = B.discount || { code:'APP10', pct:10 };
 const NAME = B.name, SITE = B.site;
+// payment methods the brand's checkout shows (footer payment icons); unknown → the template's default set
+const PAY = Array.isArray(B.payments) && B.payments.length ? B.payments : null, pays = id => !PAY || PAY.includes(id);
 const LOGO = B.assets.logoDark, LOGO_L = B.assets.logoLight || B.assets.logoDark;
 // Push toast app icon: brand logo (light on dark tile when available) with letter fallback.
 function pushAppIconHTML(){
@@ -430,7 +432,7 @@ function Home(el){
       (tiles.length ? '<section class="section"><div class="sec-head"><div><h2>Shop by Category</h2></div><button class="link" data-act="tab" data-v="shop">All</button></div><div class="cat-grid">'+tiles.map(t=>'<div class="cat-tile" data-act="col" data-v="'+esc(t[0])+'"><img loading="lazy" src="'+cover(t[0])+'" alt=""><span>'+esc(t[1])+'</span></div>').join('')+'</div></section>' : '')+
       (H.editorial && H.editorial.img && colBy(H.editorial.col) ? '<div class="editorial" data-act="col" data-v="'+esc(H.editorial.col)+'"><img loading="lazy" src="'+esc(H.editorial.img)+'" alt=""><div class="hero-copy"><div class="eyebrow">'+esc(H.editorial.eyebrow||'')+'</div><div class="hero-title">'+esc(H.editorial.title||'')+'</div><span class="btn btn-light">Shop now</span></div></div>' : '')+
       (best.length ? '<section class="section"><div class="sec-head"><div><h2>Best Sellers</h2><p>'+esc(H.bestSub||'The pieces everyone’s wearing')+'</p></div><button class="link" data-act="col" data-v="'+esc(H.bestCol)+'">View all</button></div><div class="hscroll">'+best.map(p=>pcard(p,{w:400})).join('')+'</div></section>' : '')+
-      (fc ? '<div class="feature-card" style="margin-top:28px" data-act="col" data-v="'+esc(H.feature.col)+'"><img loading="lazy" src="'+img(fc.im[1]||fc.im[0],700)+'" alt=""><div><b>'+esc(H.feature.title)+'</b><span class="btn btn-light btn-sm">'+esc(H.feature.cta||'Shop now')+'</span></div></div>' : '')+
+      (fc ? '<div class="feature-card" style="margin-top:28px" data-act="col" data-v="'+esc(H.feature.col)+'"><img loading="lazy" src="'+(H.feature.img ? esc(H.feature.img) : img(fc.im[1]||fc.im[0],700))+'" alt=""><div><b>'+esc(H.feature.title)+'</b><span class="btn btn-light btn-sm">'+esc(H.feature.cta||'Shop now')+'</span></div></div>' : '')+
       proofHTML()+
       igHTML()+
       (!ALL.length ? '<div class="empty"><div class="eic">'+I.bag+'</div><h3>Catalogue not found</h3><p>The product feed for '+esc(NAME)+' couldn’t be read, so there’s nothing to show here yet.</p></div>' : '')+
@@ -442,9 +444,11 @@ function Home(el){
   render();
   // past the hero the band turns solid so the clear menu/status stay readable over light content
   let deep = null;
-  el.addEventListener('scroll', () => { const d = el.scrollTop > 480; if (d === deep) return; deep = d; const h = $('.home-head', el); if (h) h.classList.toggle('deep', d); }, {passive:true});
+  // brands whose solid band is light (brand.css: :root{--deep-band:light}) switch the status bar to dark text with it
+  const lightBand = getComputedStyle(document.documentElement).getPropertyValue('--deep-band').trim() === 'light';
+  el.addEventListener('scroll', () => { const d = el.scrollTop > 480; if (d === deep) return; deep = d; const h = $('.home-head', el); if (h) h.classList.toggle('deep', d); if (lightBand && el.classList.contains('top')) setStatus(!d); }, {passive:true});
   el._refresh = () => { const st = el.scrollTop; render(); el.scrollTop = st; deep = null; el.dispatchEvent(new Event('scroll')); };
-  return { light:true };
+  return lightBand ? { light:true, lightUntil:481 } : { light:true };
 }
 
 // ---------- SHOP ----------
@@ -456,7 +460,7 @@ function Shop(el, seg){
     const list = (s === 'cats' ? SH.cats : SH.edits) || [];
     const f = s === 'cats' ? SH.featureCats : SH.featureEdits;
     const fp = f && prods(f.col)[f.idx||0];
-    return (fp ? '<div class="feature-card" data-act="col" data-v="'+esc(f.col)+'"><img src="'+img(fp.im[0],700)+'" alt=""><div><b>'+esc(f.title)+'</b><span class="btn btn-light btn-sm">'+esc(f.cta||'Shop now')+'</span></div></div>' : '')+
+    return (fp ? '<div class="feature-card" data-act="col" data-v="'+esc(f.col)+'"><img src="'+(f.img ? esc(f.img) : img(fp.im[0],700))+'" alt=""><div><b>'+esc(f.title)+'</b><span class="btn btn-light btn-sm">'+esc(f.cta||'Shop now')+'</span></div></div>' : '')+
       '<div class="cat-list">'+list.map(row).join('')+'</div>'+(list.length?'':'<div class="empty"><h3>No collections found</h3></div>');
   };
   el.innerHTML = topbar({ title:'', right:'<div class="tb-r">'+searchBtn()+bagBtn()+'</div>', left:'<span style="width:40px"></span>' }) +
@@ -534,7 +538,7 @@ function PDP(el, h){
     '<div class="pdp-info">'+
       '<div class="ptype">'+esc(p.ty || NAME)+'</div><h1>'+esc(p.n)+'</h1>'+(p.c?'<div class="pc">'+esc(p.c)+'</div>':'')+
       (sale ? '<div class="price sale"><b>'+money(p.p)+'</b><s>'+money(p.cp)+'</s>'+(pd?'<span class="pd-badge">Price drop</span>':'')+'</div>' : '<div class="price">'+money(p.p)+'</div>')+
-      '<div class="klarna">Or 3 payments of '+money(p.p/3)+' with Klarna</div>'+proofHTML(true)+
+      (pays('klarna') ? '<div class="klarna">Or 3 payments of '+money(p.p/3)+' with Klarna</div>' : '')+proofHTML(true)+
       (coming ? '<div class="soon-note">'+I.drop+'<div><b>DROP '+esc(DR.num)+' / '+esc(DR.name)+'</b><span>App early access '+fmtDay(dropTimes().app)+'. Website 24 hours later.</span></div></div>' : '')+
       (sibs.length > 1 ? '<div class="label-row"><b>Colour</b><span>'+esc(p.c)+'</span></div><div class="swatches">'+sibs.map(s=>'<button class="swatch '+(s.h===h?'on':'')+'" data-sib="'+esc(s.h)+'" aria-label="'+esc(s.c)+'"><img loading="lazy" src="'+img(s.im[0],150)+'" alt=""></button>').join('')+'</div>' : '')+
       '<div class="label-row"><b>Size</b><span id="sizeLbl">'+(mineAvail?'Your saved size: '+esc(prettySize(size)):mineOut?'Your size ('+esc(sizeLabel())+') is sold out':'Select a size')+'</span></div>'+
@@ -637,7 +641,7 @@ function Bag(el){
         (promo?'<div class="row disc"><span>'+esc(DISC.code)+' ('+DISC.pct+'% off)</span><span>−'+money(T.disc)+'</span></div>':'')+
         '<div class="row"><span>Delivery ('+esc(o.short||o.name)+')</span><span>'+(T.ship?money(T.ship):'Free')+'</span></div><div class="row total"><span>Total</span><span id="bagTotal">'+money(T.total)+'</span></div>'+
         (B.rewards && B.rewards.enabled ? '<div class="pts">'+I.star+'<span>Members earn '+esc(B.rewards.name)+' points on this order</span></div>' : '')+'</div>'+
-      '<div class="pay-row"><button class="btn btn-dark btn-block" id="checkout" style="height:52px">Checkout — '+money(T.total)+'</button><button class="apple-pay" id="applePay">'+I.apple+'Pay</button><div class="pay-icons"><span>Klarna</span>·<span>PayPal</span>·<span>Shop Pay</span>·<span>Google Pay</span></div></div>'+credit();
+      '<div class="pay-row"><button class="btn btn-dark btn-block" id="checkout" style="height:52px">Checkout — '+money(T.total)+'</button><button class="apple-pay" id="applePay">'+I.apple+'Pay</button><div class="pay-icons">'+[['klarna','Klarna'],['paypal','PayPal'],['shopify_pay','Shop Pay'],['google_pay','Google Pay']].filter(x=>pays(x[0])).map(x=>'<span>'+x[1]+'</span>').join('·')+'</div></div>'+credit();
     $$('.bag-item', el).forEach(row => {
       const ix = +row.dataset.ix;
       $$('[data-q]', row).forEach(b => b.addEventListener('click', () => { bag[ix].q += +b.dataset.q; if (bag[ix].q < 1){ bag[ix].q = 1; removeAt(row, ix); return; } saveBag(); const st = el.scrollTop; render(); el.scrollTop = st; const q = $('.bag-item[data-ix="'+ix+'"] .qty span', el); if (q) anim(q, [{transform:'translateY('+(+b.dataset.q>0?6:-6)+'px)', opacity:0},{transform:'none', opacity:1}], { duration:240 }); }));
@@ -658,7 +662,9 @@ function checkout(quick){
   let sel = opts[0][0];
   const totalFor = () => T.sub - T.disc + opts.find(o=>o[0]===sel)[3];
   openSheet('<h3 style="margin-bottom:4px">Checkout</h3><p class="co-sub">'+I.lock+'Shopify checkout, inside the app</p>'+
-    '<div class="express"><button class="xp apple" data-pay="Apple Pay">'+I.apple+'Pay</button><button class="xp shop" data-pay="Shop Pay"><b>shop</b><span>Pay</span></button><button class="xp klarna" data-pay="Klarna"><b>Klarna.</b><span id="klarna3">3 payments of '+money(totalFor()/3)+'</span></button></div>'+
+    '<div class="express">'+(pays('apple_pay')?'<button class="xp apple" data-pay="Apple Pay">'+I.apple+'Pay</button>':'')+(pays('shopify_pay')?'<button class="xp shop" data-pay="Shop Pay"><b>shop</b><span>Pay</span></button>':'')+
+      (pays('klarna') ? '<button class="xp klarna" data-pay="Klarna"><b>Klarna.</b><span id="klarna3">3 payments of '+money(totalFor()/3)+'</span></button>'
+       : pays('paypal') ? '<button class="xp paypal" data-pay="PayPal"><b>Pay<i>Pal</i></b></button>' : '')+'</div>'+
     '<div class="or"><span>or pay by card</span></div>'+
     '<div class="co-row"><div>Deliver to<small>Your saved address</small></div><button class="co-change" data-change="address">Change</button></div>'+
     opts.map(o=>'<div class="ship-opt '+(o[0]===sel?'on':'')+'" data-o="'+esc(o[0])+'"><i class="radio"></i><div>'+esc(o[1])+'<small>'+esc(o[2])+'</small></div><span>'+(o[3]?money(o[3]):'Free')+'</span></div>').join('')+
@@ -669,7 +675,7 @@ function checkout(quick){
     '<p class="center" style="font-size:10.5px;margin:12px 0 0">Concept demo — no order is placed and no payment is taken.</p>',
     s => {
       $$('.co-change', s).forEach(b => b.addEventListener('click', () => toast(b.dataset.change === 'address' ? 'Demo: your saved addresses would open here' : 'Demo: your saved cards would open here', b.dataset.change === 'address' ? I.pin : I.card)));
-      $$('.ship-opt', s).forEach(o => o.addEventListener('click', () => { sel = o.dataset.o; $$('.ship-opt', s).forEach(x=>x.classList.toggle('on',x===o)); $('#coTotal', s).textContent = money(totalFor()); $('#klarna3', s).textContent = '3 payments of '+money(totalFor()/3); }));
+      $$('.ship-opt', s).forEach(o => o.addEventListener('click', () => { sel = o.dataset.o; $$('.ship-opt', s).forEach(x=>x.classList.toggle('on',x===o)); $('#coTotal', s).textContent = money(totalFor()); const k3 = $('#klarna3', s); if (k3) k3.textContent = '3 payments of '+money(totalFor()/3); }));
       const done = (method) => {
         const ref = (NAME[0]||'R').toUpperCase() + Math.floor(100000 + Math.random()*899999);
         const paid = totalFor();
@@ -954,7 +960,7 @@ function showWelcome(){
 let demoHTML = '';
 function buildChrome(){
   const pitch = B.pitch || {};
-  const demoBtns = [['bag','Abandoned bag','What’s still in the bag, plus '+DISC.code],['restock','Back in stock','In your saved size'],['price','Price drop on wishlist','A real reduced item, badged in-app'],['drop','Drop is live', DR ? 'DROP '+DR.num+' / '+DR.name+', app early access' : 'New arrivals'],['welcome','Show welcome message','The '+DISC.code+' offer shown on open']];
+  const demoBtns = [['bag','Abandoned bag','What’s still in the bag, plus '+DISC.code],['restock','Back in stock','In your saved size'],...(ALL.some(x => x.cp > x.p) ? [['price','Price drop on wishlist','A real reduced item, badged in-app']] : []),['drop','Drop is live', DR ? 'DROP '+DR.num+' / '+DR.name+', app early access' : 'New arrivals'],['welcome','Show welcome message','The '+DISC.code+' offer shown on open']];
   demoHTML = demoBtns.map(d=>'<button class="demo-btn" data-demo="'+d[0]+'"><span><b>'+esc(d[1])+'</b><small>'+esc(d[2])+'</small></span>'+I.bell+'</button>').join('');
   document.body.innerHTML =
   '<div class="stage">'+

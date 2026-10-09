@@ -1,0 +1,81 @@
+/* YELIR WORLD: brand layer loaded after the shared app.css (rebuilt by tools/build_brand.py, copied to assets/brand.css).
+   Matches yelirworld.com: white page, black type and buttons, square corners, Open Sans with bold uppercase headings,
+   centred product cards, ghost "SHOP NOW" buttons over imagery, neutral (not warm) greys, the tall Y mark as the logo. */
+
+/* ---- neutral greys instead of the template's warm sand tones ---- */
+.pcard .pimg,.cat-tile,.cat-row img,.bag-item img{background:#f2f2f2}
+.seg{background:#f0f0f0}
+.seg button{color:#555}
+.chip{border-color:#d4d4d4}
+.qty{border-color:#d4d4d4}
+.sfield{border-color:#d4d4d4}
+.switch{background:#cfcfcf}
+.link-row{border-top-color:#eeeeee}
+.pitch-copy{color:#4a4a4a}
+.drop-banner{border-color:#e2e2e2}
+.br-url{background:#efefef}
+body{background:radial-gradient(1200px 700px at 70% 30%,#ffffff 0%,#f0f0f0 55%,#e3e3e3 100%)}
+
+/* ---- square corners, like the site (cards, buttons, inputs, pills) ---- */
+.seg,.seg button,.seg .seg-ind,.chip,.sfield,.qty,.size-filter,.drop-card,.dc-tag,.cd div,.xp,.apple-pay,.rcard,.rcard .tier,
+.wl-card,.wl-code,.drop-banner,.rewards-mini,.promo,.summary,.acct-card,.toast,.br-trouble,.demo-btn,.pitch .demo-btn,.gcount{border-radius:0}
+.sheet{border-radius:14px 14px 0 0}
+.rcard{border-radius:4px}
+
+/* white page: cards that were white-on-grey get a hairline instead */
+.summary,.acct-card,.size-filter,.pref-group{border:1px solid #e6e6e6}
+
+/* ---- type: Open Sans, bold uppercase headings with tight tracking (the site's h2 style) ---- */
+.sec-head h2{font-size:14px;font-weight:700;letter-spacing:.06em}
+.sec-head p{color:#666}
+.large-title{font-size:24px;font-weight:700;letter-spacing:.02em;text-transform:uppercase}
+.large-title small{font-weight:400;letter-spacing:.1em;color:#666}
+.tb-title{font-weight:700;letter-spacing:.1em}
+.eyebrow{font-size:12px;font-weight:400;letter-spacing:.08em;opacity:1}
+.hero-title{font-size:34px;font-weight:700;letter-spacing:.02em}
+.editorial .hero-title{font-size:30px}
+.dc-title{font-weight:700;letter-spacing:.02em}
+.dc-title span{font-weight:400}
+.feature-card b{font-weight:700;letter-spacing:.04em;font-size:22px}
+.cat-tile span,.cat-row b{font-weight:700;letter-spacing:.08em}
+.empty h3{font-weight:700;letter-spacing:.08em}
+.pdp-info h1{font-weight:700;font-size:18px;letter-spacing:.02em}
+.pdp-info .ptype{font-weight:400;letter-spacing:.1em}
+.wl-body h2,.auth h2{font-weight:700;text-transform:uppercase;letter-spacing:.01em}
+.rcard .rc-pts b{font-weight:700}
+.pitch-title{font-weight:700;letter-spacing:-.005em}
+.pitch-list{letter-spacing:.08em}
+
+/* buttons: black / white, regular-weight uppercase with 1px-ish tracking */
+.btn{font-size:12px;font-weight:600;letter-spacing:.1em}
+.link{font-weight:600;letter-spacing:.08em}
+/* the site's banner button: translucent white with a white hairline */
+.hero .btn-light,.editorial .btn-light,.feature-card .btn-light{background:rgba(255,255,255,.2);color:#fff;border:1px solid #fff;font-weight:400;letter-spacing:.08em}
+@media (hover:hover){.hero .btn-light:hover,.editorial .btn-light:hover,.feature-card .btn-light:hover{background:#fff;color:#000}}
+
+/* product cards: centred text, as on the site */
+.pcard .pmeta{text-align:center;padding:10px 4px 4px}
+.pcard .pname{font-size:11px;font-weight:400;letter-spacing:.03em}
+.pcard .price{font-weight:400}
+.pcard .tag{border:1px solid #000;padding:3px 6px}
+
+/* ---- logo: a tall Y mark, not a wide wordmark ---- */
+.tb-logo{height:30px;max-width:none}
+.splash-logo{width:auto;height:96px}
+.wl-logo{height:46px}
+.auth-logo{height:44px}
+.about img{width:auto;height:58px}
+.acct-foot img{height:32px}
+.rcard .rc-top img{height:26px}
+.pitch-logo{width:auto;height:clamp(44px,8vh,64px);max-height:none}
+
+:root{--deep-band:light}
+/* Home menu band past the hero: white with black icons, like the site header (the template default is near-black) */
+.home-head.deep .home-band{background:rgba(255,255,255,.97);color:#000;box-shadow:0 1px 0 #e6e6e6}
+.home-head.deep .tb-logo{filter:none}
+.home-head.deep .icon-btn .hb-count{background:#000;color:#fff}
+
+/* rewards: graphite, not the template's warm brown */
+.rewards-mini,.rcard{background:linear-gradient(135deg,#0d0d0d 0%,#1e1e1e 60%,#2e2e2e 100%)}
+.rewards-mini::before{background:radial-gradient(circle,rgba(255,255,255,.14),transparent 70%)}
+.rm-bar i,.rcard .tbar i{background:#fff}
