@@ -119,6 +119,67 @@ def run(pw, w, h, tag):
     scroll_lazy(); broken_imgs()
     p.evaluate("document.querySelector('.view.top').scrollTop = 700"); p.wait_for_timeout(600); shot('03-home-scrolled')
     p.evaluate("(() => { const v = document.querySelector('.view.top'), e = v.querySelector('.proof'); if (e) v.scrollTop = e.offsetTop - v.clientHeight * 0.45; })()"); p.wait_for_timeout(800); shot('03b-home-trustpilot')
+    # 2a Instagram feed: directly below the review block, header + Follow, 3x3 square grid, every tile an instagram.com post in a new tab
+    ig_posts = p.evaluate("() => ((window.BRAND.instagram || {}).posts || []).length")
+    if not ig_posts:
+        (ok if not p.locator('.view.top .ig-feed').count() else bad)('no Instagram posts in brand data, feed hidden' if not p.locator('.view.top .ig-feed').count() else '[%s] Instagram feed shown with no posts' % tag)
+    else:
+        p.evaluate("(() => { const v = document.querySelector('.view.top'), e = v.querySelector('.ig-feed'); if (e) v.scrollTop = e.offsetTop + e.offsetHeight - v.clientHeight + 120; })()"); p.wait_for_timeout(900)  # bottom of the section just above the tab bar, clear of the sticky header
+        ig = p.evaluate(r"""() => {
+            const v = document.querySelector('.view.top'), s = v.querySelector('.ig-feed'), pr = v.querySelector('.proof');
+            if (!s) return {missing: true};
+            const D = window.BRAND.instagram, posts = D.posts.slice(0, 9);
+            const vr = v.getBoundingClientRect(), sr = s.getBoundingClientRect();
+            const tiles = [...s.querySelectorAll('.ig-grid > a.ig-tile')];
+            const rects = tiles.map(t => t.getBoundingClientRect());
+            const fol = s.querySelector('.ig-follow'), fr = fol && fol.getBoundingClientRect();
+            const h = s.querySelector('.sec-head'), hr = h.getBoundingClientRect();
+            const bad = [];
+            tiles.forEach((t, i) => {
+                const u = t.getAttribute('href') || '';
+                let url = null; try { url = new URL(u); } catch (e) {}
+                if (!url || url.protocol !== 'https:' || !/^(www\.)?instagram\.com$/.test(url.hostname) || !/^\/(p|reel|tv)\/[A-Za-z0-9_-]+\/?$/.test(url.pathname)) bad.push('tile ' + (i+1) + ' href ' + u);
+                if (t.target !== '_blank') bad.push('tile ' + (i+1) + ' target ' + t.target);
+                if (!/noopener/.test(t.rel)) bad.push('tile ' + (i+1) + ' rel ' + t.rel);
+                if (posts[i] && u !== posts[i].url) bad.push('tile ' + (i+1) + ' order: ' + u + ' != ' + posts[i].url);
+                const im = t.querySelector('img');
+                if (!im || !im.complete || !im.naturalWidth) bad.push('tile ' + (i+1) + ' image not loaded');
+                const want = posts[i] && (posts[i].type === 'reel' || posts[i].type === 'carousel') ? 1 : 0;
+                const b = t.querySelector('.ig-badge');
+                if (!!b !== !!want) bad.push('tile ' + (i+1) + ' badge ' + (!!b) + ' for ' + (posts[i] || {}).type);
+                if (b) { const br = b.getBoundingClientRect(), r = rects[i]; if (br.right > r.right + .5 || br.top < r.top - .5 || br.width > r.width * .3 || br.left < r.left + r.width / 2) bad.push('tile ' + (i+1) + ' badge not small in top-right corner'); }
+                const r = rects[i]; if (Math.abs(r.width - r.height) > 1) bad.push('tile ' + (i+1) + ' not square ' + r.width.toFixed(1) + 'x' + r.height.toFixed(1));
+                if (r.left < sr.left - .5 || r.right > sr.right + .5) bad.push('tile ' + (i+1) + ' overflows section');
+            });
+            const cols = new Set(rects.map(r => Math.round(r.left))).size, rows = new Set(rects.map(r => Math.round(r.top))).size;
+            if (tiles.length !== Math.min(9, posts.length)) bad.push('tiles ' + tiles.length + ' != posts ' + posts.length);
+            if (posts.length >= 9 && (cols !== 3 || rows !== 3)) bad.push('grid ' + cols + 'x' + rows);
+            if (!fol || fol.getAttribute('href') !== (D.url || 'https://www.instagram.com/' + D.handle + '/') || fol.target !== '_blank') bad.push('follow button ' + (fol && fol.outerHTML));
+            if (fr && (fr.right > hr.right + .5 || fr.bottom > hr.bottom + .5 || fr.top < hr.top - .5)) bad.push('follow button outside header');
+            const head = h.innerText;
+            if (head.indexOf('@' + D.handle) < 0) bad.push('header missing @' + D.handle);
+            if (D.followers && head.indexOf(D.followers + ' followers') < 0) bad.push('header missing followers');
+            if (sr.left < vr.left - .5 || sr.right > vr.right + .5 || v.scrollWidth > v.clientWidth) bad.push('horizontal overflow');
+            const kids = [...v.children], next = pr && pr.nextElementSibling;
+            if (!pr || next !== s) bad.push('not directly below the review block (next after .proof: ' + (next && next.className) + ')');
+            // hidden when the brand has no posts
+            const keep = D.posts; D.posts = []; const empty = window.__app.igHTML(); D.posts = keep;
+            if (empty !== '') bad.push('igHTML not empty with no posts');
+            return {bad, n: tiles.length, cols, rows, tile: rects[0] && Math.round(rects[0].width), head: head.replace(/\n+/g, ' | ')};
+        }""")
+        if ig.get('missing'): bad('[%s] no Instagram feed on Home (brand has %d posts)' % (tag, ig_posts))
+        elif ig['bad']:
+            for x in ig['bad']: bad('[%s] instagram: %s' % (tag, x))
+        else: ok('instagram feed below reviews: %d tiles %dx%d (%dpx), valid instagram.com hrefs, target=_blank, badges ok, hidden with no posts; header "%s"' % (ig['n'], ig['cols'], ig['rows'], ig['tile'], ig['head']))
+        # press/hover state is visible
+        t0 = p.locator('.view.top .ig-tile').first
+        if w >= 1000:
+            t0.hover(); p.wait_for_timeout(600)
+            hv = p.evaluate("() => { const t = document.querySelector('.view.top .ig-tile'); return {tr: getComputedStyle(t.querySelector('img')).transform, ov: getComputedStyle(t, '::after').backgroundColor}; }")
+            (ok if hv['tr'] not in ('none', '') else bad)('instagram tile hover state: %s' % hv if hv['tr'] not in ('none', '') else '[%s] instagram tile has no hover state: %s' % (tag, hv))
+            p.mouse.move(5, 5); p.wait_for_timeout(600)
+        p.locator('.view.top .ig-feed').screenshot(path=os.path.join(SH, '%s-25-instagram.png' % tag))
+        if tag == 'mobile': p.locator('.view.top .ig-feed').screenshot(path=os.path.join(SH, 'instagram.png'))
     p.evaluate("document.querySelector('.view.top').scrollTop = 0"); p.wait_for_timeout(300)
     # 2b hero video resume: tab bar Home↔Shop, and Home→Shop→product→back→Home
     tab('shop'); p.wait_for_timeout(500)

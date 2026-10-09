@@ -61,6 +61,7 @@ Options:
 | Delivery options, cut-offs, free-delivery threshold | the shipping page (first region listed) |
 | Returns copy | the returns page |
 | Instagram handle | footer / social links |
+| Instagram feed (followers, bio, latest 9 posts) | **not scraped**: collected separately in a browser and stored in `brand.overrides.json`, see **Instagram feed** below |
 | Review score | Trustpilot widget data (only if the site embeds a Trustpilot widget) |
 | Marquee perks | announcement bar / cart USP slider in the rendered page, plus delivery and returns facts |
 | Whether pages can be shown in an iframe | `X-Frame-Options` / CSP `frame-ancestors`. If blocked, the in-app browser shows the page summary with "Open on site" |
@@ -89,6 +90,26 @@ In the app the `<video>` has `autoplay muted loop playsinline preload="auto"`, `
 across Home re-renders (so it never restarts), and pauses when scrolled off screen or the tab is hidden. Nothing over it uses
 `backdrop-filter` (re-blurring every video frame made playback stutter).
 
+## Instagram feed
+
+Home shows an Instagram block directly below the Trustpilot block: `@handle`, follower count, bio line and a **Follow** button
+(opens the profile in a new tab), then a 3x3 square grid of the latest posts. Each tile opens its post in a new tab and reels / carousels
+get a small corner icon. The block is hidden when the brand has no posts.
+
+Instagram can't be scraped (login wall), so the scraper only finds the handle. The posts are **collected separately via a browser**
+(open `https://www.instagram.com/<handle>/`, note the follower count, bio and the first 9 posts' URLs and types, save each
+thumbnail) and **stored in `<slug>/brand.overrides.json`**, so `--rebuild` and full re-scrapes keep them:
+
+```json
+"instagram": {"handle": "raithclothing", "url": "https://www.instagram.com/raithclothing/", "followers": "111K",
+  "bio": "Stocked in Selfridges & Harvey Nichols", "collected": "2026-10-09",
+  "posts": [{"url": "https://www.instagram.com/reel/Dd7QBkYt1xl/", "type": "reel", "image": "assets/ig/1.jpg"}, ...]}
+```
+
+- `type` is `reel`, `carousel` or `photo`; `posts` is a list, so the override replaces it whole (refresh all 9 at once)
+- thumbnails go in `<slug>/assets/ig/N.jpg`: square crop (slightly above centre), max 600px, JPEG q80 progressive
+- the build logs the feed status and skips posts whose URL isn't an instagram.com post or whose thumbnail file is missing
+
 ## Hand-tuning a brand
 
 Put copy you want to keep across re-scrapes in `<slug>/brand.overrides.json`. Objects merge, lists and strings replace,
@@ -101,19 +122,19 @@ keys starting with `_` are comments. Example (`raith/brand.overrides.json`):
 ```
 
 Then `python3 tools/build_brand.py --rebuild raith`. Useful keys: `name`, `short`, `pitch`, `home.hero`, `home.tiles`,
-`home.editorial`, `home.feature`, `perks`, `search.trending`, `drop` (set `drop.opensAt` to an ISO date for a real
+`home.editorial`, `home.feature`, `instagram`, `perks`, `search.trending`, `drop` (set `drop.opensAt` to an ISO date for a real
 drop time), `discount` (`{"code":"APP10","pct":10}`), `theme` colours, `copy`.
 
 ## Test
 
 ```
 python3 -m http.server 8765 &
-python3 tools/smoke_test.py raith --shots raith-shots/v4
+python3 tools/smoke_test.py raith --shots raith-shots/v10
 ```
 
-Clicks through every tab and feature at 390x844 and 1440x900, fails on console errors, failed requests, broken images
+Clicks through every tab and feature at 390x844 and 1440x800, fails on console errors, failed requests, broken images
 and missing sections. Also checks the Home header band (status bar area + perks marquee + header) is one translucent tint with edge-faded marquee, the hero video is playing, not upscaled and has the right attributes, that the review block
-sits near the bottom of Home, and that the welcome pop-up shows again on reload. Screenshots land in `<slug>-shots/` (git-ignored).
+sits near the bottom of Home, that the Instagram feed sits directly below it (3x3 square tiles, every tile a valid instagram.com post URL with `target=_blank`, reel/carousel icons, Follow button, hover state, hidden with no posts; section screenshot `instagram.png`), and that the welcome pop-up shows again on reload. Screenshots land in `<slug>-shots/` (git-ignored).
 
 ## App URL parameters
 

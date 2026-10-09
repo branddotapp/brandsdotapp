@@ -16,5 +16,18 @@
   },
   "search": {"trending": ["Trench", "Knitwear", "Mercerised", "Jeans", "Polo", "Overshirt", "Cardigan", "Suede"]},
   "perks": ["Free UK delivery over £150", "Easy returns via returns portal", "Over 300,000 happy customers", "Rated Excellent on Trustpilot", "Now shipping from our US warehouse"],
-  "copy": {"emptyBag": "Fewer, but superior choices. Start with the latest Pre Fall 26 pieces."}
+  "copy": {"emptyBag": "Fewer, but superior choices. Start with the latest Pre Fall 26 pieces."},
+  "_instagram": "Collected by hand in a browser from the brand's Instagram profile (the scraper can't read Instagram). Kept here so --rebuild and re-scrapes keep it. Thumbnails: assets/ig/N.jpg, square-cropped, max 600px.",
+  "instagram": {"handle": "raithclothing", "url": "https://www.instagram.com/raithclothing/", "followers": "111K", "bio": "Stocked in Selfridges & Harvey Nichols", "collected": "2026-10-09",
+    "posts": [
+      {"url": "https://www.instagram.com/reel/Dd7QBkYt1xl/", "type": "reel", "image": "assets/ig/1.jpg"},
+      {"url": "https://www.instagram.com/p/DdRivMzjZvK/", "type": "carousel", "image": "assets/ig/2.jpg"},
+      {"url": "https://www.instagram.com/reel/DdlgPK_tpIx/", "type": "reel", "image": "assets/ig/3.jpg"},
+      {"url": "https://www.instagram.com/p/DdLv83XtC7o/", "type": "photo", "image": "assets/ig/4.jpg"},
+      {"url": "https://www.instagram.com/p/Ddv0pHENAk-/", "type": "photo", "image": "assets/ig/5.jpg"},
+      {"url": "https://www.instagram.com/reel/Dddw_Y3NQr8/", "type": "reel", "image": "assets/ig/6.jpg"},
+      {"url": "https://www.instagram.com/p/DdFLVBLDZl3/", "type": "carousel", "image": "assets/ig/7.jpg"},
+      {"url": "https://www.instagram.com/reel/DdCig2qNMVD/", "type": "reel", "image": "assets/ig/8.jpg"},
+      {"url": "https://www.instagram.com/reel/DdKGeHgNYs1/", "type": "reel", "image": "assets/ig/9.jpg"}
+    ]}
 }

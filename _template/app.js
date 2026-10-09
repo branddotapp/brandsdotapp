@@ -54,6 +54,8 @@ const I = {
   copy:'<svg viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="11" height="11" rx="1.5"/><path d="M15.5 8.5V5a1.5 1.5 0 0 0-1.5-1.5H5A1.5 1.5 0 0 0 3.5 5v9A1.5 1.5 0 0 0 5 15.5h3.5"/></svg>',
   ext:'<svg viewBox="0 0 24 24"><path d="M14 4.5h5.5V10M19.5 4.5 11 13M18 14v5.5H4.5V6H10"/></svg>',
   lock:'<svg viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="1.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg>',
+  reel:'<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4.5"/><path d="M3 8.5h18M9.5 3l3 5.5M15.5 3l3 5.5"/><path d="M10.2 11.6v5.3l4.6-2.65z" fill="currentColor" stroke="none"/></svg>',
+  carousel:'<svg viewBox="0 0 24 24"><rect x="7.5" y="7.5" width="13" height="13" rx="2.5"/><path d="M16.5 4.5h-10a2.5 2.5 0 0 0-2.5 2.5v10"/></svg>',
   ig:'<svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6"/></svg>',
   apple:'<svg viewBox="0 0 24 24"><path d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9-.7 0-1.8-.8-3-.8-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.3 0 2.1-1.1 2.8-2.3.9-1.3 1.3-2.6 1.3-2.6s-2.5-1-2.5-3.8zM14.2 5.8c.6-.8 1.1-1.9 1-3-.9 0-2.1.6-2.7 1.4-.6.7-1.1 1.8-1 2.9 1 .1 2.1-.5 2.7-1.3z"/></svg>'
 };
@@ -227,6 +229,19 @@ function proofHTML(compact){
   if (compact) return '<div class="proof-mini" data-act="reviews">'+stars(R.score)+'<span><b>'+R.score+'</b> '+esc(R.label||'')+' on '+esc(R.source)+' · '+Number(R.count).toLocaleString('en-GB')+' reviews</span></div>';
   return '<div class="proof" data-act="reviews"><div class="pr-l"><small>'+esc(R.source)+'</small><b>'+esc(R.label||'Rated')+'</b></div><div class="pr-r">'+stars(R.score)+'<p><b>'+R.score+' out of 5</b> · based on '+Number(R.count).toLocaleString('en-GB')+' reviews</p></div></div>';
 }
+// Instagram feed (Home, below the review block). Data: B.instagram {handle, url, followers, bio, posts:[{url, type, image}]},
+// hand-collected in a browser into brand.overrides.json. Hidden when there are no posts.
+function igHTML(){
+  const G = B.instagram || {}, posts = (G.posts || []).filter(p => p && p.url && p.image).slice(0, 9);
+  const handle = G.handle || IG;
+  if (!posts.length || !handle) return '';
+  const prof = G.url || 'https://www.instagram.com/'+encodeURIComponent(handle)+'/';
+  const badge = t => t === 'reel' ? '<span class="ig-badge" aria-label="Reel">'+I.reel+'</span>' : t === 'carousel' ? '<span class="ig-badge" aria-label="Carousel">'+I.carousel+'</span>' : '';
+  return '<section class="section ig-feed"><div class="sec-head"><div><h2 class="ig-handle">'+I.ig+'@'+esc(handle)+'</h2>'+
+    (G.followers ? '<p><b>'+esc(G.followers)+'</b> followers</p>' : '')+(G.bio ? '<p class="ig-bio">'+esc(G.bio)+'</p>' : '')+'</div>'+
+    '<a class="btn btn-dark ig-follow" href="'+esc(prof)+'" target="_blank" rel="noopener">Follow</a></div>'+
+    '<div class="ig-grid">'+posts.map((p,i)=>'<a class="ig-tile" href="'+esc(p.url)+'" target="_blank" rel="noopener" aria-label="'+esc((p.type||'post')+' '+(i+1)+' on Instagram')+'"><img loading="lazy" src="'+esc(p.image)+'" alt="">'+badge(p.type)+'</a>').join('')+'</div></section>';
+}
 
 // drag-to-scroll for desktop mice
 function enableDrag(root){
@@ -335,6 +350,7 @@ function Home(el){
       (best.length ? '<section class="section"><div class="sec-head"><div><h2>Best Sellers</h2><p>'+esc(H.bestSub||'The pieces everyone’s wearing')+'</p></div><button class="link" data-act="col" data-v="'+esc(H.bestCol)+'">View all</button></div><div class="hscroll">'+best.map(p=>pcard(p,{w:400})).join('')+'</div></section>' : '')+
       (fc ? '<div class="feature-card" style="margin-top:28px" data-act="col" data-v="'+esc(H.feature.col)+'"><img loading="lazy" src="'+img(fc.im[1]||fc.im[0],700)+'" alt=""><div><b>'+esc(H.feature.title)+'</b><span class="btn btn-light" style="height:40px;padding:0 18px">'+esc(H.feature.cta||'Shop now')+'</span></div></div>' : '')+
       proofHTML()+
+      igHTML()+
       (!ALL.length ? '<div class="empty"><div class="eic">'+I.bag+'</div><h3>Catalogue not found</h3><p>The product feed for '+esc(NAME)+' couldn’t be read, so there’s nothing to show here yet.</p></div>' : '')+
       '<div class="about"><img src="'+LOGO+'" alt="'+esc(NAME)+'"><p>'+esc(B.copy && B.copy.about || '')+'</p></div>'+credit();
     $('.hero-slot', el).replaceWith(heroNode);
@@ -933,5 +949,5 @@ setTimeout(() => {
   if (!params.has('nowelcome')) setTimeout(showWelcome, skip ? 400 : 900);
   else if (!skip && !params.has('nopush') && prefs.drops) setTimeout(()=>Demo.newin(), 2600);
 }, skip ? 0 : 2100);
-window.__app = { Demo, switchTab, push, openBrowser, showWelcome, back };
+window.__app = { Demo, switchTab, push, openBrowser, showWelcome, back, igHTML };
 })();

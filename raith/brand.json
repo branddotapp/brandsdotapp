@@ -10281,5 +10281,59 @@
    "Cookie policy page not found",
    "Drop date is not published anywhere: countdown uses a rolling placeholder (app early access Wed 19:00, website Thu 19:00)"
   ]
+ },
+ "instagram": {
+  "handle": "raithclothing",
+  "url": "https://www.instagram.com/raithclothing/",
+  "followers": "111K",
+  "bio": "Stocked in Selfridges & Harvey Nichols",
+  "collected": "2026-10-09",
+  "posts": [
+   {
+    "url": "https://www.instagram.com/reel/Dd7QBkYt1xl/",
+    "type": "reel",
+    "image": "assets/ig/1.jpg"
+   },
+   {
+    "url": "https://www.instagram.com/p/DdRivMzjZvK/",
+    "type": "carousel",
+    "image": "assets/ig/2.jpg"
+   },
+   {
+    "url": "https://www.instagram.com/reel/DdlgPK_tpIx/",
+    "type": "reel",
+    "image": "assets/ig/3.jpg"
+   },
+   {
+    "url": "https://www.instagram.com/p/DdLv83XtC7o/",
+    "type": "photo",
+    "image": "assets/ig/4.jpg"
+   },
+   {
+    "url": "https://www.instagram.com/p/Ddv0pHENAk-/",
+    "type": "photo",
+    "image": "assets/ig/5.jpg"
+   },
+   {
+    "url": "https://www.instagram.com/reel/Dddw_Y3NQr8/",
+    "type": "reel",
+    "image": "assets/ig/6.jpg"
+   },
+   {
+    "url": "https://www.instagram.com/p/DdFLVBLDZl3/",
+    "type": "carousel",
+    "image": "assets/ig/7.jpg"
+   },
+   {
+    "url": "https://www.instagram.com/reel/DdCig2qNMVD/",
+    "type": "reel",
+    "image": "assets/ig/8.jpg"
+   },
+   {
+    "url": "https://www.instagram.com/reel/DdKGeHgNYs1/",
+    "type": "reel",
+    "image": "assets/ig/9.jpg"
+   }
+  ]
  }
 }

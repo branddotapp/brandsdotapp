@@ -8,6 +8,7 @@ build_brand.py — turn a clothing brand's website into a brandsdotapp concept a
 Writes  <repo>/<slug>/index.html, brand.json, assets/{app.js,app.css,brand.js,img/*,hero.mp4}
 Shared app code lives in <repo>/_template/. Brand-specific content lives in <slug>/brand.json.
 Hand edits go in <slug>/brand.overrides.json (deep-merged on top of scraped data, kept between runs).
+Instagram feed posts (instagram.posts) are collected separately in a browser and live in brand.overrides.json, so a rebuild keeps them.
 Nothing is invented: anything that can't be found is left empty and listed in brand.json -> report.missing.
 """
 import argparse, collections, datetime, html, io, json, os, re, shutil, subprocess, sys, tempfile, time
@@ -820,6 +821,12 @@ def scrape(url, slug, out_dir, do_render=True, max_products=400):
         mm = [x for x in mm if x.lower() not in ('sharer', 'share', 'tr', 'plugins', 'dialog', 'pin', 'embed', 'watch')]
         if mm: B['socials'][net] = mm[0]
     (found if B['socials']['instagram'] else missing)('Instagram: ' + ('@' + B['socials']['instagram'] if B['socials']['instagram'] else 'not found'))
+    # Instagram feed (Home grid): Instagram can't be scraped, so followers/posts are collected separately in a browser and
+    # stored in brand.overrides.json -> instagram (merged on top of this stub, so re-scrapes and --rebuild keep them).
+    ig = B['socials']['instagram']
+    B['instagram'] = {'handle': ig, 'url': 'https://www.instagram.com/%s/' % ig if ig else None, 'followers': None, 'posts': []}
+    if not ig_override_posts(out_dir):
+        missing('Instagram feed: posts not collected (gather them in a browser into brand.overrides.json -> instagram.posts; Home grid hidden until then)')
     rendered = render_home(base) if do_render else None
     B['reviews'] = trustpilot(rendered, home, domain)
     if B['reviews']: found('Trustpilot: %s %s/5 from %d reviews (live widget data)' % (B['reviews']['label'], B['reviews']['score'], B['reviews']['count']))
@@ -898,6 +905,25 @@ def scrape(url, slug, out_dir, do_render=True, max_products=400):
     B['report'] = {'found': FOUND, 'missing': MISSING}
     return B
 
+def ig_override_posts(out_dir):
+    """Instagram posts hand-collected into <slug>/brand.overrides.json (instagram.posts), or []."""
+    try: return ((json.load(open(os.path.join(out_dir, 'brand.overrides.json'))).get('instagram') or {}).get('posts')) or []
+    except (OSError, ValueError): return []
+
+def check_instagram(B, out_dir):
+    """Log the Instagram feed status and drop posts whose url isn't an instagram.com post or whose thumbnail is missing."""
+    ig = B.get('instagram') or {}
+    posts = []
+    for p in ig.get('posts') or []:
+        url, im = p.get('url') or '', p.get('image') or ''
+        if not re.match(r'^https://(www\.)?instagram\.com/(p|reel|tv)/[A-Za-z0-9_-]+/?', url): log('  ✗ Instagram post skipped, not an instagram.com post URL: %r' % url); continue
+        if not im or not os.path.exists(os.path.join(out_dir, im)): log('  ✗ Instagram post skipped, thumbnail missing: %s (%s)' % (im, url)); continue
+        if p.get('type') not in ('reel', 'carousel', 'photo'): p = dict(p, type='photo')
+        posts.append(p)
+    if ig: ig['posts'] = posts
+    if posts: log('· Instagram feed: @%s, %s followers, %d posts (collected %s, from brand.overrides.json)' % (ig.get('handle'), ig.get('followers') or '?', len(posts), ig.get('collected') or '?'))
+    else: log('· Instagram feed: no posts (Home grid hidden). Collect them in a browser into brand.overrides.json -> instagram.posts')
+
 # ---------------------------------------------------------------- write the app
 def deep_merge(a, b):
     """b wins. dicts merge recursively; lists and scalars are replaced. Keys starting with '_' are comments."""
@@ -967,6 +993,7 @@ def main():
     if os.path.exists(ov):
         B = deep_merge(B, json.load(open(ov)))
         log('· Applied overrides from %s' % os.path.relpath(ov, a.root))
+    check_instagram(B, out)
     json.dump(B, open(os.path.join(out, 'brand.json'), 'w'), ensure_ascii=False, indent=1)
     write_app(B, out)
     rep = B.get('report', {})
