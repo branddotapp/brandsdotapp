@@ -10078,12 +10078,15 @@
   "bestCol": null,
   "newSub": "The latest Pre Fall 26 drops",
   "hero": {
-   "video": "assets/hero.mp4",
-   "poster": "assets/img/hero-poster.jpg",
    "eyebrow": "New Season",
    "title": "PRE FALL 26",
    "cta": "Shop Pre Fall",
-   "col": "prefall-26"
+   "col": "prefall-26",
+   "video": "assets/hero.mp4",
+   "poster": "assets/img/hero-poster.jpg",
+   "videoW": 680,
+   "videoH": 1080,
+   "videoWebm": "assets/hero.webm"
   },
   "tiles": [
    [

@@ -246,25 +246,47 @@ const fmtDay = d => d.toLocaleDateString('en-GB',{weekday:'short', day:'numeric'
 function cdParts(){ const ms = Math.max(0, dropTimes().app - Date.now()); return [Math.floor(ms/864e5), Math.floor(ms/36e5)%24, Math.floor(ms/6e4)%60, Math.floor(ms/1e3)%60]; }
 const pad = n => String(n).padStart(2,'0');
 function cdHTML(){ const c = cdParts(); return ['Days','Hrs','Min','Sec'].map((l,i)=>'<div><b data-cd="'+i+'">'+pad(c[i])+'</b><small>'+l+'</small></div>').join(''); }
-setInterval(() => { const c = cdParts(); $$('[data-cd]').forEach(e => e.textContent = pad(c[+e.dataset.cd])); }, 1000);
+setInterval(() => { const els = $$('[data-cd]'); if (!els.length) return; const c = cdParts(); els.forEach(e => { const v = pad(c[+e.dataset.cd]); if (e.textContent !== v) e.textContent = v; }); }, 1000);
 const dropImg = () => DR && (DR.image || (P[DR.products[0]] && img(P[DR.products[0]].im[0], 700)));
+
+// ---------- hero video ----------
+// Built once per Home view and re-attached on every re-render, so refreshing Home (size saved, demo pushes, back
+// navigation) never recreates the <video> and restarts/re-buffers it.
+function heroEl(){
+  const hero = H.hero || {};
+  const d = document.createElement('div');
+  d.className = 'hero';
+  const v = hero.video ? '<video autoplay muted loop playsinline preload="auto" disablepictureinpicture disableremoteplayback'+(hero.poster?' poster="'+esc(hero.poster)+'"':'')+(hero.videoW?' width="'+hero.videoW+'" height="'+hero.videoH+'"':'')+'>'+
+    '<source src="'+esc(hero.video)+'" type="video/mp4">'+(hero.videoWebm?'<source src="'+esc(hero.videoWebm)+'" type="video/webm">':'')+'</video>' : '';
+  d.innerHTML = '<img class="poster" src="'+esc(hero.poster||'')+'" alt="">'+v+
+    '<div class="hero-copy"><div class="eyebrow">'+esc(hero.eyebrow||'')+'</div><div class="hero-title">'+esc(hero.title||NAME)+'</div>'+(hero.col&&colBy(hero.col)?'<button class="btn btn-light" data-act="col" data-v="'+esc(hero.col)+'">'+esc(hero.cta||'Shop now')+'</button>':'')+'</div>';
+  const vid = $('video', d);
+  if (vid){
+    vid.muted = true; vid.defaultMuted = true;
+    vid.addEventListener('playing', () => { const pi = $('.poster', d); if (pi) pi.style.opacity = 0; });
+    // play only while the hero is on screen and the page is visible (saves decode work for the rest of the app)
+    let onScreen = true;
+    const sync = () => { if (onScreen && !document.hidden && d.isConnected) { const pr = vid.play(); if (pr && pr.catch) pr.catch(()=>{}); } else vid.pause(); };
+    if ('IntersectionObserver' in window) new IntersectionObserver(es => { onScreen = es[es.length-1].isIntersecting; sync(); }, { threshold: 0.01 }).observe(d);
+    document.addEventListener('visibilitychange', sync);
+    d._sync = sync;
+  }
+  return d;
+}
 
 // ---------- HOME ----------
 function Home(el){
+  const heroNode = heroEl();
   const render = () => {
     const newIn = prods(H.newCol).slice(0, 12);
     const best = prods(H.bestCol).slice(0, 12);
     const cover = h => { const p = prods(h)[0]; return p ? img(p.im[0], 500) : ''; };
     const tiles = (H.tiles || []).filter(t => prods(t[0]).length);
-    const hero = H.hero || {};
     const mine = hasSize() ? ALL.filter(inMySize).sort((a,b)=>(newIn.includes(b)?1:0)-(newIn.includes(a)?1:0)).slice(0,12) : [];
     const fc = H.feature && prods(H.feature.col)[0];
     el.innerHTML =
       '<div class="home-head">'+topbar({ logo:true, clear:true, left:'<button class="icon-btn" data-act="notifs" aria-label="Notifications">'+I.bell+(unread?'<i class="dot"></i>':'')+'</button>', right:'<div class="tb-r">'+searchBtn()+bagBtn()+'</div>' }) + marquee() + '</div>'+
-      '<div class="hero"><img class="poster" src="'+esc(hero.poster||'')+'" alt="">'+(hero.video?'<video src="'+esc(hero.video)+'" poster="'+esc(hero.poster||'')+'" autoplay muted loop playsinline></video>':'')+
-        '<div class="hero-copy"><div class="eyebrow">'+esc(hero.eyebrow||'')+'</div><div class="hero-title">'+esc(hero.title||NAME)+'</div>'+(hero.col&&colBy(hero.col)?'<button class="btn btn-light" data-act="col" data-v="'+esc(hero.col)+'">'+esc(hero.cta||'Shop now')+'</button>':'')+'</div></div>'+
-      proofHTML()+
-      (DR ? '<div class="next-drop" data-act="tab" data-v="drops"><div class="nd-top"><span class="live-dot"></span><small>'+(dropLive?'Live now, app early access':'Next drop, app early access')+'</small>'+I.chev+'</div><div class="nd-mid"><div><b>DROP '+esc(DR.num)+'</b><span>'+esc(DR.name)+'</span></div><div class="cd sm">'+(dropLive?'<div><b>LIVE</b><small>Shop now</small></div>':cdHTML())+'</div></div><p>'+I.bolt+'App users get in 24 hours before the website</p></div>' : '')+
+      '<div class="hero-slot"></div>'+
       (B.rewards && B.rewards.enabled ? '<div class="rewards-mini" data-act="rewards"><div class="rm-left"><small>'+esc(B.rewards.name)+'</small><b>1,250 pts</b><div class="rm-bar"><i></i></div><p>750 pts to your next reward</p></div><div class="rm-right">'+I.card+'</div></div>' : '')+
       (newIn.length ? '<section class="section"><div class="sec-head"><div><h2>New In</h2><p>'+esc(H.newSub||'The latest arrivals')+'</p></div><button class="link" data-act="col" data-v="'+esc(H.newCol)+'">View all</button></div><div class="hscroll">'+newIn.map(p=>pcard(p,{w:400})).join('')+'</div></section>' : '')+
       (SIZE_GROUPS.length ? (hasSize()
@@ -275,9 +297,11 @@ function Home(el){
       (H.editorial && H.editorial.img && colBy(H.editorial.col) ? '<div class="editorial" data-act="col" data-v="'+esc(H.editorial.col)+'"><img loading="lazy" src="'+esc(H.editorial.img)+'" alt=""><div class="hero-copy"><div class="eyebrow">'+esc(H.editorial.eyebrow||'')+'</div><div class="hero-title">'+esc(H.editorial.title||'')+'</div><span class="btn btn-light">Shop now</span></div></div>' : '')+
       (best.length ? '<section class="section"><div class="sec-head"><div><h2>Best Sellers</h2><p>'+esc(H.bestSub||'The pieces everyone’s wearing')+'</p></div><button class="link" data-act="col" data-v="'+esc(H.bestCol)+'">View all</button></div><div class="hscroll">'+best.map(p=>pcard(p,{w:400})).join('')+'</div></section>' : '')+
       (fc ? '<div class="feature-card" style="margin-top:28px" data-act="col" data-v="'+esc(H.feature.col)+'"><img loading="lazy" src="'+img(fc.im[1]||fc.im[0],700)+'" alt=""><div><b>'+esc(H.feature.title)+'</b><span class="btn btn-light" style="height:40px;padding:0 18px">'+esc(H.feature.cta||'Shop now')+'</span></div></div>' : '')+
+      proofHTML()+
       (!ALL.length ? '<div class="empty"><div class="eic">'+I.bag+'</div><h3>Catalogue not found</h3><p>The product feed for '+esc(NAME)+' couldn’t be read, so there’s nothing to show here yet.</p></div>' : '')+
       '<div class="about"><img src="'+LOGO+'" alt="'+esc(NAME)+'"><p>'+esc(B.copy && B.copy.about || '')+'</p></div>'+credit();
-    const vid = $('video', el); if (vid) vid.addEventListener('playing', ()=>{ const pi=$('.poster',el); if(pi) pi.style.opacity=0; });
+    $('.hero-slot', el).replaceWith(heroNode);
+    if (heroNode._sync) heroNode._sync();
     $('#dropSwitch', el).addEventListener('click', e => {
       prefs.drops = !prefs.drops; savePrefs();
       e.currentTarget.classList.toggle('on', prefs.drops);
@@ -287,12 +311,15 @@ function Home(el){
     enableDrag(el);
   };
   render();
+  let scrolled = null;
   el.addEventListener('scroll', () => {
     const s = el.scrollTop > 480;
+    if (s === scrolled) return;
+    scrolled = s;
     const tb = $('.home-head', el); if (tb) tb.classList.toggle('scrolled', s);
     if (el.classList.contains('top')) setStatus(!s);
   }, {passive:true});
-  el._refresh = () => { const st = el.scrollTop; render(); el.scrollTop = st; };
+  el._refresh = () => { const st = el.scrollTop; render(); el.scrollTop = st; scrolled = null; el.dispatchEvent(new Event('scroll')); };
   return { light:true, lightUntil:480 };
 }
 
@@ -741,8 +768,7 @@ function showWelcome(){
     '<button class="wl-code" id="wlCode"><span>'+esc(DISC.code)+'</span><em>'+I.copy+'Tap to copy</em></button>'+
     '<button class="btn btn-dark btn-block" id="wlGo">Start shopping</button><button class="wl-skip" id="wlSkip">Maybe later</button></div></div>';
   m.classList.add('show');
-  store.set('welcomed', true);
-  const close = () => m.classList.remove('show');
+  const close = () => m.classList.remove('show');   // not remembered: the offer shows again on the next page load
   $('#wlCode').addEventListener('click', () => {
     if (navigator.clipboard) navigator.clipboard.writeText(DISC.code).catch(()=>{});
     $('#wlCode em').innerHTML = I.check+'Copied'; $('#wlCode').classList.add('done');
@@ -756,7 +782,7 @@ function showWelcome(){
 let demoHTML = '';
 function buildChrome(){
   const pitch = B.pitch || {};
-  const demoBtns = [['bag','Abandoned bag','What’s still in the bag, plus '+DISC.code],['restock','Back in stock','In your saved size'],['price','Price drop on wishlist','A real reduced item, badged in-app'],['drop','Drop is live', DR ? 'DROP '+DR.num+' / '+DR.name+', app early access' : 'New arrivals'],['welcome','Show welcome message','First-open '+DISC.code+' offer']];
+  const demoBtns = [['bag','Abandoned bag','What’s still in the bag, plus '+DISC.code],['restock','Back in stock','In your saved size'],['price','Price drop on wishlist','A real reduced item, badged in-app'],['drop','Drop is live', DR ? 'DROP '+DR.num+' / '+DR.name+', app early access' : 'New arrivals'],['welcome','Show welcome message','The '+DISC.code+' offer shown on open']];
   demoHTML = demoBtns.map(d=>'<button class="demo-btn" data-demo="'+d[0]+'"><span><b>'+esc(d[1])+'</b><small>'+esc(d[2])+'</small></span>'+I.bell+'</button>').join('');
   document.body.innerHTML =
   '<div class="stage">'+
@@ -839,8 +865,8 @@ setTimeout(() => {
   $('#splash').classList.add('hide');
   const deep = params.get('p'); if (deep && P[deep]) push(PDP, deep);
   const tab = params.get('tab'); if (tab && roots[tab]) switchTab(tab);
-  const firstOpen = !store.get('welcomed', false);
-  if (!params.has('nowelcome') && (firstOpen || params.has('welcome'))) setTimeout(showWelcome, skip ? 150 : 600);
+  // welcome offer on every page load, shortly after the splash (?nowelcome turns it off)
+  if (!params.has('nowelcome')) setTimeout(showWelcome, skip ? 400 : 900);
   else if (!skip && !params.has('nopush') && prefs.drops) setTimeout(()=>Demo.newin(), 2600);
 }, skip ? 0 : 2100);
 window.__app = { Demo, switchTab, push, openBrowser, showWelcome, back };

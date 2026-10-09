@@ -36,22 +36,49 @@ def run(pw, w, h, tag):
 
     p.goto(URL + '?nosplash', wait_until='networkidle'); p.wait_for_timeout(1200)
     # 1 welcome
-    if p.locator('#welcome.show').count(): ok('welcome pop-up on first open'); shot('01-welcome')
-    else: bad('[%s] welcome did not show on first open' % tag)
+    if p.locator('#welcome.show').count(): ok('welcome pop-up on open'); shot('01-welcome')
+    else: bad('[%s] welcome did not show on open' % tag)
     p.click('#wlCode'); p.wait_for_timeout(400)
     if 'copied' in p.inner_text('#toast').lower(): ok('APP10 tap-to-copy')
     else: bad('[%s] copy toast missing' % tag)
     p.click('#wlGo'); p.wait_for_timeout(600)
     # 2 home
     t = p.text_content('.view.top')
-    for need in ['Next drop', 'In stock in your size', 'New In']:
+    for need in ['In stock in your size', 'New In']:
         (ok if need.lower() in t.lower() else bad)(('home has "%s"' % need) if need.lower() in t.lower() else '[%s] home missing "%s"' % (tag, need))
+    if p.locator('.view.top .next-drop').count() or 'next drop, app early access' in t.lower(): bad('[%s] home still shows the next-drop countdown card' % tag)
+    else: ok('home has no next-drop countdown card')
+    # review block sits near the bottom: after the product rails and categories, before the About footer
+    order = p.evaluate("""() => { const v = document.querySelector('.view.top'); const kids = [...v.children];
+        const at = s => { const e = v.querySelector(s); return e ? kids.indexOf(e.closest('.view.top > *')) : -1; };
+        return {proof: at('.proof'), cats: at('.cat-grid'), rails: Math.max(...[...v.querySelectorAll('.hscroll')].map(e => kids.indexOf(e.closest('.view.top > *')))), about: at('.about'), hero: at('.hero')}; }""")
+    if order['proof'] < 0: bad('[%s] no review block on home' % tag)
+    elif order['proof'] > order['cats'] and order['proof'] > order['rails'] and order['proof'] < order['about']: ok('review block near the bottom (after rails + categories, above About): %s' % order)
+    else: bad('[%s] review block in the wrong place: %s' % (tag, order))
+    # hero video
+    vi = p.evaluate("""async () => { const v = document.querySelector('.view.top .hero video'); if (!v) return null;
+        const t0 = v.currentTime; let frames = 0; const t = performance.now();
+        if (v.requestVideoFrameCallback) { const cb = () => { frames++; if (performance.now() - t < 2000) v.requestVideoFrameCallback(cb); }; v.requestVideoFrameCallback(cb); }
+        await new Promise(r => setTimeout(r, 2100)); const r = v.getBoundingClientRect(), cs = getComputedStyle(v);
+        return {autoplay: v.autoplay, muted: v.muted, loop: v.loop, playsinline: v.hasAttribute('playsinline'), preload: v.preload, fit: cs.objectFit,
+                src: v.currentSrc.split('/').pop(), vw: v.videoWidth, vh: v.videoHeight, cw: r.width, ch: r.height, dpr: devicePixelRatio, paused: v.paused,
+                ready: v.readyState, advanced: +(v.currentTime - t0).toFixed(2), fps: +(frames / 2).toFixed(1)}; }""")
+    if not vi: bad('[%s] no hero video' % tag)
+    else:
+        flags_ok = vi['autoplay'] and vi['muted'] and vi['loop'] and vi['playsinline'] and vi['preload'] == 'auto' and vi['fit'] == 'cover'
+        playing = not vi['paused'] and vi['ready'] >= 3 and vi['advanced'] > 1
+        scale = max(vi['cw'] / vi['vw'], vi['ch'] / vi['vh']) if vi['vw'] else 0
+        (ok if flags_ok else bad)(('hero video attrs ok: %s' % vi) if flags_ok else '[%s] hero video attributes: %s' % (tag, vi))
+        (ok if playing else bad)('hero video playing (%.1fs advanced in 2.1s, %s fps presented)' % (vi['advanced'], vi['fps']) if playing else '[%s] hero video not playing smoothly: %s' % (tag, vi))
+        (ok if scale <= 1.0 else bad)('hero video not upscaled: %dx%d source drawn at %dx%d CSS px (%.2fx; %.2fx in device px at DPR %g)' % (vi['vw'], vi['vh'], vi['cw'], vi['ch'], scale, scale * vi['dpr'], vi['dpr'])
+                                      if scale <= 1.0 else '[%s] hero video upscaled %.2fx in CSS px' % (tag, scale))
     if p.locator('.marquee').count(): ok('marquee: ' + p.locator('.marquee').first.inner_text()[:120].replace('\n', ' | '))
     else: bad('[%s] no marquee' % tag)
     if p.locator('.proof').count(): ok('review block: ' + p.locator('.proof').first.inner_text().replace('\n', ' '))
     shot('02-home')
     scroll_lazy(); broken_imgs()
     p.evaluate("document.querySelector('.view.top').scrollTop = 700"); p.wait_for_timeout(600); shot('03-home-scrolled')
+    p.evaluate("(() => { const v = document.querySelector('.view.top'), e = v.querySelector('.proof'); if (e) v.scrollTop = e.offsetTop - v.clientHeight * 0.45; })()"); p.wait_for_timeout(800); shot('03b-home-trustpilot')
     p.evaluate("document.querySelector('.view.top').scrollTop = 0"); p.wait_for_timeout(300)
     # 3 drops
     tab('drops'); t = p.text_content('.view.top')
@@ -136,6 +163,9 @@ def run(pw, w, h, tag):
     tab('drops'); p.wait_for_timeout(500); shot('23-drops-live')
     # rewards card
     tab('account'); p.click('.view.top [data-act="rewards"]'); p.wait_for_timeout(700); shot('24-rewards'); broken_imgs()
+    # welcome shows again on every page load (dismissal is not remembered)
+    p.goto(URL + '?nosplash', wait_until='networkidle'); p.wait_for_timeout(1200)
+    (ok if p.locator('#welcome.show').count() else bad)('welcome shows again on reload' if p.locator('#welcome.show').count() else '[%s] welcome did not show again on reload' % tag)
     br.close()
 
 with sync_playwright() as pw:

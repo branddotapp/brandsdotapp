@@ -10,7 +10,7 @@ tools/smoke_test.py   headless Chrome click-through test + screenshots
 <slug>/brand.overrides.json   optional hand-written copy, merged on top of brand.json
 <slug>/assets/brand.js        brand.json as window.BRAND (generated, don't edit)
 <slug>/assets/app.js|app.css  copied from _template/ at build time
-<slug>/assets/img/, hero.mp4  logo (dark + light), favicon, hero poster, campaign image, hero video
+<slug>/assets/img/, hero.mp4/.webm  logo (dark + light), favicon, hero poster, campaign image, hero video
 ```
 
 ## Requirements
@@ -41,6 +41,7 @@ Options:
 
 | flag | what it does |
 |---|---|
+| `--refetch-video SLUG` | re-download just the hero video at the best quality available, re-encode it with the settings below, then rebuild |
 | `--rebuild SLUG` | re-render from the saved `brand.json` + `brand.overrides.json` without touching the network (use after editing overrides or `_template/`) |
 | `--no-render` | skip headless Chrome (no announcement bar / Trustpilot widget data) |
 | `--max-products N` | cap the catalogue (default 400 products from the nav collections) |
@@ -55,7 +56,7 @@ Options:
 | Currency | `/cart.js` |
 | Logo (dark + light), favicon | header logo `<img>` / inline SVG, `<link rel=icon>` |
 | Colours, font | site CSS custom properties / most frequent colours; Google Fonts if the font is on it |
-| Hero video / poster / campaign image | homepage `<video>` and large images (video trimmed to 12s, 640x800 with ffmpeg) |
+| Hero video / poster / campaign image | homepage `<video>` (Shopify's original upload when it's public, otherwise the best transcode) and large images. See **Hero video** below |
 | Help, About, Legal pages + summaries | links in nav/footer matched by name (shipping, returns, FAQs, contact, about, sustainability, stockists, privacy, terms, refund, cookies) |
 | Delivery options, cut-offs, free-delivery threshold | the shipping page (first region listed) |
 | Returns copy | the returns page |
@@ -71,6 +72,22 @@ or sent), checkout (no real order) and the APP10 code.
 
 **Non-Shopify sites** build without crashing: no products/collections, Drops and size features hidden, theme/logo/pages
 taken from whatever can be found, and every gap listed in the report.
+
+## Hero video
+
+Every brand's hero video is encoded the same way (`HERO` in `build_brand.py`):
+
+- source: for each homepage `<video>`, the Shopify original upload (`/cdn/shop/videos/c/o/v/<id>.mp4|.mov`) is tried before
+  the transcode; portrait / 4:5 sources win, then the most pixels
+- cropped to the app hero's shape (0.63, i.e. 390x620) and scaled to **1080 px on the long side** (never upscaled), Lanczos
+- **H.264** high profile, **CRF 23**, preset slow, keyframe every 2s, yuv420p, **faststart** (moov atom first), **no audio**
+- **seamless 8–12s loop**: it ends exactly on a hard cut (nearest 10s) so jumping back to frame 0 reads as a normal cut;
+  with no cut in range the tail is cross-faded into the head
+- optional **WebM/VP9** copy (`hero.webm`, CRF 34) as a second `<source>`; poster = first frame of the loop, same crop, JPEG q2
+
+In the app the `<video>` has `autoplay muted loop playsinline preload="auto"`, `object-fit:cover`, is created once and kept
+across Home re-renders (so it never restarts), and pauses when scrolled off screen or the tab is hidden. Nothing over it uses
+`backdrop-filter` (re-blurring every video frame made playback stutter).
 
 ## Hand-tuning a brand
 
@@ -91,12 +108,13 @@ drop time), `discount` (`{"code":"APP10","pct":10}`), `theme` colours, `copy`.
 
 ```
 python3 -m http.server 8765 &
-python3 tools/smoke_test.py raith --shots raith-shots/v2
+python3 tools/smoke_test.py raith --shots raith-shots/v4
 ```
 
 Clicks through every tab and feature at 390x844 and 1440x900, fails on console errors, failed requests, broken images
-and missing sections. Screenshots land in `<slug>-shots/` (git-ignored).
+and missing sections. Also checks the hero video is playing, not upscaled and has the right attributes, that the review block
+sits near the bottom of Home, and that the welcome pop-up shows again on reload. Screenshots land in `<slug>-shots/` (git-ignored).
 
 ## App URL parameters
 
-`?nosplash` skip the splash · `?welcome` force the welcome pop-up · `?nowelcome` · `?nopush` · `?tab=drops` · `?p=<product-handle>`
+`?nosplash` skip the splash · `?nowelcome` (the welcome pop-up shows on every page load; dismissing it only hides it until the next load) · `?nopush` · `?tab=drops` · `?p=<product-handle>`

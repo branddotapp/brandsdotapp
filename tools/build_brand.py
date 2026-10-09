@@ -428,31 +428,101 @@ def wordmark(text, dst, rgb):
     im = Image.new('RGBA', (w, 90), (0, 0, 0, 0)); ImageDraw.Draw(im).text((10, 8), spaced, font=font, fill=rgb + (255,))
     im.crop(im.getbbox()).save(dst, 'PNG')
 
-def ffprobe_dims(path):
+# Hero video: shared encoding settings for every brand (see tools/README.md "Hero video").
+HERO = {
+    'long': 1080,          # px on the long side (portrait: height)
+    'aspect': 0.63,        # width / height of the app hero (390x620 on a phone). Cropped to this so no pixels are wasted
+    'crf': 23, 'preset': 'slow', 'gop': 48,   # H.264 high profile, keyframe every 2s at 24fps
+    'vp9_crf': 34,         # optional WebM / VP9 source
+    'loop_min': 8.0, 'loop_max': 12.0, 'loop_target': 10.0, 'xfade': 0.6,
+}
+
+def original_video_urls(u, base):
+    """Shopify keeps the uploaded original next to its transcodes: /videos/c/vp/<id>/<id>.HD-1080p-….mp4 → /videos/c/o/v/<id>.(mp4|mov)."""
+    m = re.search(r'/videos/c/vp/([0-9a-f]{32})/', u or '')
+    if not m: return []
+    root = (base.rstrip('/') + '/cdn/shop') if '/cdn/shop/' in u else 'https://cdn.shopify.com'
+    return [root + '/videos/c/o/v/%s.%s' % (m.group(1), ext) for ext in ('mp4', 'mov')]
+
+def ffprobe_video(path):
+    """(width, height, duration, fps) of the first video stream, rotation applied, or None."""
     try:
-        out = subprocess.run(['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=width,height', '-of', 'csv=p=0', path], capture_output=True, text=True, timeout=30).stdout.strip()
-        w, h = out.split(',')[:2]; return int(w), int(h)
+        j = json.loads(subprocess.run(['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=width,height,r_frame_rate,duration:stream_side_data=rotation:stream_tags=rotate',
+                                       '-show_entries', 'format=duration', '-of', 'json', path], capture_output=True, text=True, timeout=30).stdout)
+        s = j['streams'][0]; w, h = int(s['width']), int(s['height'])
+        rot = abs(int(float((s.get('tags') or {}).get('rotate') or next((d.get('rotation') for d in s.get('side_data_list', []) if 'rotation' in d), 0) or 0)))
+        if rot in (90, 270): w, h = h, w
+        n, d = (s.get('r_frame_rate') or '24/1').split('/'); fps = float(n) / float(d or 1)
+        dur = float(s.get('duration') or j.get('format', {}).get('duration') or 0)
+        return w, h, dur, fps
     except Exception: return None
 
-def make_hero_video(urls, out_mp4, out_poster):
-    if not shutil.which('ffmpeg') or not urls: return False
+def scene_cuts(path, limit=20):
+    r = subprocess.run(['ffmpeg', '-hide_banner', '-t', str(limit), '-i', path, '-an', '-vf', "scale=320:-2,select='gt(scene,0.3)',showinfo", '-f', 'null', '-'],
+                       capture_output=True, text=True, timeout=300)
+    return [float(x) for x in re.findall(r'pts_time:([0-9.]+)', r.stderr)]
+
+def encode_hero(src, out_mp4, out_poster, out_webm=None, S=HERO):
+    """Re-encode a campaign video for smooth web playback. Returns a dict describing the result, or None."""
+    info = ffprobe_video(src)
+    if not info: return None
+    w, h, dur, fps = info
+    # crop to the hero's aspect, then scale so the long side is S['long'] (never upscale)
+    a = S['aspect']
+    cw, ch = (w, w / a) if w / h < a else (h * a, h)
+    oh = min(S['long'], int(ch)) // 2 * 2; ow = int(round(oh * a / 2)) * 2
+    vf = 'crop=%d:%d,scale=%d:%d:flags=lanczos,setsar=1,fps=%g,format=yuv420p' % (int(cw) // 2 * 2, int(ch) // 2 * 2, ow, oh, round(fps, 3))
+    # loop: end exactly on a hard cut between loop_min and loop_max so the jump back to frame 0 reads as just another cut;
+    # otherwise cross-fade the tail into the head so the loop is seamless
+    cuts = [c for c in scene_cuts(src, S['loop_max'] + 1) if S['loop_min'] <= c <= S['loop_max']]
+    xf = S['xfade']
+    if cuts:
+        L = min(cuts, key=lambda c: abs(c - S['loop_target']))
+        L = round(L * fps) / fps   # cut lands on a frame boundary: keep frames [0, L)
+        filt = ['-t', '%.4f' % L, '-vf', vf]; how = 'ends on a scene cut at %.2fs' % L
+    else:
+        L = min(S['loop_target'], max(1.0, dur - xf - 0.1))
+        filt = ['-filter_complex', '[0:v]%s,split[a][b];[a]trim=start=%g:end=%g,setpts=PTS-STARTPTS[A];[b]trim=0:%g,setpts=PTS-STARTPTS[B];[A][B]xfade=transition=fade:duration=%g:offset=%g[v]'
+                % (vf, xf, L + xf, xf, xf, L - xf), '-map', '[v]']
+        how = 'cross-faded loop'
+    x264 = ['-c:v', 'libx264', '-preset', S['preset'], '-crf', str(S['crf']), '-profile:v', 'high', '-level:v', '4.0', '-pix_fmt', 'yuv420p',
+            '-g', str(S['gop']), '-keyint_min', str(S['gop'] // 2), '-sc_threshold', '0', '-movflags', '+faststart', '-an']
+    r = subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', src] + filt + x264 + [out_mp4], capture_output=True, text=True, timeout=900)
+    if r.returncode != 0: print('    ffmpeg:', r.stderr[-400:]); return None
+    # poster: first frame of the loop at the same crop, high-quality JPEG, so poster → video is seamless
+    subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', src, '-vf', vf, '-frames:v', '1', '-q:v', '2', out_poster], capture_output=True, timeout=120)
+    if out_webm:
+        rw = subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', out_mp4, '-c:v', 'libvpx-vp9', '-crf', str(S['vp9_crf']), '-b:v', '0', '-row-mt', '1', '-deadline', 'good',
+                             '-cpu-used', '2', '-g', str(S['gop']), '-an', out_webm], capture_output=True, timeout=1800)
+        if rw.returncode != 0 and os.path.exists(out_webm): os.remove(out_webm)
+    size = os.path.getsize(out_mp4)
+    return {'w': ow, 'h': oh, 'dur': round(L, 2), 'kbps': round(size * 8 / L / 1000), 'bytes': size, 'how': how, 'src': '%dx%d' % (w, h),
+            'webm': bool(out_webm and os.path.exists(out_webm))}
+
+def make_hero_video(urls, out_mp4, out_poster, base=''):
+    """Download the homepage campaign video at the best quality available (Shopify original upload if public) and encode it."""
+    if not shutil.which('ffmpeg') or not urls: return None
+    cands = []
+    for u in urls[:4]:
+        cands += original_video_urls(u, base) + [u]
     best = None
     with tempfile.TemporaryDirectory() as d:
-        for i, u in enumerate(urls[:3]):
-            st, _, body = fetch(u, binary=True, timeout=90)
+        for i, u in enumerate(dict.fromkeys(cands)):
+            st, _, body = fetch(u, binary=True, timeout=240)
             if st != 200 or len(body) < 10000: continue
-            p = os.path.join(d, 'v%d.mp4' % i); open(p, 'wb').write(body)
-            dims = ffprobe_dims(p)
-            if not dims: continue
-            score = (1 if dims[1] >= dims[0] else 0, -abs(dims[0] / dims[1] - 0.8))
-            if not best or score > best[0]: best = (score, p)
-        if not best: return False
-        vf = 'crop=min(iw\\,ih*4/5):min(ih\\,iw*5/4),scale=640:800,setsar=1'
-        r = subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', best[1], '-t', '12', '-vf', vf, '-an', '-c:v', 'libx264', '-preset', 'slow', '-crf', '30',
-                            '-pix_fmt', 'yuv420p', '-movflags', '+faststart', out_mp4], capture_output=True, timeout=300)
-        if r.returncode != 0: return False
-        subprocess.run(['ffmpeg', '-y', '-v', 'error', '-ss', '0.4', '-i', out_mp4, '-frames:v', '1', '-q:v', '3', out_poster], capture_output=True, timeout=60)
-        return os.path.exists(out_mp4)
+            p = os.path.join(d, 'v%d%s' % (i, os.path.splitext(urllib.parse.urlparse(u).path)[1] or '.mp4')); open(p, 'wb').write(body)
+            info = ffprobe_video(p)
+            if not info: continue
+            w, h = info[:2]
+            # prefer portrait / 4:5 sources (the hero is portrait), then the most pixels
+            score = (1 if h >= w else 0, -round(abs(w / h - 0.8), 1), w * h)
+            print('    candidate %dx%d %s' % (w, h, u[:110]))
+            if not best or score > best[0]: best = (score, p, u)
+        if not best: return None
+        webm = os.path.splitext(out_mp4)[0] + '.webm'
+        res = encode_hero(best[1], out_mp4, out_poster, webm)
+        if res: res['url'] = best[2]
+        return res
 
 # ---------------------------------------------------------------- headless render (optional)
 def render_home(url):
@@ -510,6 +580,25 @@ def trustpilot(rendered, static_html, domain):
             return {'source': 'Trustpilot', 'score': score, 'count': int(total), 'label': label,
                     'url': 'https://uk.trustpilot.com/review/' + ident, 'checked': datetime.date.today().isoformat()}
     return None
+
+def hero_video(vids, out_dir, base):
+    """Fetch + encode the hero video into <out>/assets/hero.mp4 (+ hero.webm, img/hero-poster.jpg). Returns the hero dict fields."""
+    img_dir = os.path.join(out_dir, 'assets', 'img'); os.makedirs(img_dir, exist_ok=True)
+    res = make_hero_video(vids, os.path.join(out_dir, 'assets', 'hero.mp4'), os.path.join(img_dir, 'hero-poster.jpg'), base) if vids else None
+    if not res: return {}
+    hero = {'video': 'assets/hero.mp4', 'poster': 'assets/img/hero-poster.jpg', 'videoW': res['w'], 'videoH': res['h']}
+    if res['webm']: hero['videoWebm'] = 'assets/hero.webm'
+    found('Hero video from homepage: source %s → %dx%d H.264 CRF %d, %.1fs loop (%s), %d kbps, %.2f MB%s' % (
+        res['src'], res['w'], res['h'], HERO['crf'], res['dur'], res['how'], res['kbps'], res['bytes'] / 1e6, ' + WebM/VP9' if res['webm'] else ''))
+    return hero
+
+def homepage_videos(soup, base):
+    vids = []
+    for v in soup.find_all('video'):
+        for s in [v] + v.find_all('source'):
+            u = s.get('src') or s.get('data-src')
+            if u and re.search(r'\.(mp4|webm|mov)', u): vids.append(absu(base, u))
+    return list(dict.fromkeys(vids))
 
 # ---------------------------------------------------------------- scrape
 GENERIC_WORDS = r'\b(clothing|clothes|clo|apparel|official|store|shop|online|ltd|limited|uk|co|company|menswear|womenswear|london)\b'
@@ -641,16 +730,8 @@ def scrape(url, slug, out_dir, do_render=True, max_products=400):
         missing('Favicon not found: using the logo instead')
 
     log('· Homepage hero media')
-    vids = []
-    for v in soup.find_all('video'):
-        for s in [v] + v.find_all('source'):
-            u = s.get('src') or s.get('data-src')
-            if u and '.mp4' in u: vids.append(absu(base, u))
-    vids = list(dict.fromkeys(vids))
-    hero = {}
-    if vids and make_hero_video(vids, os.path.join(out_dir, 'assets', 'hero.mp4'), os.path.join(img_dir, 'hero-poster.jpg')):
-        hero['video'], hero['poster'] = 'assets/hero.mp4', 'assets/img/hero-poster.jpg'
-        found('Hero video from homepage (%d candidate%s, trimmed to 12s 640×800)' % (len(vids), 's' if len(vids) > 1 else ''))
+    vids = homepage_videos(soup, base)
+    hero = hero_video(vids, out_dir, base)
     big_imgs = []
     main = soup.find('main') or soup
     for im in main.find_all('img'):
@@ -858,13 +939,23 @@ def main():
     ap.add_argument('url', nargs='?', help='Brand website, e.g. https://raith-clo.com')
     ap.add_argument('slug', nargs='?', help='Folder name, e.g. raith')
     ap.add_argument('--rebuild', metavar='SLUG', help='Re-render SLUG from its brand.json + brand.overrides.json without scraping')
+    ap.add_argument('--refetch-video', metavar='SLUG', help='Re-download SLUG\'s homepage hero video at the best quality available, re-encode it with the HERO settings, then rebuild')
     ap.add_argument('--no-render', action='store_true', help='Skip the headless-Chrome pass (no announcement bar / Trustpilot widget data)')
     ap.add_argument('--max-products', type=int, default=400)
     ap.add_argument('--root', default=ROOT, help='Repo root (default: parent of tools/)')
     a = ap.parse_args()
-    if a.rebuild:
-        out = os.path.join(a.root, a.rebuild)
+    if a.rebuild or a.refetch_video:
+        out = os.path.join(a.root, a.rebuild or a.refetch_video)
         B = json.load(open(os.path.join(out, 'brand.json')))
+        if a.refetch_video:
+            log('· Hero video for %s' % B['site'])
+            st, _, home = fetch(B['site'] + '/')
+            vids = homepage_videos(BeautifulSoup(home, 'html.parser'), B['site']) if st == 200 else []
+            hero = hero_video(vids, out, B['site'])
+            if not hero: sys.exit('No hero video could be fetched/encoded from %s' % B['site'])
+            B.setdefault('home', {}).setdefault('hero', {})
+            for k in ('video', 'videoWebm', 'videoW', 'videoH', 'poster'): B['home']['hero'].pop(k, None)
+            B['home']['hero'].update(hero)
     else:
         if not a.url or not a.slug: ap.error('give URL and SLUG, or --rebuild SLUG')
         if not re.match(r'^[a-z0-9][a-z0-9-]*$', a.slug): ap.error('slug must be lowercase letters, digits and dashes')
