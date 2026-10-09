@@ -27,6 +27,10 @@ const prods = h => ((colBy(h) || {}).p || []).map(x => P[x]).filter(Boolean);
 const ALL = Object.values(P);
 const FREE_SHIP = SHIP.freeOver || 0;
 const IG = B.socials && B.socials.instagram;
+// motion: every JS-driven animation checks this; CSS handles the rest via @media (prefers-reduced-motion)
+const RM = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches:false };
+const EASE = 'cubic-bezier(.32,.72,0,1)';
+const anim = (el, kf, o) => (!el || RM.matches || !el.animate) ? null : el.animate(kf, Object.assign({ duration:280, easing:EASE, fill:'none' }, o||{}));
 if (DR && DR.products && DR.products.length) COLS.push({ h:'__drop', t:DR.title || DR.name, p:DR.products.filter(h=>P[h]) });
 
 // ---------- icons ----------
@@ -85,10 +89,13 @@ const savePrefs = () => store.set('prefs', prefs);
 
 function saveBag(){ store.set('bag', bag); updateBadges(true); }
 function saveWish(){ store.set('wish', wish); updateBadges(); }
+const bagCount = () => bag.reduce((a,i)=>a+i.q,0);
 function updateBadges(popBag){
-  const n = bag.reduce((a,i)=>a+i.q,0);
+  const n = bagCount();
   const bb = $('#bagBadge'), wb = $('#wishBadge');
-  if (bb){ bb.textContent = n; bb.classList.toggle('show', n>0); if (popBag){ bb.classList.remove('pop'); void bb.offsetWidth; bb.classList.add('pop'); } }
+  const pop = e => { e.classList.remove('pop'); void e.offsetWidth; e.classList.add('pop'); };
+  if (bb){ bb.textContent = n; bb.classList.toggle('show', n>0); if (popBag) pop(bb); }
+  $$('.hb-count').forEach(c => { c.textContent = n; c.classList.toggle('show', n>0); if (popBag && n>0) pop(c); });
   if (wb){ wb.textContent = wish.length; wb.classList.toggle('show', wish.length>0); }
 }
 const inWish = h => wish.includes(h);
@@ -96,7 +103,7 @@ function toggleWish(h){
   if (inWish(h)) { wish = wish.filter(x=>x!==h); toast('Removed from wishlist'); }
   else { wish.unshift(h); toast('Saved to wishlist', I.heart); }
   saveWish();
-  $$('[data-wish="'+CSS.escape(h)+'"]').forEach(b => { b.classList.toggle('on', inWish(h)); b.classList.remove('burst'); void b.offsetWidth; b.classList.add('burst'); });
+  $$('[data-wish="'+CSS.escape(h)+'"]').forEach(b => { b.classList.toggle('on', inWish(h)); b.classList.remove('burst'); void b.offsetWidth; b.classList.add('burst'); b.setAttribute('aria-pressed', inWish(h)); });
 }
 
 // ---------- sizes ----------
@@ -106,6 +113,7 @@ const hasSize = () => SIZE_GROUPS.some(g => mySize[g.key]);
 const sizeLabel = () => SIZE_GROUPS.filter(g => mySize[g.key]).map(g => (g.prefix||'') + mySize[g.key]).join(' · ');
 const sizeMatch = label => { const n = normSize(label); return SIZE_GROUPS.some(g => mySize[g.key] && String(mySize[g.key]).toUpperCase() === n); };
 const inMySize = p => p.sz.some(s => s[1] && sizeMatch(s[0]));
+const tcase = s => s && s === String(s).toUpperCase() ? String(s).toLowerCase().replace(/(^|[\s/&-])([a-z])/g, (m, a, b) => a + b.toUpperCase()) : (s || '');   // 'POLO SHIRTS' → 'Polo Shirts'
 const prettySize = s => String(s).replace(' - ',' · ');
 function openSizeSheet(done){
   let tmp = Object.assign({}, mySize);
@@ -125,19 +133,21 @@ function toast(msg, icon){
   const t = $('#toast');
   t.innerHTML = (icon || I.check) + '<span>'+esc(msg)+'</span>';
   t.classList.toggle('raise', !!$('.view.top .buybar.show'));
-  t.classList.add('show'); clearTimeout(toastT);
-  toastT = setTimeout(()=>t.classList.remove('show'), 2000);
+  t.classList.add('show'); clearTimeout(toastT); $('#app').classList.add('toasting');
+  toastT = setTimeout(()=>{ t.classList.remove('show'); $('#app').classList.remove('toasting'); }, 2000);
 }
 
 // ---------- sheet ----------
 function openSheet(html, onMount){
   const s = $('#sheet');
-  s.innerHTML = '<div class="grab"></div>' + html;
-  s.scrollTop = 0;
+  const swap = s.classList.contains('show');
+  s.innerHTML = '<div class="grab" aria-hidden="true"></div>' + html;
+  s.scrollTop = 0; s.style.transform = '';
   $('#sheetBackdrop').classList.add('show'); s.classList.add('show');
+  if (swap) $$(':scope > :not(.grab)', s).forEach((c,i) => anim(c, [{opacity:0, transform:'translateY(8px)'},{opacity:1, transform:'none'}], { duration:320, delay:i*18, fill:'backwards' }));
   onMount && onMount(s);
 }
-function closeSheet(){ $('#sheet').classList.remove('show'); $('#sheetBackdrop').classList.remove('show'); resumeHeroVideo(); }
+function closeSheet(){ const s = $('#sheet'); s.classList.remove('show'); s.style.transform = ''; $('#sheetBackdrop').classList.remove('show'); resumeHeroVideo(); }
 
 // ---------- navigation ----------
 let stackEl, stack = [], currentTab = 'home';
@@ -153,16 +163,23 @@ function makeView(fn, args){
 }
 function applyChrome(v){
   $('#tabbar').classList.toggle('hidden', !!v.opts.hideTabs);
+  $('#app').classList.toggle('tabs-hidden', !!v.opts.hideTabs);
   setStatus(v.opts.light && (v.el.scrollTop < (v.opts.lightUntil || 9999)));
   stack.forEach(s => s.el.classList.remove('top')); v.el.classList.add('top');
   resumeHeroVideo();
+}
+// iOS-style push/pop: the new view slides over, the one beneath drifts 28% the other way and dims under a shade
+// (an opacity-only layer, so nothing repaints mid-flight).
+function navShade(before, cls, ms){
+  const s = document.createElement('div'); s.className = 'nav-shade ' + cls;
+  stackEl.insertBefore(s, before); setTimeout(() => s.remove(), ms); return s;
 }
 function push(fn, args){
   const prev = stack[stack.length-1];
   const v = makeView(fn, args);
   stackEl.appendChild(v.el); stack.push(v);
   v.el.classList.add('enter');
-  if (prev){ prev.el.classList.add('under'); setTimeout(()=>{ prev.el.classList.remove('under'); if (stack.includes(prev) && stack[stack.length-1] !== prev) prev.el.style.visibility='hidden'; }, 430); }
+  if (prev){ navShade(v.el, 'in', 440); prev.el.classList.add('under'); setTimeout(()=>{ prev.el.classList.remove('under'); if (stack.includes(prev) && stack[stack.length-1] !== prev) prev.el.style.visibility='hidden'; }, 430); }
   setTimeout(()=>v.el.classList.remove('enter'), 450);
   applyChrome(v);
 }
@@ -171,18 +188,22 @@ function back(){
   const v = stack.pop(), prev = stack[stack.length-1];
   prev.el.style.visibility=''; prev.el.classList.add('reveal');
   if (prev.el._refresh) prev.el._refresh();
-  v.el.classList.add('leave');
-  setTimeout(()=>{ v.el.remove(); prev.el.classList.remove('reveal'); }, 360);
+  v.el.classList.add('leave'); v.el.classList.remove('top');
+  navShade(v.el, 'out', 380);
+  setTimeout(()=>{ v.el.remove(); prev.el.classList.remove('reveal'); }, 380);
   applyChrome(prev);
 }
 function switchTab(tab, args){
   closeSheet(); closeBrowser();
   if (tab === currentTab && stack.length === 1 && !args){ stack[0].el.scrollTo({top:0, behavior:'smooth'}); if (stack[0].el._refresh) stack[0].el._refresh(); return; }
   currentTab = tab;
-  $$('#tabbar button').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
-  stack.forEach(s => s.el.remove()); stack = [];
+  $$('#tabbar button').forEach(b => { const on = b.dataset.tab === tab; b.classList.toggle('active', on); if (on) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); });
+  const old = stack; stack = [];
+  old.forEach(s => { s.el.classList.remove('top', 'enter', 'under', 'reveal'); s.el.classList.add('tab-out'); setTimeout(() => s.el.remove(), 300); });
+  $$('.nav-shade', stackEl).forEach(s => s.remove());
   const v = makeView(roots[tab], args);
-  v.el.classList.add('fade'); stackEl.appendChild(v.el); stack.push(v);
+  v.el.classList.add('tab-in'); stackEl.appendChild(v.el); stack.push(v);
+  setTimeout(() => v.el.classList.remove('tab-in'), 320);
   applyChrome(v);
 }
 function refreshAll(){ stack.forEach(s => s.el._refresh && s.el._refresh()); }
@@ -213,7 +234,8 @@ function topbar({title, logo, back:bk, right='', left='', clear}={}){
     (logo ? '<img class="tb-logo" src="'+LOGO+'" alt="'+esc(NAME)+'">' : '<div class="tb-title">'+esc(title||'')+'</div>')+
     (right || '<span style="width:40px"></span>')+'</header>';
 }
-const bagBtn = () => '<button class="icon-btn" data-act="bagtab" aria-label="Bag">'+I.bag+'</button>';
+const hbCount = () => { const n = bagCount(); return '<i class="hb-count'+(n?' show':'')+'">'+n+'</i>'; };
+const bagBtn = () => '<button class="icon-btn" data-act="bagtab" aria-label="Bag">'+I.bag+hbCount()+'</button>';
 const searchBtn = () => '<button class="icon-btn" data-act="search" aria-label="Search">'+I.search+'</button>';
 const credit = () => '<p class="credit-inline">Concept app mockup for '+esc(NAME)+'</p>';
 const stars = n => '<span class="stars" style="--r:'+(n/5*100)+'%"><i>★★★★★</i><i>★★★★★</i></span>';
@@ -247,12 +269,53 @@ function igHTML(){
 function enableDrag(root){
   $$('.hscroll,.chips,.swatches', root).forEach(el => {
     if (el._drag) return; el._drag = true;
-    let down=false, sx=0, sl=0, moved=false;
-    el.addEventListener('pointerdown', e => { if (e.pointerType!=='mouse') return; down=true; moved=false; sx=e.clientX; sl=el.scrollLeft; el.style.scrollSnapType='none'; });
-    window.addEventListener('pointermove', e => { if(!down) return; const dx=e.clientX-sx; if(Math.abs(dx)>5){ moved=true; el.classList.add('dragging'); } el.scrollLeft = sl - dx; });
-    window.addEventListener('pointerup', () => { if(!down) return; down=false; el.style.scrollSnapType=''; setTimeout(()=>el.classList.remove('dragging'),0); });
+    let down=false, sx=0, sl=0, moved=false, lx=0, lt=0, vx=0;
+    el.addEventListener('pointerdown', e => { if (e.pointerType!=='mouse') return; down=true; moved=false; sx=lx=e.clientX; lt=performance.now(); vx=0; sl=el.scrollLeft; el.style.scrollSnapType='none'; el.style.scrollBehavior='auto'; });
+    window.addEventListener('pointermove', e => { if(!down) return; const dx=e.clientX-sx; if(Math.abs(dx)>5){ moved=true; el.classList.add('dragging'); } el.scrollLeft = sl - dx;
+      const t = performance.now(), dt = Math.max(1, t-lt); vx = .8*((e.clientX-lx)/dt) + .2*vx; lx = e.clientX; lt = t; });
+    // release: glide on with the drag velocity, then let scroll-snap settle on the nearest card
+    window.addEventListener('pointerup', () => { if(!down) return; down=false; el.style.scrollBehavior='';
+      const glide = (performance.now()-lt < 80) ? -vx*260 : 0;
+      el.style.scrollSnapType='';
+      if (moved && Math.abs(glide) > 8) el.scrollTo({ left: el.scrollLeft + glide, behavior: RM.matches ? 'auto' : 'smooth' });
+      setTimeout(()=>el.classList.remove('dragging'),0); });
     el.addEventListener('click', e => { if (moved){ e.stopPropagation(); e.preventDefault(); moved=false; } }, true);
   });
+}
+
+// Segmented control: a white pill slides (transform + width) under the active option; onChange(key, dir) swaps the
+// content, which slides in from the side the pill moved towards.
+function segmented(seg, onChange){
+  const ind = document.createElement('i'); ind.className = 'seg-ind'; ind.setAttribute('aria-hidden', 'true'); seg.prepend(ind);
+  const btns = $$('button', seg);
+  seg.setAttribute('role', 'tablist'); btns.forEach(b => b.setAttribute('role', 'tab'));
+  const place = (b, animate) => {
+    if (!b || !b.offsetWidth) return;
+    if (!animate) ind.style.transition = 'none';
+    ind.style.width = b.offsetWidth + 'px'; ind.style.transform = 'translateX(' + (b.offsetLeft - 3) + 'px)';
+    seg.classList.add('measured');
+    if (!animate){ void ind.offsetWidth; ind.style.transition = ''; }
+  };
+  const cur = () => btns.find(b => b.classList.contains('on')) || btns[0];
+  btns.forEach((b, i) => { b.style.setProperty('--i', i); b.setAttribute('aria-selected', b.classList.contains('on')); });
+  seg.style.setProperty('--n', btns.length); seg.style.setProperty('--i', btns.indexOf(cur()));
+  const settle = () => place(cur(), false);
+  requestAnimationFrame(settle);
+  if ('ResizeObserver' in window) new ResizeObserver(settle).observe(seg);
+  btns.forEach((b, i) => b.addEventListener('click', () => {
+    const was = cur(); if (b === was) return;
+    const dir = i > btns.indexOf(was) ? 1 : -1;
+    btns.forEach(x => { x.classList.toggle('on', x === b); x.setAttribute('aria-selected', x === b); });
+    seg.style.setProperty('--i', i);
+    place(b, true);
+    onChange(b.dataset.seg, dir);
+  }));
+}
+// slide-swap a container's content: out towards -dir, new content in from +dir
+function swapContent(box, html, dir, after){
+  const put = () => { box.innerHTML = html; after && after(); anim(box, [{opacity:0, transform:'translateX('+(dir*28)+'px)'},{opacity:1, transform:'none'}], { duration:300 }); };
+  const a = anim(box, [{opacity:1, transform:'none'},{opacity:0, transform:'translateX('+(-dir*28)+'px)'}], { duration:140, easing:'cubic-bezier(.4,0,1,1)', fill:'forwards' });
+  if (a){ box._swap && box._swap.cancel(); box._swap = a; a.onfinish = () => { if (box._swap !== a) return; put(); a.cancel(); }; } else put();
 }
 
 // ---------- drop timing ----------
@@ -348,7 +411,7 @@ function Home(el){
       (tiles.length ? '<section class="section"><div class="sec-head"><div><h2>Shop by Category</h2></div><button class="link" data-act="tab" data-v="shop">All</button></div><div class="cat-grid">'+tiles.map(t=>'<div class="cat-tile" data-act="col" data-v="'+esc(t[0])+'"><img loading="lazy" src="'+cover(t[0])+'" alt=""><span>'+esc(t[1])+'</span></div>').join('')+'</div></section>' : '')+
       (H.editorial && H.editorial.img && colBy(H.editorial.col) ? '<div class="editorial" data-act="col" data-v="'+esc(H.editorial.col)+'"><img loading="lazy" src="'+esc(H.editorial.img)+'" alt=""><div class="hero-copy"><div class="eyebrow">'+esc(H.editorial.eyebrow||'')+'</div><div class="hero-title">'+esc(H.editorial.title||'')+'</div><span class="btn btn-light">Shop now</span></div></div>' : '')+
       (best.length ? '<section class="section"><div class="sec-head"><div><h2>Best Sellers</h2><p>'+esc(H.bestSub||'The pieces everyone’s wearing')+'</p></div><button class="link" data-act="col" data-v="'+esc(H.bestCol)+'">View all</button></div><div class="hscroll">'+best.map(p=>pcard(p,{w:400})).join('')+'</div></section>' : '')+
-      (fc ? '<div class="feature-card" style="margin-top:28px" data-act="col" data-v="'+esc(H.feature.col)+'"><img loading="lazy" src="'+img(fc.im[1]||fc.im[0],700)+'" alt=""><div><b>'+esc(H.feature.title)+'</b><span class="btn btn-light" style="height:40px;padding:0 18px">'+esc(H.feature.cta||'Shop now')+'</span></div></div>' : '')+
+      (fc ? '<div class="feature-card" style="margin-top:28px" data-act="col" data-v="'+esc(H.feature.col)+'"><img loading="lazy" src="'+img(fc.im[1]||fc.im[0],700)+'" alt=""><div><b>'+esc(H.feature.title)+'</b><span class="btn btn-light btn-sm">'+esc(H.feature.cta||'Shop now')+'</span></div></div>' : '')+
       proofHTML()+
       igHTML()+
       (!ALL.length ? '<div class="empty"><div class="eic">'+I.bag+'</div><h3>Catalogue not found</h3><p>The product feed for '+esc(NAME)+' couldn’t be read, so there’s nothing to show here yet.</p></div>' : '')+
@@ -366,18 +429,22 @@ function Home(el){
 }
 
 // ---------- SHOP ----------
+let shopSeg = 'cats';   // remembered while the app is open, so popping back to Shop keeps the chosen segment
 function Shop(el, seg){
-  seg = seg || 'cats';
-  const row = h => { const c = colBy(h), p = prods(h)[0]; if (!c || !p) return ''; return '<div class="cat-row" data-act="col" data-v="'+esc(h)+'"><img loading="lazy" src="'+img(p.im[0],200)+'" alt=""><div><b>'+esc(c.t)+'</b><small>'+c.p.length+' styles</small></div>'+I.chev+'</div>'; };
-  const list = (seg === 'cats' ? SH.cats : SH.edits) || [];
-  const f = seg === 'cats' ? SH.featureCats : SH.featureEdits;
-  const fp = f && prods(f.col)[f.idx||0];
+  if (seg === 'cats' || seg === 'edits') shopSeg = seg;
+  const row = h => { const c = colBy(h), n = prods(h).length, p = prods(h)[0]; if (!c || !p) return ''; return '<div class="cat-row" data-act="col" data-v="'+esc(h)+'"><img loading="lazy" src="'+img(p.im[0],200)+'" alt=""><div><b>'+esc(c.t)+'</b><small>'+n+(n===1?' style':' styles')+'</small></div>'+I.chev+'</div>'; };
+  const body = s => {
+    const list = (s === 'cats' ? SH.cats : SH.edits) || [];
+    const f = s === 'cats' ? SH.featureCats : SH.featureEdits;
+    const fp = f && prods(f.col)[f.idx||0];
+    return (fp ? '<div class="feature-card" data-act="col" data-v="'+esc(f.col)+'"><img src="'+img(fp.im[0],700)+'" alt=""><div><b>'+esc(f.title)+'</b><span class="btn btn-light btn-sm">'+esc(f.cta||'Shop now')+'</span></div></div>' : '')+
+      '<div class="cat-list">'+list.map(row).join('')+'</div>'+(list.length?'':'<div class="empty"><h3>No collections found</h3></div>');
+  };
   el.innerHTML = topbar({ title:'', right:'<div class="tb-r">'+searchBtn()+bagBtn()+'</div>', left:'<span style="width:40px"></span>' }) +
     '<div class="large-title"><small>'+esc(SH.kicker || NAME)+'</small>Shop</div>'+
-    '<div class="seg"><button class="'+(seg==='cats'?'on':'')+'" data-seg="cats">Shop by Product</button><button class="'+(seg==='edits'?'on':'')+'" data-seg="edits">Collections</button></div>'+
-    (fp ? '<div class="feature-card" data-act="col" data-v="'+esc(f.col)+'"><img src="'+img(fp.im[0],700)+'" alt=""><div><b>'+esc(f.title)+'</b><span class="btn btn-light" style="height:40px;padding:0 18px">'+esc(f.cta||'Shop now')+'</span></div></div>' : '')+
-    '<div class="cat-list">'+list.map(row).join('')+'</div>'+(list.length?'':'<div class="empty"><h3>No collections found</h3></div>')+credit();
-  $$('.seg button', el).forEach(b => b.addEventListener('click', () => { el.innerHTML=''; Shop(el, b.dataset.seg); }));
+    '<div class="seg"><button class="'+(shopSeg==='cats'?'on':'')+'" data-seg="cats">Shop by Product</button><button class="'+(shopSeg==='edits'?'on':'')+'" data-seg="edits">Collections</button></div>'+
+    '<div class="seg-body">'+body(shopSeg)+'</div>'+credit();
+  segmented($('.seg', el), (s, dir) => { shopSeg = s; swapContent($('.seg-body', el), body(s), dir); });
 }
 
 // ---------- COLLECTION ----------
@@ -440,7 +507,8 @@ function PDP(el, h){
   const ship = (SHIP.options||[]);
   el.classList.add('pdp');
   el.innerHTML =
-    '<div class="pdp-top"><button class="icon-btn glass" data-act="back" aria-label="Back">'+I.back+'</button><div class="r"><button class="icon-btn glass" id="shareBtn" aria-label="Share">'+I.share+'</button><button class="icon-btn glass" data-act="bagtab" aria-label="Bag">'+I.bag+'</button></div></div>'+
+    '<div class="pdp-bar" aria-hidden="true"><span>'+esc(p.n)+'</span></div>'+
+    '<div class="pdp-top"><button class="icon-btn glass" data-act="back" aria-label="Back">'+I.back+'</button><div class="r"><button class="icon-btn glass" id="shareBtn" aria-label="Share">'+I.share+'</button><button class="icon-btn glass" data-act="bagtab" aria-label="Bag">'+I.bag+hbCount()+'</button></div></div>'+
     '<div class="pscroll"><div class="gallery"><div class="gtrack">'+p.im.map((u,i)=>'<img src="'+img(u,800)+'" '+(i>1?'loading="lazy"':'')+' alt="'+esc(p.t)+' image '+(i+1)+'" draggable="false">').join('')+'</div>'+
       (coming?'<span class="g-badge">Coming soon · First look</span>':pd?'<span class="g-badge drop">Price drop</span>':'')+
       '<div class="gdots">'+p.im.map((_,i)=>'<i class="'+(i?'':'on')+'"></i>').join('')+'</div><span class="gcount">1 / '+p.im.length+'</span></div>'+
@@ -461,8 +529,11 @@ function PDP(el, h){
       '</div>'+
     '</div>'+
     (related.length ? '<section class="section"><div class="sec-head"><h2>You may also like</h2></div><div class="hscroll">'+related.map(r=>pcard(r,{w:400})).join('')+'</div></section>' : '')+credit()+'</div>'+
-    '<div class="buybar show"><button class="hbtn '+(inWish(h)?'on':'')+'" data-act="wish" data-v="'+esc(h)+'" data-wish="'+esc(h)+'" aria-label="Save">'+I.heart+'</button><button class="btn btn-dark" id="addBtn">'+(coming?(dropNotify?'On the list ✓':'Notify me when it drops'):soldOut?'Notify me':'Add to bag — '+money(p.p))+'</button></div>';
+    '<div class="buybar show"><button class="hbtn '+(inWish(h)?'on':'')+'" data-act="wish" data-v="'+esc(h)+'" data-wish="'+esc(h)+'" aria-label="Save">'+I.heart+'</button><button class="btn btn-dark" id="addBtn"><span class="ab-l">'+(coming?(dropNotify?'On the list ✓':'Notify me when it drops'):soldOut?'Notify me':'Add to bag — '+money(p.p))+'</span></button></div>';
 
+  // past the gallery a solid bar with the product name fades in behind the floating buttons
+  const ps = $('.pscroll', el);
+  ps.addEventListener('scroll', () => { const past = ps.scrollTop > $('.gallery', el).offsetHeight - 110; if (past !== el.classList.contains('past')) el.classList.toggle('past', past); }, {passive:true});
   const track = $('.gtrack', el), dots = $$('.gdots i', el), cnt = $('.gcount', el);
   const idx = () => Math.round(track.scrollLeft / track.clientWidth);
   track.addEventListener('scroll', () => { const i = idx(); dots.forEach((d,j)=>d.classList.toggle('on', i===j)); cnt.textContent = (i+1)+' / '+p.im.length; }, {passive:true});
@@ -473,17 +544,24 @@ function PDP(el, h){
   track.addEventListener('pointerup', e => { if (sx===null) return; const dx = e.clientX - sx; sx = null; if (Math.abs(dx) > 30) go(idx() + (dx<0?1:-1)); else go(idx()+1 >= p.im.length ? 0 : idx()+1); });
   track.addEventListener('pointerleave', () => sx = null);
 
-  $$('[data-sib]', el).forEach(b => b.addEventListener('click', () => { if (b.dataset.sib !== h){ const v = stack[stack.length-1]; v.args = b.dataset.sib; el.innerHTML=''; PDP(el, b.dataset.sib); } }));
+  $$('[data-sib]', el).forEach(b => b.addEventListener('click', () => { if (b.dataset.sib !== h){ const v = stack.find(s => s.el === el); if (v) v.args = b.dataset.sib; const st = $('.pscroll', el).scrollTop, sl = $('.swatches', el).scrollLeft; el.innerHTML=''; PDP(el, b.dataset.sib); const ps = $('.pscroll', el), sw = $('.swatches', el); if (ps) ps.scrollTop = st; if (sw) sw.scrollLeft = sl; anim($('.gallery', el), [{opacity:.4},{opacity:1}], { duration:360, easing:'ease-out' }); } }));
   $$('.size', el).forEach(b => b.addEventListener('click', () => {
     if (b.dataset.in === '0'){ toast('We’ll alert you when '+prettySize(b.dataset.size)+' is back', I.bell); return; }
     size = b.dataset.size; $$('.size', el).forEach(x=>x.classList.toggle('on', x===b));
     const l = $('#sizeLbl', el); l.textContent = (sizeMatch(size)?'Your saved size: ':'Size ') + prettySize(size); l.style.color='';
   }));
+  let addedT;
+  const ab = $('#addBtn', el), abLabel = ab.innerHTML;
   $('#addBtn', el).addEventListener('click', e => {
-    if (coming) { dropNotify = true; store.set('dropNotify', true); e.currentTarget.textContent = 'On the list ✓'; toast('We’ll notify you when DROP '+DR.num+' opens', I.bell); return; }
+    if (coming) { dropNotify = true; store.set('dropNotify', true); $('.ab-l', ab).textContent = 'On the list ✓'; toast('We’ll notify you when DROP '+DR.num+' opens', I.bell); return; }
     if (soldOut) { toast('We’ll alert you when it’s back in stock', I.bell); return; }
     if (!size){ const sz = $('.sizes', el); sz.classList.remove('shake'); void sz.offsetWidth; sz.classList.add('shake'); const l=$('#sizeLbl', el); l.textContent = 'Please select a size'; l.style.color='var(--sale)'; sz.scrollIntoView({behavior:'smooth', block:'center'}); return; }
-    addToBag(h, size);
+    // confirmation: the button turns into "Added" with a drawn check, the bag badge bumps, then the summary sheet rises
+    clearTimeout(addedT);
+    ab.classList.remove('added'); void ab.offsetWidth;
+    ab.innerHTML = '<span class="ab-l ab-done">'+I.check+'Added</span>'; ab.classList.add('added');
+    addToBag(h, size, false, 560);
+    addedT = setTimeout(() => { ab.classList.remove('added'); ab.innerHTML = abLabel; anim($('.ab-l', ab), [{opacity:0, transform:'translateY(6px)'},{opacity:1, transform:'none'}], { duration:260 }); }, 2400);
   });
   $('#shareBtn', el).addEventListener('click', () => {
     const url = SITE + '/products/' + h;
@@ -494,12 +572,16 @@ function PDP(el, h){
   el._refresh = () => $$('[data-wish]', el).forEach(b => b.classList.toggle('on', inWish(b.dataset.v)));
   return { hideTabs:true };
 }
-function addToBag(h, size, silent){
+function addToBag(h, size, silent, delay){
   const p = P[h];
   const ex = bag.find(i => i.h===h && i.s===size);
   if (ex) ex.q++; else bag.push({ h, s:size, q:1 });
   saveBag();
   if (silent) return;
+  if (delay && !RM.matches) { new Image().src = img(p.im[0],200); setTimeout(() => addedSheet(p, size), delay); return; }
+  addedSheet(p, size);
+}
+function addedSheet(p, size){
   const total = bag.reduce((a,i)=>a+P[i.h].p*i.q,0);
   const left = FREE_SHIP - total;
   openSheet('<h3>Added to bag</h3><div class="added"><img src="'+img(p.im[0],200)+'" alt=""><div><b>'+esc(p.t)+'</b><small>Size '+esc(prettySize(size))+' · '+money(p.p)+'</small></div></div>'+
@@ -520,15 +602,15 @@ function bagTotals(){
 function Bag(el){
   const render = () => {
     if (!bag.length){
-      el.innerHTML = topbar({title:'Bag'}) + '<div class="empty"><div class="eic">'+I.bag+'</div><h3>Your bag is empty</h3><p>'+esc(B.copy && B.copy.emptyBag || 'Start with the latest arrivals.')+'</p>'+(colBy(H.newCol)?'<button class="btn btn-dark" data-act="col" data-v="'+esc(H.newCol)+'">Shop New In</button>':'')+'</div>'+
+      el.innerHTML = topbar({}) + '<div class="large-title"><small>Your bag</small>Bag</div><div class="empty" style="padding-top:40px"><div class="eic">'+I.bag+'</div><h3>Your bag is empty</h3><p>'+esc(B.copy && B.copy.emptyBag || 'Start with the latest arrivals.')+'</p>'+(colBy(H.newCol)?'<button class="btn btn-dark" data-act="col" data-v="'+esc(H.newCol)+'">Shop New In</button>':'')+'</div>'+
         (prods(H.bestCol).length ? '<section class="section"><div class="sec-head"><h2>Best Sellers</h2></div><div class="hscroll">'+prods(H.bestCol).slice(0,8).map(p=>pcard(p,{w:400})).join('')+'</div></section>' : '')+credit();
       enableDrag(el); return;
     }
     const T = bagTotals(), o = baseShip();
     const saved = bag.reduce((a,i)=>a+(P[i.h].cp>P[i.h].p?(P[i.h].cp-P[i.h].p)*i.q:0),0);
-    el.innerHTML = topbar({title:'Bag ('+T.cnt+')'}) +
+    el.innerHTML = topbar({}) + '<div class="large-title"><small>'+T.cnt+(T.cnt===1?' item':' items')+'</small>Bag</div>' +
       (FREE_SHIP ? '<div class="ship-prog"><p>'+(T.sub<FREE_SHIP?'Spend <b>'+money(FREE_SHIP-T.sub)+'</b> more for free '+esc(SHIP.region||'')+' delivery':'<b>Free '+esc(SHIP.region||'')+' delivery unlocked</b> — '+esc(o.name))+'</p><div class="bar"><i style="width:'+Math.min(100,T.sub/FREE_SHIP*100)+'%"></i></div></div>' : '')+
-      bag.map((it,ix)=>{ const p=P[it.h]; return '<div class="bag-item" data-ix="'+ix+'"><img src="'+img(p.im[0],250)+'" alt="" data-act="pdp" data-v="'+esc(p.h)+'"><div class="bi-info"><b>'+esc(p.n)+'</b><small>'+esc(p.c)+(p.c?' · ':'')+'Size '+esc(prettySize(it.s))+'</small>'+priceHTML(p)+
+      bag.map((it,ix)=>{ const p=P[it.h]; return '<div class="bag-item" data-ix="'+ix+'"><img src="'+img(p.im[0],250)+'" alt="" data-act="pdp" data-v="'+esc(p.h)+'"><div class="bi-info"><b data-act="pdp" data-v="'+esc(p.h)+'">'+esc(p.n)+'</b><small>'+esc(p.c)+(p.c?' · ':'')+'Size '+esc(prettySize(it.s))+'</small>'+priceHTML(p)+
         '<div class="bi-bottom"><div class="qty"><button data-q="-1" aria-label="Decrease">−</button><span>'+it.q+'</span><button data-q="1" aria-label="Increase">+</button></div><button class="remove" data-rm>Remove</button></div></div></div>'; }).join('')+
       (promo ? '<div class="promo on">'+I.tag+'<div><b>'+esc(DISC.code)+' applied</b><small>'+DISC.pct+'% off your first app order</small></div><button class="remove" id="promoRm">Remove</button></div>'
              : '<button class="promo" id="promoAdd">'+I.gift+'<div><b>First app order?</b><small>Tap to apply '+esc(DISC.code)+' for '+DISC.pct+'% off</small></div><span class="promo-cta">Apply</span></button>')+
@@ -539,15 +621,15 @@ function Bag(el){
       '<div class="pay-row"><button class="btn btn-dark btn-block" id="checkout" style="height:52px">Checkout — '+money(T.total)+'</button><button class="apple-pay" id="applePay">'+I.apple+'Pay</button><div class="pay-icons"><span>Klarna</span>·<span>PayPal</span>·<span>Shop Pay</span>·<span>Google Pay</span></div></div>'+credit();
     $$('.bag-item', el).forEach(row => {
       const ix = +row.dataset.ix;
-      $$('[data-q]', row).forEach(b => b.addEventListener('click', () => { bag[ix].q += +b.dataset.q; if (bag[ix].q < 1){ removeAt(row, ix); return; } saveBag(); render(); }));
+      $$('[data-q]', row).forEach(b => b.addEventListener('click', () => { bag[ix].q += +b.dataset.q; if (bag[ix].q < 1){ bag[ix].q = 1; removeAt(row, ix); return; } saveBag(); const st = el.scrollTop; render(); el.scrollTop = st; const q = $('.bag-item[data-ix="'+ix+'"] .qty span', el); if (q) anim(q, [{transform:'translateY('+(+b.dataset.q>0?6:-6)+'px)', opacity:0},{transform:'none', opacity:1}], { duration:240 }); }));
       $('[data-rm]', row).addEventListener('click', () => removeAt(row, ix));
     });
-    const pa = $('#promoAdd', el); if (pa) pa.addEventListener('click', () => { promo = true; store.set('promo', true); render(); toast(DISC.code+' applied, '+DISC.pct+'% off', I.tag); });
-    const pr = $('#promoRm', el); if (pr) pr.addEventListener('click', () => { promo = false; store.set('promo', false); render(); toast(DISC.code+' removed'); });
+    const pa = $('#promoAdd', el); if (pa) pa.addEventListener('click', () => { promo = true; store.set('promo', true); const st = el.scrollTop; render(); el.scrollTop = st; toast(DISC.code+' applied, '+DISC.pct+'% off', I.tag); });
+    const pr = $('#promoRm', el); if (pr) pr.addEventListener('click', () => { promo = false; store.set('promo', false); const st = el.scrollTop; render(); el.scrollTop = st; toast(DISC.code+' removed'); });
     $('#checkout', el).addEventListener('click', () => checkout());
     $('#applePay', el).addEventListener('click', () => checkout(true));
   };
-  const removeAt = (row, ix) => { row.classList.add('removing'); setTimeout(()=>{ bag.splice(ix,1); saveBag(); render(); toast('Removed from bag'); }, 320); };
+  const removeAt = (row, ix) => { if (row.classList.contains('removing')) return; row.classList.add('removing'); setTimeout(()=>{ bag.splice(ix,1); saveBag(); const st = el.scrollTop; render(); el.scrollTop = st; toast('Removed from bag'); }, 320); };
   render();
   el._refresh = render;
 }
@@ -559,14 +641,15 @@ function checkout(quick){
   openSheet('<h3 style="margin-bottom:4px">Checkout</h3><p class="co-sub">'+I.lock+'Shopify checkout, inside the app</p>'+
     '<div class="express"><button class="xp apple" data-pay="Apple Pay">'+I.apple+'Pay</button><button class="xp shop" data-pay="Shop Pay"><b>shop</b><span>Pay</span></button><button class="xp klarna" data-pay="Klarna"><b>Klarna.</b><span id="klarna3">3 payments of '+money(totalFor()/3)+'</span></button></div>'+
     '<div class="or"><span>or pay by card</span></div>'+
-    '<div class="co-row"><div>Deliver to<small>Your saved address</small></div><span>Change</span></div>'+
+    '<div class="co-row"><div>Deliver to<small>Your saved address</small></div><button class="co-change" data-change="address">Change</button></div>'+
     opts.map(o=>'<div class="ship-opt '+(o[0]===sel?'on':'')+'" data-o="'+esc(o[0])+'"><i class="radio"></i><div>'+esc(o[1])+'<small>'+esc(o[2])+'</small></div><span>'+(o[3]?money(o[3]):'Free')+'</span></div>').join('')+
     (promo?'<div class="co-row"><div>Discount<small>'+esc(DISC.code)+', '+DISC.pct+'% off first app order</small></div><span style="color:var(--sale)">−'+money(T.disc)+'</span></div>':'')+
-    '<div class="co-row" style="margin-top:8px"><div>Pay with<small>'+(quick?'Apple Pay':'Card ending ···· 4242')+'</small></div><span>Change</span></div>'+
+    '<div class="co-row" style="margin-top:8px"><div>Pay with<small>'+(quick?'Apple Pay':'Card ending ···· 4242')+'</small></div><button class="co-change" data-change="payment">Change</button></div>'+
     '<div class="co-row"><div><b>Total</b></div><span id="coTotal" style="font-size:15px;font-weight:600">'+money(totalFor())+'</span></div>'+
     '<div class="btns" style="margin-top:12px"><button class="'+(quick?'apple-pay':'btn btn-dark btn-block')+'" id="payNow">'+(quick?I.apple+'Pay':'Place order')+'</button></div>'+
     '<p class="center" style="font-size:10.5px;margin:12px 0 0">Concept demo — no order is placed and no payment is taken.</p>',
     s => {
+      $$('.co-change', s).forEach(b => b.addEventListener('click', () => toast(b.dataset.change === 'address' ? 'Demo: your saved addresses would open here' : 'Demo: your saved cards would open here', b.dataset.change === 'address' ? I.pin : I.card)));
       $$('.ship-opt', s).forEach(o => o.addEventListener('click', () => { sel = o.dataset.o; $$('.ship-opt', s).forEach(x=>x.classList.toggle('on',x===o)); $('#coTotal', s).textContent = money(totalFor()); $('#klarna3', s).textContent = '3 payments of '+money(totalFor()/3); }));
       const done = (method) => {
         const ref = (NAME[0]||'R').toUpperCase() + Math.floor(100000 + Math.random()*899999);
@@ -584,13 +667,14 @@ function checkout(quick){
 // ---------- WISHLIST ----------
 function Wishlist(el){
   const render = () => {
-    el.innerHTML = topbar({title:'Wishlist'}) + '<div class="large-title"><small>Saved for later</small>Wishlist</div>' +
+    el.innerHTML = topbar({ right:bagBtn() }) + '<div class="large-title"><small>Saved for later</small>Wishlist</div>' +
       (wish.length ? '<div class="count">'+wish.length+' saved '+(wish.length===1?'item':'items')+' · we’ll let you know if prices drop</div><div class="grid">'+wish.map(h=>pcard(P[h])).join('')+'</div>'
                    : '<div class="empty" style="padding-top:40px"><div class="eic">'+I.heart+'</div><h3>Nothing saved yet</h3><p>Tap the heart on any piece to save it here — we’ll alert you if the price drops or your size is running low.</p>'+(H.hero&&colBy(H.hero.col)?'<button class="btn btn-dark" data-act="col" data-v="'+esc(H.hero.col)+'">'+esc(H.hero.cta||'Shop now')+'</button>':'')+'</div>') + credit();
   };
   render();
   el._refresh = render;
-  el.addEventListener('click', e => { if (e.target.closest('[data-act="wish"]')) setTimeout(render, 380); });
+  // un-saving from the wishlist fades the card out before the grid reflows
+  el.addEventListener('click', e => { const w = e.target.closest('[data-act="wish"]'); if (!w) return; const c = w.closest('.pcard'); if (c && !inWish(c.dataset.v)) c.classList.add('leaving'); setTimeout(() => { const st = el.scrollTop; render(); el.scrollTop = st; }, 380); });
 }
 
 // ---------- SEARCH ----------
@@ -604,7 +688,7 @@ function Search(el, q0){
     body.innerHTML =
       (recent.length ? '<div class="s-sec"><h4>Recent</h4><div class="chips">'+recent.map(r=>'<button class="chip" data-q="'+esc(r)+'">'+esc(r)+'</button>').join('')+'</div></div>' : '')+
       (TR.length ? '<div class="s-sec"><h4>Trending</h4><div class="chips">'+TR.map(r=>'<button class="chip" data-q="'+esc(r)+'">'+esc(r)+'</button>').join('')+'</div></div>' : '')+
-      (POP.length ? '<div class="s-sec"><h4>Popular categories</h4></div><div class="cat-list">'+POP.map(h=>{const c=colBy(h),p=prods(h)[0];return '<div class="cat-row" data-act="col" data-v="'+esc(h)+'"><img loading="lazy" src="'+img(p.im[0],200)+'" alt=""><div><b>'+esc(c.t)+'</b><small>'+c.p.length+' styles</small></div>'+I.chev+'</div>';}).join('')+'</div>' : '')+credit();
+      (POP.length ? '<div class="s-sec"><h4>Popular categories</h4></div><div class="cat-list">'+POP.map(h=>{const c=colBy(h),p=prods(h)[0];const n = prods(h).length; return '<div class="cat-row" data-act="col" data-v="'+esc(h)+'"><img loading="lazy" src="'+img(p.im[0],200)+'" alt=""><div><b>'+esc(c.t)+'</b><small>'+n+(n===1?' style':' styles')+'</small></div>'+I.chev+'</div>';}).join('')+'</div>' : '')+credit();
     bindQ();
   };
   const run = (commit) => {
@@ -616,7 +700,7 @@ function Search(el, q0){
     if (commit){ recent = [inp.value.trim(), ...recent.filter(r=>r.toLowerCase()!==q)].slice(0,5); store.set('recent', recent); }
     const re = new RegExp('('+terms.map(t=>t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')','ig');
     body.innerHTML = res.length
-      ? '<div class="count" style="padding-top:4px">'+res.length+' results for “'+esc(inp.value.trim())+'”</div><div class="s-res">'+res.slice(0,40).map(p=>'<div class="s-row" data-act="pdp" data-v="'+esc(p.h)+'"><img loading="lazy" src="'+img(p.im[0],150)+'" alt=""><div><b>'+esc(p.t).replace(re,'<mark>$1</mark>')+'</b><small>'+esc(p.ty)+'</small></div>'+priceHTML(p)+'</div>').join('')+'</div>'
+      ? '<div class="count" style="padding-top:4px">'+res.length+(res.length===1?' result':' results')+' for “'+esc(inp.value.trim())+'”</div><div class="s-res">'+res.slice(0,40).map(p=>'<div class="s-row" data-act="pdp" data-v="'+esc(p.h)+'"><img loading="lazy" src="'+img(p.im[0],150)+'" alt=""><div><b>'+esc(p.n).replace(re,'<mark>$1</mark>')+'</b><small>'+[p.c, tcase(p.ty)].filter(Boolean).map(esc).join(' · ').replace(re,'<mark>$1</mark>')+'</small></div>'+priceHTML(p)+'</div>').join('')+'</div>'
       : '<div class="empty" style="padding-top:40px"><div class="eic">'+I.search+'</div><h3>No results</h3><p>Nothing matched “'+esc(inp.value.trim())+'”. Try a trending search instead.</p><div class="chips" style="justify-content:center;flex-wrap:wrap">'+TR.slice(0,4).map(r=>'<button class="chip" data-q="'+esc(r)+'">'+esc(r)+'</button>').join('')+'</div></div>';
     bindQ();
   };
@@ -645,7 +729,7 @@ function Drops(el){
       '</div></div>'+
       '<div class="drop-times"><div><small>App early access</small><b>'+fmtDay(t.app)+'</b></div><div><small>Website</small><b>'+fmtDay(t.web)+'</b></div></div>'+
       (items.length ? '<section class="section"><div class="sec-head"><div><h2>First Look</h2><p>'+items.length+' pieces from '+esc(DR.title||DR.name)+'</p></div>'+(dropLive?'<button class="link" data-act="col" data-v="__drop">View all</button>':'')+'</div><div class="grid">'+items.map(p=>pcard(p,{dropGrid:true})).join('')+'</div></section>' : '')+
-      (prev ? '<section class="section"><div class="sec-head"><div><h2>Latest drop</h2><p>Out now</p></div></div><div class="feature-card" data-act="col" data-v="'+esc(prev.col)+'"><img loading="lazy" src="'+img((prods(prev.col)[0]||{im:['']}).im[0],700)+'" alt=""><div><b>'+esc(prev.title)+'</b><span class="btn btn-light" style="height:40px;padding:0 18px">Shop now</span></div></div></section>' : '')+
+      (prev ? '<section class="section"><div class="sec-head"><div><h2>Latest drop</h2><p>Out now</p></div></div><div class="feature-card" data-act="col" data-v="'+esc(prev.col)+'"><img loading="lazy" src="'+img((prods(prev.col)[0]||{im:['']}).im[0],700)+'" alt=""><div><b>'+esc(prev.title)+'</b><span class="btn btn-light btn-sm">Shop now</span></div></div></section>' : '')+
       '<div class="drop-banner"><div class="db-ic">'+I.bell+'</div><div class="db-t"><b>Early access alerts</b><p>Get a push the moment app early access opens.</p></div><button class="switch '+(prefs.early?'on':'')+'" id="earlySw" aria-label="Early access alerts"></button></div>'+credit();
     const nb = $('#notifyBtn', el);
     if (nb) nb.addEventListener('click', () => { dropNotify = !dropNotify; store.set('dropNotify', dropNotify); if (dropNotify){ prefs.early = true; savePrefs(); } render(); toast(dropNotify ? 'We’ll notify you when DROP '+DR.num+' opens' : 'Notification cancelled', I.bell); });
@@ -668,7 +752,7 @@ function Account(el){
       '<div class="drop-banner" id="dropBanner"><div class="db-ic">'+I.bell+'</div><div class="db-t"><b>Drop alerts</b><p>Be first to know when new pieces land.</p></div><button class="switch '+(prefs.drops?'on':'')+'" id="dropSwitch" aria-label="Toggle drop alerts"></button></div>'+
       (SIZE_GROUPS.length ? '<div class="s-sec acct-h"><h4>Your size</h4></div><div class="acct-size">'+SIZE_GROUPS.map(g=>'<div class="label-row" style="margin:4px 0 8px"><b>'+esc(g.label)+'</b>'+(mySize[g.key]?'<span>Saved: '+esc((g.prefix||'')+mySize[g.key])+'</span>':'<span>Not set</span>')+'</div><div class="sizes">'+g.opts.map(o=>'<button class="size'+(String(mySize[g.key])===String(o)?' on':'')+'" data-g="'+esc(g.key)+'" data-o="'+esc(o)+'">'+esc((g.prefix||'')+o)+'</button>').join('')+'</div>').join('')+'<p class="acct-note">'+I.ruler+'<span>Pre-selected on product pages, used for the “in my size” filter and back-in-size alerts.</span></p></div>' : '')+
       '<div class="s-sec acct-h"><h4>Notifications</h4></div>'+
-      prefRows.map(x=>'<div class="pref" data-pref="'+x[0]+'"><div><b>'+x[1]+'</b><small>'+x[2]+'</small></div><span class="switch '+(prefs[x[0]]?'on':'')+'"></span></div>').join('')+
+      '<div class="pref-group">'+prefRows.map(x=>'<div class="pref" data-pref="'+x[0]+'" role="switch" aria-checked="'+!!prefs[x[0]]+'" tabindex="0"><div><b>'+x[1]+'</b><small>'+x[2]+'</small></div><span class="switch '+(prefs[x[0]]?'on':'')+'"></span></div>').join('')+'</div>'+
       '<div class="s-sec acct-h"><h4>Information</h4></div><div class="acct-groups">'+group('help','Help')+group('about','About')+group('legal','Legal')+'</div>'+
       '<div class="acct-foot">'+(IG?'<a class="ig" href="https://www.instagram.com/'+esc(IG)+'/" target="_blank" rel="noopener">'+I.ig+'@'+esc(IG)+'</a>':'')+'<img src="'+LOGO+'" alt="'+esc(NAME)+'"><p>Version 1.0, concept</p></div>'+credit();
     $$('.acct-size .size', el).forEach(b => b.addEventListener('click', () => {
@@ -686,7 +770,7 @@ function Account(el){
     });
     $$('.pref', el).forEach(r => r.addEventListener('click', () => {
       const k = r.dataset.pref; prefs[k] = !prefs[k]; savePrefs();
-      $('.switch',r).classList.toggle('on', prefs[k]);
+      $('.switch',r).classList.toggle('on', prefs[k]); r.setAttribute('aria-checked', !!prefs[k]);
       if (k === 'drops') syncDropsUI();
       toast(r.querySelector('b').textContent+(prefs[k]?' on':' off'), I.bell);
     }));
@@ -702,7 +786,7 @@ function AuthView(kind){
     const cfg = {
       login:{ title:'Log in', head:'Welcome back', sub:'Log in to your '+NAME+' account.', fields:[['email','Email'],['password','Password']], btn:'Log in' },
       signup:{ title:'Sign up', head:'Create an account', sub:'Faster checkout, order tracking and app early access.', fields:[['text','First name'],['text','Last name'],['email','Email'],['password','Password']], btn:'Create account', opt:'Email me about new drops and offers' },
-      recover:{ title:'Recover password', head:'Reset your password', sub:'Enter your email and we’d send you a link to reset your password.', fields:[['email','Email']], btn:'Send reset link' }
+      recover:{ title:'Recover password', head:'Reset your password', sub:'Enter the email on your account and we’ll send you a link to reset your password.', fields:[['email','Email']], btn:'Send reset link' }
     }[kind];
     el.innerHTML = topbar({back:true, title:cfg.title}) + '<form class="auth" novalidate><img src="'+LOGO+'" alt="'+esc(NAME)+'" class="auth-logo"><h2>'+esc(cfg.head)+'</h2><p>'+esc(cfg.sub)+'</p>'+demoNote+
       cfg.fields.map(f=>'<label class="field"><span>'+f[1]+'</span><input type="'+f[0]+'" autocomplete="off" placeholder="'+f[1]+'"></label>').join('')+
@@ -877,6 +961,7 @@ function buildChrome(){
     '<p class="credit">Concept app mockup for '+esc(NAME)+'</p>'+
   '</div>';
   stackEl = $('#stack');
+  sheetDrag(); imgFade();
   $$('#tabbar button').forEach(b => b.addEventListener('click', () => switchTab(b.dataset.tab)));
   $('#sheetBackdrop').addEventListener('click', closeSheet);
   $$('.pitch [data-demo]').forEach(b => b.addEventListener('click', () => runDemo(b.dataset.demo)));
@@ -889,6 +974,50 @@ function buildChrome(){
   stackEl.addEventListener('touchstart', e => { const r = stackEl.getBoundingClientRect(); const x = e.touches[0].clientX - r.left; if (x < 24 && stack.length>1){ ex = x; ey = e.touches[0].clientY; } }, {passive:true});
   stackEl.addEventListener('touchend', e => { if (ex===null) return; const r = stackEl.getBoundingClientRect(); const dx = e.changedTouches[0].clientX - r.left - ex, dy = Math.abs(e.changedTouches[0].clientY - ey); ex=null; if (dx > 70 && dy < 60) back(); }, {passive:true});
 }
+// Bottom sheet: drag the handle strip down to dismiss (follows the finger, springs back if not far/fast enough).
+function sheetDrag(){
+  const s = $('#sheet'); let y0 = null, dy = 0, t0 = 0, live = false, suppress = false;
+  s.addEventListener('click', ev => { if (suppress){ ev.stopPropagation(); ev.preventDefault(); } }, true);
+  s.addEventListener('pointerdown', e => {
+    if (!s.classList.contains('show')) return;
+    const onGrab = e.clientY - s.getBoundingClientRect().top < 34 * (s.getBoundingClientRect().width / s.offsetWidth || 1);
+    if (!onGrab) return;
+    y0 = e.clientY; dy = 0; t0 = performance.now(); live = false;
+  });
+  window.addEventListener('pointermove', e => {
+    if (y0 === null) return;
+    const k = s.offsetWidth / (s.getBoundingClientRect().width || 1);
+    dy = (e.clientY - y0) * k;
+    if (!live && dy > 6){ live = true; s.classList.add('dragging'); try { s.setPointerCapture(e.pointerId); } catch(_){} }
+    if (live) s.style.transform = 'translateY(' + Math.max(0, dy < 0 ? dy / 4 : dy) + 'px)';
+  });
+  const end = () => {
+    if (y0 === null) return; y0 = null;
+    if (!live) return;
+    s.classList.remove('dragging');
+    const v = dy / Math.max(1, performance.now() - t0);
+    if (dy > 110 || (dy > 40 && v > .5)) closeSheet(); else s.style.transform = '';
+    suppress = true; live = false; setTimeout(() => { suppress = false; }, 0);
+  };
+  window.addEventListener('pointerup', end); window.addEventListener('pointercancel', end);
+}
+// Images fade in once decoded (product images sit on a shimmer placeholder until then).
+function imgFade(){
+  const mark = i => { if (i.complete) i.classList.add('in'); };
+  document.addEventListener('load', e => { if (e.target.tagName === 'IMG') e.target.classList.add('in'); }, true);
+  document.addEventListener('error', e => { if (e.target.tagName === 'IMG') e.target.classList.add('in'); }, true);
+  new MutationObserver(ms => { for (const m of ms) for (const n of m.addedNodes) { if (n.nodeType !== 1) continue; if (n.tagName === 'IMG') mark(n); else n.querySelectorAll && n.querySelectorAll('img').forEach(mark); } })
+    .observe(document.body, { childList:true, subtree:true });
+  $$('img').forEach(mark);
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape'){
+    if ($('#welcome.show')) $('#welcome').classList.remove('show');
+    else if ($('#browser.show')) closeBrowser();
+    else if ($('#sheet.show')) closeSheet();
+    else if (stack.length > 1 && !(e.target && /INPUT|TEXTAREA/.test(e.target.tagName))) back();
+  } else if ((e.key === 'Enter' || e.key === ' ') && e.target && e.target.matches && e.target.matches('[role=switch][tabindex]')) { e.preventDefault(); e.target.click(); }
+});
 function runDemo(k){ if (k === 'welcome') return Demo.welcome(); $('#welcome').classList.remove('show'); Demo[k](); }
 
 // global delegated actions

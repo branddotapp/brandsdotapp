@@ -348,14 +348,23 @@ def google_font(fam):
     st, _, _ = fetch(url, tries=1)
     return url if st == 200 else None
 
+# muted text sits ~41% of the way from ink to the page colour (>= 4.5:1 on the page, WCAG AA); hairlines ~88% (light).
+MUTED_T, LINE_T = .41, .88
+def normalise_theme(th):
+    """Re-derive muted/line from ink + bg so older brand.json files (line was 10% instead of 90% toward the page,
+    muted was too light) render correctly on --rebuild."""
+    th = dict(th); ink, bg = rgb_of(th['ink']), rgb_of(th['bg'])
+    if ink and bg: th['muted'] = hexc(mix(ink, bg, MUTED_T)); th['line'] = hexc(mix(ink, bg, LINE_T))
+    return th
+
 def build_theme(t):
     ink = t['text'] or (17, 17, 17)
     if lum(ink) > 0.2: ink = mix(ink, (0, 0, 0), .5)
     bg = t['bg'] or (243, 243, 243)
     if bg == (255, 255, 255): bg = (245, 244, 242)
     acc = t['accent'] or (184, 166, 140)
-    th = {'ink': hexc(ink), 'bg': hexc(bg), 'bgRgb': '%d,%d,%d' % bg, 'text': hexc(mix(ink, bg, .22)), 'muted': hexc(mix(ink, bg, .5)),
-          'line': hexc(mix(ink, bg, .1)), 'stone': hexc(acc), 'sand': hexc(mix(acc, (255, 255, 255), .45)), 'sand2': hexc(mix(acc, (255, 255, 255), .82)),
+    th = {'ink': hexc(ink), 'bg': hexc(bg), 'bgRgb': '%d,%d,%d' % bg, 'text': hexc(mix(ink, bg, .22)), 'muted': hexc(mix(ink, bg, MUTED_T)),
+          'line': hexc(mix(ink, bg, LINE_T)), 'stone': hexc(acc), 'sand': hexc(mix(acc, (255, 255, 255), .45)), 'sand2': hexc(mix(acc, (255, 255, 255), .82)),
           'sale': hexc(t['sale']) if t['sale'] and lum(t['sale']) < .6 else '#9b3b2a',
           'stageA': hexc(mix(bg, (255, 255, 255), .5)), 'stageB': hexc(mix(bg, acc, .12)), 'stageC': hexc(mix(bg, acc, .25))}
     return th
@@ -952,7 +961,7 @@ def write_app(B, out_dir):
     with open(os.path.join(out_dir, 'assets', 'brand.js'), 'w') as f:
         f.write('/* Generated from brand.json by tools/build_brand.py. Do not edit; edit brand.json / brand.overrides.json and run --rebuild. */\n')
         f.write('window.BRAND=' + json.dumps(slim, ensure_ascii=False, separators=(',', ':')) + ';\n')
-    th = B['theme']
+    th = B['theme'] = normalise_theme(B['theme'])
     tpl = open(os.path.join(TEMPLATE, 'index.html')).read()
     rep = {'{{NAME}}': html.escape(B['name']), '{{THEME_COLOR}}': th['ink'], '{{FAVICON}}': B['assets'].get('favicon', ''),
            '{{FONT_LINK}}': ('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="%s" rel="stylesheet">' % html.escape(th['fontHref'])) if th.get('fontHref') else '',

@@ -1,4 +1,5 @@
 :root{
+  --ease-out:cubic-bezier(.22,1,.36,1); --spring:cubic-bezier(.34,1.32,.64,1); --seg-ease:cubic-bezier(.3,.9,.25,1);
   /* brand theme: these defaults are overridden by the <style id="brand-theme"> block that build_brand.py writes into index.html */
   --ink:#111111; --text:#3d3d3d; --muted:#8a8782; --line:#e7e3dd; --bg:#f3f3f3; --bg-rgb:243,243,243; --card:#ffffff;
   --sand:#d9c9b2; --sand-2:#efe8de; --stone:#b8a68c; --sale:#9b3b2a; --stage-a:#f7f4ef; --stage-b:#e8e2d8; --stage-c:#ddd5c8; --font:'Montserrat';
@@ -72,19 +73,17 @@ svg{display:block}
 .view.under{animation:dimOut .42s var(--ease) both}
 .view.leave{animation:pushOut .36s var(--ease) both;z-index:5}
 .view.reveal{animation:dimIn .36s var(--ease) both}
-.view.fade{animation:fadeIn .28s ease both}
-@keyframes pushIn{from{transform:translateX(100%);box-shadow:-20px 0 40px rgba(0,0,0,.08)}to{transform:none}}
+@keyframes pushIn{from{transform:translateX(100%)}to{transform:none}}
 @keyframes pushOut{to{transform:translateX(100%)}}
-@keyframes dimOut{to{transform:translateX(-28%);filter:brightness(.92)}}
-@keyframes dimIn{from{transform:translateX(-28%);filter:brightness(.92)}to{transform:none}}
+@keyframes dimOut{to{transform:translateX(-28%)}}
+@keyframes dimIn{from{transform:translateX(-28%)}to{transform:none}}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
 .tb-logo{height:13px;position:absolute;left:50%;transform:translateX(-50%)}
 .tb-title{position:absolute;left:50%;transform:translateX(-50%);font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);white-space:nowrap;max-width:230px;overflow:hidden;text-overflow:ellipsis}
-.icon-btn{width:40px;height:40px;border-radius:20px;display:flex;align-items:center;justify-content:center;position:relative;transition:transform .15s}
-.icon-btn:active{transform:scale(.88)}
+.icon-btn{width:40px;height:40px;border-radius:20px;display:flex;align-items:center;justify-content:center;position:relative;transition:transform .22s var(--ease-out),background-color .2s}
+.icon-btn:active{transform:scale(.9);transition-duration:.08s}
 .icon-btn svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.icon-btn .dot{position:absolute;top:8px;right:9px;width:8px;height:8px;border-radius:50%;background:#c4492f;border:1.5px solid var(--bg)}
 .icon-btn.glass{background:rgba(255,255,255,.75);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--ink)}
 .large-title{padding:6px 18px 14px;font-size:26px;font-weight:600;letter-spacing:-.01em;color:var(--ink)}
 .large-title small{display:block;font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
@@ -92,8 +91,8 @@ svg{display:block}
 /* ---------- tab bar ---------- */
 .tabbar{position:absolute;left:0;right:0;bottom:0;height:var(--tab);z-index:30;display:flex;justify-content:space-around;padding:8px 6px calc(24px + env(safe-area-inset-bottom,0px));background:rgba(250,250,250,.86);backdrop-filter:saturate(1.8) blur(20px);-webkit-backdrop-filter:saturate(1.8) blur(20px);border-top:1px solid rgba(0,0,0,.06);transition:transform .35s var(--ease)}
 .tabbar.hidden{transform:translateY(110%)}
-.tabbar button{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;color:#9c9893;position:relative;transition:color .2s}
-.tabbar button svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linejoin:round;stroke-linecap:round;transition:transform .2s}
+.tabbar button{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;color:#6f6b65;position:relative;transition:color .25s ease}
+.tabbar button svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linejoin:round;stroke-linecap:round;transition:transform .3s var(--ease-out),fill .25s ease}
 .tabbar button:active svg{transform:scale(.85)}
 .tabbar button span{font-size:10px;font-weight:500;letter-spacing:.04em}
 .tabbar button.active{color:var(--ink)}
@@ -102,7 +101,7 @@ svg{display:block}
 .tabbar button[data-tab=home].active svg path{stroke:var(--ink)}
 .badge{position:absolute;top:-3px;left:calc(50% + 6px);min-width:17px;height:17px;padding:0 5px;border-radius:9px;background:var(--ink);color:#fff;font-size:10px;font-style:normal;font-weight:600;display:none;align-items:center;justify-content:center;border:1.5px solid #fafafa}
 .badge.show{display:flex}
-.badge.pop{animation:pop .4s var(--ease)}
+.badge.pop{animation:pop .5s var(--spring)}
 @keyframes pop{40%{transform:scale(1.35)}}
 
 /* ---------- home ---------- */
@@ -156,7 +155,6 @@ svg{display:block}
 
 .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 18px}
 .cat-tile{position:relative;aspect-ratio:3/4;overflow:hidden;background:#e6e1da;cursor:pointer}
-.cat-tile.wide{grid-column:span 2;aspect-ratio:16/10}
 .cat-tile img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
 .cat-tile:active img{transform:scale(1.04)}
 .cat-tile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.5))}
@@ -171,13 +169,12 @@ svg{display:block}
 .about{padding:40px 26px 20px;text-align:center}
 .about img{width:96px;margin:0 auto 20px;opacity:.9}
 .about p{font-size:13px;line-height:1.75;color:#5f5b55}
-.credit-inline{text-align:center;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#aaa59e;padding:10px 0 4px}
+.credit-inline{text-align:center;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding:10px 0 4px}
 
 /* ---------- product card ---------- */
 .pcard{position:relative;cursor:pointer}
 .pcard .pimg{position:relative;aspect-ratio:2/3;background:#e9e5df;overflow:hidden}
 .pcard .pimg img{width:100%;height:100%;object-fit:cover;transition:opacity .4s,transform .5s var(--ease)}
-.pcard .pimg img.alt{position:absolute;inset:0;opacity:0}
 .pcard:active .pimg img{transform:scale(1.03)}
 .pcard .tag{position:absolute;left:8px;top:8px;background:#fff;color:var(--ink);font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:4px 7px}
 .pcard .tag.sale{background:var(--sale);color:#fff}
@@ -195,8 +192,11 @@ svg{display:block}
 
 /* ---------- shop (categories) ---------- */
 .seg{display:flex;margin:4px 18px 14px;background:#e6e2dc;border-radius:10px;padding:3px;position:relative}
-.seg button{flex:1;height:34px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#77726b;border-radius:8px;position:relative;z-index:1;transition:color .2s}
-.seg button.on{color:var(--ink);background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.seg button{flex:1;height:34px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5f5b55;border-radius:8px;position:relative;z-index:1;transition:color .28s var(--seg-ease),transform .2s var(--ease-out)}
+.seg button.on{color:var(--ink)}
+/* sliding pill: CSS places it for equal-width options before JS measures (then JS drives transform + width) */
+.seg .seg-ind{position:absolute;top:3px;bottom:3px;left:3px;z-index:0;width:calc((100% - 6px) / var(--n,2));transform:translateX(calc(100% * var(--i,0)));border-radius:8px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06),0 3px 10px rgba(0,0,0,.07);transition:transform .28s var(--seg-ease),width .28s var(--seg-ease);will-change:transform;pointer-events:none}
+.seg-body{will-change:auto}
 .cat-list{padding:0 18px}
 .cat-row{display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid var(--line);cursor:pointer}
 .cat-row:active{opacity:.6}
@@ -214,7 +214,7 @@ svg{display:block}
 /* ---------- collection view ---------- */
 .chips{display:flex;gap:8px;overflow-x:auto;padding:2px 18px 16px;scrollbar-width:none}
 .chips::-webkit-scrollbar{display:none}
-.chip{flex:none;height:34px;padding:0 15px;border:1px solid #d8d3cc;border-radius:17px;font-size:11.5px;font-weight:500;color:var(--text);background:#fff;white-space:nowrap;transition:all .2s}
+.chip{flex:none;height:34px;padding:0 15px;border:1px solid #d8d3cc;border-radius:17px;font-size:11.5px;font-weight:500;color:var(--text);background:#fff;white-space:nowrap;transition:background-color .22s,color .22s,border-color .22s,transform .22s var(--ease-out);scroll-snap-align:start}
 .chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
 .count{padding:0 18px 12px;font-size:11.5px;color:var(--muted)}
 
@@ -227,9 +227,10 @@ svg{display:block}
 .gtrack::-webkit-scrollbar{display:none}
 .gtrack img{flex:0 0 100%;width:100%;height:100%;object-fit:cover;scroll-snap-align:start;scroll-snap-stop:always;user-select:none;-webkit-user-drag:none}
 .gdots{position:absolute;bottom:14px;left:0;right:0;display:flex;justify-content:center;gap:6px}
-.gdots i{width:6px;height:6px;border-radius:3px;background:rgba(17,17,17,.22);box-shadow:0 0 0 1px rgba(255,255,255,.5);transition:all .3s var(--ease)}
-.gdots i.on{width:20px;background:#111}
-.gcount{position:absolute;right:14px;bottom:12px;font-size:10.5px;font-weight:600;color:#fff;background:rgba(0,0,0,.35);padding:4px 8px;border-radius:10px;letter-spacing:.06em}
+.gdots{z-index:2}
+.gdots i{width:6px;height:6px;border-radius:3px;background:rgba(17,17,17,.24);transition:width .35s var(--ease),background-color .3s}
+.gdots i.on{width:18px;background:rgba(17,17,17,.85)}
+.gcount{z-index:2;position:absolute;right:14px;bottom:12px;font-size:10.5px;font-weight:600;color:#fff;background:rgba(0,0,0,.35);padding:4px 8px;border-radius:10px;letter-spacing:.06em}
 .pdp-top{position:absolute;top:calc(var(--sat) + 4px);left:12px;right:12px;display:flex;justify-content:space-between;z-index:10}
 .pdp-top .r{display:flex;gap:8px}
 .pdp-info{padding:20px 18px 0}
@@ -246,7 +247,7 @@ svg{display:block}
 .swatch img{width:100%;height:100%;object-fit:cover}
 .swatch.on{border-color:var(--ink)}
 .sizes{display:flex;flex-wrap:wrap;gap:8px}
-.size{min-width:58px;height:46px;padding:0 12px;border:1px solid #d8d3cc;background:#fff;font-size:12.5px;font-weight:500;color:var(--ink);transition:all .18s;position:relative}
+.size{min-width:58px;height:46px;padding:0 12px;border:1px solid #d8d3cc;background:#fff;font-size:12.5px;font-weight:500;color:var(--ink);transition:background-color .2s,color .2s,border-color .2s,transform .2s var(--ease-out);position:relative}
 .size.sm{min-width:auto;font-size:11.5px;height:40px}
 .size.on{background:var(--ink);color:#fff;border-color:var(--ink)}
 .size.out{color:#b3aea7;background:#f6f5f3;overflow:hidden}
@@ -294,8 +295,8 @@ svg{display:block}
 .summary{margin:18px 18px 0;background:#fff;padding:18px}
 .summary .row{display:flex;justify-content:space-between;font-size:13px;padding:5px 0;color:var(--text)}
 .summary .row.total{border-top:1px solid var(--line);margin-top:8px;padding-top:14px;font-weight:600;color:var(--ink);font-size:15px}
-.summary .pts{font-size:11.5px;color:#7a6a52;background:var(--sand-2);padding:9px 12px;margin-top:12px;display:flex;gap:8px;align-items:center}
-.summary .pts svg{width:16px;height:16px;stroke:#7a6a52;fill:none;stroke-width:1.6;flex:none}
+.summary .pts{font-size:11.5px;color:#5c4f3c;background:var(--sand-2);padding:9px 12px;margin-top:12px;display:flex;gap:8px;align-items:center}
+.summary .pts svg{width:16px;height:16px;stroke:#5c4f3c;fill:none;stroke-width:1.6;flex:none}
 .pay-row{margin:16px 18px 0;display:flex;flex-direction:column;gap:10px}
 .apple-pay{height:52px;background:#000;color:#fff;border-radius:10px;font-size:18px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:4px;font-family:-apple-system,'SF Pro Display',sans-serif}
 .apple-pay svg{width:20px;height:20px;fill:#fff}
@@ -312,7 +313,9 @@ svg{display:block}
 .sfield{display:flex;align-items:center;gap:8px;background:#fff;height:44px;border-radius:12px;padding:0 12px;border:1px solid #e3dfd9}
 .sfield svg{width:18px;height:18px;stroke:#8f8a83;fill:none;stroke-width:1.7;flex:none}
 .sfield input{flex:1;border:0;outline:0;background:transparent;font-size:14px;color:var(--ink);min-width:0}
-.sfield .clear{width:20px;height:20px;border-radius:10px;background:#c9c4bc;color:#fff;font-size:12px;line-height:20px;display:none}
+.sfield input::-webkit-search-cancel-button,.sfield input::-webkit-search-decoration{-webkit-appearance:none;appearance:none;display:none}
+.sfield .clear{width:22px;height:22px;border-radius:11px;background:#76726c;color:#fff;font-size:14px;line-height:22px;display:none;position:relative;flex:none}
+.sfield .clear::before{content:"";position:absolute;inset:-9px}
 .sfield.has .clear{display:block}
 .s-sec{padding:12px 18px 6px}
 .s-sec h4{font-size:10.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
@@ -321,8 +324,10 @@ svg{display:block}
 .s-row{display:flex;gap:12px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);cursor:pointer}
 .s-row img{width:48px;height:64px;object-fit:cover;background:#e6e1da}
 .s-row div{flex:1;min-width:0}
-.s-row b{display:block;font-size:12.5px;font-weight:500;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.s-row small{font-size:11.5px;color:var(--muted)}
+.s-row b{font-size:12.5px;font-weight:500;color:var(--ink);line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.s-row small{display:block;font-size:11.5px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.s-row small mark{font-weight:600}
+.s-row .price{margin-top:0;white-space:nowrap}
 .s-row mark{background:transparent;color:var(--ink);font-weight:700}
 
 /* ---------- rewards ---------- */
@@ -376,7 +381,7 @@ svg{display:block}
 @media (max-width:520px){.push{top:calc(env(safe-area-inset-top,0px) + 8px)}}
 
 /* ---------- toast & sheet ---------- */
-.toast{position:absolute;left:50%;bottom:calc(var(--tab) + 14px);transform:translate(-50%,20px);background:var(--ink);color:#fff;font-size:12px;font-weight:500;padding:12px 18px;border-radius:24px;opacity:0;pointer-events:none;transition:all .35s var(--ease);z-index:90;white-space:nowrap;display:flex;gap:8px;align-items:center;box-shadow:0 10px 24px rgba(0,0,0,.25)}
+.toast{position:absolute;left:50%;bottom:calc(var(--tab) + 14px);transform:translate(-50%,16px) scale(.96);background:var(--ink);color:#fff;font-size:12px;font-weight:500;padding:12px 18px;border-radius:24px;opacity:0;pointer-events:none;transition:opacity .28s ease,transform .45s var(--spring),bottom .3s var(--ease);z-index:90;white-space:nowrap;display:flex;gap:8px;align-items:center;box-shadow:0 10px 24px rgba(0,0,0,.25)}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 .toast.raise{bottom:126px}
 .toast svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2}
@@ -464,7 +469,6 @@ svg{display:block}
 .home-head .topbar{position:relative;top:auto;height:var(--hd-row);padding:0 8px;background:transparent;color:#fff;box-shadow:none;
   text-shadow:0 1px 2px rgba(0,0,0,.28)}
 .home-head .tb-logo{top:50%;filter:invert(1) drop-shadow(0 1px 2px rgba(0,0,0,.28))}
-.home-head .icon-btn .dot{border-color:transparent}
 .home-head.deep .topbar{text-shadow:none}
 .home-head.deep .tb-logo{filter:invert(1)}
 .marquee{position:absolute;left:0;right:0;bottom:0;z-index:3;height:var(--perks-h);overflow:hidden;contain:layout paint;display:flex;align-items:center;color:#fff;
@@ -525,12 +529,6 @@ svg{display:block}
 .cd b{display:block;font-size:20px;font-weight:600;letter-spacing:.02em;font-variant-numeric:tabular-nums}
 .cd small{display:block;font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;opacity:.7;margin-top:2px}
 
-.size-cta{margin:22px 18px 0;background:#fff;border:1px solid var(--line);padding:16px;display:flex;gap:14px;align-items:center;border-radius:14px;cursor:pointer}
-.size-cta .db-ic{width:40px;height:40px;border-radius:20px;background:var(--sand-2);display:flex;align-items:center;justify-content:center;flex:none}
-.size-cta .db-ic svg{width:20px;height:20px;stroke:var(--ink);fill:none;stroke-width:1.5}
-.size-cta .db-t{flex:1}
-.size-cta b{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
-.size-cta p{font-size:12px;color:#6b665f;margin-top:3px;line-height:1.4}
 .link.sm{font-size:10px;letter-spacing:.12em}
 
 /* tags */
@@ -694,3 +692,145 @@ svg{display:block}
 .searchbar{display:flex;align-items:center;gap:4px;padding-left:6px}
 .searchbar .sfield{flex:1}
 
+
+/* =====================================================================
+   v11 motion & polish: transform/opacity only, all of it switched off by prefers-reduced-motion (bottom of file)
+   ===================================================================== */
+/* navigation: shade between the sliding views (opacity only), tab cross-fade */
+.nav-shade{position:absolute;inset:0;background:rgba(0,0,0,.14);pointer-events:none;opacity:0}
+.nav-shade.in{animation:shadeIn .42s var(--ease) forwards}
+.nav-shade.out{opacity:1;animation:shadeOut .38s var(--ease) forwards}
+@keyframes shadeIn{to{opacity:1}}
+@keyframes shadeOut{to{opacity:0}}
+.view.tab-in{animation:tabIn .3s var(--ease-out) both}
+.view.tab-out{pointer-events:none}
+@keyframes tabIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* tab bar: active icon settles in with a soft spring */
+.tabbar button span{transition:color .25s ease}
+.tabbar button.active svg{animation:tabPop .45s var(--spring)}
+.tabbar button:active svg{transform:scale(.86);transition-duration:.08s}
+@keyframes tabPop{from{transform:scale(.8)}to{transform:none}}
+
+/* header bag count (every bag icon, incl. the product page) */
+.icon-btn .hb-count{position:absolute;top:4px;right:2px;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:var(--ink);color:#fff;font-size:9.5px;font-style:normal;font-weight:600;letter-spacing:0;text-shadow:none;
+  display:flex;align-items:center;justify-content:center;border:1.5px solid var(--bg);transform:scale(0);opacity:0;transition:transform .32s var(--spring),opacity .2s;pointer-events:none}
+.icon-btn .hb-count.show{transform:none;opacity:1}
+.icon-btn .hb-count.pop{animation:pop .5s var(--spring)}
+.home-head .icon-btn .hb-count{background:#fff;color:#111;border-color:transparent}
+.icon-btn.glass .hb-count{top:1px;right:-1px;border-color:rgba(255,255,255,.9)}
+
+/* buttons: consistent press + desktop hover */
+.btn{transition:transform .22s var(--ease-out),background-color .2s,color .2s,border-color .2s,opacity .2s}
+.btn:active{transform:scale(.97);transition-duration:.08s}
+.btn-sm{height:40px;padding:0 18px}
+.chip:active,.size:active,.seg button:active,.promo:active,.xp:active,.apple-pay:active,.hbtn:active,.qty button:active,.ship-opt:active,.swatch:active,.wl-code:active,.co-change:active,.demo-fab:active,.acct-btns .btn:active,.proof:active,.drop-banner:active{transform:scale(.97);transition-duration:.08s}
+.promo,.xp,.apple-pay,.hbtn,.qty button,.ship-opt,.swatch,.wl-code,.co-change,.proof,.feature-card img,.editorial img{transition:transform .22s var(--ease-out),background-color .2s,border-color .2s,opacity .2s}
+.feature-card img,.editorial img{transition:transform .9s var(--ease-out),opacity .5s ease}
+.cat-row .chev{transition:transform .25s var(--ease-out)}
+.co-change{font-size:12px;font-weight:500;color:var(--ink);text-decoration:underline;text-underline-offset:3px;padding:6px 0 6px 10px}
+@media (hover:hover){
+  .btn-dark:hover{background:#2a2a2a}
+  .btn-light:hover{background:#ececec}
+  .btn-outline:hover{background:var(--ink);color:#fff}
+  .chip:not(.on):hover,.size:not(.out):not(.on):hover,.ship-opt:not(.on):hover{border-color:var(--ink)}
+  .icon-btn:hover{background:rgba(0,0,0,.05)}
+  .home-head .icon-btn:hover{background:rgba(255,255,255,.14)}
+  .icon-btn.glass:hover{background:rgba(255,255,255,.95)}
+  .link:hover,.co-change:hover,.remove:hover,.wl-skip:hover{opacity:.6}
+  .link,.remove,.wl-skip{transition:opacity .2s}
+  .pcard:hover .pimg img.in{transform:scale(1.03)}
+  .cat-tile:hover img{transform:scale(1.04)}
+  .feature-card:hover img,.editorial:hover img{transform:scale(1.03)}
+  .cat-row:hover .chev{transform:translateX(3px)}
+  .tabbar button:not(.active):hover,.seg button:not(.on):hover,.link-row:hover{color:var(--ink)}
+  .promo:hover{border-color:var(--ink)}
+  .xp:hover,.apple-pay:hover{opacity:.9}
+  .hbtn:hover{border-color:var(--ink)}
+  .pref:hover{background:#fbfbfa}
+  .swatch:not(.on):hover{border-color:#cfc9c1}
+  .demo-fab:hover{background:rgba(17,17,17,.92)}
+}
+button:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.home-head button:focus-visible,.btn-dark:focus-visible{outline-color:var(--stone)}
+
+/* add to bag: label swaps to a drawn check + "Added" */
+#addBtn{overflow:hidden}
+.btn .ab-l{display:inline-flex;align-items:center;gap:8px}
+.ab-done{animation:abIn .32s var(--ease-out) both}
+.ab-done svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:30;stroke-dashoffset:30;animation:draw .42s .1s var(--ease-out) forwards}
+@keyframes abIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* wishlist heart: squash, pop and a faint ring when saved */
+.hbtn{position:relative}
+.heart svg,.hbtn svg{transition:fill .2s ease}
+.heart.burst svg,.hbtn.burst svg{animation:heartPop .5s var(--spring)}
+.heart.on.burst::after,.hbtn.on.burst::after{content:"";position:absolute;inset:5px;border-radius:50%;border:1.5px solid var(--ink);opacity:0;pointer-events:none;animation:heartRing .55s var(--ease-out)}
+@keyframes heartPop{0%{transform:scale(1)}25%{transform:scale(.76)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
+@keyframes heartRing{from{opacity:.4;transform:scale(.45)}to{opacity:0;transform:scale(1.3)}}
+.pcard.leaving{transition:opacity .3s ease,transform .35s var(--ease);opacity:0;transform:scale(.96)}
+
+/* sheets & modals: spring-like rise (bottom edge is over-drawn so the overshoot never shows a gap), backdrop fade */
+.sheet{bottom:-28px;padding-bottom:calc(62px + env(safe-area-inset-bottom,0px));transform:translateY(105%);transition:transform .56s cubic-bezier(.25,1.12,.4,1);box-shadow:0 -12px 40px rgba(0,0,0,.1);will-change:transform}
+.sheet:not(.show){transition:transform .36s cubic-bezier(.4,0,.7,.2)}
+.sheet.dragging{transition:none}
+.sheet .grab{width:36px;height:5px;border-radius:3px;background:#cfcac3;margin:0 auto 14px;position:relative;cursor:grab;touch-action:none}
+.sheet .grab::before{content:"";position:absolute;left:-60px;right:-60px;top:-12px;bottom:-12px}
+.sheet-backdrop{transition:opacity .4s ease}
+.browser{transition:transform .5s var(--ease)}
+.welcome{transition:opacity .35s ease}
+.wl-card{transform:translateY(28px) scale(.96);opacity:0;transition:transform .6s var(--spring),opacity .3s ease}
+.welcome.show .wl-card{transform:none;opacity:1}
+.welcome:not(.show) .wl-card{transition:transform .25s ease,opacity .2s ease}
+.wl-code{transition:background-color .25s,border-color .25s,transform .22s var(--ease-out)}
+.acc details[open] .acc-body,.acct-acc[open]>div{animation:accIn .36s var(--ease-out)}
+@keyframes accIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+
+/* toast + demo button: the button steps aside while a toast is up and on product/auth screens (no tab bar) */
+.demo-fab{transition:opacity .25s ease,transform .3s var(--ease-out),background-color .2s}
+.app.toasting .demo-fab,.app.tabs-hidden .demo-fab{opacity:0;transform:translateY(8px) scale(.96);pointer-events:none}
+
+/* images: fade in once loaded; product imagery shimmers until then */
+.pimg img,.gtrack img,.cat-tile img,.cat-row img,.ig-tile img,.bag-item img,.s-row img,.editorial img,.feature-card img,.drop-card>img,.swatch img,.added img{opacity:0}
+.pimg img.in,.gtrack img.in,.cat-tile img.in,.cat-row img.in,.ig-tile img.in,.bag-item img.in,.s-row img.in,.editorial img.in,.feature-card img.in,.drop-card>img.in,.swatch img.in,.added img.in{opacity:1}
+.cat-row img,.bag-item img,.s-row img,.drop-card>img,.swatch img,.added img,.gtrack img{transition:opacity .5s ease}
+.pimg img,.cat-tile img,.ig-tile img{position:relative}
+.cat-tile img{transition:transform .6s var(--ease),opacity .5s ease}
+.gallery{overflow:hidden}
+.gtrack{position:relative;z-index:1}
+.pimg::before,.gallery::before,.cat-tile::before,.ig-tile::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(100deg,rgba(255,255,255,0) 30%,rgba(255,255,255,.55) 50%,rgba(255,255,255,0) 70%);transform:translateX(-100%);animation:shimmer 1.5s ease-in-out infinite}
+.pimg:has(img.in)::before,.gallery:has(.gtrack img.in)::before,.cat-tile:has(img.in)::before,.ig-tile:has(img.in)::before{display:none;animation:none}
+@keyframes shimmer{to{transform:translateX(100%)}}
+
+/* switches: knob glides with a hint of spring */
+.switch{transition:background-color .3s ease;cursor:pointer}
+.switch::after{transition:transform .38s var(--spring)}
+
+/* horizontal rails: momentum + snap, no scroll chaining into the page */
+.hscroll,.chips,.swatches{overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+.chips{scroll-snap-type:x proximity;scroll-padding:0 18px}
+.swatches{scroll-snap-type:x proximity}
+.swatch{scroll-snap-align:start}
+
+/* account: notification rows sit in an inset card like the other sections */
+.pref-group{margin:0 18px;background:#fff}
+.pref-group .pref{background:transparent;padding:14px 16px}
+.pref-group .pref:last-child{border-bottom:0}
+.pref .switch{pointer-events:none}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;animation-delay:0s!important;transition-duration:.01ms!important;transition-delay:0s!important;scroll-behavior:auto!important}
+  .mq-track{animation:none!important}
+  .pimg::before,.gallery::before,.cat-tile::before,.ig-tile::before,.rcard::after{display:none}
+}
+
+/* product page: solid title bar once the gallery has scrolled away */
+.pdp-bar{position:absolute;top:0;left:0;right:0;height:calc(var(--sat) + 52px);z-index:9;padding:var(--sat) 104px 0;display:flex;align-items:center;justify-content:center;
+  background:rgba(var(--bg-rgb),.96);box-shadow:0 1px 0 var(--hd-line);opacity:0;pointer-events:none;transition:opacity .25s ease}
+.pdp-bar span{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transform:translateY(6px);transition:transform .35s var(--ease-out)}
+.view.pdp.past .pdp-bar{opacity:1}
+.view.pdp.past .pdp-bar span{transform:none}
+.view.pdp .pdp-top .icon-btn.glass{transition:background-color .25s,transform .22s var(--ease-out)}
+.view.pdp.past .pdp-top .icon-btn.glass{background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none}
+.proof-mini{padding:6px 0;margin-top:4px}

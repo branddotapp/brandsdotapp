@@ -30,6 +30,10 @@ def run(pw, w, h, tag):
         for s in n: bad('[%s] broken image: %s' % (tag, s))
     def tab(t):
         p.click('#tabbar button[data-tab="%s"]' % t); p.wait_for_timeout(500)
+    def to_root():
+        # the mobile Demo button is tucked away on product/auth screens and while a toast shows
+        if p.locator('#tabbar.hidden').count(): p.evaluate("window.__app.switchTab('home')"); p.wait_for_timeout(500)
+        p.wait_for_function("() => !document.querySelector('#app').classList.contains('toasting')", timeout=4000)
     def scroll_lazy():
         p.evaluate("""async () => { const v = document.querySelector('.view.top'); for (let y = 0; y < v.scrollHeight; y += 500){ v.scrollTop = y; await new Promise(r => setTimeout(r, 120)); } v.scrollTop = 0; }""")
         p.wait_for_timeout(1500)
@@ -196,6 +200,161 @@ def run(pw, w, h, tag):
     p.locator('.view.top .hscroll .pcard').first.click(); p.wait_for_timeout(700)
     p.click('.view.top [data-act="back"]'); p.wait_for_timeout(700)
     assert_hero_playing('after Home product push/back')
+    # ---------- v11 motion + interaction checks ----------
+    def press_scale(sel):
+        """hold the mouse down on an element and read its transform scale while :active"""
+        b = p.locator(sel).first; b.scroll_into_view_if_needed(); bb = b.bounding_box()
+        p.mouse.move(bb['x'] + bb['width'] / 2, bb['y'] + bb['height'] / 2); p.mouse.down(); p.wait_for_timeout(160)
+        sc = p.evaluate("(s) => { const m = getComputedStyle(document.querySelector(s)).transform; if (!m || m === 'none') return 1; const v = m.match(/matrix\\(([^,]+),\\s*([^,]+)/); return v ? Math.hypot(+v[1], +v[2]) : 1; }", sel)
+        p.mouse.move(3, 3); p.mouse.up(); p.wait_for_timeout(250); return sc   # release off the element: no click
+    tab('shop'); p.wait_for_timeout(500)
+    seg = p.evaluate("""() => { const s = document.querySelector('.view.top .seg'), i = s && s.querySelector('.seg-ind'); if (!i) return null; const cs = getComputedStyle(i);
+        const on = s.querySelector('button.on').getBoundingClientRect(), r = i.getBoundingClientRect();
+        return {dur: cs.transitionDuration, prop: cs.transitionProperty, ease: cs.transitionTimingFunction, bg: cs.backgroundColor,
+                aligned: Math.abs(r.left - on.left) < 1.5 && Math.abs(r.width - on.width) < 1.5, onBg: getComputedStyle(s.querySelector('button.on')).backgroundColor}; }""")
+    if not seg: bad('[%s] Shop segmented control has no sliding indicator' % tag)
+    else:
+        good = seg['aligned'] and '0.28s' in seg['dur'] and 'transform' in seg['prop'] and 'width' in seg['prop'] and 'cubic-bezier' in seg['ease'] and seg['bg'] == 'rgb(255, 255, 255)' and seg['onBg'] in ('rgba(0, 0, 0, 0)', 'transparent')
+        (ok if good else bad)(('segmented: white pill under active option, transition %s %s %s' % (seg['prop'], seg['dur'], seg['ease'])) if good else '[%s] segmented indicator setup: %s' % (tag, seg))
+        rows0 = p.evaluate("() => [...document.querySelectorAll('.view.top .seg-body .cat-row b')].map(b => b.textContent).join('|')")
+        x0 = p.evaluate("() => document.querySelector('.view.top .seg-ind').getBoundingClientRect().left")
+        p.evaluate("""() => { window.__segSamples = []; const i = document.querySelector('.view.top .seg-ind'), t0 = performance.now();
+            const tick = () => { window.__segSamples.push([performance.now() - t0, i.getBoundingClientRect().left]); if (performance.now() - t0 < 600) requestAnimationFrame(tick); };
+            document.querySelector('.view.top .seg button[data-seg="edits"]').click(); requestAnimationFrame(tick); }""")
+        if tag == 'mobile': p.wait_for_timeout(120); shot('26-seg-midflight')
+        p.wait_for_timeout(700)
+        mv = p.evaluate("""(x0) => { const s = document.querySelector('.view.top .seg'), i = s.querySelector('.seg-ind'), on = s.querySelector('button.on');
+            const r = i.getBoundingClientRect(), b = on.getBoundingClientRect(), S = window.__segSamples, x1 = r.left;
+            const mid = S.filter(x => x[1] > x0 + 2 && x[1] < x1 - 2).length;
+            const body = document.querySelector('.view.top .seg-body');
+            return {active: on.dataset.seg, aligned: Math.abs(r.left - b.left) < 1.5 && Math.abs(r.width - b.width) < 1.5, moved: x1 - x0, midFrames: mid, frames: S.length,
+                    settledAt: Math.round((S.find(x => Math.abs(x[1] - x1) < .5) || [0])[0]), opacity: getComputedStyle(body).opacity,
+                    rows: [...body.querySelectorAll('.cat-row b')].map(b => b.textContent).join('|'), selected: on.getAttribute('aria-selected')}; }""", x0)
+        good = mv['active'] == 'edits' and mv['aligned'] and mv['moved'] > 40 and mv['midFrames'] >= 3 and 150 <= mv['settledAt'] <= 450 and mv['rows'] != rows0 and mv['opacity'] == '1' and mv['selected'] == 'true'
+        (ok if good else bad)(('segmented: pill slid %dpx over %d in-between frames, settled at ~%dms, content swapped' % (mv['moved'], mv['midFrames'], mv['settledAt'])) if good else '[%s] segmented indicator did not slide/swap: %s' % (tag, mv))
+        if tag == 'mobile': shot('27-shop-collections')
+        # remembered when coming back to Shop from a collection
+        p.locator('.view.top .seg-body .cat-row').first.click(); p.wait_for_timeout(600); p.click('.view.top [data-act="back"]'); p.wait_for_timeout(500)
+        kept = p.evaluate("() => document.querySelector('.view.top .seg button.on').dataset.seg")
+        (ok if kept == 'edits' else bad)('segmented: selection kept after back' if kept == 'edits' else '[%s] segment reset after back: %s' % (tag, kept))
+        p.click('.view.top .seg button[data-seg="cats"]'); p.wait_for_timeout(500)
+        back_ok = p.evaluate("() => { const s = document.querySelector('.view.top .seg'), i = s.querySelector('.seg-ind').getBoundingClientRect(), b = s.querySelector('button.on').getBoundingClientRect(); return s.querySelector('button.on').dataset.seg === 'cats' && Math.abs(i.left - b.left) < 1.5; }")
+        (ok if back_ok else bad)('segmented: pill slides back to the first option' if back_ok else '[%s] segmented pill did not return' % tag)
+    # tab bar: cross-fade (old view kept briefly, non-interactive) + active icon spring
+    p.evaluate("""() => { window.__tab = null; const old = document.querySelector('.view.top'); document.querySelector('#tabbar button[data-tab="wishlist"]').click();
+        const nw = document.querySelector('.view.top'), btn = document.querySelector('#tabbar button.active');
+        window.__tab = {oldKept: old.isConnected, oldOut: old.classList.contains('tab-out'), oldPE: getComputedStyle(old).pointerEvents, newAnim: getComputedStyle(nw).animationName,
+                        icon: getComputedStyle(btn.querySelector('svg')).animationName, cur: btn.getAttribute('aria-current')};
+        setTimeout(() => { window.__tab.oldGone = !old.isConnected; }, 420); }""")
+    p.wait_for_timeout(500); tb2 = p.evaluate('window.__tab')
+    good = tb2['oldKept'] and tb2['oldOut'] and tb2['oldPE'] == 'none' and tb2['newAnim'] == 'tabIn' and tb2['icon'] == 'tabPop' and tb2['oldGone'] and tb2['cur'] == 'page'
+    (ok if good else bad)('tab switch cross-fades (tabIn), old view removed, active icon tabPop' if good else '[%s] tab transition: %s' % (tag, tb2))
+    # push/pop: iOS slide + parallax under an opacity-only shade
+    tab('home'); p.wait_for_timeout(400)
+    p.evaluate("""() => { const prev = document.querySelector('.view.top'); document.querySelector('.view.top .hscroll .pcard').click();
+        const nw = document.querySelector('.view.top'), sh = document.querySelector('.nav-shade');
+        window.__push = {enter: getComputedStyle(nw).animationName, under: getComputedStyle(prev).animationName, shade: !!sh && getComputedStyle(sh).animationName,
+                         filter: getComputedStyle(prev).filter}; }""")
+    p.wait_for_timeout(700); pu = p.evaluate('window.__push')
+    p.evaluate("""() => { const v = document.querySelector('.view.top'); document.querySelector('.view.top [data-act="back"]').click();
+        const prev = document.querySelector('.view.top'), sh = document.querySelector('.nav-shade');
+        window.__pop = {leave: getComputedStyle(v).animationName, reveal: getComputedStyle(prev).animationName, shade: !!sh && getComputedStyle(sh).animationName, leaveTop: v.classList.contains('top')}; }""")
+    p.wait_for_timeout(600); po = p.evaluate('window.__pop')
+    good = pu['enter'] == 'pushIn' and pu['under'] == 'dimOut' and pu['shade'] == 'shadeIn' and pu['filter'] == 'none' and po['leave'] == 'pushOut' and po['reveal'] == 'dimIn' and po['shade'] == 'shadeOut' and not po['leaveTop']
+    (ok if good else bad)('push/pop: slide + 28%% parallax + shade (%s / %s)' % (pu, po) if good else '[%s] push/pop motion: %s %s' % (tag, pu, po))
+    assert_hero_playing('after motion checks push/back')
+    # press feedback (desktop mouse)
+    if w >= 1000:
+        sc_btn = press_scale('.view.top .hero .btn'); sc_chip = None
+        (ok if 0.955 <= sc_btn <= 0.985 else bad)('button press scale %.3f' % sc_btn if 0.955 <= sc_btn <= 0.985 else '[%s] button press scale %.3f (want ~0.97)' % (tag, sc_btn))
+        p.locator('.view.top .hero .btn').hover(); p.wait_for_timeout(300)
+        hv = p.evaluate("() => getComputedStyle(document.querySelector('.view.top .hero .btn')).backgroundColor")
+        (ok if hv != 'rgb(255, 255, 255)' else bad)('button hover state (%s)' % hv if hv != 'rgb(255, 255, 255)' else '[%s] no hover on light button' % tag)
+        p.mouse.move(5, 5)
+    # wishlist heart pop
+    p.evaluate("document.querySelector('.view.top').scrollTop = 600"); p.wait_for_timeout(300)
+    hb = p.locator('.view.top .hscroll .pcard .heart').nth(1); hb.click(); p.wait_for_timeout(60)
+    ht = p.evaluate("""() => { const h = document.querySelectorAll('.view.top .hscroll .pcard .heart')[1]; return {on: h.classList.contains('on'), burst: h.classList.contains('burst'),
+        svg: getComputedStyle(h.querySelector('svg')).animationName, ring: getComputedStyle(h, '::after').animationName}; }""")
+    (ok if ht['on'] and ht['svg'] == 'heartPop' and ht['ring'] == 'heartRing' else bad)('heart pop + ring on save' if ht['on'] and ht['svg'] == 'heartPop' and ht['ring'] == 'heartRing' else '[%s] heart animation: %s' % (tag, ht))
+    p.wait_for_timeout(600); hb.click(); p.wait_for_timeout(2200)
+    # demo button steps aside while a toast is up (mobile)
+    if w < 1000:
+        p.evaluate("document.querySelector('.view.top .hscroll .pcard .heart').click()"); p.wait_for_timeout(350)
+        fo = p.evaluate("() => +getComputedStyle(document.querySelector('#demoFab')).opacity")
+        (ok if fo < 0.05 else bad)('demo button hidden while toast shows' if fo < 0.05 else '[%s] demo button visible under toast (opacity %s)' % (tag, fo))
+        p.evaluate("document.querySelector('.view.top .hscroll .pcard .heart').click()"); p.wait_for_timeout(2300)
+    p.evaluate("document.querySelector('.view.top').scrollTop = 0"); p.wait_for_timeout(200)
+    # images: product images fade in (.in) once loaded; shimmer placeholder while loading
+    im = p.evaluate("""() => { const imgs = [...document.querySelectorAll('.view.top .pimg img')].filter(i => i.complete && i.naturalWidth);
+        const notIn = imgs.filter(i => !i.classList.contains('in') || getComputedStyle(i).opacity !== '1').length;
+        const pend = document.querySelector('.view.top .pimg:not(:has(img.in))');
+        const t = document.createElement('div'); t.className = 'pimg'; t.style.cssText = 'position:absolute;width:10px;height:10px'; t.innerHTML = '<img>'; document.querySelector('.view.top').appendChild(t);
+        const sh = getComputedStyle(t, '::before').animationName; t.remove();
+        return {loaded: imgs.length, notIn, shimmer: sh, tr: getComputedStyle(document.querySelector('.view.top .pimg img')).transitionProperty}; }""")
+    good = im['loaded'] > 0 and im['notIn'] == 0 and im['shimmer'] == 'shimmer' and 'opacity' in im['tr']
+    (ok if good else bad)('images fade in (%d loaded, all .in), shimmer placeholder while loading' % im['loaded'] if good else '[%s] image fade/shimmer: %s' % (tag, im))
+    rail = p.evaluate("() => { const h = document.querySelector('.view.top .hscroll'); const c = getComputedStyle(h); return {snap: c.scrollSnapType, ob: c.overscrollBehaviorX, align: getComputedStyle(h.firstElementChild).scrollSnapAlign}; }")
+    (ok if 'mandatory' in rail['snap'] and rail['ob'] == 'contain' and 'start' in rail['align'] else bad)('rails: scroll-snap %s, overscroll %s' % (rail['snap'], rail['ob']) if 'mandatory' in rail['snap'] else '[%s] rail snap: %s' % (tag, rail))
+    # add to bag micro-interaction: "Added" + drawn check, header bag count bumps, sheet rises after
+    p.locator('.view.top .hscroll .pcard').first.click(); p.wait_for_timeout(700)
+    hidden_fab = p.evaluate("() => +getComputedStyle(document.querySelector('#demoFab')).opacity < .05 || getComputedStyle(document.querySelector('#demoFab')).display === 'none'")
+    (ok if hidden_fab else bad)('demo button tucked away on product page' if hidden_fab else '[%s] demo button over product page' % tag)
+    n0 = p.evaluate("() => { const c = document.querySelector('.view.top .pdp-top .hb-count'); return c ? +c.textContent : -1; }")
+    p.locator('.view.top .size:not(.out)').first.click(); p.click('#addBtn'); p.wait_for_timeout(120)
+    ad = p.evaluate("""() => { const b = document.querySelector('#addBtn'), c = document.querySelector('.view.top .pdp-top .hb-count');
+        return {txt: b.innerText.trim().toLowerCase(), check: !!b.querySelector('svg'), anim: getComputedStyle(b.querySelector('.ab-l')).animationName, count: c && +c.textContent, pop: c && c.classList.contains('pop'),
+                countAnim: c && getComputedStyle(c).animationName, sheet: document.querySelector('#sheet').classList.contains('show')}; }""")
+    if tag == 'mobile': shot('28-added-button')
+    p.wait_for_timeout(900)
+    ad['sheetLater'] = p.evaluate("() => document.querySelector('#sheet.show') && /added to bag/i.test(document.querySelector('#sheet').innerText)")
+    good = ad['txt'] == 'added' and ad['check'] and ad['anim'] == 'abIn' and ad['count'] == n0 + 1 and ad['pop'] and ad['countAnim'] == 'pop' and not ad['sheet'] and ad['sheetLater']
+    (ok if good else bad)('add to bag: "Added" + check, bag count %d→%d bumps, sheet follows' % (n0, ad['count']) if good else '[%s] add-to-bag interaction: %s (count before %s)' % (tag, ad, n0))
+    # sheet: spring rise, backdrop fade, handle; drag the handle down to dismiss
+    sh = p.evaluate("() => { const s = getComputedStyle(document.querySelector('#sheet')), b = getComputedStyle(document.querySelector('#sheetBackdrop')), g = document.querySelector('#sheet .grab'); return {t: s.transitionProperty + ' ' + s.transitionDuration + ' ' + s.transitionTimingFunction, bd: b.transitionProperty, grab: !!g && g.getBoundingClientRect().width > 20}; }")
+    (ok if 'transform' in sh['t'] and 'opacity' in sh['bd'] and sh['grab'] else bad)('sheet: %s, backdrop fade, drag handle' % sh['t'] if 'transform' in sh['t'] else '[%s] sheet motion: %s' % (tag, sh))
+    g = p.locator('#sheet .grab').bounding_box()
+    p.mouse.move(g['x'] + g['width'] / 2, g['y'] + 2); p.mouse.down()
+    for k in range(1, 9): p.mouse.move(g['x'] + g['width'] / 2, g['y'] + 2 + k * 30); p.wait_for_timeout(16)
+    p.mouse.up(); p.wait_for_timeout(600)
+    closed = not p.locator('#sheet.show').count()
+    (ok if closed else bad)('sheet: drag handle down dismisses' if closed else '[%s] sheet did not dismiss on drag' % tag)
+    if not closed: p.evaluate("document.querySelector('#sheetBackdrop').click()"); p.wait_for_timeout(400)
+    # PDP solid title bar once the gallery scrolls away
+    p.evaluate("document.querySelector('.view.top .pscroll').scrollTop = 900"); p.wait_for_timeout(450)
+    bar = p.evaluate("() => +getComputedStyle(document.querySelector('.view.top .pdp-bar')).opacity")
+    (ok if bar > .95 else bad)('PDP title bar appears past the gallery' if bar > .95 else '[%s] PDP bar opacity %s' % (tag, bar))
+    if tag == 'mobile': shot('29-pdp-bar')
+    p.keyboard.press('Escape'); p.wait_for_timeout(600)
+    esc_ok = not p.locator('.view.top.pdp').count()
+    (ok if esc_ok else bad)('Escape pops the product page' if esc_ok else '[%s] Escape did not go back' % tag)
+    # bag: header pattern, quantity, totals; checkout "Change" are real buttons
+    tab('bag'); p.wait_for_timeout(300)
+    bg = p.evaluate("() => ({logo: !!document.querySelector('.view.top .topbar .tb-logo'), title: document.querySelector('.view.top .large-title').innerText.replace(/\\s+/g, ' ')})")
+    (ok if bg['logo'] and 'Bag' in bg['title'] else bad)('bag header: %s' % bg['title'] if bg['logo'] else '[%s] bag header: %s' % (tag, bg))
+    q0 = p.evaluate("() => [+document.querySelector('.view.top .qty span').textContent, document.querySelector('#bagTotal').textContent]")
+    p.click('.view.top .qty button[data-q="1"]'); p.wait_for_timeout(350)
+    q1 = p.evaluate("() => [+document.querySelector('.view.top .qty span').textContent, document.querySelector('#bagTotal').textContent, document.querySelector('#bagBadge').textContent, document.querySelector('.view.top .large-title small').textContent]")
+    p.click('.view.top .qty button[data-q="-1"]'); p.wait_for_timeout(350)
+    q2 = p.evaluate("() => [+document.querySelector('.view.top .qty span').textContent, document.querySelector('#bagTotal').textContent]")
+    good = q1[0] == q0[0] + 1 and q1[1] != q0[1] and q2 == q0
+    (ok if good else bad)('bag quantity +/- updates qty, total, badge (%s → %s → %s)' % (q0, q1, q2) if good else '[%s] bag quantity: %s %s %s' % (tag, q0, q1, q2))
+    p.click('#checkout'); p.wait_for_timeout(700)
+    ch = p.locator('#sheet .co-change'); nch = ch.count()
+    if nch: ch.first.click(); p.wait_for_timeout(300)
+    (ok if nch == 2 and 'demo' in p.inner_text('#toast').lower() else bad)('checkout "Change" rows respond' if nch == 2 else '[%s] checkout change buttons: %d' % (tag, nch))
+    p.keyboard.press('Escape'); p.wait_for_timeout(500)
+    (ok if not p.locator('#sheet.show').count() else bad)('Escape closes the sheet' if not p.locator('#sheet.show').count() else '[%s] Escape left sheet open' % tag)
+    # toggles: knob glides
+    tab('account'); p.wait_for_timeout(300)
+    sw = p.evaluate("() => { const s = document.querySelector('.view.top .pref .switch'); return getComputedStyle(s, '::after').transitionProperty + ' ' + getComputedStyle(s, '::after').transitionDuration; }")
+    (ok if 'transform' in sw else bad)('switch knob transition: %s' % sw if 'transform' in sw else '[%s] switch knob has no transition: %s' % (tag, sw))
+    grp = p.evaluate("() => { const g = document.querySelector('.view.top .pref-group'), a = document.querySelector('.view.top .acct-size'); return g && a && Math.abs(g.getBoundingClientRect().left - a.getBoundingClientRect().left) < 1; }")
+    (ok if grp else bad)('notification rows inset like the other account cards' if grp else '[%s] notification rows not inset' % tag)
+    # leftovers from removed features must stay gone
+    lo = p.evaluate("() => ({bell: !!document.querySelector('[data-act=\"notifs\"]'), dot: !!document.querySelector('.icon-btn .dot'), inbox: /notifications inbox|your inbox/i.test(document.body.innerText)})")
+    (ok if not any(lo.values()) else bad)('no notifications inbox/bell leftovers' if not any(lo.values()) else '[%s] leftovers: %s' % (tag, lo))
+    tab('home'); p.wait_for_timeout(500)
     # 3 drops
     tab('drops'); t = p.text_content('.view.top')
     for need in ['DROP', '24 hours', 'First Look', 'Coming soon']:
@@ -271,7 +430,7 @@ def run(pw, w, h, tag):
     after = p.locator('.view.top .pcard').count(); ok('size filter: %d → %d items' % (before, after)); shot('12-listing-filter')
     p.locator('.view.top .pcard').first.click(); p.wait_for_timeout(700)
     t = p.text_content('.view.top'); (ok if 'Your saved size' in t else bad)('PDP pre-selects saved size' if 'Your saved size' in t else '[%s] PDP saved size missing: %s' % (tag, p.inner_text('#sizeLbl')))
-    shot('13-pdp'); p.click('#addBtn'); p.wait_for_timeout(700); shot('14-added')
+    shot('13-pdp'); p.click('#addBtn'); p.wait_for_timeout(1300); shot('14-added')
     if p.locator('#goBag').count(): p.click('#goBag')
     else: tab('bag')
     p.wait_for_timeout(600)
@@ -291,6 +450,7 @@ def run(pw, w, h, tag):
     for k in ['bag', 'restock', 'price', 'drop', 'welcome']:
         if w >= 1000: p.click('.pitch [data-demo="%s"]' % k)
         else:
+            to_root()
             p.click('#demoFab'); p.wait_for_timeout(500); p.click('#sheet [data-demo="%s"]' % k); p.wait_for_timeout(400)
         p.wait_for_timeout(900)
         if k == 'welcome':
@@ -314,6 +474,7 @@ def run(pw, w, h, tag):
         p.wait_for_timeout(100)
         p.click('.pitch [data-demo="restock"]')
     else:
+        to_root()
         p.click('#demoFab'); p.wait_for_timeout(400); p.click('#sheet [data-demo="bag"]')
         p.wait_for_function("() => document.getElementById('push').classList.contains('show')", timeout=3000)
         p.wait_for_timeout(80)  # still visible when the next demo is armed
@@ -345,9 +506,32 @@ def run(pw, w, h, tag):
     (ok if p.locator('#welcome.show').count() else bad)('welcome shows again on reload' if p.locator('#welcome.show').count() else '[%s] welcome did not show again on reload' % tag)
     br.close()
 
+def reduced_motion(pw):
+    """prefers-reduced-motion: segmented control, tabs and sheets still work but switch instantly; marquee and shimmer stop."""
+    br = pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox', '--autoplay-policy=no-user-gesture-required'])
+    ctx = br.new_context(viewport={'width': 390, 'height': 844}, device_scale_factor=2, has_touch=True, is_mobile=True, reduced_motion='reduce')
+    p = ctx.new_page(); tag = 'reduced-motion'
+    p.on('pageerror', lambda e: bad('[%s] pageerror: %s' % (tag, e)))
+    print('== %s 390x844' % tag)
+    p.goto(URL + '?nosplash&nowelcome&nopush', wait_until='networkidle'); p.wait_for_timeout(800)
+    mq = p.evaluate("() => getComputedStyle(document.querySelector('.mq-track')).animationName")
+    (ok if mq == 'none' else bad)('reduced motion: marquee stopped' if mq == 'none' else '[%s] marquee still animating: %s' % (tag, mq))
+    p.click('#tabbar button[data-tab="shop"]'); p.wait_for_timeout(400)
+    r = p.evaluate("""async () => { const s = document.querySelector('.view.top .seg'); const rows0 = document.querySelector('.view.top .seg-body').innerText;
+        s.querySelector('button[data-seg="edits"]').click(); await new Promise(r => setTimeout(r, 60));
+        const i = s.querySelector('.seg-ind').getBoundingClientRect(), b = s.querySelector('button.on').getBoundingClientRect();
+        return {aligned: Math.abs(i.left - b.left) < 1.5, swapped: document.querySelector('.view.top .seg-body').innerText !== rows0, dur: getComputedStyle(s.querySelector('.seg-ind')).transitionDuration}; }""")
+    (ok if r['aligned'] and r['swapped'] else bad)('reduced motion: segmented switches instantly (%s)' % r['dur'] if r['aligned'] and r['swapped'] else '[%s] reduced-motion segmented: %s' % (tag, r))
+    p.locator('.view.top .cat-row').first.click(); p.wait_for_timeout(120)
+    v = p.evaluate("() => ({n: document.querySelectorAll('.view').length, img: [...document.querySelectorAll('.view.top .pimg img')].some(i => i.complete && i.naturalWidth && getComputedStyle(i).opacity !== '1')})")
+    (ok if not v['img'] else bad)('reduced motion: push is instant, images shown without fade' if not v['img'] else '[%s] reduced-motion images: %s' % (tag, v))
+    br.close()
+
 with sync_playwright() as pw:
     run(pw, 390, 844, 'mobile')
     run(pw, 1440, 800, 'desktop')
+    run(pw, 1920, 1080, 'desktop-1920')
+    reduced_motion(pw)
 print('\n%d problem(s)' % len(problems))
 for x in problems: print(' -', x)
 sys.exit(1 if problems else 0)

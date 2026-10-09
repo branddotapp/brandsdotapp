@@ -129,12 +129,19 @@ drop time), `discount` (`{"code":"APP10","pct":10}`), `theme` colours, `copy`.
 
 ```
 python3 -m http.server 8765 &
-python3 tools/smoke_test.py raith --shots raith-shots/v10
+python3 tools/smoke_test.py raith --shots raith-shots/v11
+python3 tools/layout_check.py raith            # 390x844, 1440x800, 1920x1080 by default; -v lists notes, --shots DIR
 ```
 
-Clicks through every tab and feature at 390x844 and 1440x800, fails on console errors, failed requests, broken images
+Clicks through every tab and feature at 390x844, 1440x800 and 1920x1080 (plus a prefers-reduced-motion pass), fails on console errors, failed requests, broken images
 and missing sections. Also checks the Home header band (status bar area + perks marquee + header) is one translucent tint with edge-faded marquee, the hero video is playing, not upscaled and has the right attributes, that the review block
-sits near the bottom of Home, that the Instagram feed sits directly below it (3x3 square tiles, every tile a valid instagram.com post URL with `target=_blank`, reel/carousel icons, Follow button, hover state, hidden with no posts; section screenshot `instagram.png`), and that the welcome pop-up shows again on reload. Screenshots land in `<slug>-shots/` (git-ignored).
+sits near the bottom of Home, that the Instagram feed sits directly below it (3x3 square tiles, every tile a valid instagram.com post URL with `target=_blank`, reel/carousel icons, Follow button, hover state, hidden with no posts; section screenshot `instagram.png`), and that the welcome pop-up shows again on reload. Motion/interaction checks (v11): the segmented control's white pill slides (transform + width, 0.28s cubic-bezier, sampled mid-flight) and the content swaps; segment kept after back; tab cross-fade and active-icon spring; push/pop slide with parallax and shade (no `filter`); button press scale ~0.97 and hover; heart pop + ring; add to bag → "Added" + check, header bag count bump, sheet after; sheet drag-handle dismiss; image fade-in + shimmer; rail snap; switch knob transition; PDP title bar; Escape back/close; bag quantity totals; checkout Change buttons; Demo button hidden on product pages and under toasts; reduced motion turns it all instant. Screenshots land in `<slug>-shots/` (git-ignored).
+
+`tools/layout_check.py` visits every screen and state and flags, inside the phone screen: horizontal overflow, clipped text (overflow without ellipsis/clamp), WCAG AA contrast failures, overlapping siblings in rows, header icons off-centre, the Demo button over a toast or buy bar, non-brand fonts, broken images, console errors, and (desktop) a stage that doesn't fit the viewport.
+
+## Motion
+
+All motion is transform/opacity only and switched off by `prefers-reduced-motion` (CSS block at the end of `app.css`; JS animations go through `anim()`, which checks the same media query). Easing tokens: `--ease` (iOS push/sheet), `--ease-out`, `--spring` (badges, toasts, switches, welcome card), `--seg-ease` (segmented pill).
 
 ## App URL parameters
 
