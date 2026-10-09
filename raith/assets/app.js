@@ -9,6 +9,14 @@ const CUR = (B.currency && B.currency.symbol) || '£';
 const DISC = B.discount || { code:'APP10', pct:10 };
 const NAME = B.name, SITE = B.site;
 const LOGO = B.assets.logoDark, LOGO_L = B.assets.logoLight || B.assets.logoDark;
+// Push toast app icon: brand logo (light on dark tile when available) with letter fallback.
+function pushAppIconHTML(){
+  const light = B.assets && B.assets.logoLight, dark = B.assets && B.assets.logoDark;
+  if (light) return '<img src="'+light+'" alt="" class="push-icon dark">';
+  if (dark) return '<img src="'+dark+'" alt="" class="push-icon">';
+  const letter = esc(((B.short||NAME||'?')+'').charAt(0).toUpperCase());
+  return '<div class="push-icon letter" aria-hidden="true">'+letter+'</div>';
+}
 const colBy = h => COLS.find(c => c.h === h);
 const $ = (s, r=document) => r.querySelector(s);
 const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
@@ -813,7 +821,7 @@ function buildChrome(){
           '<svg width="18" height="12" viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg>'+
           '<svg width="16" height="12" viewBox="0 0 16 12"><path d="M8 2.6c2.2 0 4.2.8 5.7 2.2l1.2-1.3C13 1.7 10.6.7 8 .7S3 1.7 1.1 3.5l1.2 1.3C3.8 3.4 5.8 2.6 8 2.6zm0 3.6c1.2 0 2.3.4 3.2 1.2l1.2-1.3C11.2 5 9.7 4.3 8 4.3S4.8 5 3.6 6.1l1.2 1.3C5.7 6.6 6.8 6.2 8 6.2zm0 3.4L6.2 7.9c.5-.4 1.1-.6 1.8-.6s1.3.2 1.8.6L8 9.6z"/></svg>'+
           '<svg width="27" height="12" viewBox="0 0 27 12"><rect x=".5" y=".5" width="23" height="11" rx="3.2" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="24.5" y="4" width="1.6" height="4" rx=".8" opacity=".4"/></svg></span></div>'+
-        '<div class="push" id="push" role="button" tabindex="0"><img src="'+B.assets.favicon+'" alt="" class="push-icon"><div class="push-body"><div class="push-top"><b>'+esc((B.short||NAME).toUpperCase())+'</b><span>now</span></div><div class="push-title" id="pushTitle"></div><div class="push-text" id="pushText"></div></div><img class="push-thumb" id="pushThumb" src="'+B.assets.favicon+'" alt=""></div>'+
+        '<div class="push" id="push" role="button" tabindex="0">'+pushAppIconHTML()+'<div class="push-body"><div class="push-top"><b>'+esc((B.short||NAME).toUpperCase())+'</b><span>now</span></div><div class="push-title" id="pushTitle"></div><div class="push-text" id="pushText"></div></div><img class="push-thumb" id="pushThumb" src="'+B.assets.favicon+'" alt=""></div>'+
         '<div class="splash" id="splash"><img src="'+LOGO_L+'" alt="'+esc(NAME)+'" class="splash-logo'+(B.assets.logoLight?'':' inv')+'"><div class="splash-line"><span></span></div></div>'+
         '<main class="app" id="app"><div class="stack" id="stack"></div>'+
           '<nav class="tabbar" id="tabbar">'+TABS.map(t=>'<button data-tab="'+t[0]+'"'+(t[0]==='home'?' class="active"':'')+'><svg viewBox="0 0 24 24">'+t[2]+'</svg><span>'+t[1]+'</span>'+(t[0]==='wishlist'?'<i class="badge" id="wishBadge"></i>':t[0]==='bag'?'<i class="badge" id="bagBadge"></i>':'')+'</button>').join('')+'</nav>'+
