@@ -739,7 +739,6 @@ function showWelcome(){
   m.innerHTML = '<div class="wl-card"><div class="wl-top">'+(H.hero && H.hero.poster ? '<img src="'+esc(H.hero.poster)+'" alt="">' : '')+'<img src="'+LOGO_L+'" alt="'+esc(NAME)+'" class="wl-logo'+(B.assets.logoLight?'':' inv')+'"></div><div class="wl-body">'+
     '<small>Welcome to the app</small><h2>'+DISC.pct+'% off your first order</h2>'+
     '<button class="wl-code" id="wlCode"><span>'+esc(DISC.code)+'</span><em>'+I.copy+'Tap to copy</em></button>'+
-    '<ul class="wl-perks"><li>'+I.bolt+'<div><b>Early access to drops</b><span>Shop new collections 24 hours before the website.</span></div></li><li>'+I.ruler+'<div><b>Back-in-size alerts</b><span>Save your size and we’ll tell you when it’s back.</span></div></li></ul>'+
     '<button class="btn btn-dark btn-block" id="wlGo">Start shopping</button><button class="wl-skip" id="wlSkip">Maybe later</button></div></div>';
   m.classList.add('show');
   store.set('welcomed', true);
