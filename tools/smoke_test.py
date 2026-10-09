@@ -239,6 +239,42 @@ def run(pw, w, h, tag):
         ok('push %s: %s / %s' % (k, p.inner_text('#pushTitle'), p.inner_text('#pushText')))
         shot('20-push-' + k); p.click('#push'); p.wait_for_timeout(900); shot('21-after-' + k)
         if k == 'price' and not p.locator('.pd-badge, .g-badge').count(): bad('[%s] no PRICE DROP badge after price push' % tag)
+    # 7b back-to-back pushes must each replay the entrance animation (no content-only swap)
+    p.evaluate("""() => {
+        window.__pushEnter = 0;
+        const el = document.getElementById('push');
+        if (el._enterSpy) el.removeEventListener('animationstart', el._enterSpy);
+        el._enterSpy = (e) => { if (e.animationName === 'pushToastIn') window.__pushEnter++; };
+        el.addEventListener('animationstart', el._enterSpy);
+        el.classList.remove('show', 'hiding');
+    }""")
+    if w >= 1000:
+        p.click('.pitch [data-demo="bag"]')
+        p.wait_for_timeout(100)
+        p.click('.pitch [data-demo="restock"]')
+    else:
+        p.click('#demoFab'); p.wait_for_timeout(400); p.click('#sheet [data-demo="bag"]')
+        p.wait_for_function("() => document.getElementById('push').classList.contains('show')", timeout=3000)
+        p.wait_for_timeout(80)  # still visible when the next demo is armed
+        p.click('#demoFab'); p.wait_for_timeout(400); p.click('#sheet [data-demo="restock"]')
+    p.wait_for_timeout(1400)
+    enters = p.evaluate('window.__pushEnter')
+    showing = p.locator('#push.show').count()
+    if enters >= 2 and showing:
+        ok('push entrance replayed on stacked demos (%d animationstart, still showing)' % enters)
+    else:
+        bad('[%s] stacked push entrance expected >=2 animationstarts + visible toast, got %s / showing=%s' % (tag, enters, showing))
+    shot('20b-push-stacked')
+    # dismiss without activating the deep-link (keeps tab bar tappable)
+    p.evaluate("""() => {
+        const el = document.getElementById('push');
+        el.classList.remove('show', 'hiding');
+        const sheet = document.getElementById('sheet');
+        const bd = document.getElementById('sheetBackdrop');
+        if (sheet) sheet.classList.remove('show');
+        if (bd) bd.classList.remove('show');
+    }""")
+    p.wait_for_timeout(300)
     tab('wishlist'); p.wait_for_timeout(500); shot('22-wishlist'); broken_imgs()
     tab('drops'); p.wait_for_timeout(500); shot('23-drops-live')
     # rewards card

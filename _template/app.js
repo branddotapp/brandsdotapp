@@ -741,15 +741,44 @@ function Rewards(el){
 }
 
 // ---------- push notification + demo triggers ----------
-let pushT, pushAction = null;
-function showPush(title, text, thumb, action){
-  $('#pushTitle').textContent = title;
-  $('#pushText').textContent = text;
-  $('#pushThumb').src = thumb || B.assets.favicon;
-  pushAction = action;
+let pushT, pushHideT, pushAction = null, pushSeq = 0;
+function hidePush(){
+  clearTimeout(pushT); clearTimeout(pushHideT);
+  pushSeq++; // cancel any pending swap-in
   const el = $('#push');
-  el.classList.remove('show'); void el.offsetWidth; el.classList.add('show'); clearTimeout(pushT);
-  pushT = setTimeout(()=>el.classList.remove('show'), 6000);
+  if (!el) return;
+  if (el.classList.contains('show')){
+    el.classList.add('hiding'); el.classList.remove('show');
+    pushHideT = setTimeout(() => el.classList.remove('hiding'), 200);
+  } else {
+    el.classList.remove('show', 'hiding');
+  }
+}
+function showPush(title, text, thumb, action){
+  const el = $('#push');
+  clearTimeout(pushT); clearTimeout(pushHideT);
+  pushAction = action;
+  const seq = ++pushSeq;
+  const reveal = () => {
+    if (seq !== pushSeq) return;
+    $('#pushTitle').textContent = title;
+    $('#pushText').textContent = text;
+    $('#pushThumb').src = thumb || B.assets.favicon;
+    el.classList.remove('hiding');
+    el.classList.remove('show');
+    void el.offsetWidth; // restart entrance keyframes
+    el.classList.add('show');
+    pushT = setTimeout(() => { if (seq === pushSeq) hidePush(); }, 6000);
+  };
+  // If a toast is already visible, slide it out quickly then play a full entrance for the new one.
+  if (el.classList.contains('show')){
+    el.classList.add('hiding'); el.classList.remove('show');
+    pushHideT = setTimeout(reveal, 180);
+  } else if (el.classList.contains('hiding')){
+    pushHideT = setTimeout(reveal, 180);
+  } else {
+    reveal();
+  }
 }
 const firstSize = p => (p.sz.find(s => s[1] && sizeMatch(s[0])) || p.sz.find(s => s[1]) || p.sz[0] || ['One size'])[0];
 const Demo = {
@@ -837,9 +866,9 @@ function buildChrome(){
   $$('.pitch [data-demo]').forEach(b => b.addEventListener('click', () => runDemo(b.dataset.demo)));
   $('#demoFab').addEventListener('click', () => openSheet('<h3>Demo controls</h3><p class="center sheet-sub">Trigger the push notifications this app would send.</p><div class="demo-panel in-sheet">'+demoHTML+'</div>',
     s => $$('[data-demo]', s).forEach(b => b.addEventListener('click', () => { closeSheet(); setTimeout(()=>runDemo(b.dataset.demo), 350); }))));
-  $('#push').addEventListener('click', () => { $('#push').classList.remove('show'); const a = pushAction; pushAction = null; if (a){ closeSheet(); closeBrowser(); $('#welcome').classList.remove('show'); a(); } });
+  $('#push').addEventListener('click', () => { hidePush(); const a = pushAction; pushAction = null; if (a){ closeSheet(); closeBrowser(); $('#welcome').classList.remove('show'); a(); } });
   let py=null; $('#push').addEventListener('touchstart', e=>py=e.touches[0].clientY,{passive:true});
-  $('#push').addEventListener('touchmove', e=>{ if(py!==null && e.touches[0].clientY-py < -20){ $('#push').classList.remove('show'); py=null; } },{passive:true});
+  $('#push').addEventListener('touchmove', e=>{ if(py!==null && e.touches[0].clientY-py < -20){ hidePush(); py=null; } },{passive:true});
   let ex=null, ey=0;
   stackEl.addEventListener('touchstart', e => { const r = stackEl.getBoundingClientRect(); const x = e.touches[0].clientX - r.left; if (x < 24 && stack.length>1){ ex = x; ey = e.touches[0].clientY; } }, {passive:true});
   stackEl.addEventListener('touchend', e => { if (ex===null) return; const r = stackEl.getBoundingClientRect(); const dx = e.changedTouches[0].clientX - r.left - ex, dy = Math.abs(e.changedTouches[0].clientY - ey); ex=null; if (dx > 70 && dy < 60) back(); }, {passive:true});
