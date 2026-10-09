@@ -1,0 +1,4 @@
+# Screenshots from tools/smoke_test.py stay local
+*-shots/
+__pycache__/
+*.pyc

@@ -1,0 +1,20 @@
+{
+  "_note": "Hand-written copy layered on top of the scraped brand.json. Run: python3 tools/build_brand.py --rebuild raith",
+  "name": "Raith",
+  "short": "RAITH",
+  "pitch": {
+    "title": "Timeless menswear,<br>one tap away.",
+    "copy": "A concept for the Raith app: drops with app-only early access, a saved size that follows you round the store, and Shopify checkout with Apple Pay, Shop Pay and Klarna. Tap around, everything works.",
+    "list": ["Drops 24 hours early for app users", "Saved size and back-in-size alerts", "Shopify checkout with Apple Pay, Shop Pay and Klarna"]
+  },
+  "home": {
+    "newSub": "The latest Pre Fall 26 drops",
+    "hero": {"eyebrow": "New Season", "title": "PRE FALL 26", "cta": "Shop Pre Fall"},
+    "tiles": [["outerwear-jackets", "Jackets & Outerwear"], ["knitwear", "Knitwear"], ["pants", "Trousers"], ["polos", "Polo Shirts"], ["jeans", "Denim"], ["tees", "T-Shirts"]],
+    "editorial": {"col": "outerwear-jackets", "eyebrow": "AW26", "title": "JACKETS & OUTERWEAR"},
+    "feature": {"col": "mercerised-tees", "title": "LUXE T-SHIRT", "cta": "Mix & Match"}
+  },
+  "search": {"trending": ["Trench", "Knitwear", "Mercerised", "Jeans", "Polo", "Overshirt", "Cardigan", "Suede"]},
+  "perks": ["Free UK delivery over £150", "Easy returns via returns portal", "Over 300,000 happy customers", "Rated Excellent on Trustpilot", "Now shipping from our US warehouse"],
+  "copy": {"emptyBag": "Fewer, but superior choices. Start with the latest Pre Fall 26 pieces."}
+}
