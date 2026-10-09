@@ -1,5 +1,5 @@
 """Headless smoke test for a built brand app. Usage: python3 tools/smoke_test.py SLUG [--base URL] [--shots DIR]
-Clicks through every tab and feature at phone (390x844) and desktop (1440x900) sizes, reports console errors,
+Clicks through every tab and feature at phone (390x844) and desktop (1440x800) sizes, reports console errors,
 failed requests and broken images, and saves screenshots."""
 import sys, os, argparse, json
 from playwright.sync_api import sync_playwright
@@ -33,6 +33,14 @@ def run(pw, w, h, tag):
     def scroll_lazy():
         p.evaluate("""async () => { const v = document.querySelector('.view.top'); for (let y = 0; y < v.scrollHeight; y += 500){ v.scrollTop = y; await new Promise(r => setTimeout(r, 120)); } v.scrollTop = 0; }""")
         p.wait_for_timeout(1500)
+
+    def assert_hero_playing(label):
+        vi = p.evaluate("""async () => { const v = document.querySelector('.view.top .hero video'); if (!v) return null;
+            const t0 = v.currentTime; await new Promise(r => setTimeout(r, 900));
+            return {paused: v.paused, ready: v.readyState, advanced: +(v.currentTime - t0).toFixed(2), t: +v.currentTime.toFixed(2)}; }""")
+        if not vi: bad('[%s] %s: no hero video' % (tag, label)); return
+        playing = (not vi['paused']) and vi['advanced'] > 0.2
+        (ok if playing else bad)(('%s: hero playing (advanced %.2fs, t=%.2f)' % (label, vi['advanced'], vi['t'])) if playing else '[%s] %s: hero not playing after resume: %s' % (tag, label, vi))
 
     p.goto(URL + '?nosplash', wait_until='networkidle'); p.wait_for_timeout(1200)
     # 1 welcome
@@ -112,6 +120,21 @@ def run(pw, w, h, tag):
     p.evaluate("document.querySelector('.view.top').scrollTop = 700"); p.wait_for_timeout(600); shot('03-home-scrolled')
     p.evaluate("(() => { const v = document.querySelector('.view.top'), e = v.querySelector('.proof'); if (e) v.scrollTop = e.offsetTop - v.clientHeight * 0.45; })()"); p.wait_for_timeout(800); shot('03b-home-trustpilot')
     p.evaluate("document.querySelector('.view.top').scrollTop = 0"); p.wait_for_timeout(300)
+    # 2b hero video resume: tab bar Home↔Shop, and Home→Shop→product→back→Home
+    tab('shop'); p.wait_for_timeout(500)
+    tab('home'); p.wait_for_timeout(700)
+    assert_hero_playing('after tab bar Home←Shop')
+    tab('shop'); p.wait_for_timeout(400)
+    p.locator('.view.top [data-act="col"]').first.click(); p.wait_for_timeout(700)
+    p.locator('.view.top .pcard').first.click(); p.wait_for_timeout(700)
+    p.click('.view.top [data-act="back"]'); p.wait_for_timeout(500)
+    p.click('.view.top [data-act="back"]'); p.wait_for_timeout(400)
+    tab('home'); p.wait_for_timeout(700)
+    assert_hero_playing('after Shop→product→back→Home')
+    # push a product from Home (hero node is kept across back), must resume
+    p.locator('.view.top .hscroll .pcard').first.click(); p.wait_for_timeout(700)
+    p.click('.view.top [data-act="back"]'); p.wait_for_timeout(700)
+    assert_hero_playing('after Home product push/back')
     # 3 drops
     tab('drops'); t = p.text_content('.view.top')
     for need in ['DROP', '24 hours', 'First Look', 'Coming soon']:
@@ -227,7 +250,7 @@ def run(pw, w, h, tag):
 
 with sync_playwright() as pw:
     run(pw, 390, 844, 'mobile')
-    run(pw, 1440, 900, 'desktop')
+    run(pw, 1440, 800, 'desktop')
 print('\n%d problem(s)' % len(problems))
 for x in problems: print(' -', x)
 sys.exit(1 if problems else 0)

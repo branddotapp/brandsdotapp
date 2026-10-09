@@ -127,7 +127,7 @@ function openSheet(html, onMount){
   $('#sheetBackdrop').classList.add('show'); s.classList.add('show');
   onMount && onMount(s);
 }
-function closeSheet(){ $('#sheet').classList.remove('show'); $('#sheetBackdrop').classList.remove('show'); }
+function closeSheet(){ $('#sheet').classList.remove('show'); $('#sheetBackdrop').classList.remove('show'); resumeHeroVideo(); }
 
 // ---------- navigation ----------
 let stackEl, stack = [], currentTab = 'home';
@@ -145,6 +145,7 @@ function applyChrome(v){
   $('#tabbar').classList.toggle('hidden', !!v.opts.hideTabs);
   setStatus(v.opts.light && (v.el.scrollTop < (v.opts.lightUntil || 9999)));
   stack.forEach(s => s.el.classList.remove('top')); v.el.classList.add('top');
+  resumeHeroVideo();
 }
 function push(fn, args){
   const prev = stack[stack.length-1];
@@ -266,15 +267,45 @@ function heroEl(){
   const vid = $('video', d);
   if (vid){
     vid.muted = true; vid.defaultMuted = true;
+    vid.setAttribute('playsinline', '');
+    try { vid.playsInline = true; } catch (_) {}
     vid.addEventListener('playing', () => { const pi = $('.poster', d); if (pi) pi.style.opacity = 0; });
-    // play only while the hero is on screen and the page is visible (saves decode work for the rest of the app)
-    let onScreen = true;
-    const sync = () => { if (onScreen && !document.hidden && d.isConnected) { const pr = vid.play(); if (pr && pr.catch) pr.catch(()=>{}); } else vid.pause(); };
+    // play only while the hero is on screen and the page is visible (saves decode work for the rest of the app).
+    // After push/back the Home view is briefly visibility:hidden, so IntersectionObserver leaves onScreen=false
+    // and does not always re-fire the moment Home is shown again — sync() re-checks .view.top and retries play().
+    let onScreen = true, retryT = 0;
+    const tryPlay = () => {
+      if (!d.isConnected || document.hidden || !onScreen) return;
+      vid.muted = true;
+      const pr = vid.play();
+      if (pr && pr.catch) pr.catch(() => {
+        clearTimeout(retryT);
+        retryT = setTimeout(() => {
+          if (!d.isConnected || document.hidden || !onScreen) return;
+          vid.muted = true;
+          const p2 = vid.play();
+          if (p2 && p2.catch) p2.catch(()=>{});
+        }, 250);
+      });
+    };
+    const sync = () => {
+      const top = d.closest('.view.top');
+      if (top && d.isConnected && top.style.visibility !== 'hidden') {
+        const r = d.getBoundingClientRect();
+        if (r.height > 0 && r.bottom > 0 && r.top < (window.innerHeight || 0)) onScreen = true;
+      }
+      if (onScreen && !document.hidden && d.isConnected) tryPlay();
+      else if (d.isConnected) vid.pause();
+    };
     if ('IntersectionObserver' in window) new IntersectionObserver(es => { onScreen = es[es.length-1].isIntersecting; sync(); }, { threshold: 0.01 }).observe(d);
     document.addEventListener('visibilitychange', sync);
     d._sync = sync;
   }
   return d;
+}
+function resumeHeroVideo(){
+  const hero = $('.view.top .hero');
+  if (hero && hero._sync) hero._sync();
 }
 
 // ---------- HOME ----------
