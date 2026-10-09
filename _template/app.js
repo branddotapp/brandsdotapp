@@ -359,10 +359,18 @@ function heroEl(){
     // play only while the hero is on screen and the page is visible (saves decode work for the rest of the app).
     // After push/back the Home view is briefly visibility:hidden, so IntersectionObserver leaves onScreen=false
     // and does not always re-fire the moment Home is shown again — sync() re-checks .view.top and retries play().
-    let onScreen = true, retryT = 0;
+    let onScreen = true, retryT = 0, want = false, lastT = -1, stuck = 0, gone = 0;
+    const visibleNow = () => {
+      const top = d.closest('.view.top');
+      if (!top || !d.isConnected || document.hidden || top.style.visibility === 'hidden') return false;
+      const r = d.getBoundingClientRect();
+      return r.height > 0 && r.bottom > 0 && r.top < (window.innerHeight || 0);
+    };
     const tryPlay = () => {
       if (!d.isConnected || document.hidden || !onScreen) return;
+      want = true;
       vid.muted = true;
+      if (vid.readyState === 0 && vid.networkState === 3) { try { vid.load(); } catch (_) {} }   // NETWORK_NO_SOURCE: re-pick a source
       const pr = vid.play();
       if (pr && pr.catch) pr.catch(() => {
         clearTimeout(retryT);
@@ -375,16 +383,28 @@ function heroEl(){
       });
     };
     const sync = () => {
-      const top = d.closest('.view.top');
-      if (top && d.isConnected && top.style.visibility !== 'hidden') {
-        const r = d.getBoundingClientRect();
-        if (r.height > 0 && r.bottom > 0 && r.top < (window.innerHeight || 0)) onScreen = true;
-      }
+      if (visibleNow()) onScreen = true;
       if (onScreen && !document.hidden && d.isConnected) tryPlay();
-      else if (d.isConnected) vid.pause();
+      else if (d.isConnected) { want = false; vid.pause(); }
     };
     if ('IntersectionObserver' in window) new IntersectionObserver(es => { onScreen = es[es.length-1].isIntersecting; sync(); }, { threshold: 0.01 }).observe(d);
     document.addEventListener('visibilitychange', sync);
+    // Never trust autoplay alone on desktop browsers: play as soon as there is data, after any pause we did not ask for
+    // (power saving, a stalled stream, a browser autoplay setting), and on the first tap/click/key if autoplay was refused.
+    ['loadeddata', 'canplay'].forEach(t => vid.addEventListener(t, () => { if (vid.paused && visibleNow()) tryPlay(); }));
+    vid.addEventListener('pause', () => { if (want && visibleNow()) setTimeout(() => { if (vid.paused && want && visibleNow()) tryPlay(); }, 300); });
+    const gesture = () => { if (d.isConnected && vid.paused && visibleNow()) { onScreen = true; tryPlay(); } };
+    ['pointerdown', 'keydown', 'touchend'].forEach(t => document.addEventListener(t, gesture, { capture: true, passive: true }));
+    // Watchdog: if the clock stops while Home is showing (frozen decoder, missed resume), kick it.
+    const dog = setInterval(() => {
+      if (!d.isConnected) { if (++gone >= 3) d._stop(); return; }   // its Home view was replaced: clean up
+      gone = 0;
+      if (!visibleNow()) { lastT = -1; stuck = 0; return; }
+      const t = vid.currentTime;
+      if (vid.paused || (vid.readyState >= 2 && t === lastT)) { if (++stuck >= 2) { stuck = 0; onScreen = true; tryPlay(); } } else stuck = 0;
+      lastT = t;
+    }, 1000);
+    d._stop = () => { clearInterval(dog); ['pointerdown', 'keydown', 'touchend'].forEach(t => document.removeEventListener(t, gesture, { capture: true })); document.removeEventListener('visibilitychange', sync); };
     d._sync = sync;
   }
   return d;
@@ -406,7 +426,6 @@ function Home(el){
     el.innerHTML =
       '<div class="home-head"><div class="home-band">'+topbar({ logo:true, left:'<button class="icon-btn" data-act="tab" data-v="account" aria-label="Account">'+I.user+'</button>', right:'<div class="tb-r">'+searchBtn()+bagBtn()+'</div>' }) + '</div></div>'+
       '<div class="hero-slot"></div>'+
-      (B.rewards && B.rewards.enabled ? '<div class="rewards-mini" data-act="rewards"><div class="rm-left"><small>'+esc(B.rewards.name)+'</small><b>1,250 pts</b><div class="rm-bar"><i></i></div><p>750 pts to your next reward</p></div><div class="rm-right">'+I.card+'</div></div>' : '')+
       (newIn.length ? '<section class="section"><div class="sec-head"><div><h2>New In</h2><p>'+esc(H.newSub||'The latest arrivals')+'</p></div><button class="link" data-act="col" data-v="'+esc(H.newCol)+'">View all</button></div><div class="hscroll">'+newIn.map(p=>pcard(p,{w:400})).join('')+'</div></section>' : '')+
       (tiles.length ? '<section class="section"><div class="sec-head"><div><h2>Shop by Category</h2></div><button class="link" data-act="tab" data-v="shop">All</button></div><div class="cat-grid">'+tiles.map(t=>'<div class="cat-tile" data-act="col" data-v="'+esc(t[0])+'"><img loading="lazy" src="'+cover(t[0])+'" alt=""><span>'+esc(t[1])+'</span></div>').join('')+'</div></section>' : '')+
       (H.editorial && H.editorial.img && colBy(H.editorial.col) ? '<div class="editorial" data-act="col" data-v="'+esc(H.editorial.col)+'"><img loading="lazy" src="'+esc(H.editorial.img)+'" alt=""><div class="hero-copy"><div class="eyebrow">'+esc(H.editorial.eyebrow||'')+'</div><div class="hero-title">'+esc(H.editorial.title||'')+'</div><span class="btn btn-light">Shop now</span></div></div>' : '')+
@@ -748,7 +767,7 @@ function Account(el){
       '<div class="large-title"><small>'+esc(NAME)+'</small>Account</div>'+
       (signedIn ? '<div class="acct-card"><div class="av">'+I.user+'</div><div><b>Signed in (demo)</b><small>Nothing was saved or sent</small></div><button class="link" id="signOut">Sign out</button></div>'
                 : '<div class="acct-card"><div class="av">'+I.user+'</div><div><b>Welcome</b><small>Log in for faster checkout, order tracking and early access.</small></div></div><div class="acct-btns"><button class="btn btn-dark" data-act="login">Log in</button><button class="btn btn-outline" data-act="signup">Sign up</button></div>')+
-      (B.rewards && B.rewards.enabled ? '<div class="rewards-mini" data-act="rewards" style="margin-top:14px"><div class="rm-left"><small>'+esc(B.rewards.name)+'</small><b>1,250 pts</b><div class="rm-bar"><i></i></div><p>Tap to show your card</p></div><div class="rm-right">'+I.card+'</div></div>' : '')+
+      (B.rewards && B.rewards.enabled ? '<div class="rewards-mini" data-act="rewards"><div class="rm-left"><small>'+esc(B.rewards.name)+'</small><b>1,250 pts</b><div class="rm-bar"><i></i></div><p>Tap to show your card</p></div><div class="rm-right">'+I.card+'</div></div>' : '')+
       '<div class="drop-banner" id="dropBanner"><div class="db-ic">'+I.bell+'</div><div class="db-t"><b>Drop alerts</b><p>Be first to know when new pieces land.</p></div><button class="switch '+(prefs.drops?'on':'')+'" id="dropSwitch" aria-label="Toggle drop alerts"></button></div>'+
       (SIZE_GROUPS.length ? '<div class="s-sec acct-h"><h4>Your size</h4></div><div class="acct-size">'+SIZE_GROUPS.map(g=>'<div class="label-row" style="margin:4px 0 8px"><b>'+esc(g.label)+'</b>'+(mySize[g.key]?'<span>Saved: '+esc((g.prefix||'')+mySize[g.key])+'</span>':'<span>Not set</span>')+'</div><div class="sizes">'+g.opts.map(o=>'<button class="size'+(String(mySize[g.key])===String(o)?' on':'')+'" data-g="'+esc(g.key)+'" data-o="'+esc(o)+'">'+esc((g.prefix||'')+o)+'</button>').join('')+'</div>').join('')+'<p class="acct-note">'+I.ruler+'<span>Pre-selected on product pages, used for the “in my size” filter and back-in-size alerts.</span></p></div>' : '')+
       '<div class="s-sec acct-h"><h4>Notifications</h4></div>'+

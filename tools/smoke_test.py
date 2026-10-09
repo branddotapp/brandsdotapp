@@ -14,7 +14,8 @@ def ok(m): log.append('  ✓ ' + m); print('  ✓ ' + m, flush=True)
 def bad(m): problems.append(m); print('  ✗ ' + m, flush=True)
 
 def run(pw, w, h, tag):
-    br = pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox', '--autoplay-policy=no-user-gesture-required'])
+    # real desktop Chrome autoplay policy (no --autoplay-policy override): muted autoplay must work on its own
+    br = pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
     ctx = br.new_context(viewport={'width': w, 'height': h}, device_scale_factor=2 if w < 600 else 1, has_touch=w < 600, is_mobile=w < 600)
     ctx.grant_permissions(['clipboard-read', 'clipboard-write'], origin=a.base)
     p = ctx.new_page()
@@ -39,12 +40,35 @@ def run(pw, w, h, tag):
         p.wait_for_timeout(1500)
 
     def assert_hero_playing(label):
+        # clock advancing AND visibly rendered: opaque all the way up, poster faded, nothing covering it, pixels changing
         vi = p.evaluate("""async () => { const v = document.querySelector('.view.top .hero video'); if (!v) return null;
             const t0 = v.currentTime; await new Promise(r => setTimeout(r, 900));
-            return {paused: v.paused, ready: v.readyState, advanced: +(v.currentTime - t0).toFixed(2), t: +v.currentTime.toFixed(2)}; }""")
+            let op = 1, e = v, hidden = false; while (e && e !== document.documentElement) { const cs = getComputedStyle(e); op *= +cs.opacity; if (cs.visibility !== 'visible' || cs.display === 'none') hidden = true; e = e.parentElement; }
+            const r = v.getBoundingClientRect(), vh = innerHeight, vw = innerWidth;
+            // sample the part of the hero actually on screen, below the (deliberately clear) menu band
+            const hb = Math.max(0, ...[...document.querySelectorAll('.view.top .home-head, .view.top .home-band, .view.top .topbar')].map(e => e.getBoundingClientRect().bottom));
+            const y0 = Math.max(r.top, hb, 0) + 10, y1 = Math.min(r.bottom, vh) - 70;
+            const pts = y1 - y0 < 40 ? [] : [[.5,.2],[.3,.5],[.7,.5]].map(([fx, fy]) => [r.left + r.width*fx, y0 + (y1 - y0)*fy]).filter(([x]) => x > 0 && x < vw);
+            if (!pts.length) return {offscreen: true, rect: [r.left, r.top, r.width, r.height].map(Math.round)};
+            const covered = pts.map(([x, y]) => document.elementFromPoint(x, y)).filter(el => !el || !el.closest('.hero') || (el.closest('.hero') !== v.closest('.hero'))).map(el => el ? el.tagName + '.' + el.className : 'none');
+            const poster = v.parentElement.querySelector('.poster');
+            return {paused: v.paused, ready: v.readyState, advanced: +(v.currentTime - t0).toFixed(2), t: +v.currentTime.toFixed(2), op: +op.toFixed(2), hidden,
+                    posterOp: poster ? +getComputedStyle(poster).opacity : 0, covered, rect: [r.left, r.top, r.width, r.height].map(Math.round), band: Math.max(Math.round(hb), 0), vw: v.videoWidth}; }""")
         if not vi: bad('[%s] %s: no hero video' % (tag, label)); return
-        playing = (not vi['paused']) and vi['advanced'] > 0.2
-        (ok if playing else bad)(('%s: hero playing (advanced %.2fs, t=%.2f)' % (label, vi['advanced'], vi['t'])) if playing else '[%s] %s: hero not playing after resume: %s' % (tag, label, vi))
+        if vi.get('offscreen'):
+            p.evaluate("document.querySelector('.view.top').scrollTo(0, 0)"); p.wait_for_timeout(500); return assert_hero_playing(label + ' (scrolled to top)')
+        playing = (not vi['paused']) and vi['advanced'] > 0.2 and vi['ready'] >= 2
+        visible = vi['op'] >= 0.99 and not vi['hidden'] and vi['posterOp'] < 0.05 and not vi['covered'] and vi['vw'] > 0
+        # pixels: two captures of the visible hero area ~600ms apart must differ (catches a frozen or blank layer)
+        x, y, w_, h_ = vi['rect']; y0 = max(y, vi['band']); h_ = min(y + h_, p.viewport_size['height']) - 70 - y0
+        clip = {'x': x + w_ * 0.15, 'y': y0 + 10, 'width': w_ * 0.7, 'height': max(h_ - 10, 10)}
+        import hashlib
+        a_ = hashlib.md5(p.screenshot(clip=clip, animations='allow')).hexdigest(); p.wait_for_timeout(600)
+        b_ = hashlib.md5(p.screenshot(clip=clip, animations='allow')).hexdigest()
+        moving = a_ != b_
+        good = playing and visible and moving
+        (ok if good else bad)(('%s: hero playing + visible (advanced %.2fs, opacity %.2f, poster %.2f, frames changing)' % (label, vi['advanced'], vi['op'], vi['posterOp'])) if good
+                              else '[%s] %s: hero not playing/visible: playing=%s visible=%s pixels-changing=%s %s' % (tag, label, playing, visible, moving, vi))
 
     p.goto(URL + '?nosplash', wait_until='networkidle'); p.wait_for_timeout(1200)
     # 1 welcome
@@ -54,6 +78,7 @@ def run(pw, w, h, tag):
     if 'copied' in p.inner_text('#toast').lower(): ok('APP10 tap-to-copy')
     else: bad('[%s] copy toast missing' % tag)
     p.click('#wlGo'); p.wait_for_timeout(600)
+    assert_hero_playing('initial load')
     # 2 home
     t = p.text_content('.view.top')
     for need in ['New In']:
@@ -66,6 +91,8 @@ def run(pw, w, h, tag):
     else: ok('home has no drop alerts card')
     if p.locator('.view.top .next-drop').count() or 'next drop, app early access' in t.lower(): bad('[%s] home still shows the next-drop countdown card' % tag)
     else: ok('home has no next-drop countdown card')
+    if p.locator('.view.top .rewards-mini').count() or '1,250 pts' in t: bad('[%s] home still shows the rewards points card' % tag)
+    else: ok('home has no rewards points card (it lives on Account)')
     # review block sits near the bottom: after the product rails and categories, before the About footer
     order = p.evaluate("""() => { const v = document.querySelector('.view.top'); const kids = [...v.children];
         const at = s => { const e = v.querySelector(s); return e ? kids.indexOf(e.closest('.view.top > *')) : -1; };
@@ -500,7 +527,9 @@ def run(pw, w, h, tag):
     tab('wishlist'); p.wait_for_timeout(500); shot('22-wishlist'); broken_imgs()
     tab('drops'); p.wait_for_timeout(500); shot('23-drops-live')
     # rewards card
-    tab('account'); p.click('.view.top [data-act="rewards"]'); p.wait_for_timeout(700); shot('24-rewards'); broken_imgs()
+    tab('account')
+    (ok if p.locator('.view.top .rewards-mini').count() == 1 else bad)('rewards points card on Account' if p.locator('.view.top .rewards-mini').count() == 1 else '[%s] rewards card missing on Account' % tag)
+    p.click('.view.top [data-act="rewards"]'); p.wait_for_timeout(700); shot('24-rewards'); broken_imgs()
     # welcome shows again on every page load (dismissal is not remembered)
     p.goto(URL + '?nosplash', wait_until='networkidle'); p.wait_for_timeout(1200)
     (ok if p.locator('#welcome.show').count() else bad)('welcome shows again on reload' if p.locator('#welcome.show').count() else '[%s] welcome did not show again on reload' % tag)
@@ -508,7 +537,8 @@ def run(pw, w, h, tag):
 
 def reduced_motion(pw):
     """prefers-reduced-motion: segmented control, tabs and sheets still work but switch instantly; marquee and shimmer stop."""
-    br = pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox', '--autoplay-policy=no-user-gesture-required'])
+    # real desktop Chrome autoplay policy (no --autoplay-policy override): muted autoplay must work on its own
+    br = pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
     ctx = br.new_context(viewport={'width': 390, 'height': 844}, device_scale_factor=2, has_touch=True, is_mobile=True, reduced_motion='reduce')
     p = ctx.new_page(); tag = 'reduced-motion'
     p.on('pageerror', lambda e: bad('[%s] pageerror: %s' % (tag, e)))
@@ -527,11 +557,48 @@ def reduced_motion(pw):
     (ok if not v['img'] else bad)('reduced motion: push is instant, images shown without fade' if not v['img'] else '[%s] reduced-motion images: %s' % (tag, v))
     br.close()
 
+def autoplay_refused(pw, w, h):
+    """A browser that refuses autoplay (Safari Low Power / 'Never Auto-Play', Firefox 'Block Audio and Video', a power-saving
+    pause): the poster must stay visible, and the first click anywhere must start the hero; a pause we did not ask for must resume."""
+    br = pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
+    m = w < 600
+    ctx = br.new_context(viewport={'width': w, 'height': h}, device_scale_factor=2 if m else 1, has_touch=m, is_mobile=m)
+    # strip autoplay from the hero markup and make play() reject until there has been a user gesture
+    ctx.add_init_script("""(() => {
+      const d = Object.getOwnPropertyDescriptor(Element.prototype, 'innerHTML');
+      Object.defineProperty(Element.prototype, 'innerHTML', { configurable: true, get: d.get, set(v){ if (typeof v === 'string' && v.includes('<video')) v = v.replace(' autoplay', ''); d.set.call(this, v); } });
+      const play = HTMLMediaElement.prototype.play;
+      HTMLMediaElement.prototype.play = function(){ return (navigator.userActivation && navigator.userActivation.hasBeenActive) ? play.call(this) : Promise.reject(new DOMException('blocked', 'NotAllowedError')); };
+    })()""")
+    p = ctx.new_page(); tag = 'autoplay-refused-%d' % w
+    p.on('pageerror', lambda e: bad('[%s] pageerror: %s' % (tag, e)))
+    print('== %s %dx%d' % (tag, w, h))
+    p.goto(URL + '?nosplash&nowelcome&nopush', wait_until='networkidle'); p.wait_for_timeout(1500)
+    st = p.evaluate("() => { const v = document.querySelector('.view.top .hero video'), po = document.querySelector('.view.top .hero .poster'); return {paused: v.paused, poster: +getComputedStyle(po).opacity, posterOk: po.complete && po.naturalWidth > 0}; }")
+    (ok if st['paused'] and st['poster'] > 0.95 and st['posterOk'] else bad)('autoplay refused: poster shown while blocked %s' % st if st['paused'] and st['poster'] > 0.95 and st['posterOk'] else '[%s] blocked state: %s' % (tag, st))
+    # first gesture anywhere (desktop: the empty stage beside the phone; phone: the bare hero), hero must start
+    if w >= 1000: p.mouse.click(40, h - 40)
+    else: p.touchscreen.tap(195, 300)   # bare hero area (no action there)
+    p.wait_for_timeout(1500)
+    r = p.evaluate("async () => { const v = document.querySelector('.view.top .hero video'); const t0 = v.currentTime; await new Promise(r => setTimeout(r, 800)); return {paused: v.paused, adv: +(v.currentTime - t0).toFixed(2), poster: +getComputedStyle(document.querySelector('.view.top .hero .poster')).opacity}; }")
+    (ok if not r['paused'] and r['adv'] > 0.3 and r['poster'] < 0.05 else bad)('autoplay refused: first click/tap starts the hero %s' % r if not r['paused'] and r['adv'] > 0.3 and r['poster'] < 0.05 else '[%s] hero did not start on first gesture: %s' % (tag, r))
+    # a pause the app did not ask for (browser power saving) is resumed by the watchdog
+    p.evaluate("document.querySelector('.view.top .hero video').pause()"); p.wait_for_timeout(2600)
+    r = p.evaluate("async () => { const v = document.querySelector('.view.top .hero video'); const t0 = v.currentTime; await new Promise(r => setTimeout(r, 700)); return {paused: v.paused, adv: +(v.currentTime - t0).toFixed(2)}; }")
+    (ok if not r['paused'] and r['adv'] > 0.3 else bad)('unrequested pause resumes on its own %s' % r if not r['paused'] and r['adv'] > 0.3 else '[%s] hero stayed paused after a browser pause: %s' % (tag, r))
+    # and it still stops when Home is not showing (no decode work behind other tabs)
+    p.evaluate("window.__app.switchTab('shop')"); p.wait_for_timeout(900)
+    n = p.evaluate("() => [...document.querySelectorAll('.hero video')].filter(v => !v.paused).length")
+    (ok if n == 0 else bad)('hero paused/removed while on another tab' if n == 0 else '[%s] %d hero video(s) still playing off Home' % (tag, n))
+    br.close()
+
 with sync_playwright() as pw:
     run(pw, 390, 844, 'mobile')
     run(pw, 1440, 800, 'desktop')
     run(pw, 1920, 1080, 'desktop-1920')
     reduced_motion(pw)
+    autoplay_refused(pw, 1440, 800)
+    autoplay_refused(pw, 390, 844)
 print('\n%d problem(s)' % len(problems))
 for x in problems: print(' -', x)
 sys.exit(1 if problems else 0)
