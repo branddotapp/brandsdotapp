@@ -285,7 +285,7 @@ function Home(el){
     const mine = hasSize() ? ALL.filter(inMySize).sort((a,b)=>(newIn.includes(b)?1:0)-(newIn.includes(a)?1:0)).slice(0,12) : [];
     const fc = H.feature && prods(H.feature.col)[0];
     el.innerHTML =
-      '<div class="home-head">'+topbar({ logo:true, clear:true, left:'<button class="icon-btn" data-act="notifs" aria-label="Notifications">'+I.bell+(unread?'<i class="dot"></i>':'')+'</button>', right:'<div class="tb-r">'+searchBtn()+bagBtn()+'</div>' }) + marquee() + '</div>'+
+      '<div class="home-head">'+marquee()+topbar({ logo:true, clear:true, left:'<button class="icon-btn" data-act="notifs" aria-label="Notifications">'+I.bell+(unread?'<i class="dot"></i>':'')+'</button>', right:'<div class="tb-r">'+searchBtn()+bagBtn()+'</div>' }) + '</div>'+
       '<div class="hero-slot"></div>'+
       (B.rewards && B.rewards.enabled ? '<div class="rewards-mini" data-act="rewards"><div class="rm-left"><small>'+esc(B.rewards.name)+'</small><b>1,250 pts</b><div class="rm-bar"><i></i></div><p>750 pts to your next reward</p></div><div class="rm-right">'+I.card+'</div></div>' : '')+
       (newIn.length ? '<section class="section"><div class="sec-head"><div><h2>New In</h2><p>'+esc(H.newSub||'The latest arrivals')+'</p></div><button class="link" data-act="col" data-v="'+esc(H.newCol)+'">View all</button></div><div class="hscroll">'+newIn.map(p=>pcard(p,{w:400})).join('')+'</div></section>' : '')+
@@ -317,10 +317,9 @@ function Home(el){
     if (s === scrolled) return;
     scrolled = s;
     const tb = $('.home-head', el); if (tb) tb.classList.toggle('scrolled', s);
-    if (el.classList.contains('top')) setStatus(!s);
   }, {passive:true});
   el._refresh = () => { const st = el.scrollTop; render(); el.scrollTop = st; scrolled = null; el.dispatchEvent(new Event('scroll')); };
-  return { light:true, lightUntil:480 };
+  return { light:true };
 }
 
 // ---------- SHOP ----------
@@ -844,18 +843,30 @@ document.addEventListener('click', e => {
   else if (a === 'reviews') { const R = B.reviews; if (R && R.url) openBrowser({ t: R.source+' reviews', url: R.url, sum: (R.label?R.label+'. ':'')+R.score+' out of 5, based on '+Number(R.count).toLocaleString('en-GB')+' reviews on '+R.source+(R.checked?' (as shown on '+B.domain+', checked '+R.checked+').':'.') }); }
 });
 
-// ---------- desktop device scaling ----------
+// ---------- desktop fit ----------
+// Everything fits the viewport with no page scroll: the phone is scaled to the height left after the stage padding
+// (16px top, 34px bottom strip for the credit line), and the pitch panel is scaled down too if it is still taller.
+const STAGE_PAD = { t:16, b:34, x:24 };
 function fit(){
-  const d = $('#device');
-  if (window.innerWidth <= 520){ d.style.transform=''; d.style.margin=''; return; }
-  const s = Math.min(1, (window.innerHeight - 56) / 868, (window.innerWidth - 24) / 414);
+  const d = $('#device'), pt = $('.pitch');
+  if (window.innerWidth <= 520){ d.style.transform=''; d.style.margin=''; if (pt) pt.style.transform=''; return; }
+  const availH = window.innerHeight - STAGE_PAD.t - STAGE_PAD.b;
+  const s = Math.min(1, availH / 868, (window.innerWidth - STAGE_PAD.x*2) / 414);
   d.style.transform = s < 1 ? 'scale('+s+')' : '';
   d.style.margin = s < 1 ? (-(868*(1-s))/2)+'px '+(-(414*(1-s))/2)+'px' : '';
+  if (pt && getComputedStyle(pt).display !== 'none'){
+    pt.style.transform = '';
+    const ps = Math.min(1, availH / pt.offsetHeight);
+    pt.style.transform = ps < 1 ? 'scale('+ps+')' : '';
+    pt.style.marginRight = ps < 1 ? (-(pt.offsetWidth*(1-ps)))+'px' : '';
+  }
 }
 
 // ---------- boot ----------
 buildChrome();
 window.addEventListener('resize', fit); fit();
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+{ const pl = $('.pitch-logo'); if (pl && !pl.complete) pl.addEventListener('load', fit); }
 updateBadges();
 const params = new URLSearchParams(location.search);
 switchTab('home');
