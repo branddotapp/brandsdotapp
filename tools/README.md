@@ -112,7 +112,7 @@ python3 tools/smoke_test.py raith --shots raith-shots/v4
 ```
 
 Clicks through every tab and feature at 390x844 and 1440x900, fails on console errors, failed requests, broken images
-and missing sections. Also checks the hero video is playing, not upscaled and has the right attributes, that the review block
+and missing sections. Also checks the Home header band (status bar area + perks marquee + header) is one translucent tint with edge-faded marquee, the hero video is playing, not upscaled and has the right attributes, that the review block
 sits near the bottom of Home, and that the welcome pop-up shows again on reload. Screenshots land in `<slug>-shots/` (git-ignored).
 
 ## App URL parameters

@@ -138,6 +138,8 @@ function makeView(fn, args){
   const el = document.createElement('section');
   el.className = 'view';
   const opts = fn(el, args) || {};
+  // hairline under the pinned top block once content scrolls beneath it (all tabs)
+  el.addEventListener('scroll', () => { const s = el.scrollTop > 2; if (s !== el.classList.contains('scrolled')) el.classList.toggle('scrolled', s); }, {passive:true});
   return { el, opts, fn, args };
 }
 function applyChrome(v){
@@ -195,6 +197,7 @@ function priceHTML(p){
   return p.cp > p.p ? '<div class="price sale"><b>'+money(p.p)+'</b><s>'+money(p.cp)+'</s></div>' : '<div class="price">'+money(p.p)+'</div>';
 }
 function topbar({title, logo, back:bk, right='', left='', clear}={}){
+  if (!title && !bk) logo = true;   // root tabs without a title carry the logo, same header row as Home
   return '<header class="topbar'+(clear?' clear':'')+'">'+
     (bk ? '<button class="icon-btn" data-act="back" aria-label="Back">'+I.back+'</button>' : (left || '<span style="width:40px"></span>'))+
     (logo ? '<img class="tb-logo" src="'+LOGO+'" alt="'+esc(NAME)+'">' : '<div class="tb-title">'+esc(title||'')+'</div>')+
@@ -285,7 +288,7 @@ function Home(el){
     const mine = hasSize() ? ALL.filter(inMySize).sort((a,b)=>(newIn.includes(b)?1:0)-(newIn.includes(a)?1:0)).slice(0,12) : [];
     const fc = H.feature && prods(H.feature.col)[0];
     el.innerHTML =
-      '<div class="home-head">'+marquee()+topbar({ logo:true, clear:true, left:'<button class="icon-btn" data-act="notifs" aria-label="Notifications">'+I.bell+(unread?'<i class="dot"></i>':'')+'</button>', right:'<div class="tb-r">'+searchBtn()+bagBtn()+'</div>' }) + '</div>'+
+      '<div class="home-head"><div class="home-band">'+marquee()+topbar({ logo:true, left:'<button class="icon-btn" data-act="notifs" aria-label="Notifications">'+I.bell+(unread?'<i class="dot"></i>':'')+'</button>', right:'<div class="tb-r">'+searchBtn()+bagBtn()+'</div>' }) + '</div></div>'+
       '<div class="hero-slot"></div>'+
       (B.rewards && B.rewards.enabled ? '<div class="rewards-mini" data-act="rewards"><div class="rm-left"><small>'+esc(B.rewards.name)+'</small><b>1,250 pts</b><div class="rm-bar"><i></i></div><p>750 pts to your next reward</p></div><div class="rm-right">'+I.card+'</div></div>' : '')+
       (newIn.length ? '<section class="section"><div class="sec-head"><div><h2>New In</h2><p>'+esc(H.newSub||'The latest arrivals')+'</p></div><button class="link" data-act="col" data-v="'+esc(H.newCol)+'">View all</button></div><div class="hscroll">'+newIn.map(p=>pcard(p,{w:400})).join('')+'</div></section>' : '')+
@@ -311,14 +314,10 @@ function Home(el){
     enableDrag(el);
   };
   render();
-  let scrolled = null;
-  el.addEventListener('scroll', () => {
-    const s = el.scrollTop > 480;
-    if (s === scrolled) return;
-    scrolled = s;
-    const tb = $('.home-head', el); if (tb) tb.classList.toggle('scrolled', s);
-  }, {passive:true});
-  el._refresh = () => { const st = el.scrollTop; render(); el.scrollTop = st; scrolled = null; el.dispatchEvent(new Event('scroll')); };
+  // past the hero the band gets denser so it stays readable over light content
+  let deep = null;
+  el.addEventListener('scroll', () => { const d = el.scrollTop > 480; if (d === deep) return; deep = d; const h = $('.home-head', el); if (h) h.classList.toggle('deep', d); }, {passive:true});
+  el._refresh = () => { const st = el.scrollTop; render(); el.scrollTop = st; deep = null; el.dispatchEvent(new Event('scroll')); };
   return { light:true };
 }
 

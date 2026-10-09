@@ -74,6 +74,10 @@ def run(pw, w, h, tag):
                                       if scale <= 1.0 else '[%s] hero video upscaled %.2fx in CSS px' % (tag, scale))
     if p.locator('.marquee').count(): ok('marquee: ' + p.locator('.marquee').first.inner_text()[:120].replace('\n', ' | '))
     else: bad('[%s] no marquee' % tag)
+    tb = p.evaluate("""() => { const b = document.querySelector('.view.top .home-band'); if (!b) return null; const m = getComputedStyle(b.querySelector('.marquee'));
+        return {bg: getComputedStyle(b).backgroundColor, rows: ['.marquee', '.topbar'].map(k => getComputedStyle(b.querySelector(k)).backgroundColor), mask: /gradient/.test(m.maskImage || m.webkitMaskImage)}; }""")
+    if tb and 'rgba' in tb['bg'] and all(x == 'rgba(0, 0, 0, 0)' for x in tb['rows']) and tb['mask']: ok('header band: one translucent tint (%s), marquee edge-faded' % tb['bg'])
+    else: bad('[%s] header band: %s' % (tag, tb))
     if p.locator('.proof').count(): ok('review block: ' + p.locator('.proof').first.inner_text().replace('\n', ' '))
     shot('02-home')
     scroll_lazy(); broken_imgs()
