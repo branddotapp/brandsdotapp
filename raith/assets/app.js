@@ -70,7 +70,6 @@ let promo = store.get('promo', false);
 let dropNotify = store.get('dropNotify', false);
 let priceDrop = store.get('priceDrop', null);   // {h}
 let dropLive = false;
-let unread = true;
 let signedIn = false; // demo only, never persisted
 const savePrefs = () => store.set('prefs', prefs);
 
@@ -262,7 +261,8 @@ function heroEl(){
   const v = hero.video ? '<video autoplay muted loop playsinline preload="auto" disablepictureinpicture disableremoteplayback'+(hero.poster?' poster="'+esc(hero.poster)+'"':'')+(hero.videoW?' width="'+hero.videoW+'" height="'+hero.videoH+'"':'')+'>'+
     '<source src="'+esc(hero.video)+'" type="video/mp4">'+(hero.videoWebm?'<source src="'+esc(hero.videoWebm)+'" type="video/webm">':'')+'</video>' : '';
   d.innerHTML = '<img class="poster" src="'+esc(hero.poster||'')+'" alt="">'+v+
-    '<div class="hero-copy"><div class="eyebrow">'+esc(hero.eyebrow||'')+'</div><div class="hero-title">'+esc(hero.title||NAME)+'</div>'+(hero.col&&colBy(hero.col)?'<button class="btn btn-light" data-act="col" data-v="'+esc(hero.col)+'">'+esc(hero.cta||'Shop now')+'</button>':'')+'</div>';
+    '<div class="hero-copy"><div class="eyebrow">'+esc(hero.eyebrow||'')+'</div><div class="hero-title">'+esc(hero.title||NAME)+'</div>'+(hero.col&&colBy(hero.col)?'<button class="btn btn-light" data-act="col" data-v="'+esc(hero.col)+'">'+esc(hero.cta||'Shop now')+'</button>':'')+'</div>'+
+    marquee();
   const vid = $('video', d);
   if (vid){
     vid.muted = true; vid.defaultMuted = true;
@@ -285,17 +285,12 @@ function Home(el){
     const best = prods(H.bestCol).slice(0, 12);
     const cover = h => { const p = prods(h)[0]; return p ? img(p.im[0], 500) : ''; };
     const tiles = (H.tiles || []).filter(t => prods(t[0]).length);
-    const mine = hasSize() ? ALL.filter(inMySize).sort((a,b)=>(newIn.includes(b)?1:0)-(newIn.includes(a)?1:0)).slice(0,12) : [];
     const fc = H.feature && prods(H.feature.col)[0];
     el.innerHTML =
-      '<div class="home-head"><div class="home-band">'+marquee()+topbar({ logo:true, left:'<button class="icon-btn" data-act="notifs" aria-label="Notifications">'+I.bell+(unread?'<i class="dot"></i>':'')+'</button>', right:'<div class="tb-r">'+searchBtn()+bagBtn()+'</div>' }) + '</div></div>'+
+      '<div class="home-head"><div class="home-band">'+topbar({ logo:true, left:'<button class="icon-btn" data-act="tab" data-v="account" aria-label="Account">'+I.user+'</button>', right:'<div class="tb-r">'+searchBtn()+bagBtn()+'</div>' }) + '</div></div>'+
       '<div class="hero-slot"></div>'+
       (B.rewards && B.rewards.enabled ? '<div class="rewards-mini" data-act="rewards"><div class="rm-left"><small>'+esc(B.rewards.name)+'</small><b>1,250 pts</b><div class="rm-bar"><i></i></div><p>750 pts to your next reward</p></div><div class="rm-right">'+I.card+'</div></div>' : '')+
       (newIn.length ? '<section class="section"><div class="sec-head"><div><h2>New In</h2><p>'+esc(H.newSub||'The latest arrivals')+'</p></div><button class="link" data-act="col" data-v="'+esc(H.newCol)+'">View all</button></div><div class="hscroll">'+newIn.map(p=>pcard(p,{w:400})).join('')+'</div></section>' : '')+
-      (SIZE_GROUPS.length ? (hasSize()
-        ? '<section class="section"><div class="sec-head"><div><h2>In stock in your size</h2><p>Size '+esc(sizeLabel())+' · ready to ship</p></div><button class="link" data-act="size">Change</button></div>'+(mine.length?'<div class="hscroll">'+mine.map(p=>pcard(p,{w:400})).join('')+'</div>':'<p class="count">Nothing in stock in your size right now. We’ll alert you when it lands.</p>')+'</section>'
-        : '<div class="size-cta" data-act="size"><div class="db-ic">'+I.ruler+'</div><div class="db-t"><b>In stock in your size</b><p>Save your size to see what’s ready to ship in it, pre-selected on every product.</p></div>'+I.chev+'</div>') : '')+
-      '<div class="drop-banner"><div class="db-ic">'+I.bell+'</div><div class="db-t"><b>Drop alerts</b><p>Be first to know when new pieces land.</p></div><button class="switch '+(prefs.drops?'on':'')+'" id="dropSwitch" aria-label="Toggle drop alerts"></button></div>'+
       (tiles.length ? '<section class="section"><div class="sec-head"><div><h2>Shop by Category</h2></div><button class="link" data-act="tab" data-v="shop">All</button></div><div class="cat-grid">'+tiles.map(t=>'<div class="cat-tile" data-act="col" data-v="'+esc(t[0])+'"><img loading="lazy" src="'+cover(t[0])+'" alt=""><span>'+esc(t[1])+'</span></div>').join('')+'</div></section>' : '')+
       (H.editorial && H.editorial.img && colBy(H.editorial.col) ? '<div class="editorial" data-act="col" data-v="'+esc(H.editorial.col)+'"><img loading="lazy" src="'+esc(H.editorial.img)+'" alt=""><div class="hero-copy"><div class="eyebrow">'+esc(H.editorial.eyebrow||'')+'</div><div class="hero-title">'+esc(H.editorial.title||'')+'</div><span class="btn btn-light">Shop now</span></div></div>' : '')+
       (best.length ? '<section class="section"><div class="sec-head"><div><h2>Best Sellers</h2><p>'+esc(H.bestSub||'The pieces everyone’s wearing')+'</p></div><button class="link" data-act="col" data-v="'+esc(H.bestCol)+'">View all</button></div><div class="hscroll">'+best.map(p=>pcard(p,{w:400})).join('')+'</div></section>' : '')+
@@ -305,12 +300,6 @@ function Home(el){
       '<div class="about"><img src="'+LOGO+'" alt="'+esc(NAME)+'"><p>'+esc(B.copy && B.copy.about || '')+'</p></div>'+credit();
     $('.hero-slot', el).replaceWith(heroNode);
     if (heroNode._sync) heroNode._sync();
-    $('#dropSwitch', el).addEventListener('click', e => {
-      prefs.drops = !prefs.drops; savePrefs();
-      e.currentTarget.classList.toggle('on', prefs.drops);
-      toast(prefs.drops ? 'Drop alerts on' : 'Drop alerts off', I.bell);
-      if (prefs.drops) setTimeout(()=>Demo.newin(), 1300);
-    });
     enableDrag(el);
   };
   render();
@@ -621,6 +610,7 @@ function Account(el){
       (signedIn ? '<div class="acct-card"><div class="av">'+I.user+'</div><div><b>Signed in (demo)</b><small>Nothing was saved or sent</small></div><button class="link" id="signOut">Sign out</button></div>'
                 : '<div class="acct-card"><div class="av">'+I.user+'</div><div><b>Welcome</b><small>Log in for faster checkout, order tracking and early access.</small></div></div><div class="acct-btns"><button class="btn btn-dark" data-act="login">Log in</button><button class="btn btn-outline" data-act="signup">Sign up</button></div>')+
       (B.rewards && B.rewards.enabled ? '<div class="rewards-mini" data-act="rewards" style="margin-top:14px"><div class="rm-left"><small>'+esc(B.rewards.name)+'</small><b>1,250 pts</b><div class="rm-bar"><i></i></div><p>Tap to show your card</p></div><div class="rm-right">'+I.card+'</div></div>' : '')+
+      '<div class="drop-banner" id="dropBanner"><div class="db-ic">'+I.bell+'</div><div class="db-t"><b>Drop alerts</b><p>Be first to know when new pieces land.</p></div><button class="switch '+(prefs.drops?'on':'')+'" id="dropSwitch" aria-label="Toggle drop alerts"></button></div>'+
       (SIZE_GROUPS.length ? '<div class="s-sec acct-h"><h4>Your size</h4></div><div class="acct-size">'+SIZE_GROUPS.map(g=>'<div class="label-row" style="margin:4px 0 8px"><b>'+esc(g.label)+'</b>'+(mySize[g.key]?'<span>Saved: '+esc((g.prefix||'')+mySize[g.key])+'</span>':'<span>Not set</span>')+'</div><div class="sizes">'+g.opts.map(o=>'<button class="size'+(String(mySize[g.key])===String(o)?' on':'')+'" data-g="'+esc(g.key)+'" data-o="'+esc(o)+'">'+esc((g.prefix||'')+o)+'</button>').join('')+'</div>').join('')+'<p class="acct-note">'+I.ruler+'<span>Pre-selected on product pages, used for the “in my size” filter and back-in-size alerts.</span></p></div>' : '')+
       '<div class="s-sec acct-h"><h4>Notifications</h4></div>'+
       prefRows.map(x=>'<div class="pref" data-pref="'+x[0]+'"><div><b>'+x[1]+'</b><small>'+x[2]+'</small></div><span class="switch '+(prefs[x[0]]?'on':'')+'"></span></div>').join('')+
@@ -630,7 +620,21 @@ function Account(el){
       const g = b.dataset.g; mySize[g] = String(mySize[g])===b.dataset.o ? null : b.dataset.o; store.set('size', mySize);
       toast(mySize[g] ? 'Saved size: '+sizeLabel() : 'Size cleared', I.ruler); const st = el.scrollTop; render(); el.scrollTop = st;
     }));
-    $$('.pref', el).forEach(r => r.addEventListener('click', () => { const k = r.dataset.pref; prefs[k] = !prefs[k]; savePrefs(); $('.switch',r).classList.toggle('on', prefs[k]); toast(r.querySelector('b').textContent+(prefs[k]?' on':' off'), I.bell); }));
+    const syncDropsUI = () => {
+      const sw = $('#dropSwitch', el); if (sw) sw.classList.toggle('on', !!prefs.drops);
+      const prefSw = el.querySelector('.pref[data-pref="drops"] .switch'); if (prefSw) prefSw.classList.toggle('on', !!prefs.drops);
+    };
+    $('#dropSwitch', el).addEventListener('click', () => {
+      prefs.drops = !prefs.drops; savePrefs(); syncDropsUI();
+      toast(prefs.drops ? 'Drop alerts on' : 'Drop alerts off', I.bell);
+      if (prefs.drops) setTimeout(()=>Demo.newin(), 1300);
+    });
+    $$('.pref', el).forEach(r => r.addEventListener('click', () => {
+      const k = r.dataset.pref; prefs[k] = !prefs[k]; savePrefs();
+      $('.switch',r).classList.toggle('on', prefs[k]);
+      if (k === 'drops') syncDropsUI();
+      toast(r.querySelector('b').textContent+(prefs[k]?' on':' off'), I.bell);
+    }));
     $$('[data-page]', el).forEach(b => b.addEventListener('click', () => { const [g,i] = b.dataset.page.split(':'); openBrowser(PAGES[g][+i]); }));
     const so = $('#signOut', el); if (so) so.addEventListener('click', () => { signedIn = false; render(); toast('Signed out'); });
   };
@@ -695,23 +699,6 @@ function Rewards(el){
   const card = $('#rcard', el);
   card.addEventListener('pointermove', e => { const r = card.getBoundingClientRect(); const x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5; card.style.transform='perspective(800px) rotateY('+(x*10)+'deg) rotateX('+(-y*10)+'deg)'; });
   card.addEventListener('pointerleave', () => card.style.transform='');
-}
-
-// ---------- NOTIFICATIONS ----------
-function Notifs(el){
-  const items = [];
-  const n0 = prods(H.newCol)[0]; if (n0) items.push(['pdp', n0.h, n0.im[0], 'New drop', n0.t+' has just landed. Be first to shop it.', 'Just now', true]);
-  if (DR) { const d0 = P[DR.products[0]]; if (d0) items.push(['tab', 'drops', d0.im[0], 'DROP '+DR.num+' / '+DR.name, 'App early access opens '+fmtDay(dropTimes().app)+'. Tap to set a reminder.', '1h ago', true]); }
-  const hc = H.hero && prods(H.hero.col)[0]; if (hc) items.push(['col', H.hero.col, hc.im[0], H.hero.title, (B.copy && B.copy.heroNotif) || 'The new season is here.', '2h ago', false]);
-  const fc = H.feature && prods(H.feature.col)[0]; if (fc) items.push(['col', H.feature.col, fc.im[0], H.feature.title, 'Build your rotation.', 'Yesterday', false]);
-  const sc = SH.featureEdits && prods(SH.featureEdits.col)[0]; if (sc) items.push(['col', SH.featureEdits.col, sc.im[0], SH.featureEdits.title, 'Last chance on selected styles while sizes last.', '3d ago', false]);
-  el.innerHTML = topbar({back:true, title:'Notifications'}) +
-    items.map(n=>'<div class="notif" data-act="'+n[0]+'" data-v="'+esc(n[1])+'"><img loading="lazy" src="'+img(n[2],150)+'" alt=""><div><b>'+esc(n[3])+'</b><p>'+esc(n[4])+'</p><small>'+n[5]+'</small></div>'+(n[6]?'<i class="unread"></i>':'')+'</div>').join('')+
-    '<div class="s-sec" style="padding-top:26px"><h4>Alert preferences</h4></div>'+
-    [['drops','Drop alerts','New collections the moment they land'],['restock','Back in stock','When a saved size returns'],['price','Price drops','On items in your wishlist'],['orders','Order updates','Live delivery tracking']].map(x=>'<div class="pref" data-pref="'+x[0]+'"><div><b>'+x[1]+'</b><small>'+x[2]+'</small></div><span class="switch '+(prefs[x[0]]?'on':'')+'"></span></div>').join('')+
-    '<div style="padding:20px 18px 0"><button class="btn btn-outline btn-block" id="previewPush">Preview a drop alert</button></div>'+credit();
-  $$('.pref', el).forEach(r => r.addEventListener('click', () => { const k=r.dataset.pref; prefs[k]=!prefs[k]; savePrefs(); $('.switch',r).classList.toggle('on', prefs[k]); toast(prefs[k]?'Alerts on':'Alerts off', I.bell); }));
-  $('#previewPush', el).addEventListener('click', () => setTimeout(()=>Demo.newin(), 500));
 }
 
 // ---------- push notification + demo triggers ----------
@@ -811,7 +798,7 @@ function buildChrome(){
   $$('.pitch [data-demo]').forEach(b => b.addEventListener('click', () => runDemo(b.dataset.demo)));
   $('#demoFab').addEventListener('click', () => openSheet('<h3>Demo controls</h3><p class="center sheet-sub">Trigger the push notifications this app would send.</p><div class="demo-panel in-sheet">'+demoHTML+'</div>',
     s => $$('[data-demo]', s).forEach(b => b.addEventListener('click', () => { closeSheet(); setTimeout(()=>runDemo(b.dataset.demo), 350); }))));
-  $('#push').addEventListener('click', () => { $('#push').classList.remove('show'); unread=false; const a = pushAction; pushAction = null; if (a){ closeSheet(); closeBrowser(); $('#welcome').classList.remove('show'); a(); } });
+  $('#push').addEventListener('click', () => { $('#push').classList.remove('show'); const a = pushAction; pushAction = null; if (a){ closeSheet(); closeBrowser(); $('#welcome').classList.remove('show'); a(); } });
   let py=null; $('#push').addEventListener('touchstart', e=>py=e.touches[0].clientY,{passive:true});
   $('#push').addEventListener('touchmove', e=>{ if(py!==null && e.touches[0].clientY-py < -20){ $('#push').classList.remove('show'); py=null; } },{passive:true});
   let ex=null, ey=0;
@@ -831,7 +818,6 @@ document.addEventListener('click', e => {
   else if (a === 'wish') { e.stopPropagation(); toggleWish(v); }
   else if (a === 'tab') switchTab(v);
   else if (a === 'rewards') { if (B.rewards && B.rewards.enabled) push(Rewards); }
-  else if (a === 'notifs') { unread=false; push(Notifs); }
   else if (a === 'bagtab') switchTab('bag');
   else if (a === 'search') push(Search);
   else if (a === 'close') closeSheet();

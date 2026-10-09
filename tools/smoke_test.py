@@ -44,8 +44,14 @@ def run(pw, w, h, tag):
     p.click('#wlGo'); p.wait_for_timeout(600)
     # 2 home
     t = p.text_content('.view.top')
-    for need in ['In stock in your size', 'New In']:
+    for need in ['New In']:
         (ok if need.lower() in t.lower() else bad)(('home has "%s"' % need) if need.lower() in t.lower() else '[%s] home missing "%s"' % (tag, need))
+    if 'in stock in your size' in t.lower() or p.locator('.view.top .size-cta').count():
+        bad('[%s] home still shows in-stock-in-your-size card/rail' % tag)
+    else: ok('home has no in-stock-in-your-size card/rail')
+    if p.locator('.view.top #dropSwitch').count() or p.locator('.view.top .drop-banner').count():
+        bad('[%s] home still shows drop alerts card' % tag)
+    else: ok('home has no drop alerts card')
     if p.locator('.view.top .next-drop').count() or 'next drop, app early access' in t.lower(): bad('[%s] home still shows the next-drop countdown card' % tag)
     else: ok('home has no next-drop countdown card')
     # review block sits near the bottom: after the product rails and categories, before the About footer
@@ -74,18 +80,32 @@ def run(pw, w, h, tag):
                                       if scale <= 1.0 else '[%s] hero video upscaled %.2fx in CSS px' % (tag, scale))
     if p.locator('.marquee').count(): ok('marquee: ' + p.locator('.marquee').first.inner_text()[:120].replace('\n', ' | '))
     else: bad('[%s] no marquee' % tag)
-    tb = p.evaluate(r"""() => { const b = document.querySelector('.view.top .home-band'); if (!b) return null;
-        const m = b.querySelector('.marquee'), t = b.querySelector('.topbar');
+    tb = p.evaluate(r"""() => {
+        const b = document.querySelector('.view.top .home-band');
+        const hero = document.querySelector('.view.top .hero');
+        const m = hero && hero.querySelector('.marquee');
+        const t = b && b.querySelector('.topbar');
+        const copy = hero && hero.querySelector('.hero-copy');
+        if (!b || !m || !t || !hero) return {missing:true, b:!!b, m:!!m, t:!!t, hero:!!hero};
         const ms = getComputedStyle(m), ts = getComputedStyle(t), bs = getComputedStyle(b);
         const mq = ms.backgroundColor.match(/rgba\((\d+), (\d+), (\d+), ([\d.]+)\)/);
+        const hb = hero.getBoundingClientRect(), mb = m.getBoundingClientRect(), cb = copy ? copy.getBoundingClientRect() : null;
+        const left = t.querySelector('.icon-btn');
         return {band: bs.backgroundColor, mq: ms.backgroundColor, tb: ts.backgroundColor,
                 mqAlpha: mq && +mq[4], mask: /gradient/.test(ms.maskImage || ms.webkitMaskImage),
-                tbColor: ts.color}; }""")
-    clear = tb and tb['band'] in ('rgba(0, 0, 0, 0)', 'transparent') and tb['tb'] in ('rgba(0, 0, 0, 0)', 'transparent')
-    strip = tb and tb['mqAlpha'] and 0.35 <= tb['mqAlpha'] <= 0.55
-    if clear and strip and tb['mask'] and tb['tbColor'] == 'rgb(255, 255, 255)':
-        ok('home top: clear status/menu over hero, marquee strip %s edge-faded' % tb['mq'])
-    else: bad('[%s] home top: %s' % (tag, tb))
+                tbColor: ts.color,
+                perksAtBottom: Math.abs(mb.bottom - hb.bottom) <= 2,
+                copyAbove: !cb || cb.bottom <= mb.top + 1,
+                bandHasMarquee: !!b.querySelector('.marquee'),
+                leftAccount: left && left.getAttribute('data-act')==='tab' && left.getAttribute('data-v')==='account',
+                hasBell: !!t.querySelector('[data-act="notifs"]')}; }""")
+    clear = tb and tb.get('band') in ('rgba(0, 0, 0, 0)', 'transparent') and tb.get('tb') in ('rgba(0, 0, 0, 0)', 'transparent')
+    strip = tb and tb.get('mqAlpha') and 0.35 <= tb['mqAlpha'] <= 0.55
+    if clear and strip and tb.get('mask') and tb.get('tbColor') == 'rgb(255, 255, 255)' and tb.get('perksAtBottom') and tb.get('copyAbove') and not tb.get('bandHasMarquee'):
+        ok('home top: clear menu over hero; perks strip at hero bottom %s edge-faded' % tb['mq'])
+    else: bad('[%s] home top/hero perks: %s' % (tag, tb))
+    if tb and tb.get('leftAccount') and not tb.get('hasBell'): ok('home header Account icon (no bell)')
+    else: bad('[%s] home header Account/bell: %s' % (tag, {k: tb.get(k) for k in ('leftAccount','hasBell')} if tb else tb))
     if p.locator('.proof').count(): ok('review block: ' + p.locator('.proof').first.inner_text().replace('\n', ' '))
     shot('02-home')
     scroll_lazy(); broken_imgs()
@@ -106,9 +126,34 @@ def run(pw, w, h, tag):
     shot('05-pdp-coming-soon'); p.click('.view.top [data-act="back"]'); p.wait_for_timeout(500)
     # 4 account: size, prefs, auth, browser
     tab('account'); t = p.text_content('.view.top')
-    for need in ['Log in', 'Sign up', 'Your size', 'New drops', 'Early access', 'Back in stock', 'Price drops', 'Order updates', 'Help', 'About', 'Legal', 'Version 1.0, concept', '@']:
+    for need in ['Log in', 'Sign up', 'Drop alerts', 'Be first to know', 'Your size', 'New drops', 'Early access', 'Back in stock', 'Price drops', 'Order updates', 'Help', 'About', 'Legal', 'Version 1.0, concept', '@']:
         if need.lower() not in t.lower(): bad('[%s] account missing "%s"' % (tag, need))
     ok('account sections present')
+    order_da = p.evaluate("""() => {
+      const v = document.querySelector('.view.top');
+      const drop = v.querySelector('#dropBanner') || v.querySelector('.drop-banner');
+      let sizeH = null;
+      for (const h of v.querySelectorAll('.acct-h h4')) { if (/your size/i.test(h.textContent)) { sizeH = h; break; } }
+      if (!drop || !sizeH) return {ok:false, reason:'missing', drop:!!drop, size:!!sizeH};
+      const following = !!(drop.compareDocumentPosition(sizeH) & Node.DOCUMENT_POSITION_FOLLOWING);
+      return {ok:following, dropTop: Math.round(drop.getBoundingClientRect().top), sizeTop: Math.round(sizeH.getBoundingClientRect().top)};
+    }""")
+    (ok if order_da.get('ok') else bad)('drop alerts above your size' if order_da.get('ok') else '[%s] drop alerts not above your size: %s' % (tag, order_da))
+    before = p.evaluate("() => document.querySelector('#dropSwitch').classList.contains('on')")
+    p.click('#dropSwitch'); p.wait_for_timeout(400)
+    synced = p.evaluate("""() => {
+      const a = document.querySelector('#dropSwitch').classList.contains('on');
+      const b = document.querySelector('.pref[data-pref="drops"] .switch').classList.contains('on');
+      return {a:a, b:b, match:a===b};
+    }""")
+    (ok if synced['match'] and synced['a'] != before else bad)('drop alerts toggles and syncs with New drops' if synced['match'] and synced['a'] != before else '[%s] drop/new-drops sync failed: %s before=%s' % (tag, synced, before))
+    p.click('.pref[data-pref="drops"]'); p.wait_for_timeout(300)
+    synced2 = p.evaluate("""() => {
+      const a = document.querySelector('#dropSwitch').classList.contains('on');
+      const b = document.querySelector('.pref[data-pref="drops"] .switch').classList.contains('on');
+      return {a:a, b:b, match:a===b};
+    }""")
+    (ok if synced2['match'] else bad)('New drops pref syncs drop alerts card' if synced2['match'] else '[%s] New drops did not sync drop card: %s' % (tag, synced2))
     shot('06-account')
     p.click('.acct-size .size[data-o="M"]'); p.wait_for_timeout(400)
     waist = p.locator('.acct-size .size[data-o="32"]')

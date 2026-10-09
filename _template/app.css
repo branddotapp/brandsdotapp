@@ -353,15 +353,6 @@ svg{display:block}
 .r-actions small{font-size:11px;color:var(--muted);line-height:1.4;display:block}
 .fineprint{font-size:10.5px;color:var(--muted);padding:16px 22px 0;line-height:1.5;text-align:center}
 
-/* ---------- notifications ---------- */
-.notif{display:flex;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line);cursor:pointer;align-items:center}
-.notif:active{background:#ebe8e3}
-.notif img{width:56px;height:70px;object-fit:cover;background:#e6e1da}
-.notif div{flex:1}
-.notif b{display:block;font-size:12px;font-weight:600;color:var(--ink);letter-spacing:.04em}
-.notif p{font-size:12px;color:var(--text);line-height:1.45;margin-top:3px}
-.notif small{font-size:10.5px;color:var(--muted)}
-.notif .unread{width:8px;height:8px;border-radius:4px;background:#c4492f;flex:none}
 .pref{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:#fff;border-bottom:1px solid var(--line);cursor:pointer}
 .pref b{font-size:13px;font-weight:500;color:var(--ink)}
 .pref small{display:block;font-size:11.5px;color:var(--muted);margin-top:2px}
@@ -449,11 +440,11 @@ svg{display:block}
 @media (max-width:1000px){.demo-fab{display:flex}}
 .sheet-sub{font-size:12.5px!important;margin:-8px 0 16px!important}
 
-/* ---------- top block (v7) ----------
+/* ---------- top block (v8) ----------
    Other tabs: solid header row in the page colour (hairline once content scrolls beneath).
-   Home: status bar is clear over the hero (white icons); perks marquee sits on its own slim ~45% black
-   strip just under it (soft L/R fade masks); menu row is clear over the video with white icons/logo.
-   Past the hero the whole band turns solid so it stays readable. No backdrop-filter over the video. */
+   Home: status bar + menu row are clear over the hero (white icons/logo). Perks marquee is a slim ~45%
+   black strip overlaid at the BOTTOM edge of the hero (soft L/R fade masks), with hero copy/CTA above it.
+   Past the hero the sticky menu band turns solid so it stays readable. No backdrop-filter over the video. */
 :root{--hd-bg:var(--bg);--hd-fg:var(--ink);--hd-line:rgba(0,0,0,.09);--hd-row:48px;--perks-h:26px}
 .topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;
   padding:var(--sat) 8px 0;min-height:0;height:calc(var(--sat) + var(--hd-row));background:var(--hd-bg);color:var(--hd-fg);
@@ -471,16 +462,16 @@ svg{display:block}
 .home-head .icon-btn .dot{border-color:transparent}
 .home-head.deep .topbar{text-shadow:none}
 .home-head.deep .tb-logo{filter:invert(1)}
-.marquee{position:relative;height:var(--perks-h);overflow:hidden;contain:layout paint;display:flex;align-items:center;color:#fff;
-  background:rgba(0,0,0,.45);transition:background .35s ease;
+.marquee{position:absolute;left:0;right:0;bottom:0;z-index:3;height:var(--perks-h);overflow:hidden;contain:layout paint;display:flex;align-items:center;color:#fff;
+  background:rgba(0,0,0,.45);
   -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 16%,#000 84%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 16%,#000 84%,transparent 100%)}
-.home-head.deep .marquee{background:transparent}
 .mq-track{display:flex;align-items:center;white-space:nowrap;animation:mq 42s linear infinite;will-change:transform;backface-visibility:hidden}
 .mq-track span{font-size:9px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;padding:0 16px;opacity:.9}
 .mq-track i{font-style:normal;font-size:7px;opacity:.45}
 @keyframes mq{to{transform:translateX(-50%)}}
 .hero{height:620px}
-.hero::after{background:linear-gradient(180deg,rgba(0,0,0,.16) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,0) 50%,rgba(0,0,0,.55) 100%)}
+.hero::after{background:linear-gradient(180deg,rgba(0,0,0,.16) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,0) 48%,rgba(0,0,0,.58) 100%)}
+.hero .hero-copy{bottom:calc(var(--perks-h) + 18px)}
 /* search tab bar: same solid surface */
 .searchbar{background:var(--hd-bg);backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 1px 0 transparent;transition:box-shadow .25s}
 .view.scrolled>.searchbar{box-shadow:0 1px 0 var(--hd-line)}
