@@ -449,11 +449,12 @@ svg{display:block}
 @media (max-width:1000px){.demo-fab{display:flex}}
 .sheet-sub{font-size:12.5px!important;margin:-8px 0 16px!important}
 
-/* ---------- top block (v6) ----------
-   Status bar + perks line + header are one solid block in the page colour, pinned to the top of the view.
-   No translucency, no stacked bands: a single hairline appears under it once content scrolls beneath.
-   The hero starts below the block (never behind it). Other tabs use the same header row, minus the perks line. */
-:root{--hd-bg:var(--bg);--hd-fg:var(--ink);--hd-line:rgba(0,0,0,.09);--hd-row:48px;--perks-h:28px}
+/* ---------- top block (v7) ----------
+   Other tabs: solid header row in the page colour (hairline once content scrolls beneath).
+   Home: status bar is clear over the hero (white icons); perks marquee sits on its own slim ~45% black
+   strip just under it (soft L/R fade masks); menu row is clear over the video with white icons/logo.
+   Past the hero the whole band turns solid so it stays readable. No backdrop-filter over the video. */
+:root{--hd-bg:var(--bg);--hd-fg:var(--ink);--hd-line:rgba(0,0,0,.09);--hd-row:48px;--perks-h:26px}
 .topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;
   padding:var(--sat) 8px 0;min-height:0;height:calc(var(--sat) + var(--hd-row));background:var(--hd-bg);color:var(--hd-fg);
   backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 1px 0 transparent;transition:box-shadow .25s}
@@ -461,17 +462,19 @@ svg{display:block}
 .tb-logo,.tb-title{top:calc(50% + var(--sat) / 2);transform:translate(-50%,-50%)}
 .tb-logo{height:13px;max-width:150px;object-fit:contain}
 .tb-r{display:flex;gap:0;margin-right:0}
-/* Home: status bar area + perks marquee + header are ONE translucent band over the hero video (one tint, painted once
-   on .home-band; the marquee and header rows are transparent, so there is no seam or extra strip). No backdrop-filter
-   over the video (re-blurring every frame made playback stutter). Past the hero the same band just gets denser. */
 .home-head{position:sticky;top:0;z-index:20;height:0}
-.home-band{position:absolute;left:0;right:0;top:-2px;padding-top:calc(var(--sat) + 2px);background:rgba(12,12,12,.4);color:#fff;transition:background .35s ease}
-.home-head.deep .home-band{background:rgba(14,14,14,.9)}
-.home-head .topbar{position:relative;top:auto;height:var(--hd-row);padding:0 8px;background:transparent;color:#fff;box-shadow:none}
-.home-head .tb-logo{top:50%;filter:invert(1)}
+.home-band{position:absolute;left:0;right:0;top:-2px;padding-top:calc(var(--sat) + 2px);background:transparent;color:#fff;transition:background .35s ease}
+.home-head.deep .home-band{background:rgba(14,14,14,.95)}
+.home-head .topbar{position:relative;top:auto;height:var(--hd-row);padding:0 8px;background:transparent;color:#fff;box-shadow:none;
+  text-shadow:0 1px 2px rgba(0,0,0,.28)}
+.home-head .tb-logo{top:50%;filter:invert(1) drop-shadow(0 1px 2px rgba(0,0,0,.28))}
 .home-head .icon-btn .dot{border-color:transparent}
-.marquee{position:relative;height:26px;overflow:hidden;contain:layout paint;display:flex;align-items:center;color:#fff;
+.home-head.deep .topbar{text-shadow:none}
+.home-head.deep .tb-logo{filter:invert(1)}
+.marquee{position:relative;height:var(--perks-h);overflow:hidden;contain:layout paint;display:flex;align-items:center;color:#fff;
+  background:rgba(0,0,0,.45);transition:background .35s ease;
   -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 16%,#000 84%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 16%,#000 84%,transparent 100%)}
+.home-head.deep .marquee{background:transparent}
 .mq-track{display:flex;align-items:center;white-space:nowrap;animation:mq 42s linear infinite;will-change:transform;backface-visibility:hidden}
 .mq-track span{font-size:9px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;padding:0 16px;opacity:.9}
 .mq-track i{font-style:normal;font-size:7px;opacity:.45}

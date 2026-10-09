@@ -74,10 +74,18 @@ def run(pw, w, h, tag):
                                       if scale <= 1.0 else '[%s] hero video upscaled %.2fx in CSS px' % (tag, scale))
     if p.locator('.marquee').count(): ok('marquee: ' + p.locator('.marquee').first.inner_text()[:120].replace('\n', ' | '))
     else: bad('[%s] no marquee' % tag)
-    tb = p.evaluate("""() => { const b = document.querySelector('.view.top .home-band'); if (!b) return null; const m = getComputedStyle(b.querySelector('.marquee'));
-        return {bg: getComputedStyle(b).backgroundColor, rows: ['.marquee', '.topbar'].map(k => getComputedStyle(b.querySelector(k)).backgroundColor), mask: /gradient/.test(m.maskImage || m.webkitMaskImage)}; }""")
-    if tb and 'rgba' in tb['bg'] and all(x == 'rgba(0, 0, 0, 0)' for x in tb['rows']) and tb['mask']: ok('header band: one translucent tint (%s), marquee edge-faded' % tb['bg'])
-    else: bad('[%s] header band: %s' % (tag, tb))
+    tb = p.evaluate(r"""() => { const b = document.querySelector('.view.top .home-band'); if (!b) return null;
+        const m = b.querySelector('.marquee'), t = b.querySelector('.topbar');
+        const ms = getComputedStyle(m), ts = getComputedStyle(t), bs = getComputedStyle(b);
+        const mq = ms.backgroundColor.match(/rgba\((\d+), (\d+), (\d+), ([\d.]+)\)/);
+        return {band: bs.backgroundColor, mq: ms.backgroundColor, tb: ts.backgroundColor,
+                mqAlpha: mq && +mq[4], mask: /gradient/.test(ms.maskImage || ms.webkitMaskImage),
+                tbColor: ts.color}; }""")
+    clear = tb and tb['band'] in ('rgba(0, 0, 0, 0)', 'transparent') and tb['tb'] in ('rgba(0, 0, 0, 0)', 'transparent')
+    strip = tb and tb['mqAlpha'] and 0.35 <= tb['mqAlpha'] <= 0.55
+    if clear and strip and tb['mask'] and tb['tbColor'] == 'rgb(255, 255, 255)':
+        ok('home top: clear status/menu over hero, marquee strip %s edge-faded' % tb['mq'])
+    else: bad('[%s] home top: %s' % (tag, tb))
     if p.locator('.proof').count(): ok('review block: ' + p.locator('.proof').first.inner_text().replace('\n', ' '))
     shot('02-home')
     scroll_lazy(); broken_imgs()

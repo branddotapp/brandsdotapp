@@ -314,7 +314,7 @@ function Home(el){
     enableDrag(el);
   };
   render();
-  // past the hero the band gets denser so it stays readable over light content
+  // past the hero the band turns solid so the clear menu/status stay readable over light content
   let deep = null;
   el.addEventListener('scroll', () => { const d = el.scrollTop > 480; if (d === deep) return; deep = d; const h = $('.home-head', el); if (h) h.classList.toggle('deep', d); }, {passive:true});
   el._refresh = () => { const st = el.scrollTop; render(); el.scrollTop = st; deep = null; el.dispatchEvent(new Event('scroll')); };
