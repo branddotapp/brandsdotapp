@@ -211,5 +211,60 @@
    }
   ],
   "region": "UK"
+ },
+ "_instagram": "Collected by hand in a browser from the brand's Instagram profile (the scraper can't read Instagram). Kept here so --rebuild and re-scrapes keep it. Thumbnails: assets/ig/N.jpg, square-cropped, max 600px.",
+ "instagram": {
+  "handle": "yelirworld",
+  "url": "https://www.instagram.com/yelirworld/",
+  "followers": "320K",
+  "bio": "IT’S A LIFESTYLE! @yelirworldperformance",
+  "collected": "2026-10-10",
+  "posts": [
+   {
+    "url": "https://www.instagram.com/p/DeRhUY-t90B/",
+    "type": "photo",
+    "image": "assets/ig/1.jpg"
+   },
+   {
+    "url": "https://www.instagram.com/p/DePLGdUOSTg/",
+    "type": "photo",
+    "image": "assets/ig/2.jpg"
+   },
+   {
+    "url": "https://www.instagram.com/p/DeMRmCbyblc/",
+    "type": "photo",
+    "image": "assets/ig/3.jpg"
+   },
+   {
+    "url": "https://www.instagram.com/p/DeJrmj7ScUX/",
+    "type": "photo",
+    "image": "assets/ig/4.jpg"
+   },
+   {
+    "url": "https://www.instagram.com/p/DeHcr3Qlbpx/",
+    "type": "carousel",
+    "image": "assets/ig/5.jpg"
+   },
+   {
+    "url": "https://www.instagram.com/p/DeHRFHBhIvx/",
+    "type": "photo",
+    "image": "assets/ig/6.jpg"
+   },
+   {
+    "url": "https://www.instagram.com/p/DeHMM_9v_fR/",
+    "type": "photo",
+    "image": "assets/ig/7.jpg"
+   },
+   {
+    "url": "https://www.instagram.com/p/DeFN8hSOnlS/",
+    "type": "photo",
+    "image": "assets/ig/8.jpg"
+   },
+   {
+    "url": "https://www.instagram.com/p/DeCDOV1u2-N/",
+    "type": "photo",
+    "image": "assets/ig/9.jpg"
+   }
+  ]
  }
 }

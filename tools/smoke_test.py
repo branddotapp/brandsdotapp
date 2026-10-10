@@ -200,7 +200,12 @@ def run(pw, w, h, tag):
             if (D.followers && head.indexOf(D.followers + ' followers') < 0) bad.push('header missing followers');
             if (sr.left < vr.left - .5 || sr.right > vr.right + .5 || v.scrollWidth > v.clientWidth) bad.push('horizontal overflow');
             const kids = [...v.children], next = pr && pr.nextElementSibling;
-            if (!pr || next !== s) bad.push('not directly below the review block (next after .proof: ' + (next && next.className) + ')');
+            // When the brand has a review block, Instagram sits directly under it; with no reviews, proofHTML() is empty and the feed still sits above About.
+            if (pr) { if (next !== s) bad.push('not directly below the review block (next after .proof: ' + (next && next.className) + ')'); }
+            else {
+              const about = v.querySelector('.about');
+              if (about && s.nextElementSibling !== about) bad.push('with no review block, ig-feed should sit above About (next: ' + (s.nextElementSibling && s.nextElementSibling.className) + ')');
+            }
             // hidden when the brand has no posts
             const keep = D.posts; D.posts = []; const empty = window.__app.igHTML(); D.posts = keep;
             if (empty !== '') bad.push('igHTML not empty with no posts');
