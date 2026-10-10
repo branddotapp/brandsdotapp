@@ -576,7 +576,8 @@ def run(pw, w, h, tag):
     p.click('#payNow'); p.wait_for_timeout(1800); shot('17-order'); p.keyboard.press('Escape')
     p.evaluate("document.querySelector('#sheetBackdrop').click()"); p.wait_for_timeout(400)
     # 6 search, wishlist
-    tab('home'); p.click('.view.top [data-act="search"]'); p.wait_for_timeout(400); p.fill('#sq', 'polo'); p.wait_for_timeout(600)
+    tab('home'); p.click('.view.top [data-act="search"]'); p.wait_for_timeout(400); q = p.evaluate("(() => { const B = window.BRAND, all = Object.values(B.products || {}); if (all.some(x => /polo/i.test(x.t))) return 'polo'; return ((B.search || {}).trending || [])[0] || (all[0] ? all[0].n.split(' ')[0] : 'a'); })()")   # a term this catalogue has (not every brand sells polos)
+    p.fill('#sq', q); p.wait_for_timeout(600)
     ok('search: ' + p.inner_text('.view.top .count')); shot('18-search'); p.click('.view.top [data-act="back"]'); p.wait_for_timeout(300)
     # 7 demo pushes
     for k in ['bag', 'restock'] + (['price'] if BR['sale'] else []) + ['drop', 'welcome']:

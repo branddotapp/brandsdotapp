@@ -420,7 +420,8 @@ function resumeHeroVideo(){
 function Home(el){
   const heroNode = heroEl();
   const render = () => {
-    const newIn = prods(H.newCol).slice(0, 12);
+    // drop pieces that aren't live yet ("Coming soon", not buyable) go to the end of the New In rail, so it opens on something you can buy
+    const newAll = prods(H.newCol), newIn = newAll.filter(p => !isComing(p.h)).concat(newAll.filter(p => isComing(p.h))).slice(0, 12);
     const best = prods(H.bestCol).slice(0, 12);
     const cover = h => { const p = prods(h)[0]; return p ? img(p.im[0], 500) : ''; };
     const tiles = (H.tiles || []).filter(t => prods(t[0]).length);

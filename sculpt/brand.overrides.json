@@ -1,0 +1,406 @@
+{
+ "_note": "Hand-tuned layer on top of the scraped brand.json (sculptactivewear.com, Shopify, Gecko theme). Run: python3 tools/build_brand.py --rebuild sculpt. Hand-picked images in assets/brand/ are crops of the site's own homepage and collection banners (Ellie Edit launch, Brown Edit, Core Essentials, Performance, Overcast). The logo is a vector trace of the site's header wordmark (Off-White-Logo.png, only 350x80 on the CDN), rasterised at 1400x320 in black, greige (#e4e2da, the site's header logo colour) and white.",
+ "scrape": {
+  "_extraCollections": "The site's real menu (New In, The Ellie Edit, Shop By > products and collections) is rendered by JS, so the static HTML only exposes the homepage banners. These are the menu's collections.",
+  "extraCollections": [
+   "new-in",
+   "most-popular-2",
+   "the-ellie-edit",
+   "leggings",
+   "bras",
+   "tops",
+   "t-shirts",
+   "shorts",
+   "flares",
+   "jumpsuits",
+   "hoodies-jumpers",
+   "black-tracksuit",
+   "jackets",
+   "joggers",
+   "socks",
+   "bags",
+   "caps",
+   "back-to-basics",
+   "core-essentials",
+   "the-performance-collection",
+   "the-brown-edit",
+   "the-signature-collection",
+   "grey-edit",
+   "last-chance-to-buy"
+  ],
+  "_colours": "Product titles end in the colour with no separator ('Hybrid High Waisted Leggings Mahogany'); these are the colour names used on the site, so titles split into name + colour and colourways show as swatches.",
+  "colours": [
+   "Suede Black",
+   "Mahogany",
+   "Espresso",
+   "Dark Grey",
+   "Steel",
+   "Black",
+   "Greige",
+   "Cocoa",
+   "Sandstorm",
+   "White",
+   "Impact Brown",
+   "Impact Blue",
+   "Petrol Blue",
+   "Forest Green",
+   "Ivy",
+   "Willow",
+   "Dove Grey",
+   "Buttercream",
+   "Brown",
+   "Cream",
+   "Storm",
+   "Charcoal",
+   "Vanilla",
+   "Sapphire",
+   "Heather Grey",
+   "Matte Black"
+  ]
+ },
+ "name": "Sculpt Activewear",
+ "short": "SCULPT",
+ "assets": {
+  "logoDark": "assets/brand/logo-black.png",
+  "logoLight": "assets/brand/logo-greige.png",
+  "favicon": "assets/brand/favicon.png"
+ },
+ "_theme": "sculptactivewear.com (Gecko theme): white page, black text, black header with the greige (#e4e2da) logo, greige announcement bar with black text, black buttons with greige text, 40px pill buttons and pills everywhere, border colour #b6b4a8, sale price #c40202, Archivo (served by Shopify; same family on Google Fonts). Imagery is warm neutral studio shots (cream walls, espresso / mahogany / sandstorm tones). Radii, type and button styles live in sculpt/brand.css.",
+ "theme": {
+  "ink": "#000000",
+  "bg": "#ffffff",
+  "bgRgb": "255,255,255",
+  "text": "#000000",
+  "muted": "#5f5d55",
+  "line": "#dedcd3",
+  "stone": "#8a877b",
+  "sand": "#e4e2da",
+  "sand2": "#f2f1ec",
+  "sale": "#c40202",
+  "stageA": "#f6f5f1",
+  "stageB": "#ebe9e2",
+  "stageC": "#dfdcd2",
+  "font": "Archivo",
+  "fontHref": "https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap"
+ },
+ "pitch": {
+  "title": "Activewear for everyBODY,<br>one tap away.",
+  "copy": "A concept for the Sculpt Activewear app: pre-order drops like The Ellie Edit with app-first access, your saved size from 2XS to 3XL, Sculpt VIP points in your pocket, and Shopify checkout with Apple Pay, Shop Pay and Klarna. Tap around, everything works.",
+  "list": [
+   "Drops and pre-orders with app-first access",
+   "Saved size (2XS–3XL) and back-in-size alerts",
+   "Sculpt VIP points and card in the app"
+  ]
+ },
+ "home": {
+  "newCol": "new-in",
+  "newSub": "The latest drops from Sculpt",
+  "bestCol": "most-popular-2",
+  "bestSub": "Our most loved & popular products",
+  "hero": {
+   "poster": "assets/brand/hero-ellie.jpg",
+   "eyebrow": "Ellie Leach x Sculpt · Pre-order",
+   "title": "THE ELLIE EDIT",
+   "cta": "Get first look",
+   "col": "the-ellie-edit"
+  },
+  "tiles": [
+   [
+    "leggings",
+    "Leggings"
+   ],
+   [
+    "bras",
+    "Sports Bras"
+   ],
+   [
+    "jumpsuits",
+    "Jumpsuits"
+   ],
+   [
+    "hoodies-jumpers",
+    "Hoodies"
+   ],
+   [
+    "jackets",
+    "Jackets"
+   ],
+   [
+    "flares",
+    "Flares"
+   ]
+  ],
+  "editorial": {
+   "col": "the-brown-edit",
+   "img": "assets/brand/brown-edit.jpg",
+   "eyebrow": "Espresso, Cocoa & Sandstorm",
+   "title": "THE BROWN EDIT"
+  },
+  "feature": {
+   "col": "core-essentials",
+   "img": "assets/brand/core-essentials-wide.jpg",
+   "title": "CORE ESSENTIALS",
+   "cta": "Shop now"
+  }
+ },
+ "search": {
+  "trending": [
+   "Hybrid leggings",
+   "Tierra bra",
+   "Flares",
+   "Jumpsuit",
+   "Zip through",
+   "Espresso",
+   "Joggers",
+   "Cap"
+  ],
+  "popular": [
+   "new-in",
+   "leggings",
+   "bras",
+   "jumpsuits"
+  ]
+ },
+ "perks": [
+  "Free UK delivery over £75",
+  "Inclusive sizing 2XS – 3XL",
+  "Leggings that last years, not seasons",
+  "Sculpt VIP: 5 points for every £1",
+  "Klarna, Clearpay & Shop Pay",
+  "Click & collect in Manchester"
+ ],
+ "pdpPerks": [
+  "Free UK delivery over £75",
+  "14-day returns",
+  "Earn Sculpt VIP points"
+ ],
+ "payments": [
+  "apple_pay",
+  "shopify_pay",
+  "klarna",
+  "paypal",
+  "google_pay",
+  "visa",
+  "master",
+  "american_express",
+  "maestro"
+ ],
+ "shipping": {
+  "region": "UK",
+  "freeOver": 75,
+  "options": [
+   {
+    "id": "two-day",
+    "name": "Two-Day Delivery",
+    "desc": "Royal Mail, 2–3 working days",
+    "price": 3.99,
+    "freeOver": 75,
+    "short": "Two-Day"
+   },
+   {
+    "id": "next-working-day",
+    "name": "Next Working Day Delivery",
+    "desc": "Royal Mail, order before 2pm",
+    "price": 4.99,
+    "short": "Next Working Day"
+   },
+   {
+    "id": "click-collect",
+    "name": "Click & Collect",
+    "desc": "Sculpt HQ, Denton, Manchester",
+    "price": 0,
+    "short": "Click & Collect"
+   }
+  ],
+  "notes": [
+   "Orders placed before 2pm Mon–Fri are dispatched the same working day.",
+   "We ship to almost 93% of the world, from £8.49 to Europe."
+  ]
+ },
+ "_reviews": "Judge.me reviews shown on the sculptactivewear.com homepage ('WHAT OUR COMMUNITY THINKS', 4.96, 1,233 reviews), checked 2026-10-10. No Trustpilot profile is shown on the site, so none is used.",
+ "reviews": {
+  "score": 4.96,
+  "count": 1233,
+  "label": "What our community thinks",
+  "source": "Judge.me",
+  "url": "https://judge.me/reviews/stores/sculptactivewear.com",
+  "checked": "10 Oct 2026"
+ },
+ "_rewards": "Sculpt VIP is real: Beginner / Advanced / Pro tiers, 5 points per £1, 200 bonus points to start (sculptactivewear.com/pages/sculpt-score-gecko). The balance and card in the app are illustrative.",
+ "rewards": {
+  "enabled": true,
+  "name": "Sculpt VIP",
+  "real": true,
+  "stockists": false
+ },
+ "_discount": "The site's real welcome offer is 15% off the first order (plus free UK delivery) for newsletter sign-ups; its code is emailed, not public. The app pop-up uses the same 15% with a placeholder app code.",
+ "discount": {
+  "code": "APP15",
+  "pct": 15
+ },
+ "copy": {
+  "about": "Designed by Women, for Women. Activewear for everyBODY, combining activewear & loungewear for all day, every day. Shop in-store or collect your order from us in Manchester.",
+  "emptyBag": "Nothing in here yet. Start with The Ellie Edit or our best sellers.",
+  "heroNotif": "The Ellie Edit is available to pre-order now."
+ },
+ "_drop": "The newest real release is The Ellie Edit (Ellie Leach x Sculpt Activewear), six pieces published 8 Oct 2026 and on pre-order, so the Drops tab demos app early access with it. The previous drop is Overcast (the Steel gym set and Dark Grey basics, released 29 Sep 2026). The date/time is the template's rolling placeholder.",
+ "drop": {
+  "num": "01",
+  "name": "THE ELLIE EDIT",
+  "title": "Ellie Leach x Sculpt Activewear",
+  "col": "the-ellie-edit",
+  "image": "assets/brand/drop-ellie.jpg",
+  "products": [
+   "longline-high-support-tank-bra-suede-mahogany",
+   "oversized-light-zip-through-jacket-mahogany",
+   "hybrid-high-waisted-leggings-mahogany",
+   "longline-high-support-tank-bra-suede-black",
+   "oversized-light-hooded-jacket-suede-black",
+   "textured-high-waisted-leggings-suede-black"
+  ],
+  "previous": {
+   "col": "grey-edit",
+   "title": "OVERCAST"
+  }
+ },
+ "collectionTitles": {
+  "the-ellie-edit": "The Ellie Edit",
+  "leggings": "Leggings",
+  "bras": "Sports Bras",
+  "most-popular-2": "Best Sellers",
+  "black-tracksuit": "Tracksuits",
+  "hoodies-jumpers": "Hoodies & Jumpers",
+  "the-performance-collection": "Performance",
+  "grey-edit": "Overcast",
+  "back-to-basics": "Back To Basics",
+  "core-essentials": "Core Essentials",
+  "the-brown-edit": "The Brown Edit",
+  "the-signature-collection": "The Signature Collection",
+  "last-chance-to-buy": "Last Chance To Buy",
+  "new-in": "New In",
+  "t-shirts": "T-Shirts"
+ },
+ "shop": {
+  "kicker": "SCULPT ACTIVEWEAR",
+  "cats": [
+   "leggings",
+   "bras",
+   "tops",
+   "t-shirts",
+   "hoodies-jumpers",
+   "jackets",
+   "joggers",
+   "black-tracksuit",
+   "flares",
+   "jumpsuits",
+   "shorts",
+   "caps",
+   "socks",
+   "bags"
+  ],
+  "edits": [
+   "new-in",
+   "the-ellie-edit",
+   "most-popular-2",
+   "the-brown-edit",
+   "grey-edit",
+   "the-signature-collection",
+   "core-essentials",
+   "back-to-basics",
+   "the-performance-collection",
+   "last-chance-to-buy"
+  ],
+  "featureCats": {
+   "col": "leggings",
+   "title": "LEGGINGS",
+   "cta": "Shop now",
+   "idx": 0,
+   "img": "assets/brand/leggings-wide.jpg"
+  },
+  "featureEdits": {
+   "col": "the-performance-collection",
+   "title": "PERFORMANCE",
+   "cta": "Shop now",
+   "idx": 0,
+   "img": "assets/brand/performance-wide.jpg"
+  }
+ },
+ "_instagram": "Handle from the site footer. Posts are collected separately in a browser (the Home grid hides itself until instagram.posts is filled).",
+ "instagram": {
+  "handle": "sculptactivewear",
+  "url": "https://www.instagram.com/sculptactivewear/"
+ },
+ "_sizes": "Sculpt sells 2XS–3XL (the scraper's size list has no 2XS).",
+ "sizes": {
+  "groups": [
+   {
+    "key": "top",
+    "label": "Clothing size",
+    "opts": [
+     "2XS",
+     "XS",
+     "S",
+     "M",
+     "L",
+     "XL",
+     "2XL",
+     "3XL"
+    ]
+   }
+  ]
+ },
+ "_report": "The scraper's missing list, corrected for what is filled in by hand above (reviews, payments, delivery, Sculpt VIP and the drop are real data from the site, added here).",
+ "report": {
+  "missing": [
+   "No hero video on the site (homepage, collection and about pages checked): the hero is the Ellie Edit launch banner",
+   "No FAQs, sustainability, stockists or cookie policy page linked on the site",
+   "Instagram feed: posts not collected yet (Home grid hidden until brand.overrides.json -> instagram.posts is filled)",
+   "No Trustpilot profile shown on the site: the review block uses the Judge.me score shown on the homepage",
+   "The site's 15% welcome code is emailed to subscribers, not published: the pop-up shows the real 15% with a placeholder app code (APP15)",
+   "No upcoming release is announced: the Drops tab demos app early access with The Ellie Edit (on pre-order now); drop date/time is the rolling placeholder",
+   "Sculpt VIP balance, tier and card in the app are illustrative"
+  ]
+ },
+ "_pages": "Help and About lists as in the site footer (HERE TO HELP / SCULPT ACTIVEWEAR), with the delivery page summarised by hand (the scraper only caught its heading). Legal pages stay as scraped.",
+ "pages": {
+  "help": [
+   {
+    "t": "Size Guide",
+    "url": "https://sculptactivewear.com/pages/sizing-guide",
+    "sum": "Sculpt sizes run from 2XS to 3XL. See the size guide on sculptactivewear.com for the measurements of each style; product pages list the model's height and the size she wears."
+   },
+   {
+    "t": "Returns & Exchanges",
+    "url": "https://sculptactivewear.com/pages/returns",
+    "sum": "Returns Policy\nReturns must be received within 14 days of delivery or collection. To be eligible for a refund or exchange, items must be:\nUnworn, unwashed and free from odours, stains, make-up, fake tan and pet hair.\nReturned in their original plastic packaging with swing tags attached.\nAccompanied by the original packing slip.\nBodysuits must have their original hygiene strip intact.\nFor hygiene reasons, underwear cannot be returned, and opened socks are non-returnable.\nReturns that are damaged, altered, tampered with or do not meet these conditions may be rejected and returned to you. You will receive an email explaining the reason, with photographic evidence and tracking details.\nHow to Return an Order\nShipped Orders\nReturn your order through our online returns portal. UK customers can purchase a Royal Mail returns label for £3.99, deducted from the refund. You can print the label or request a QR code through the Royal Mail returns portal."
+   },
+   {
+    "t": "Delivery & Collection",
+    "url": "https://sculptactivewear.com/pages/delivery-shipping",
+    "sum": "Delivery Information\nAll orders are shipped with Royal Mail and processed Monday to Friday, excluding UK bank holidays. Orders placed before 2pm are dispatched the same working day.\nUK Delivery\nNext Working Day Delivery: £4.99 (estimated 1–2 working days).\nTwo-Day Delivery: £3.99 (estimated 2–3 working days).\nFree Two-Day Delivery on orders over £75.\nInternational Delivery\nWe ship to almost 93% of the world: Europe £8.49, North America £13.99, Far East & Australasia £11.99 (3–5 working days).\nClick & Collect\nCollect from Sculpt Activewear HQ, Tameside Business Park, Denton, Manchester M34 3QS once you receive your collection email. Mon & Fri 10am–6pm, Tue–Thu 10am–5pm."
+   },
+   {
+    "t": "Contact Us",
+    "url": "https://sculptactivewear.com/pages/contact-us",
+    "sum": "Got a query? Want to know more about us? Or just have a general question? Here's how to get in touch\nDrop US An Email: Your Name (required)\nYour Email (required)\nYour Message\nContact Information: Need help with something? Got a query? Not a problem! Simply fill out the form and we'll get back to you as soon as we can. Alternatively, you can contact us using our website live chat function.\nSculpt Activewear HQ, B4.05,\nTameside Business Park, Windmill Lane, Denton,\nManchester, M34 3QS\n0161 553 0679 help@sculptactivewear.com\nMon-Fri 10:00-17:00"
+   }
+  ],
+  "about": [
+   {
+    "t": "About Us",
+    "url": "https://sculptactivewear.com/pages/about-us",
+    "sum": "Sculpt\nActivewear\nWhat Matters to US: Our core values are at the forefront of what we do\nInclusivity: We believe that everyone should be able to wear our products. We're proud to offer an inclusive size range from sizes 2XS - 3XL.\nWe would be nothing without our incredible community. Every decision we make is always with you in mind.\nQuality: Every piece of clothing we make is designed with you in mind. We design clothes that last for years, not seasons.\nDiversity: We believe everyone should feel represented. That's why we feature diverse models to reflect a wide range of people.\nThe Sculpt\nStore: The hub of everything we do.\nCollect your order or shop in-store with us in Manchester\nThe Team: Say hello to the team who make it all happen\nThe\nFounder: \"Thank you will never be enough. Every single purchase inspires me to keep pushing boundaries and strive to be the best in the industry.\nYour support and loyalty is truly remarkable. Sculpt is and will always be a brand of the people.\""
+   },
+   {
+    "t": "Sculpt VIP",
+    "url": "https://sculptactivewear.com/pages/sculpt-score-gecko",
+    "sum": "Welcome to the Sculpt Squad. Earn 5 points for every £1 you spend, online or in-store, and 200 bonus points when you create an account.\nBeginner (spend £0–£250): bonus birthday points.\nAdvanced (£250–£1,000): free £5 voucher and a free 48-hour UK shipping voucher.\nPro (£1,000+): first access to sales, new products and sample sales.\nRefer a friend and you both get £10 worth of points."
+   },
+   {
+    "t": "Community",
+    "url": "https://sculptactivewear.com/pages/community",
+    "sum": "The beating heart of Sculpt Activewear is our amazing community of women. Join us at Sculpt events, from SculptFest and sample sales at the Sculpt store to pop-ups at the Trafford Centre."
+   }
+  ]
+ }
+}

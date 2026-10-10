@@ -1,0 +1,120 @@
+/* SCULPT ACTIVEWEAR: brand layer loaded after the shared app.css (copied to assets/brand.css by tools/build_brand.py).
+   Matches sculptactivewear.com (Shopify Gecko theme): white page, black type, black header with the greige (#e4e2da) logo,
+   greige announcement bar, black pill buttons with greige text, outline pill buttons over imagery, 40px radii on buttons,
+   pills and inputs, Archivo throughout with no tracking (bold, sporty, not the wide-tracked luxury look), and big statement
+   words in Archivo Expanded Black like the site's BASICS / LEGGINGS / JUMPSUITS banner type. Warm greige surfaces, not grey. */
+
+:root{--greige:#e4e2da;--greige-2:#f2f1ec;--greige-line:#dedcd3;--border-sculpt:#b6b4a8;--deep-band:dark}
+
+/* ---- Archivo Expanded Black for statement type (the site's banner word style) ---- */
+.hero-title,.editorial .hero-title,.feature-card b,.dc-title,.large-title,.pitch-title,.stat-num,.wl-body h2,.empty h3,.rcard .rc-pts b,.rm-left b{
+  font-stretch:125%;font-weight:900;letter-spacing:-.01em;text-transform:uppercase}
+.hero-title{font-size:33px;line-height:.98;margin-bottom:16px}
+.editorial .hero-title{font-size:29px}
+.feature-card b{font-size:21px;line-height:1;margin-bottom:12px}
+.dc-title{font-size:25px;line-height:1.02}
+.dc-title span{opacity:.55;font-weight:400}
+.large-title{font-size:25px;line-height:1.05}
+.large-title small{font-stretch:100%;font-weight:600;letter-spacing:.04em;color:var(--muted)}
+.wl-body h2{font-size:21px;line-height:1.08}
+.empty h3{font-size:15px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.01em;text-transform:none;opacity:1}
+.dc-sub{font-size:12px;font-weight:600;letter-spacing:.01em;text-transform:none;opacity:.9}
+
+/* section heads: bold uppercase, no tracking (the site's 20px/700 headings, scaled to the phone) */
+.sec-head h2{font-size:15px;font-weight:800;letter-spacing:0}
+.sec-head p{font-size:12px;color:var(--muted)}
+.tb-title{font-weight:800;letter-spacing:.02em}
+.label-row b,.pdp-info .ptype,.drop-banner b,.cat-row b,.cat-tile span,.drop-times small,.proof .pr-l small,.wl-body>small,.why-h,.stat-label,.pitch-kicker,.pitch-list,.credit,.credit-inline{letter-spacing:.03em}
+.cat-row b{font-size:13px;font-weight:700}
+.cat-tile span{font-size:14px;font-weight:800;letter-spacing:0}
+.pdp-info h1{font-size:19px;font-weight:700;line-height:1.25;text-transform:capitalize}
+.pdp-info .ptype{font-weight:600}
+.label-row b{font-weight:800}
+
+/* ---- buttons: 40px pills, Archivo 700 uppercase, no tracking; black with greige text like the site ---- */
+.btn{border-radius:40px;font-size:13px;font-weight:700;letter-spacing:0;height:46px;padding:0 26px}
+.btn-dark{background:#000;color:var(--greige)}
+.btn-outline{border-radius:40px;border-width:1.5px}
+.buybar .btn{height:50px}
+.buybar .hbtn{border-radius:50%;border-color:var(--border-sculpt)}
+/* over imagery: the site's outline banner button (greige hairline + text), filling greige on hover */
+.hero .btn-light,.editorial .btn-light,.feature-card .btn-light,.drop-card .btn-light{background:rgba(0,0,0,.28);color:#f1efe9;border:1.5px solid #f1efe9}
+@media (hover:hover){.hero .btn-light:hover,.editorial .btn-light:hover,.feature-card .btn-light:hover,.drop-card .btn-light:hover{background:var(--greige);color:#000;border-color:var(--greige)}}
+.feature-card .btn-sm{height:36px;padding:0 20px;font-size:12px}
+.link{font-weight:700;letter-spacing:0;text-transform:uppercase;text-decoration:underline;text-underline-offset:3px}
+.ig-follow{letter-spacing:.02em;font-size:11px}
+
+/* ---- pills and rounded surfaces everywhere (the theme's 40px "other radius") ---- */
+.seg{background:var(--greige);border-radius:40px}
+.seg button,.seg .seg-ind{border-radius:40px}
+.seg button{letter-spacing:.02em;font-weight:700;color:#4d4b45}
+.chip{border-color:var(--border-sculpt);font-weight:600}
+.size{border-radius:40px;border-color:var(--border-sculpt);font-weight:600}
+.size.out{background:var(--greige-2);color:#a19e93}
+.size.out::after{background:#c9c6bb}
+.qty{border-radius:40px;border-color:var(--border-sculpt);overflow:hidden}
+.sfield{border-radius:40px;border-color:var(--border-sculpt)}
+.promo,.summary,.acct-card,.drop-times div,.ship-opt,.proof,.drop-banner,.soon-note,.size-filter,.pref-group{border-radius:16px}
+.promo-cta{border-radius:40px;letter-spacing:.02em}
+.wl-code{border-radius:40px}
+.wl-code span{letter-spacing:.12em}
+.toast{border-radius:40px}
+.dc-tag{border-radius:40px;letter-spacing:.06em}
+.cd div{border-radius:12px}
+.g-badge{border-radius:40px;letter-spacing:.04em}
+.swatch{border-radius:8px}
+.swatch img{border-radius:6px}
+.demo-btn,.pitch .demo-btn{border-radius:16px}
+.drop-card{border-radius:20px}
+
+/* warm greige surfaces on the white page (cards that were white-on-grey) */
+.summary,.acct-card,.drop-times div,.ship-opt:not(.on),.proof{background:var(--greige-2)}
+.pcard .pimg,.cat-tile,.cat-row img,.bag-item img{background:var(--greige-2)}
+.link-row{border-top-color:var(--greige-line)}
+.drop-banner{background:var(--greige-2);border-color:var(--greige-line)}
+.pitch-copy{color:#4d4b45}
+.br-url{background:var(--greige-2)}
+
+/* ---- product cards: left-aligned bold title + regular price (the site's 15px/700 + 15px/400, scaled) ---- */
+.pcard .pmeta{padding:10px 2px 4px}
+.pcard .pname{font-size:12px;font-weight:700;letter-spacing:0;line-height:1.3}
+.pcard .pcol{font-size:11.5px}
+.pcard .price{font-weight:400;font-size:12.5px}
+.pcard .tag{background:#000;color:#fff;border-radius:40px;padding:4px 9px;letter-spacing:.04em;font-weight:700}
+.pcard .tag.sale{background:var(--sale)}
+
+/* ---- header: black band past the hero with the greige logo, like the site header ---- */
+.home-head.deep .home-band{background:rgba(0,0,0,.96)}
+.home-head .tb-logo{height:19px;max-width:none}
+.home-head.deep .tb-logo{filter:invert(.89) sepia(.12)}
+.tb-logo{height:17px;max-width:none}
+.splash{background:#000}
+.splash-logo{width:190px}
+.splash-line span{background:var(--greige)}
+.wl-top{background:#000}
+.wl-logo{height:26px;max-width:200px}
+.about img{width:150px}
+.pitch-logo{width:clamp(130px,18vh,170px);max-height:none}
+.rcard .rc-top img{height:15px}
+
+/* ---- Sculpt VIP card: black into espresso (The Brown Edit palette), greige accents ---- */
+.rewards-mini,.rcard{background:linear-gradient(135deg,#0b0a09 0%,#211915 55%,#3b2a21 100%)}
+.rewards-mini::before,.rcard::before{background:radial-gradient(circle,rgba(228,226,218,.22),transparent 70%)}
+.rm-bar i,.rcard .tbar i{background:var(--greige)}
+.rewards-mini{border-radius:20px}
+.rm-left b,.rcard .rc-pts b{font-size:28px}
+
+/* ---- desktop "Why an app" stats: rounded greige-tinted boxes, Expanded Black numbers ---- */
+.stat{border-radius:18px;background:rgba(255,255,255,.66);border-color:rgba(0,0,0,.07)}
+.stat-num{font-size:clamp(24px,3.6vh,32px);letter-spacing:-.015em}
+.stat-label{font-weight:800}
+.stat-copy{color:#4d4b45}
+.pitch-title{font-size:clamp(22px,3.2vh,29px);line-height:1.04}
+.pitch-list{font-weight:700}
+
+/* sold-out sizes: keep the strike line inside the pill (no overflow, so nothing reads as clipped) */
+.size.out::after{left:10%;right:10%}
+/* discount rows on the greige summary card: a slightly deeper green for AA contrast */
+.summary .row.disc,.co-row span[style*="--sale"]{color:#24663f}
+.promo.on{border-color:#24663f}

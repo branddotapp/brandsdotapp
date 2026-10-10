@@ -960,6 +960,20 @@ def check_instagram(B, out_dir):
     if posts: log('· Instagram feed: @%s, %s followers, %d posts (collected %s, from brand.overrides.json)' % (ig.get('handle'), ig.get('followers') or '?', len(posts), ig.get('collected') or '?'))
     else: log('· Instagram feed: no posts (Home grid hidden). Collect them in a browser into brand.overrides.json -> instagram.posts')
 
+def split_colours(B):
+    """Stores that put the colour at the end of the title with no " - " or Colour option ("Hybrid High Waisted Leggings Mahogany"):
+    brand.overrides.json -> scrape.colours lists the colour names, and a product with no colour yet gets its title split into
+    name + colour (longest match first), so colour siblings share a name and show as swatches on the product page."""
+    names = sorted((B.get('scrape') or {}).get('colours') or [], key=len, reverse=True)
+    if not names: return
+    n = 0
+    for p in (B.get('products') or {}).values():
+        if p.get('c'): continue
+        t = p.get('t') or p.get('n') or ''
+        c = next((c for c in names if t.lower().endswith(' ' + c.lower())), None)
+        if c: p['n'], p['c'] = t[:-len(c)].strip(), c; n += 1
+    log('· Colours split from product titles (scrape.colours): %d products' % n)
+
 # ---------------------------------------------------------------- write the app
 def deep_merge(a, b):
     """b wins. dicts merge recursively; lists and scalars are replaced. Keys starting with '_' are comments."""
@@ -1056,6 +1070,7 @@ def main():
         for c in B.get('collections', []):
             if c['h'] in (B.get('collectionTitles') or {}): c['t'] = B['collectionTitles'][c['h']]
         log('· Applied overrides from %s' % os.path.relpath(ov, a.root))
+    split_colours(B)
     check_instagram(B, out)
     json.dump(B, open(os.path.join(out, 'brand.json'), 'w'), ensure_ascii=False, indent=1)
     write_app(B, out)

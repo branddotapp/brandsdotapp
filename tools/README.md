@@ -137,7 +137,7 @@ keys starting with `_` are comments. Example (`raith/brand.overrides.json`):
 ```
 
 Then `python3 tools/build_brand.py --rebuild raith`. Useful keys: `name`, `short`, `pitch`, `home.hero`, `home.tiles`,
-`home.editorial`, `home.feature`, `instagram`, `perks`, `search.trending`, `drop` (set `drop.opensAt` to an ISO date for a real
+`home.editorial`, `home.feature`, `instagram`, `perks`, `scrape.extraCollections` (menu collections the static HTML doesn't expose), `scrape.colours` (colour names to split off the end of product titles like "Hybrid High Waisted Leggings Mahogany", so colourways share a name and show as swatches), `search.trending`, `drop` (set `drop.opensAt` to an ISO date for a real
 drop time), `discount` (`{"code":"APP10","pct":10}`), `theme` colours, `copy`.
 
 ## Test
