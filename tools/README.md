@@ -111,6 +111,33 @@ thumbnail) and **stored in `<slug>/brand.overrides.json`**, so `--rebuild` and f
 - thumbnails go in `<slug>/assets/ig/N.jpg`: square crop (slightly above centre), max 600px, JPEG q80 progressive
 - the build logs the feed status and skips posts whose URL isn't an instagram.com post or whose thumbnail file is missing
 
+## Community (events + demo forum)
+
+Opt-in per brand: add a `community` block to `<slug>/brand.overrides.json` (sculpt has one; raith and yelir don't, so nothing
+changes for them). With it, a **Community** tab takes the Wishlist's slot in the tab bar (six tabs max), the Wishlist moves to a
+heart with a count in the Home and Shop headers (and a row on Account), Home gets a community teaser card below the Instagram
+block, and the desktop demo panel gets a community push.
+
+```json
+"community": {"title": "Community", "kicker": "The Sculpt Squad", "teaserTitle": "Join the Sculpt Squad", "intro": "...",
+  "events": {"source": "https://sculptactivewear.com/pages/community", "checked": "10 Oct 2026", "emptyCopy": "...", "recentCopy": "...",
+    "items": [{"id": "sculptfest", "title": "SculptFest", "start": "2026-08-23", "end": "2026-08-23", "dateLabel": "23rd Aug",
+               "time": "1pm – 4pm", "location": "Aldwinians Football Club", "desc": "...", "image": "assets/community/sculptfest.jpg",
+               "url": "https://...", "ticket": "https://... (booking link, if the site gives one)", "cta": "Book"}]},
+  "forum": {"note": "...", "prompt": "...", "teaser": "...", "topics": ["Training", "Run Club", "Fit Checks", "Events"],
+    "threads": [{"id": "run-sunday", "topic": "Run Club", "author": {"name": "Chloe M.", "initials": "CM"}, "ago": "2h", "likes": 24,
+                 "title": "...", "body": "...", "product": "<product handle, optional>", "replies": [{"author": {...}, "ago": "1h", "body": "..."}]}]}}
+```
+
+- **Events are never invented**: copy them from the brand's own events page (title, date, time, location, description, image) and keep
+  `dateLabel` as the site words it. Upcoming vs past is worked out in the app from `start`/`end`: upcoming events get cards with a
+  date badge and a **Book** button (`ticket`, else "View on site" with `url`), opened in the in-app browser; if nothing is upcoming
+  an empty state with an event-alerts toggle shows, and past events are listed under **Recent**. No `items` → no events section.
+- **The forum is demo content**: generic first names and initials avatars (no photos of real people, no claims about real people),
+  written in the brand's voice and labelled as a demo. Topic chips filter the feed; likes, replies and new posts (compose sheet,
+  header pen) are stored in localStorage only, nothing is sent. `replies` is the real list, so reply counts always match.
+- Event images go in `<slug>/assets/community/`.
+
 ## Desktop layout
 
 On desktop (over 1000px wide) the page is three columns with the phone centred in the window: on the left the brand pitch
@@ -150,9 +177,9 @@ python3 tools/layout_check.py raith            # 390x844, 1280x720, 1440x800, 19
 
 Clicks through every tab and feature at 390x844, 1280x720, 1440x800 and 1920x1080 (plus a prefers-reduced-motion pass), fails on console errors, failed requests, broken images
 and missing sections. Also checks the Home header band (status bar area + perks marquee + header) is one translucent tint with edge-faded marquee, the hero video is playing, not upscaled and has the right attributes, that the review block
-sits near the bottom of Home, that the Instagram feed sits directly below it (3x3 square tiles, every tile a valid instagram.com post URL with `target=_blank`, reel/carousel icons, Follow button, hover state, hidden with no posts; section screenshot `instagram.png`), and that the welcome pop-up shows again on reload. Motion/interaction checks (v11): the segmented control's white pill slides (transform + width, 0.28s cubic-bezier, sampled mid-flight) and the content swaps; segment kept after back; tab cross-fade and active-icon spring; push/pop slide with parallax and shade (no `filter`); button press scale ~0.97 and hover; heart pop + ring; add to bag → "Added" + check, header bag count bump, sheet after; sheet drag-handle dismiss; image fade-in + shimmer; rail snap; switch knob transition; PDP title bar; Escape back/close; bag quantity totals; checkout Change buttons; Demo button hidden on product pages and under toasts; reduced motion turns it all instant. Desktop stage (v12): three centred columns that fit the window with no overlap or page scroll; the "Why an app" column has 4 boxes matching `BRAND.stats`, each with a valid https source link (`target=_blank`, `rel=noopener`) that opens a new tab, a fade-in and a hover lift; source URLs are fetched once (401/403/429 bot walls are noted, not failed). Screenshots land in `<slug>-shots/` (git-ignored).
+sits near the bottom of Home, that the Instagram feed sits directly below it (3x3 square tiles, every tile a valid instagram.com post URL with `target=_blank`, reel/carousel icons, Follow button, hover state, hidden with no posts; section screenshot `instagram.png`), and that the welcome pop-up shows again on reload. Motion/interaction checks (v11): the segmented control's white pill slides (transform + width, 0.28s cubic-bezier, sampled mid-flight) and the content swaps; segment kept after back; tab cross-fade and active-icon spring; push/pop slide with parallax and shade (no `filter`); button press scale ~0.97 and hover; heart pop + ring; add to bag → "Added" + check, header bag count bump, sheet after; sheet drag-handle dismiss; image fade-in + shimmer; rail snap; switch knob transition; PDP title bar; Escape back/close; bag quantity totals; checkout Change buttons; Demo button hidden on product pages and under toasts; reduced motion turns it all instant. Desktop stage (v12): three centred columns that fit the window with no overlap or page scroll; the "Why an app" column has 4 boxes matching `BRAND.stats`, each with a valid https source link (`target=_blank`, `rel=noopener`) that opens a new tab, a fade-in and a hover lift; source URLs are fetched once (401/403/429 bot walls are noted, not failed). Screenshots land in `<slug>-shots/` (git-ignored). With a `community` block it also checks the Community tab replaced Wishlist (wishlist via the header heart), the Home teaser, event cards/date badges/images, the empty state + "Recent" when nothing is upcoming, the event button opening the in-app browser, topic chips, likes, the thread view's reply count, local replies and posts, and the community push; without one, that no community UI appears.
 
-`tools/layout_check.py` visits every screen and state and flags, inside the phone screen: horizontal overflow, clipped text (overflow without ellipsis/clamp), WCAG AA contrast failures, overlapping siblings in rows, header icons off-centre, the Demo button over a toast or buy bar, non-brand fonts, broken images, console errors, and (desktop) a stage that doesn't fit the viewport, an off-centre phone, overlapping columns, and stat boxes that are missing, overlapping, clipped, off-brand, low-contrast or have an invalid source link.
+`tools/layout_check.py` visits every screen and state (including the Community events, forum, thread, compose sheet and push when configured) and flags, inside the phone screen: horizontal overflow, clipped text (overflow without ellipsis/clamp), WCAG AA contrast failures, overlapping siblings in rows, header icons off-centre, the Demo button over a toast or buy bar, non-brand fonts, broken images, console errors, and (desktop) a stage that doesn't fit the viewport, an off-centre phone, overlapping columns, and stat boxes that are missing, overlapping, clipped, off-brand, low-contrast or have an invalid source link.
 
 ## Motion
 

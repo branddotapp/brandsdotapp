@@ -118,3 +118,12 @@
 /* discount rows on the greige summary card: a slightly deeper green for AA contrast */
 .summary .row.disc,.co-row span[style*="--sale"]{color:#24663f}
 .promo.on{border-color:#24663f}
+
+/* community: greige surfaces on the white page, white pills inside them (as the site's cards) */
+.thread,.fm-compose,.comm-teaser,.acct-link,.ev-empty,.ev-card,.rp-b{background:var(--greige-2)}
+.ev-card{box-shadow:none}
+.ev-empty .eic,.th-topic,.th-prod{background:#fff}
+.fm-note{background:transparent;border:1px solid var(--greige-line)}
+.th-foot,.ev-alert{border-top-color:var(--greige-line)}
+.ev-body h3,.comm-teaser b{font-stretch:125%;font-weight:800}
+.ev-empty h3{font-stretch:125%;font-weight:900;letter-spacing:-.01em;font-size:15px}

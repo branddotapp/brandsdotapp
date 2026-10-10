@@ -160,7 +160,12 @@ def run(pw, w, h):
         notes.extend('[%s] %s: %s' % (tag, name, x) for x in r['info'])
         if not r['out']: print('  ✓ %s' % name, flush=True)
         if a.shots: os.makedirs(a.shots, exist_ok=True); p.screenshot(path=os.path.join(a.shots, 'layout-%s-%s.png' % (tag, name)))
-    tab = lambda t: (p.click('#tabbar button[data-tab="%s"]' % t))
+    def tab(t):
+        # brands with a Community tab keep the Wishlist behind a heart in the Home header
+        if t == 'wishlist' and not p.locator('#tabbar button[data-tab="wishlist"]').count():
+            if not p.locator('.view.top .hw-btn').count(): p.click('#tabbar button[data-tab="home"]'); p.wait_for_timeout(500)
+            p.click('.view.top .hw-btn'); return
+        p.click('#tabbar button[data-tab="%s"]' % t)
     top = lambda s: p.locator('.view.top ' + s).first
     p.goto(URL + '?nosplash', wait_until='networkidle'); p.wait_for_timeout(900)
     check('welcome'); p.click('#wlSkip')
@@ -193,6 +198,31 @@ def run(pw, w, h):
     p.fill('#sq', 'zzzz'); check('search-none')
     top('[data-act="back"]').click()
     tab('drops'); check('drops')
+    if p.locator('#tabbar button[data-tab="community"]').count():
+        tab('community'); p.wait_for_timeout(300)
+        if p.locator('.view.top .ev-card').count():
+            check('community-events')
+            p.evaluate("document.querySelector('.view.top').scrollTop = 560"); check('community-events-cards')
+            p.evaluate("(() => { const v = document.querySelector('.view.top'); v.scrollTop = v.scrollHeight; })()"); check('community-events-bottom')
+            p.evaluate("document.querySelector('.view.top').scrollTop = 0"); top('.ev-cta').click(); check('community-event-browser')
+            p.click('#brDone'); p.wait_for_timeout(300)
+        if p.locator('.view.top .seg button[data-seg="forum"]').count(): top('.seg button[data-seg="forum"]').click()
+        if p.locator('.view.top .fm-compose').count() or p.locator('.view.top .seg button[data-seg="forum"]').count():
+            p.wait_for_timeout(500); check('community-forum')
+            p.evaluate("document.querySelector('.view.top').scrollTop = 99999"); check('community-forum-bottom')
+            p.evaluate("document.querySelector('.view.top').scrollTop = 0"); p.wait_for_timeout(300)
+            top('.fm-chips .chip:nth-child(3)').click(); check('community-forum-topic')
+            top('.fm-chips .chip').click(); p.wait_for_timeout(400)
+            top('.thread h3').click(); check('community-thread')
+            p.fill('.view.top #replyIn', 'Count me in for Sunday'); top('#replySend').click(); check('community-thread-replied', 900)
+            top('[data-act="back"]').click(); p.wait_for_timeout(500)
+            top('.fm-compose').click(); check('community-compose')
+            p.click('#sheet [data-act="close"]'); p.wait_for_timeout(400)
+        tab('home'); p.wait_for_timeout(400)
+        p.evaluate("(() => { const v = document.querySelector('.view.top'), t = v.querySelector('.comm-teaser'); if (t) v.scrollTop = t.offsetTop - 300; })()"); check('home-community-teaser')
+        p.evaluate("window.__app.Demo.community()"); check('community-push', 900)
+        p.click('#push'); check('community-push-opened', 900)
+        p.evaluate("window.__app.switchTab('home')"); p.wait_for_timeout(400)
     tab('account'); check('account')
     p.evaluate("document.querySelector('.view.top').scrollTop = 99999"); check('account-bottom')
     for d in p.locator('.view.top .acct-acc summary').all(): d.click()

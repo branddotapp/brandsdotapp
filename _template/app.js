@@ -29,6 +29,11 @@ const prods = h => ((colBy(h) || {}).p || []).map(x => P[x]).filter(Boolean);
 const ALL = Object.values(P);
 const FREE_SHIP = SHIP.freeOver || 0;
 const IG = B.socials && B.socials.instagram;
+// Community (opt-in per brand: brand.json -> community). Events are real (scraped from the brand's site); the forum is demo content.
+const CM = B.community && (B.community.events || B.community.forum) ? B.community : null;
+const EV = CM && CM.events && (CM.events.items || []).length ? CM.events : null;
+const FM = CM && CM.forum && (CM.forum.threads || []).length ? CM.forum : null;
+const COMM = !!(EV || FM);
 // motion: every JS-driven animation checks this; CSS handles the rest via @media (prefers-reduced-motion)
 const RM = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches:false };
 const EASE = 'cubic-bezier(.32,.72,0,1)';
@@ -56,6 +61,12 @@ const I = {
   pin:'<svg viewBox="0 0 24 24"><path d="M12 21s-6.5-6.2-6.5-11.2a6.5 6.5 0 0 1 13 0C18.5 14.8 12 21 12 21z"/><circle cx="12" cy="9.8" r="2.3"/></svg>',
   user:'<svg viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="4"/><path d="M4.5 20.5c1-4 4-6 7.5-6s6.5 2 7.5 6"/></svg>',
   drop:'<svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="7.5"/><path d="M12 9v4.2l2.6 1.6M9.5 2.5h5"/></svg>',
+  people:'<svg viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><path d="M15.5 5.2a3.4 3.4 0 0 1 0 6.6M17.5 14.8c2 .6 3.4 2.4 4 5.2"/></svg>',
+  chat:'<svg viewBox="0 0 24 24"><path d="M4 5.5h16v10.5H10l-4.5 3.5V16H4z"/></svg>',
+  pen:'<svg viewBox="0 0 24 24"><path d="M4 20l1-4.5L15.5 5a2.1 2.1 0 0 1 3 3L8 18.5z"/><path d="M13.5 7l3 3"/></svg>',
+  send:'<svg viewBox="0 0 24 24"><path d="M4 12 20 4l-5 16-3-7z"/><path d="M12 13l8-9"/></svg>',
+  cal:'<svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>',
+  clock:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>',
   tag:'<svg viewBox="0 0 24 24"><path d="M3.5 12.5V4.5h8l9 9-8 8z"/><circle cx="8" cy="9" r="1.4"/></svg>',
   copy:'<svg viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="11" height="11" rx="1.5"/><path d="M15.5 8.5V5a1.5 1.5 0 0 0-1.5-1.5H5A1.5 1.5 0 0 0 3.5 5v9A1.5 1.5 0 0 0 5 15.5h3.5"/></svg>',
   ext:'<svg viewBox="0 0 24 24"><path d="M14 4.5h5.5V10M19.5 4.5 11 13M18 14v5.5H4.5V6H10"/></svg>',
@@ -70,7 +81,10 @@ const TABS = [['home','Home','<path d="M3.5 10.5 12 4l8.5 6.5V20a1 1 0 0 1-1 1h-
   ['drops','Drops','<circle cx="12" cy="13" r="7.5"/><path d="M12 9v4.2l2.6 1.6M9.5 2.5h5"/>'],
   ['wishlist','Wishlist','<path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.2a4.3 4.3 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20z"/>'],
   ['bag','Bag','<path d="M5 8h14l-1 12.5H6z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/>'],
-  ['account','Account','<circle cx="12" cy="8.5" r="4"/><path d="M4.5 20.5c1-4 4-6 7.5-6s6.5 2 7.5 6"/>']].filter(t => t[0] !== 'drops' || DR);
+  ['account','Account','<circle cx="12" cy="8.5" r="4"/><path d="M4.5 20.5c1-4 4-6 7.5-6s6.5 2 7.5 6"/>']].filter(t => t[0] !== 'drops' || DR)
+  // brands with a community: Community takes the Wishlist slot (six tabs max); Wishlist moves to a heart in the Home/Shop header
+  .map(t => t[0] === 'wishlist' && COMM ? ['community','Community','<circle cx="9" cy="8.5" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><path d="M15.5 5.2a3.4 3.4 0 0 1 0 6.6M17.5 14.8c2 .6 3.4 2.4 4 5.2"/>'] : t);
+const WISH_TAB = TABS.some(t => t[0] === 'wishlist');
 
 // ---------- persistent state ----------
 const store = {
@@ -99,6 +113,7 @@ function updateBadges(popBag){
   if (bb){ bb.textContent = n; bb.classList.toggle('show', n>0); if (popBag) pop(bb); }
   $$('.hb-count').forEach(c => { c.textContent = n; c.classList.toggle('show', n>0); if (popBag && n>0) pop(c); });
   if (wb){ wb.textContent = wish.length; wb.classList.toggle('show', wish.length>0); }
+  $$('.hw-count').forEach(c => { c.textContent = wish.length; c.classList.toggle('show', wish.length>0); });
 }
 const inWish = h => wish.includes(h);
 function toggleWish(h){
@@ -153,7 +168,7 @@ function closeSheet(){ const s = $('#sheet'); s.classList.remove('show'); s.styl
 
 // ---------- navigation ----------
 let stackEl, stack = [], currentTab = 'home';
-const roots = { home: Home, shop: Shop, drops: Drops, search: Search, wishlist: Wishlist, bag: Bag, account: Account };
+const roots = { home: Home, shop: Shop, drops: Drops, search: Search, wishlist: Wishlist, bag: Bag, account: Account, community: Community };
 
 function makeView(fn, args){
   const el = document.createElement('section');
@@ -239,6 +254,8 @@ function topbar({title, logo, back:bk, right='', left='', clear}={}){
 const hbCount = () => { const n = bagCount(); return '<i class="hb-count'+(n?' show':'')+'">'+n+'</i>'; };
 const bagBtn = () => '<button class="icon-btn" data-act="bagtab" aria-label="Bag">'+I.bag+hbCount()+'</button>';
 const searchBtn = () => '<button class="icon-btn" data-act="search" aria-label="Search">'+I.search+'</button>';
+// header heart (only when the Wishlist isn't a tab, i.e. Community took its slot)
+const wishBtn = () => WISH_TAB ? '' : '<button class="icon-btn hw-btn" data-act="wishlist" aria-label="Wishlist">'+I.heart+'<i class="hw-count'+(wish.length?' show':'')+'">'+wish.length+'</i></button>';
 const credit = () => '<p class="credit-inline">Concept app mockup for '+esc(NAME)+'</p>';
 const stars = n => '<span class="stars" style="--r:'+(n/5*100)+'%"><i>★★★★★</i><i>★★★★★</i></span>';
 function marquee(){
@@ -427,7 +444,7 @@ function Home(el){
     const tiles = (H.tiles || []).filter(t => prods(t[0]).length);
     const fc = H.feature && prods(H.feature.col)[0];
     el.innerHTML =
-      '<div class="home-head"><div class="home-band">'+topbar({ logo:true, left:'<button class="icon-btn" data-act="tab" data-v="account" aria-label="Account">'+I.user+'</button>', right:'<div class="tb-r">'+searchBtn()+bagBtn()+'</div>' }) + '</div></div>'+
+      '<div class="home-head"><div class="home-band">'+topbar({ logo:true, left:'<button class="icon-btn" data-act="tab" data-v="account" aria-label="Account">'+I.user+'</button>', right:'<div class="tb-r">'+searchBtn()+wishBtn()+bagBtn()+'</div>' }) + '</div></div>'+
       '<div class="hero-slot"></div>'+
       (newIn.length ? '<section class="section"><div class="sec-head"><div><h2>New In</h2><p>'+esc(H.newSub||'The latest arrivals')+'</p></div><button class="link" data-act="col" data-v="'+esc(H.newCol)+'">View all</button></div><div class="hscroll">'+newIn.map(p=>pcard(p,{w:400})).join('')+'</div></section>' : '')+
       (tiles.length ? '<section class="section"><div class="sec-head"><div><h2>Shop by Category</h2></div><button class="link" data-act="tab" data-v="shop">All</button></div><div class="cat-grid">'+tiles.map(t=>'<div class="cat-tile" data-act="col" data-v="'+esc(t[0])+'"><img loading="lazy" src="'+cover(t[0])+'" alt=""><span>'+esc(t[1])+'</span></div>').join('')+'</div></section>' : '')+
@@ -436,6 +453,7 @@ function Home(el){
       (fc ? '<div class="feature-card" style="margin-top:28px" data-act="col" data-v="'+esc(H.feature.col)+'"><img loading="lazy" src="'+(H.feature.img ? esc(H.feature.img) : img(fc.im[1]||fc.im[0],700))+'" alt=""><div><b>'+esc(H.feature.title)+'</b><span class="btn btn-light btn-sm">'+esc(H.feature.cta||'Shop now')+'</span></div></div>' : '')+
       proofHTML()+
       igHTML()+
+      commTeaser()+
       (!ALL.length ? '<div class="empty"><div class="eic">'+I.bag+'</div><h3>Catalogue not found</h3><p>The product feed for '+esc(NAME)+' couldn’t be read, so there’s nothing to show here yet.</p></div>' : '')+
       '<div class="about"><img src="'+LOGO+'" alt="'+esc(NAME)+'"><p>'+esc(B.copy && B.copy.about || '')+'</p></div>'+credit();
     $('.hero-slot', el).replaceWith(heroNode);
@@ -464,7 +482,7 @@ function Shop(el, seg){
     return (fp ? '<div class="feature-card" data-act="col" data-v="'+esc(f.col)+'"><img src="'+(f.img ? esc(f.img) : img(fp.im[0],700))+'" alt=""><div><b>'+esc(f.title)+'</b><span class="btn btn-light btn-sm">'+esc(f.cta||'Shop now')+'</span></div></div>' : '')+
       '<div class="cat-list">'+list.map(row).join('')+'</div>'+(list.length?'':'<div class="empty"><h3>No collections found</h3></div>');
   };
-  el.innerHTML = topbar({ title:'', right:'<div class="tb-r">'+searchBtn()+bagBtn()+'</div>', left:'<span style="width:40px"></span>' }) +
+  el.innerHTML = topbar({ title:'', right:'<div class="tb-r">'+searchBtn()+wishBtn()+bagBtn()+'</div>', left:'<span style="width:40px"></span>' }) +
     '<div class="large-title"><small>'+esc(SH.kicker || NAME)+'</small>Shop</div>'+
     '<div class="seg"><button class="'+(shopSeg==='cats'?'on':'')+'" data-seg="cats">Shop by Product</button><button class="'+(shopSeg==='edits'?'on':'')+'" data-seg="edits">Collections</button></div>'+
     '<div class="seg-body">'+body(shopSeg)+'</div>'+credit();
@@ -691,9 +709,9 @@ function checkout(quick){
 }
 
 // ---------- WISHLIST ----------
-function Wishlist(el){
+function Wishlist(el, mode){
   const render = () => {
-    el.innerHTML = topbar({ right:bagBtn() }) + '<div class="large-title"><small>Saved for later</small>Wishlist</div>' +
+    el.innerHTML = topbar(mode === 'pushed' ? { back:true, title:'', right:bagBtn() } : { right:bagBtn() }) + '<div class="large-title"><small>Saved for later</small>Wishlist</div>' +
       (wish.length ? '<div class="count">'+wish.length+' saved '+(wish.length===1?'item':'items')+' · we’ll let you know if prices drop</div><div class="grid">'+wish.map(h=>pcard(P[h])).join('')+'</div>'
                    : '<div class="empty" style="padding-top:40px"><div class="eic">'+I.heart+'</div><h3>Nothing saved yet</h3><p>Tap the heart on any piece to save it here — we’ll alert you if the price drops or your size is running low.</p>'+(H.hero&&colBy(H.hero.col)?'<button class="btn btn-dark" data-act="col" data-v="'+esc(H.hero.col)+'">'+esc(H.hero.cta||'Shop now')+'</button>':'')+'</div>') + credit();
   };
@@ -775,6 +793,8 @@ function Account(el){
       (signedIn ? '<div class="acct-card"><div class="av">'+I.user+'</div><div><b>Signed in (demo)</b><small>Nothing was saved or sent</small></div><button class="link" id="signOut">Sign out</button></div>'
                 : '<div class="acct-card"><div class="av">'+I.user+'</div><div><b>Welcome</b><small>Log in for faster checkout, order tracking and early access.</small></div></div><div class="acct-btns"><button class="btn btn-dark" data-act="login">Log in</button><button class="btn btn-outline" data-act="signup">Sign up</button></div>')+
       (B.rewards && B.rewards.enabled ? '<div class="rewards-mini" data-act="rewards"><div class="rm-left"><small>'+esc(B.rewards.name)+'</small><b>1,250 pts</b><div class="rm-bar"><i></i></div><p>Tap to show your card</p></div><div class="rm-right">'+I.card+'</div></div>' : '')+
+      (WISH_TAB ? '' : '<button class="acct-link" data-act="wishlist">'+I.heart+'<span><b>Wishlist</b><small>'+(wish.length ? wish.length+' saved '+(wish.length===1?'piece':'pieces') : 'Nothing saved yet')+'</small></span>'+I.chev+'</button>')+
+      (COMM ? '<button class="acct-link" data-act="tab" data-v="community">'+I.people+'<span><b>'+esc(CM.title||'Community')+'</b><small>'+esc([EV?'Events':'', FM?'the forum':''].filter(Boolean).join(' & '))+'</small></span>'+I.chev+'</button>' : '')+
       '<div class="drop-banner" id="dropBanner"><div class="db-ic">'+I.bell+'</div><div class="db-t"><b>Drop alerts</b><p>Be first to know when new pieces land.</p></div><button class="switch '+(prefs.drops?'on':'')+'" id="dropSwitch" aria-label="Toggle drop alerts"></button></div>'+
       (SIZE_GROUPS.length ? '<div class="s-sec acct-h"><h4>Your size</h4></div><div class="acct-size">'+SIZE_GROUPS.map(g=>'<div class="label-row" style="margin:4px 0 8px"><b>'+esc(g.label)+'</b>'+(mySize[g.key]?'<span>Saved: '+esc((g.prefix||'')+mySize[g.key])+'</span>':'<span>Not set</span>')+'</div><div class="sizes">'+g.opts.map(o=>'<button class="size'+(String(mySize[g.key])===String(o)?' on':'')+'" data-g="'+esc(g.key)+'" data-o="'+esc(o)+'">'+esc((g.prefix||'')+o)+'</button>').join('')+'</div>').join('')+'<p class="acct-note">'+I.ruler+'<span>Pre-selected on product pages, used for the “in my size” filter and back-in-size alerts.</span></p></div>' : '')+
       '<div class="s-sec acct-h"><h4>Notifications</h4></div>'+
@@ -849,6 +869,169 @@ function openBrowser(pg){
   const tr = $('#brTrouble'); if (tr) tr.addEventListener('click', () => { $('.br-body', br).innerHTML = fallback; });
 }
 function closeBrowser(){ const b = $('#browser'); if (b) b.classList.remove('show'); }
+
+
+// ---------- COMMUNITY: real events + demo forum (brand.json -> community) ----------
+// Events come from the brand's own events page (never invented): upcoming ones are cards with a date badge and the real
+// booking link; if nothing is upcoming an empty state shows and past events are listed as "Recent". The forum is demo
+// content in the brand's voice (generic first names + initials avatars); likes, replies and new posts stay on this device.
+const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const dayOf = d => { const x = new Date(d+'T00:00:00'); return isNaN(x) ? null : x; };
+const today0 = () => { const t = new Date(); t.setHours(0,0,0,0); return t; };
+function evSplit(){
+  const items = (EV && EV.items || []).filter(e => e && e.title);
+  const t = today0(), endOf = e => dayOf(e.end || e.start);
+  const up = items.filter(e => { const d = endOf(e); return d && d >= t; }).sort((a,b) => dayOf(a.start) - dayOf(b.start));
+  const past = items.filter(e => !up.includes(e)).sort((a,b) => (dayOf(b.start)||0) - (dayOf(a.start)||0));
+  return { up, past };
+}
+let evAlerts = store.get('evAlerts', false);
+let forumLikes = store.get('forumLikes', {});          // id -> true
+let forumMine = store.get('forumMine', []);            // threads you posted (demo)
+let forumReplies = store.get('forumReplies', {});      // id -> [your replies]
+let commSeg = 'events', forumTopic = 'All';
+const ME = { name:'You', initials:'ME', me:true };
+const threadsAll = () => forumMine.concat((FM && FM.threads) || []);
+const threadBy = id => threadsAll().find(t => t.id === id);
+const repliesOf = t => (t.replies || []).concat(forumReplies[t.id] || []);
+const avHTML = (a, cls) => { const k = a.me ? 'me' : ((a.name||'').split('').reduce((n,c)=>n+c.charCodeAt(0),0) % 5); return '<span class="av-i av-'+k+(cls?' '+cls:'')+'" aria-hidden="true">'+esc(a.initials || (a.name||'?').slice(0,2).toUpperCase())+'</span>'; };
+const likeN = t => (t.likes||0) + (forumLikes[t.id] ? 1 : 0);
+
+function evCard(e, past){
+  const d = dayOf(e.start), cta = e.ticket ? (e.cta || 'Book') : 'View on site';
+  return '<article class="ev-card'+(past?' past':'')+'" data-ev="'+esc(e.id)+'">'+
+    '<div class="ev-img">'+(e.image?'<img loading="lazy" src="'+esc(e.image)+'" alt="">':'')+
+      (d ? '<div class="ev-date"><b>'+d.getDate()+'</b><small>'+MON[d.getMonth()]+'</small></div>' : '')+(past?'<span class="ev-past">Past event</span>':'')+'</div>'+
+    '<div class="ev-body"><h3>'+esc(e.title)+'</h3>'+
+      '<p class="ev-meta">'+I.cal+'<span>'+esc(e.dateLabel || (d ? d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'}) : ''))+(e.time?' · '+esc(e.time):'')+'</span></p>'+
+      (e.location?'<p class="ev-meta">'+I.pin+'<span>'+esc(e.location)+'</span></p>':'')+
+      (e.desc?'<p class="ev-desc">'+esc(e.desc)+'</p>':'')+
+      '<button class="btn '+(past?'btn-outline':'btn-dark')+' btn-sm ev-cta" data-act="event" data-v="'+esc(e.id)+'">'+esc(cta)+I.ext+'</button></div></article>';
+}
+function eventsHTML(){
+  const { up, past } = evSplit();
+  const src = EV.source ? '<p class="ev-src">Events as listed on <button class="link sm" data-act="evsrc">'+esc((()=>{ try { return new URL(EV.source).host.replace(/^www\./,''); } catch(e){ return 'the website'; } })())+'</button>'+(EV.checked?', checked '+esc(EV.checked):'')+'</p>' : '';
+  return (up.length
+      ? '<section class="section ev-sec"><div class="sec-head"><div><h2>Upcoming</h2><p>'+up.length+(up.length===1?' event':' events')+' coming up</p></div></div><div class="ev-list">'+up.map(e=>evCard(e,false)).join('')+'</div></section>'
+      : '<div class="ev-empty"><div class="eic">'+I.cal+'</div><h3>No upcoming events</h3><p>'+esc(EV.emptyCopy || 'Nothing is booked in right now. Turn on event alerts and we’ll let you know the moment the next one is announced.')+'</p>'+
+        '<div class="ev-alert"><span>Event alerts</span><button class="switch '+(evAlerts?'on':'')+'" id="evAlerts" role="switch" aria-checked="'+evAlerts+'" aria-label="Event alerts"></button></div></div>')+
+    (past.length ? '<section class="section ev-sec"><div class="sec-head"><div><h2>Recent</h2><p>'+esc(EV.recentCopy || 'What the community got up to lately')+'</p></div></div><div class="ev-list">'+past.map(e=>evCard(e,true)).join('')+'</div></section>' : '')+src;
+}
+function threadCard(t){
+  const n = repliesOf(t).length, pr = t.product && P[t.product];
+  return '<article class="thread'+(t.mine?' mine':'')+'" data-thread="'+esc(t.id)+'">'+
+    '<div class="th-top">'+avHTML(t.author)+'<div class="th-who"><b>'+esc(t.author.name)+'</b><small>'+esc(t.ago||'Just now')+'</small></div><span class="th-topic">'+esc(t.topic)+'</span></div>'+
+    '<h3>'+esc(t.title)+'</h3>'+(t.body?'<p class="th-body">'+esc(t.body)+'</p>':'')+
+    (pr ? '<div class="th-prod" data-act="pdp" data-v="'+esc(pr.h)+'"><img loading="lazy" src="'+img(pr.im[0],150)+'" alt=""><span><b>'+esc(pr.n)+'</b><small>'+esc([pr.c, money(pr.p)].filter(Boolean).join(' · '))+'</small></span>'+I.chev+'</div>' : '')+
+    '<div class="th-foot"><button class="th-like'+(forumLikes[t.id]?' on':'')+'" data-like="'+esc(t.id)+'" aria-pressed="'+!!forumLikes[t.id]+'" aria-label="Like">'+I.heart+'<span>'+likeN(t)+'</span></button>'+
+      '<span class="th-replies">'+I.chat+'<span>'+n+(n===1?' reply':' replies')+'</span></span></div></article>';
+}
+function forumHTML(){
+  const topics = ['All'].concat(FM.topics || []);
+  const list = threadsAll().filter(t => forumTopic === 'All' || t.topic === forumTopic);
+  return '<p class="fm-note">'+I.lock+'<span>'+esc(FM.note || 'Demo community: example posts in the brand’s voice. Anything you post stays on this device.')+'</span></p>'+
+    '<button class="fm-compose" data-act="compose">'+avHTML(ME)+'<span>'+esc(FM.prompt || 'Start a conversation…')+'</span>'+I.pen+'</button>'+
+    '<div class="chips fm-chips">'+topics.map(x=>'<button class="chip'+(x===forumTopic?' on':'')+'" data-topic="'+esc(x)+'">'+esc(x)+'</button>').join('')+'</div>'+
+    '<div class="fm-list">'+(list.length ? list.map(threadCard).join('') : '<div class="empty" style="padding-top:30px"><h3>No posts yet</h3><p>Be the first to post in '+esc(forumTopic)+'.</p></div>')+'</div>';
+}
+function bindLikes(root, after){
+  $$('[data-like]', root).forEach(b => b.addEventListener('click', e => {
+    e.stopPropagation();
+    const id = b.dataset.like; forumLikes[id] = !forumLikes[id]; if (!forumLikes[id]) delete forumLikes[id]; store.set('forumLikes', forumLikes);
+    const t = threadBy(id); b.classList.toggle('on', !!forumLikes[id]); b.setAttribute('aria-pressed', !!forumLikes[id]); $('span', b).textContent = likeN(t);
+    b.classList.remove('burst'); void b.offsetWidth; b.classList.add('burst');
+    after && after();
+  }));
+}
+function Community(el, seg){
+  if (seg === 'events' || seg === 'forum') commSeg = seg;
+  if (!EV) commSeg = 'forum'; if (!FM) commSeg = 'events';
+  const body = s => s === 'events' ? eventsHTML() : forumHTML();
+  const bind = () => {
+    const box = $('.seg-body', el);
+    const sw = $('#evAlerts', box); if (sw) sw.addEventListener('click', () => { evAlerts = !evAlerts; store.set('evAlerts', evAlerts); sw.classList.toggle('on', evAlerts); sw.setAttribute('aria-checked', evAlerts); toast(evAlerts ? 'We’ll let you know about new events' : 'Event alerts off', I.bell); });
+    $$('[data-topic]', box).forEach(c => c.addEventListener('click', () => {
+      if (c.dataset.topic === forumTopic) return;
+      forumTopic = c.dataset.topic;
+      $$('[data-topic]', box).forEach(x => x.classList.toggle('on', x === c));
+      const l = $('.fm-list', box), fresh = document.createElement('div'); fresh.innerHTML = forumHTML();
+      l.replaceWith($('.fm-list', fresh)); const nl = $('.fm-list', box);
+      bindLikes(nl); anim(nl, [{opacity:0, transform:'translateY(6px)'},{opacity:1, transform:'none'}], { duration:260 });
+    }));
+    bindLikes(box);
+    enableDrag(box);
+  };
+  const render = () => {
+    el.innerHTML = topbar({ title:'', right:'<div class="tb-r">'+(FM?'<button class="icon-btn" data-act="compose" aria-label="New post">'+I.pen+'</button>':'')+bagBtn()+'</div>' }) +
+      '<div class="large-title"><small>'+esc(CM.kicker || NAME)+'</small>'+esc(CM.title || 'Community')+'</div>'+
+      (CM.intro ? '<p class="comm-intro">'+esc(CM.intro)+'</p>' : '')+
+      (EV && FM ? '<div class="seg"><button class="'+(commSeg==='events'?'on':'')+'" data-seg="events">Events</button><button class="'+(commSeg==='forum'?'on':'')+'" data-seg="forum">Forum</button></div>' : '')+
+      '<div class="seg-body">'+body(commSeg)+'</div>'+credit();
+    const sg = $('.seg', el); if (sg) segmented(sg, (s, dir) => { commSeg = s; swapContent($('.seg-body', el), body(s), dir, bind); });
+    bind();
+  };
+  render();
+  el._refresh = () => { const st = el.scrollTop; render(); el.scrollTop = st; };
+}
+function Thread(el, id){
+  const t = threadBy(id);
+  if (!t){ el.innerHTML = topbar({back:true,title:'Not found'}) + '<div class="empty"><h3>Post unavailable</h3></div>'; return; }
+  const pr = t.product && P[t.product];
+  const reply = r => '<div class="reply'+(r.author.me?' mine':'')+'">'+avHTML(r.author,'sm')+'<div class="rp-b"><div class="rp-who"><b>'+esc(r.author.name)+'</b><small>'+esc(r.ago||'Just now')+'</small></div><p>'+esc(r.body)+'</p></div></div>';
+  const render = () => {
+    const rs = repliesOf(t);
+    el.innerHTML = '<div class="th-scroll">'+topbar({ back:true, title:t.topic }) +
+      '<div class="th-view"><article class="thread solo" data-thread="'+esc(t.id)+'">'+
+        '<div class="th-top">'+avHTML(t.author)+'<div class="th-who"><b>'+esc(t.author.name)+'</b><small>'+esc(t.ago||'Just now')+'</small></div><span class="th-topic">'+esc(t.topic)+'</span></div>'+
+        '<h1>'+esc(t.title)+'</h1>'+(t.body?'<p class="th-body full">'+esc(t.body)+'</p>':'')+
+        (pr ? '<div class="th-prod" data-act="pdp" data-v="'+esc(pr.h)+'"><img loading="lazy" src="'+img(pr.im[0],150)+'" alt=""><span><b>'+esc(pr.n)+'</b><small>'+esc([pr.c, money(pr.p)].filter(Boolean).join(' · '))+'</small></span>'+I.chev+'</div>' : '')+
+        '<div class="th-foot"><button class="th-like'+(forumLikes[t.id]?' on':'')+'" data-like="'+esc(t.id)+'" aria-pressed="'+!!forumLikes[t.id]+'" aria-label="Like">'+I.heart+'<span>'+likeN(t)+'</span></button><span class="th-replies">'+I.chat+'<span>'+rs.length+(rs.length===1?' reply':' replies')+'</span></span></div></article>'+
+      '<div class="replies"><h4>'+(rs.length ? rs.length+(rs.length===1?' reply':' replies') : 'No replies yet')+'</h4>'+rs.map(reply).join('')+'</div>'+credit()+'</div></div>'+
+      '<form class="reply-bar" id="replyBar">'+avHTML(ME,'sm')+'<input id="replyIn" type="text" maxlength="280" placeholder="Write a reply…" autocomplete="off" aria-label="Write a reply"><button class="send" id="replySend" type="submit" aria-label="Send reply" disabled>'+I.send+'</button></form>';
+    bindLikes(el, () => refreshAll());
+    const inp = $('#replyIn', el), sb = $('#replySend', el);
+    inp.addEventListener('input', () => { sb.disabled = !inp.value.trim(); });
+    $('#replyBar', el).addEventListener('submit', e => {
+      e.preventDefault(); const v = inp.value.trim(); if (!v) return;
+      (forumReplies[t.id] = forumReplies[t.id] || []).push({ author:ME, ago:'Just now', body:v }); store.set('forumReplies', forumReplies);
+      render(); const sc = $('.th-scroll', el); sc.scrollTop = sc.scrollHeight; const last = $$('.reply', el).pop(); if (last){ anim(last, [{opacity:0, transform:'translateY(10px)'},{opacity:1, transform:'none'}], { duration:360, easing:'cubic-bezier(.2,.9,.3,1.2)' }); }
+      toast('Reply posted (demo, nothing sent)', I.check); refreshAll();
+    });
+  };
+  el.classList.add('thv');
+  render();
+  el._refresh = () => { const sc = $('.th-scroll', el), st = sc ? sc.scrollTop : 0; render(); $('.th-scroll', el).scrollTop = st; };
+  return { hideTabs:true };
+}
+function openCompose(){
+  if (!FM) return;
+  let topic = (FM.topics || [])[0] || 'General';
+  openSheet('<h3>New post</h3><p class="center sheet-sub">Demo only: your post stays on this device.</p>'+
+    '<div class="chips cp-chips">'+(FM.topics||[]).map(x=>'<button class="chip'+(x===topic?' on':'')+'" data-ct="'+esc(x)+'">'+esc(x)+'</button>').join('')+'</div>'+
+    '<label class="cp-field"><span>Title</span><input id="cpTitle" type="text" maxlength="90" placeholder="e.g. Anyone up for a Sunday walk?"></label>'+
+    '<label class="cp-field"><span>Message</span><textarea id="cpBody" rows="4" maxlength="600" placeholder="Say hi to the community…"></textarea></label>'+
+    '<div class="btns"><button class="btn btn-dark btn-block" id="cpPost">Post</button><button class="btn btn-outline btn-block" data-act="close">Cancel</button></div>', s => {
+      const ti = $('#cpTitle', s), bo = $('#cpBody', s), go = $('#cpPost', s);
+      ti.addEventListener('input', () => ti.classList.remove('need'));
+      $$('[data-ct]', s).forEach(c => c.addEventListener('click', () => { topic = c.dataset.ct; $$('[data-ct]', s).forEach(x => x.classList.toggle('on', x === c)); }));
+      go.addEventListener('click', () => {
+        if (!ti.value.trim()){ ti.classList.add('need'); ti.focus(); anim(ti, [{transform:'translateX(0)'},{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(0)'}], { duration:280 }); return; }
+        const th = { id:'mine-'+Date.now(), mine:true, topic, author:ME, ago:'Just now', title:ti.value.trim(), body:bo.value.trim(), likes:0, replies:[] };
+        forumMine.unshift(th); store.set('forumMine', forumMine);
+        closeSheet(); forumTopic = 'All'; commSeg = 'forum';
+        if (currentTab === 'community' && stack.length === 1) stack[0].el._refresh(); else switchTab('community', 'forum');
+        const c = $('.view.top .thread[data-thread="'+th.id+'"]'); if (c) anim(c, [{opacity:0, transform:'translateY(-10px) scale(.98)'},{opacity:1, transform:'none'}], { duration:420, easing:'cubic-bezier(.2,.9,.3,1.2)' });
+        toast('Posted to the community (demo, nothing sent)', I.check);
+      });
+    });
+}
+function commTeaser(){
+  if (!COMM) return '';
+  const { up, past } = evSplit(), e = up[0] || past[0];
+  const im = e && e.image || CM.image || '';
+  const sub = up.length ? 'Next: '+up[0].title : FM ? (FM.teaser || 'Events, run clubs and the community forum') : 'Events from the community';
+  return '<div class="comm-teaser" data-act="tab" data-v="community">'+(im?'<img loading="lazy" src="'+esc(im)+'" alt="">':'')+'<div><small>'+esc(CM.kicker || 'Community')+'</small><b>'+esc(CM.teaserTitle || 'Join the community')+'</b><span>'+esc(sub)+'</span></div>'+I.chev+'</div>';
+}
 
 // ---------- REWARDS ----------
 function Rewards(el){
@@ -938,6 +1121,14 @@ const Demo = {
     const p = prods(H.newCol)[0] || ALL[0]; if (!p) return;
     showPush('New in'+(H.hero && H.hero.title ? ': '+H.hero.title : ''), p.t+' has just landed. Tap to shop before it sells out.', img(p.im[0],120), () => push(PDP, p.h));
   },
+  community(){
+    if (!COMM) return;
+    const { up } = evSplit();
+    if (up.length){ const e = up[0]; showPush('New event near you', e.title+(e.dateLabel?', '+e.dateLabel:'')+(e.location?' at '+e.location:'')+'. Tap to see details.', e.image || '', () => switchTab('community', 'events')); return; }
+    const t = (FM && FM.threads || []).find(x => (x.replies||[]).length) || threadsAll()[0]; if (!t) return;
+    const r = (t.replies||[]).slice(-1)[0];
+    showPush((r ? r.author.name : t.author.name)+' replied in '+(CM.title || 'Community'), '“'+t.title+'”: '+(r ? r.body : t.body), B.assets.favicon, () => { switchTab('community', 'forum'); push(Thread, t.id); });
+  },
   welcome(){ showWelcome(); }
 };
 function showWelcome(){
@@ -961,7 +1152,7 @@ function showWelcome(){
 let demoHTML = '';
 function buildChrome(){
   const pitch = B.pitch || {};
-  const demoBtns = [['bag','Abandoned bag','What’s still in the bag, plus '+DISC.code],['restock','Back in stock','In your saved size'],...(ALL.some(x => x.cp > x.p) ? [['price','Price drop on wishlist','A real reduced item, badged in-app']] : []),['drop','Drop is live', DR ? 'DROP '+DR.num+' / '+DR.name+', app early access' : 'New arrivals'],['welcome','Show welcome message','The '+DISC.code+' offer shown on open']];
+  const demoBtns = [['bag','Abandoned bag','What’s still in the bag, plus '+DISC.code],['restock','Back in stock','In your saved size'],...(ALL.some(x => x.cp > x.p) ? [['price','Price drop on wishlist','A real reduced item, badged in-app']] : []),['drop','Drop is live', DR ? 'DROP '+DR.num+' / '+DR.name+', app early access' : 'New arrivals'],...(COMM ? [evSplit().up.length ? ['community','New event near you', evSplit().up[0].title] : ['community', 'Community reply', 'A reply in the '+(CM.title||'community')+' forum']] : []),['welcome','Show welcome message','The '+DISC.code+' offer shown on open']];
   demoHTML = demoBtns.map(d=>'<button class="demo-btn" data-demo="'+d[0]+'"><span><b>'+esc(d[1])+'</b><small>'+esc(d[2])+'</small></span>'+I.bell+'</button>').join('');
   // desktop "Why an app" stats (defaults in _template/config.json, overridable per brand; "stats": false hides them)
   const ST = B.stats && Array.isArray(B.stats.items) ? B.stats.items.filter(x => x && x.num) : [];
@@ -1058,13 +1249,15 @@ function runDemo(k){ if (k === 'welcome') return Demo.welcome(); $('#welcome').c
 // global delegated actions
 document.addEventListener('click', e => {
   const t = e.target.closest('[data-act]');
-  if (!t || t.closest('.dragging')) return;
+  if (!t){ const th = e.target.closest('.thread[data-thread]:not(.solo)'); if (th && !e.target.closest('[data-like]')) push(Thread, th.dataset.thread); return; }
+  if (t.closest('.dragging')) return;
   const a = t.dataset.act, v = t.dataset.v;
   if (a === 'back') back();
   else if (a === 'pdp') { e.stopPropagation(); closeSheet(); push(PDP, v); }
   else if (a === 'col') { closeSheet(); push(Collection, v); }
   else if (a === 'wish') { e.stopPropagation(); toggleWish(v); }
   else if (a === 'tab') switchTab(v);
+  else if (a === 'wishlist') { if (WISH_TAB) switchTab('wishlist'); else push(Wishlist, 'pushed'); }
   else if (a === 'rewards') { if (B.rewards && B.rewards.enabled) push(Rewards); }
   else if (a === 'bagtab') switchTab('bag');
   else if (a === 'search') push(Search);
@@ -1073,6 +1266,9 @@ document.addEventListener('click', e => {
   else if (a === 'login') push(AuthView('login'));
   else if (a === 'signup') push(AuthView('signup'));
   else if (a === 'recover') push(AuthView('recover'));
+  else if (a === 'compose') openCompose();
+  else if (a === 'event') { const ev = EV && EV.items.find(x => x.id === v); if (ev) openBrowser({ t: ev.title, url: ev.ticket || ev.url || EV.source, sum: [ev.title, [ev.dateLabel, ev.time].filter(Boolean).join(' · '), ev.location, ev.desc].filter(Boolean).join('\n') }); }
+  else if (a === 'evsrc') { if (EV && EV.source) openBrowser({ t: 'Events', url: EV.source, sum: (EV.items||[]).map(x => [x.title, x.dateLabel, x.time, x.location].filter(Boolean).join(' · ')).join('\n') }); }
   else if (a === 'reviews') { const R = B.reviews; if (R && R.url) openBrowser({ t: R.source+' reviews', url: R.url, sum: (R.label?R.label+'. ':'')+R.score+' out of 5, based on '+Number(R.count).toLocaleString('en-GB')+' reviews on '+R.source+(R.checked?' (as shown on '+B.domain+', checked '+R.checked+').':'.') }); }
 });
 
@@ -1125,5 +1321,5 @@ setTimeout(() => {
   if (!params.has('nowelcome')) setTimeout(showWelcome, skip ? 400 : 900);
   else if (!skip && !params.has('nopush') && prefs.drops) setTimeout(()=>Demo.newin(), 2600);
 }, skip ? 0 : 2100);
-window.__app = { Demo, switchTab, push, openBrowser, showWelcome, back, igHTML };
+window.__app = { Demo, switchTab, push, openBrowser, showWelcome, back, igHTML, evSplit };
 })();

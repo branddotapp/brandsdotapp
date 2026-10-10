@@ -5901,8 +5901,56 @@
  "instagram": {
   "handle": "sculptactivewear",
   "url": "https://www.instagram.com/sculptactivewear/",
-  "followers": null,
-  "posts": []
+  "followers": "52.7K",
+  "posts": [
+   {
+    "url": "https://www.instagram.com/p/DeUO4yUjIPj/",
+    "type": "carousel",
+    "image": "assets/ig/1.jpg"
+   },
+   {
+    "url": "https://www.instagram.com/reel/DeTk6KZAxmP/",
+    "type": "reel",
+    "image": "assets/ig/2.jpg"
+   },
+   {
+    "url": "https://www.instagram.com/reel/DeR9PVYMAxd/",
+    "type": "reel",
+    "image": "assets/ig/3.jpg"
+   },
+   {
+    "url": "https://www.instagram.com/p/DeRlJAGDKfU/",
+    "type": "carousel",
+    "image": "assets/ig/4.jpg"
+   },
+   {
+    "url": "https://www.instagram.com/reel/DeRNO2bMnpV/",
+    "type": "reel",
+    "image": "assets/ig/5.jpg"
+   },
+   {
+    "url": "https://www.instagram.com/reel/DePjGoaMIex/",
+    "type": "reel",
+    "image": "assets/ig/6.jpg"
+   },
+   {
+    "url": "https://www.instagram.com/p/DePaFRgEbvq/",
+    "type": "carousel",
+    "image": "assets/ig/7.jpg"
+   },
+   {
+    "url": "https://www.instagram.com/p/DePWBtdotw3/",
+    "type": "photo",
+    "image": "assets/ig/8.jpg"
+   },
+   {
+    "url": "https://www.instagram.com/reel/DeO5_jasQov/",
+    "type": "reel",
+    "image": "assets/ig/9.jpg"
+   }
+  ],
+  "bio": "Every woman should have a pair of Sculpt leggings",
+  "collected": "2026-10-10"
  },
  "reviews": {
   "score": 4.96,
@@ -6142,11 +6190,11 @@
   "missing": [
    "No hero video on the site (homepage, collection and about pages checked): the hero is the Ellie Edit launch banner",
    "No FAQs, sustainability, stockists or cookie policy page linked on the site",
-   "Instagram feed: posts not collected yet (Home grid hidden until brand.overrides.json -> instagram.posts is filled)",
    "No Trustpilot profile shown on the site: the review block uses the Judge.me score shown on the homepage",
    "The site's 15% welcome code is emailed to subscribers, not published: the pop-up shows the real 15% with a placeholder app code (APP15)",
    "No upcoming release is announced: the Drops tab demos app early access with The Ellie Edit (on pre-order now); drop date/time is the rolling placeholder",
-   "Sculpt VIP balance, tier and card in the app are illustrative"
+   "Sculpt VIP balance, tier and card in the app are illustrative",
+   "Community forum is demo content (illustrative members, initials avatars); the site lists no upcoming events or booking links, so the events tab shows an empty state plus \"Recent\""
   ]
  },
  "scrape": {
@@ -6234,5 +6282,277 @@
   "last-chance-to-buy": "Last Chance To Buy",
   "new-in": "New In",
   "t-shirts": "T-Shirts"
+ },
+ "community": {
+  "_": "Events are copied from sculptactivewear.com/pages/community (checked 10 Oct 2026; the site lists no year or booking links, so 2026 is inferred from the page's image uploads and every event links back to that page). The forum is demo content: generic first names, initials avatars, no real people.",
+  "title": "Community",
+  "kicker": "The Sculpt Squad",
+  "teaserTitle": "Join the Sculpt Squad",
+  "intro": "Designed by women, for women. Events, run clubs and real talk from the Sculpt community.",
+  "events": {
+   "source": "https://sculptactivewear.com/pages/community",
+   "checked": "10 Oct 2026",
+   "emptyCopy": "Nothing is booked in right now. Turn on event alerts and we’ll tell you the moment the next Sculpt event is announced.",
+   "recentCopy": "Our latest Sculpt events",
+   "items": [
+    {
+     "id": "trafford",
+     "title": "Sculpt x Trafford Centre",
+     "start": "2026-08-31",
+     "dateLabel": "31st Aug – 3rd Aug",
+     "time": "10am – 9pm",
+     "location": "Trafford Centre",
+     "desc": "Join us at the Trafford Centre for exclusive discounts, products and gifts.",
+     "image": "assets/community/trafford-centre.jpg",
+     "url": "https://sculptactivewear.com/pages/community"
+    },
+    {
+     "id": "sample-sale",
+     "title": "Sample Sale",
+     "start": "2026-08-28",
+     "dateLabel": "28th Aug",
+     "time": "10am – 5pm",
+     "location": "Sculpt Store",
+     "desc": "Shop exclusive and one-off samples at the Sculpt store for a limited time.",
+     "image": "assets/community/sample-sale.jpg",
+     "url": "https://sculptactivewear.com/pages/community"
+    },
+    {
+     "id": "sculptfest",
+     "title": "SculptFest",
+     "start": "2026-08-23",
+     "dateLabel": "23rd Aug",
+     "time": "1pm – 4pm",
+     "location": "Aldwinians Football Club",
+     "desc": "Move, play, shop & make memories with the whole family.",
+     "image": "assets/community/sculptfest.jpg",
+     "url": "https://sculptactivewear.com/pages/community"
+    },
+    {
+     "id": "boogie-bounce",
+     "title": "Boogie Bounce",
+     "start": "2026-06-01",
+     "dateLabel": "1st June",
+     "time": "5:30pm – 7pm",
+     "location": "St. George's Church",
+     "desc": "Get ready to bounce, sweat, and Sculpt with the Sculpt Activewear Team and @mactivefit with a trampoline dance workout!",
+     "image": "assets/community/boogie-bounce.jpg",
+     "url": "https://sculptactivewear.com/pages/community"
+    }
+   ]
+  },
+  "forum": {
+   "note": "Demo community: example posts showing how the Sculpt Squad could chat in the app. Members are illustrative. Anything you post stays on this device.",
+   "prompt": "Share a win, ask a question…",
+   "teaser": "Events, run club & fit checks",
+   "topics": [
+    "Training",
+    "Run Club",
+    "Fit Checks",
+    "Events"
+   ],
+   "threads": [
+    {
+     "id": "run-sunday",
+     "topic": "Run Club",
+     "author": {
+      "name": "Chloe M.",
+      "initials": "CM"
+     },
+     "ago": "2h",
+     "likes": 24,
+     "title": "Sunday 5k: who’s in?",
+     "body": "Thinking an easy 5k, 9am, then coffee after. All paces welcome, nobody gets left behind. Drop a reply if you fancy it and I’ll sort a meeting point.",
+     "replies": [
+      {
+       "author": {
+        "name": "Priya S.",
+        "initials": "PS"
+       },
+       "ago": "1h",
+       "body": "Count me in! I’m slow but I’ll bring the chat."
+      },
+      {
+       "author": {
+        "name": "Megan L.",
+        "initials": "ML"
+       },
+       "ago": "58m",
+       "body": "Yes please. Is it flat? Still building up after a few months off."
+      },
+      {
+       "author": {
+        "name": "Chloe M.",
+        "initials": "CM"
+       },
+       "ago": "40m",
+       "body": "Mostly flat with one cheeky hill. We’ll walk it if we need to."
+      }
+     ]
+    },
+    {
+     "id": "squat-leggings",
+     "topic": "Training",
+     "author": {
+      "name": "Aisha B.",
+      "initials": "AB"
+     },
+     "ago": "5h",
+     "likes": 41,
+     "product": "hybrid-high-waisted-leggings-black",
+     "title": "Best leggings for heavy squat days?",
+     "body": "Leg day is my favourite day and I need something that stays put and passes the squat test. What’s everyone wearing?",
+     "replies": [
+      {
+       "author": {
+        "name": "Rachel D.",
+        "initials": "RD"
+       },
+       "ago": "4h",
+       "body": "Hybrids, every time. They’re squat-proof and the high waist doesn’t roll down mid set."
+      },
+      {
+       "author": {
+        "name": "Zoe K.",
+        "initials": "ZK"
+       },
+       "ago": "3h",
+       "body": "Same. I’ve got them in black and espresso and rotate all week."
+      },
+      {
+       "author": {
+        "name": "Lucy W.",
+        "initials": "LW"
+       },
+       "ago": "3h",
+       "body": "The mid length shorts are great in summer too, same squat-proof fabric feel."
+      },
+      {
+       "author": {
+        "name": "Aisha B.",
+        "initials": "AB"
+       },
+       "ago": "2h",
+       "body": "Sold. Ordering the black ones tonight, thank you!"
+      }
+     ]
+    },
+    {
+     "id": "ellie-fit",
+     "topic": "Fit Checks",
+     "author": {
+      "name": "Becca H.",
+      "initials": "BH"
+     },
+     "ago": "Yesterday",
+     "likes": 67,
+     "product": "longline-high-support-tank-bra-suede-mahogany",
+     "title": "Mahogany fit check for my pre-order",
+     "body": "Deciding between the mahogany and black longline tank bra from the Ellie Edit. Mahogany fans, how are you styling it?",
+     "replies": [
+      {
+       "author": {
+        "name": "Tasha O.",
+        "initials": "TO"
+       },
+       "ago": "Yesterday",
+       "body": "Mahogany with the matching Hybrids is such a good set. Rich colour in person."
+      },
+      {
+       "author": {
+        "name": "Megan L.",
+        "initials": "ML"
+       },
+       "ago": "20h",
+       "body": "Get both and thank yourself later!"
+      }
+     ]
+    },
+    {
+     "id": "sculptfest-recap",
+     "topic": "Events",
+     "author": {
+      "name": "Lucy W.",
+      "initials": "LW"
+     },
+     "ago": "2d",
+     "likes": 33,
+     "title": "Anyone at SculptFest this summer?",
+     "body": "Took the kids along and they still haven’t stopped talking about it. What was everyone’s highlight?",
+     "replies": [
+      {
+       "author": {
+        "name": "Priya S.",
+        "initials": "PS"
+       },
+       "ago": "2d",
+       "body": "The family workout! Never seen my husband move like that."
+      },
+      {
+       "author": {
+        "name": "Zoe K.",
+        "initials": "ZK"
+       },
+       "ago": "2d",
+       "body": "Gutted I missed it. Turning on event alerts so I don’t miss the next one."
+      }
+     ]
+    },
+    {
+     "id": "jumpsuit-pilates",
+     "topic": "Fit Checks",
+     "author": {
+      "name": "Rachel D.",
+      "initials": "RD"
+     },
+     "ago": "3d",
+     "likes": 19,
+     "product": "halter-neck-flared-jumpsuit-black",
+     "title": "Pilates in a jumpsuit: yay or nay?",
+     "body": "Love the halter flared jumpsuit but is it practical for reformer, or is it more of a coffee-after outfit?",
+     "replies": [
+      {
+       "author": {
+        "name": "Chloe M.",
+        "initials": "CM"
+       },
+       "ago": "3d",
+       "body": "Big yay. The built-in bra means one less thing to think about."
+      }
+     ]
+    },
+    {
+     "id": "tierra-sizing",
+     "topic": "Training",
+     "author": {
+      "name": "Megan L.",
+      "initials": "ML"
+     },
+     "ago": "4d",
+     "likes": 12,
+     "product": "tierra-sports-bra-black",
+     "title": "Tierra bra: sizing up or down?",
+     "body": "Between sizes and can’t decide. Is it better snug for HIIT or a touch roomier for everyday?",
+     "replies": [
+      {
+       "author": {
+        "name": "Becca H.",
+        "initials": "BH"
+       },
+       "ago": "4d",
+       "body": "I went for my usual size. The removable padding helps fine-tune the fit."
+      },
+      {
+       "author": {
+        "name": "Aisha B.",
+        "initials": "AB"
+       },
+       "ago": "4d",
+       "body": "Worth checking the size guide in the app too, it’s on every product page."
+      }
+     ]
+    }
+   ]
+  }
  }
 }

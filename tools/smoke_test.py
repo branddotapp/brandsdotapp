@@ -117,6 +117,10 @@ def run(pw, w, h, tag):
         n = p.evaluate("""() => [...document.querySelectorAll('img')].filter(i => i.complete && i.getBoundingClientRect().width > 0 && i.naturalWidth === 0).map(i => i.src)""")
         for s in n: bad('[%s] broken image: %s' % (tag, s))
     def tab(t):
+        # brands with a Community tab keep the Wishlist behind a heart in the Home header
+        if t == 'wishlist' and not p.locator('#tabbar button[data-tab="wishlist"]').count():
+            if not p.locator('.view.top .hw-btn').count(): p.click('#tabbar button[data-tab="home"]'); p.wait_for_timeout(500)
+            p.click('.view.top .hw-btn'); p.wait_for_timeout(600); return
         p.click('#tabbar button[data-tab="%s"]' % t); p.wait_for_timeout(500)
     def to_root():
         # the mobile Demo button is tucked away on product/auth screens and while a toast shows
@@ -158,7 +162,7 @@ def run(pw, w, h, tag):
                               else '[%s] %s: hero not playing/visible: playing=%s visible=%s pixels-changing=%s %s' % (tag, label, playing, visible, moving, vi))
 
     p.goto(URL + '?nosplash', wait_until='networkidle'); p.wait_for_timeout(1200)
-    BR = p.evaluate("(() => { const B = window.BRAND; return {video: !!(B.home && B.home.hero && B.home.hero.video), reviews: !!(B.reviews && B.reviews.score), about: !!(B.pages && B.pages.about && B.pages.about.length), sale: Object.values(B.products).some(p => p.cp > p.p)}; })()")
+    BR = p.evaluate("(() => { const B = window.BRAND; return {video: !!(B.home && B.home.hero && B.home.hero.video), reviews: !!(B.reviews && B.reviews.score), about: !!(B.pages && B.pages.about && B.pages.about.length), sale: Object.values(B.products).some(p => p.cp > p.p), comm: !!(window.__app.evSplit && B.community && (((B.community.events||{}).items||[]).length || ((B.community.forum||{}).threads||[]).length)), events: ((B.community||{}).events||{items:[]}).items.length, up: window.__app.evSplit ? window.__app.evSplit().up.length : 0, threads: (((B.community||{}).forum||{}).threads||[]).length, topics: (((B.community||{}).forum||{}).topics||[])}; })()")
     if not BR['video']:
         # still-image hero: the poster must be loaded and visible instead
         def assert_hero_playing(label):
@@ -369,7 +373,7 @@ def run(pw, w, h, tag):
         back_ok = p.evaluate("() => { const s = document.querySelector('.view.top .seg'), i = s.querySelector('.seg-ind').getBoundingClientRect(), b = s.querySelector('button.on').getBoundingClientRect(); return s.querySelector('button.on').dataset.seg === 'cats' && Math.abs(i.left - b.left) < 1.5; }")
         (ok if back_ok else bad)('segmented: pill slides back to the first option' if back_ok else '[%s] segmented pill did not return' % tag)
     # tab bar: cross-fade (old view kept briefly, non-interactive) + active icon spring
-    p.evaluate("""() => { window.__tab = null; const old = document.querySelector('.view.top'); document.querySelector('#tabbar button[data-tab="wishlist"]').click();
+    p.evaluate("""() => { window.__tab = null; const old = document.querySelector('.view.top'); document.querySelector('#tabbar button[data-tab="wishlist"], #tabbar button[data-tab="community"]').click();
         const nw = document.querySelector('.view.top'), btn = document.querySelector('#tabbar button.active');
         window.__tab = {oldKept: old.isConnected, oldOut: old.classList.contains('tab-out'), oldPE: getComputedStyle(old).pointerEvents, newAnim: getComputedStyle(nw).animationName,
                         icon: getComputedStyle(btn.querySelector('svg')).animationName, cur: btn.getAttribute('aria-current')};
@@ -580,7 +584,7 @@ def run(pw, w, h, tag):
     p.fill('#sq', q); p.wait_for_timeout(600)
     ok('search: ' + p.inner_text('.view.top .count')); shot('18-search'); p.click('.view.top [data-act="back"]'); p.wait_for_timeout(300)
     # 7 demo pushes
-    for k in ['bag', 'restock'] + (['price'] if BR['sale'] else []) + ['drop', 'welcome']:
+    for k in ['bag', 'restock'] + (['price'] if BR['sale'] else []) + ['drop'] + (['community'] if BR['comm'] else []) + ['welcome']:
         if w >= 1000: p.click('.pitch [data-demo="%s"]' % k)
         else:
             to_root()
@@ -593,6 +597,10 @@ def run(pw, w, h, tag):
         ok('push %s: %s / %s' % (k, p.inner_text('#pushTitle'), p.inner_text('#pushText')))
         shot('20-push-' + k); p.click('#push'); p.wait_for_timeout(900); shot('21-after-' + k)
         if k == 'price' and not p.locator('.pd-badge, .g-badge').count(): bad('[%s] no PRICE DROP badge after price push' % tag)
+        if k == 'community':
+            okc = p.locator('.view.top.thv').count() == 1 if not BR['up'] else p.locator('.view.top .ev-card').count() > 0
+            (ok if okc else bad)('community push deep-links (%s)' % ('event' if BR['up'] else 'forum thread') if okc else '[%s] community push did not open the community' % tag)
+            p.evaluate("window.__app.switchTab('home')"); p.wait_for_timeout(400)
     # 7b back-to-back pushes must each replay the entrance animation (no content-only swap)
     p.evaluate("""() => {
         window.__pushEnter = 0;
@@ -632,6 +640,7 @@ def run(pw, w, h, tag):
     p.wait_for_timeout(300)
     tab('wishlist'); p.wait_for_timeout(500); shot('22-wishlist'); broken_imgs()
     tab('drops'); p.wait_for_timeout(500); shot('23-drops-live')
+    check_community(p, tag, w, BR, shot, tab, broken_imgs)
     # rewards card
     tab('account')
     (ok if p.locator('.view.top .rewards-mini').count() == 1 else bad)('rewards points card on Account' if p.locator('.view.top .rewards-mini').count() == 1 else '[%s] rewards card missing on Account' % tag)
@@ -640,6 +649,88 @@ def run(pw, w, h, tag):
     p.goto(URL + '?nosplash', wait_until='networkidle'); p.wait_for_timeout(1200)
     (ok if p.locator('#welcome.show').count() else bad)('welcome shows again on reload' if p.locator('#welcome.show').count() else '[%s] welcome did not show again on reload' % tag)
     br.close()
+
+def check_community(p, tag, w, BR, shot, tab, broken_imgs):
+    """Community (brand.json -> community): the tab replaces Wishlist (heart in the header instead); real events with a date badge,
+    an empty state + "Recent" when nothing is upcoming; demo forum with topic chips, likes, thread view, local replies and posts.
+    Brands without it: no tab, no teaser, nothing community-shaped anywhere."""
+    tabs = p.evaluate("() => [...document.querySelectorAll('#tabbar button')].map(b => b.dataset.tab)")
+    if not BR['comm']:
+        clean = 'community' not in tabs and 'wishlist' in tabs
+        tab('home'); p.wait_for_timeout(300)
+        clean = clean and not p.locator('.comm-teaser, .ev-card, .ev-empty, .thread, .hw-btn').count()
+        (ok if clean else bad)('no community configured: Wishlist tab kept, no community tab/teaser/events' if clean else '[%s] community UI shown without config: %s' % (tag, tabs))
+        return
+    good = 'community' in tabs and 'wishlist' not in tabs and len(tabs) <= 6
+    (ok if good else bad)('Community tab takes the Wishlist slot (%s)' % ', '.join(tabs) if good else '[%s] tab bar with community: %s' % (tag, tabs))
+    tab('home'); p.wait_for_timeout(300)
+    hw = p.locator('.view.top .hw-btn').count() == 1 and p.locator('.view.top .comm-teaser').count() == 1
+    (ok if hw else bad)('Home: wishlist heart in header + community teaser' if hw else '[%s] Home missing wishlist heart or community teaser' % tag)
+    order = p.evaluate("() => { const v = document.querySelector('.view.top'), i = s => { const e = v.querySelector(s); return e ? [...v.querySelectorAll('*')].indexOf(e) : -1; }; return {proof: i('.proof'), teaser: i('.comm-teaser'), about: i('.about')}; }")
+    good = order['teaser'] > order['proof'] and (order['about'] < 0 or order['teaser'] < order['about'])
+    (ok if good else bad)('community teaser after reviews, before about' if good else '[%s] teaser order %s' % (tag, order))
+    p.locator('.view.top .comm-teaser').scroll_into_view_if_needed(); p.click('.view.top .comm-teaser'); p.wait_for_timeout(600)
+    (ok if p.evaluate("() => document.querySelector('#tabbar button.active').dataset.tab") == 'community' else bad)('teaser opens the Community tab')
+    shot('25-community'); broken_imgs()
+    if BR['events']:
+        if p.locator('.view.top .seg button[data-seg="events"]').count(): p.click('.view.top .seg button[data-seg="events"]'); p.wait_for_timeout(600)
+        n = p.locator('.view.top .ev-card').count(); badges = p.locator('.view.top .ev-card .ev-date').count()
+        (ok if n == BR['events'] and badges == n else bad)('%d event cards with date badges' % n if n == BR['events'] and badges == n else '[%s] events: %d cards / %d badges (config %d)' % (tag, n, badges, BR['events']))
+        past = p.locator('.view.top .ev-card.past').count(); empty = p.locator('.view.top .ev-empty').count()
+        heads = p.evaluate("() => [...document.querySelectorAll('.view.top .ev-sec h2')].map(h => h.textContent)")
+        if BR['up'] == 0: good = empty == 1 and past == n and heads == ['Recent']
+        else: good = empty == 0 and 'Upcoming' in heads and n - past == BR['up']
+        (ok if good else bad)('events: %d upcoming, %d past%s' % (BR['up'], past, ' (empty state + "Recent")' if not BR['up'] else '') if good else '[%s] events state: up=%d past=%d empty=%d heads=%s' % (tag, BR['up'], past, empty, heads))
+        imgs = p.evaluate("""async () => { const ims = [...document.querySelectorAll('.view.top .ev-img img')]; for (const i of ims){ i.loading = 'eager'; if (!i.complete) await new Promise(r => { i.onload = i.onerror = r; setTimeout(r, 4000); }); } return ims.filter(i => !i.naturalWidth).length; }""")
+        (ok if imgs == 0 else bad)('event images load' if imgs == 0 else '[%s] %d event images failed' % (tag, imgs))
+        if not BR['up']:
+            sw = p.locator('.view.top #evAlerts'); sw.click(); p.wait_for_timeout(300)
+            on = p.evaluate("() => document.querySelector('.view.top #evAlerts').classList.contains('on')"); sw.click(); p.wait_for_timeout(1800)
+            (ok if on else bad)('event alerts toggle' if on else '[%s] event alerts toggle' % tag)
+        p.locator('.view.top .ev-cta').first.scroll_into_view_if_needed(); p.locator('.view.top .ev-cta').first.click(); p.wait_for_timeout(700)
+        bt = p.inner_text('#browser') if p.locator('#browser.show').count() else ''
+        first = p.evaluate("() => document.querySelector('.view.top .ev-card h3').textContent")
+        (ok if first.lower() in bt.lower() else bad)('event button opens the event page in the in-app browser' if first.lower() in bt.lower() else '[%s] event button: browser shows %r' % (tag, bt[:80]))
+        shot('26-event-browser'); p.click('#brDone'); p.wait_for_timeout(400)
+        p.evaluate("document.querySelector('.view.top').scrollTop = 0")
+    if BR['threads']:
+        if p.locator('.view.top .seg button[data-seg="forum"]').count(): p.click('.view.top .seg button[data-seg="forum"]'); p.wait_for_timeout(700)
+        n = p.locator('.view.top .thread').count(); mine = p.locator('.view.top .thread.mine').count()
+        (ok if n - mine == BR['threads'] else bad)('forum feed: %d threads' % n if n - mine == BR['threads'] else '[%s] forum feed %d threads (config %d)' % (tag, n, BR['threads']))
+        av = p.evaluate("() => [...document.querySelectorAll('.view.top .thread .av-i')].every(a => /^[A-Z]{1,3}$/.test(a.textContent.trim()))")
+        (ok if av else bad)('initials avatars (no photos of people)' if av else '[%s] forum avatars' % tag)
+        shot('27-forum')
+        for t in BR['topics']:
+            p.click('.view.top [data-topic="%s"]' % t); p.wait_for_timeout(500)
+            got = p.evaluate("() => [...document.querySelectorAll('.view.top .thread .th-topic')].map(x => x.textContent)")
+            if not got or any(g != t for g in got): bad('[%s] topic chip %s shows %s' % (tag, t, got)); break
+        else: ok('topic chips filter the feed (%s)' % ', '.join(BR['topics']))
+        p.click('.view.top [data-topic="All"]'); p.wait_for_timeout(500)
+        lk = p.locator('.view.top .thread:not(.mine) .th-like').first
+        n0 = int(lk.inner_text()); lk.click(); p.wait_for_timeout(80)
+        st = p.evaluate("() => { const b = document.querySelector('.view.top .thread:not(.mine) .th-like'); return {on: b.classList.contains('on'), n: +b.textContent, anim: getComputedStyle(b.querySelector('svg')).animationName}; }")
+        (ok if st['on'] and st['n'] == n0 + 1 and st['anim'] == 'likePop' else bad)('like toggles with a pop (%d → %d)' % (n0, st['n']) if st['on'] and st['n'] == n0 + 1 else '[%s] like: %s' % (tag, st))
+        p.wait_for_timeout(500); lk.click(); p.wait_for_timeout(300)
+        card = p.locator('.view.top .thread:not(.mine)').first
+        rc = int(card.locator('.th-replies').inner_text().split()[0]); card.locator('h3').click(); p.wait_for_timeout(700)
+        th = p.locator('.view.top.thv').count() == 1 and p.locator('.view.top .reply').count() == rc and p.locator('#tabbar.hidden').count() == 1
+        (ok if th else bad)('thread view: %d replies match the feed count, tab bar tucked away' % rc if th else '[%s] thread view (want %d replies, got %d)' % (tag, rc, p.locator('.view.top .reply').count()))
+        shot('28-thread')
+        p.fill('.view.top #replyIn', 'Smoke test reply'); p.click('.view.top #replySend'); p.wait_for_timeout(600)
+        good = p.locator('.view.top .reply').count() == rc + 1 and 'Smoke test reply' in p.inner_text('.view.top .replies')
+        (ok if good else bad)('reply posts locally' if good else '[%s] reply did not post' % tag)
+        p.wait_for_timeout(2400); p.click('.view.top [data-act="back"]'); p.wait_for_timeout(600)
+        rc2 = int(p.locator('.view.top .thread:not(.mine)').first.locator('.th-replies').inner_text().split()[0])
+        (ok if rc2 == rc + 1 else bad)('feed reply count updates after back' if rc2 == rc + 1 else '[%s] feed count %d after reply (want %d)' % (tag, rc2, rc + 1))
+        p.click('.view.top .fm-compose'); p.wait_for_timeout(600)
+        p.fill('#cpTitle', 'Smoke test post'); p.fill('#cpBody', 'Hello squad'); p.click('#cpPost'); p.wait_for_timeout(900)
+        good = 'Smoke test post' in p.inner_text('.view.top .thread.mine')
+        (ok if good else bad)('compose posts a local demo thread to the top of the feed' if good else '[%s] compose did not post' % tag)
+        p.wait_for_timeout(2400)
+        p.evaluate("() => { ['forumMine','forumReplies','forumLikes'].forEach(k => Object.keys(localStorage).filter(x => x.endsWith(k)).forEach(x => localStorage.removeItem(x))); }")
+    tab('wishlist'); hv = p.locator('.view.top [data-act="back"]').count() == 1
+    (ok if hv else bad)('Wishlist opens from the header heart' if hv else '[%s] wishlist from header heart' % tag)
+    p.click('.view.top [data-act="back"]'); p.wait_for_timeout(500)
 
 def reduced_motion(pw):
     """prefers-reduced-motion: segmented control, tabs and sheets still work but switch instantly; marquee and shimmer stop."""
