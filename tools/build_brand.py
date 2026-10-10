@@ -978,6 +978,12 @@ def theme_css(th):
     css = ':root{' + ';'.join('--%s:%s' % kv for kv in pairs) + (";--font:'%s'" % font if font else ";--font:-apple-system") + '}'
     return css
 
+def template_config():
+    """_template/config.json: shared defaults for every brand (keys starting with '_' are comments)."""
+    try: cfg = json.load(open(os.path.join(TEMPLATE, 'config.json')))
+    except (OSError, ValueError): return {}
+    return {k: v for k, v in cfg.items() if not k.startswith('_')}
+
 def write_app(B, out_dir):
     os.makedirs(os.path.join(out_dir, 'assets', 'img'), exist_ok=True)
     for f in ('app.js', 'app.css'):
@@ -985,6 +991,14 @@ def write_app(B, out_dir):
     # drop internal-only product fields to keep the payload small
     slim = dict(B)
     slim['products'] = {h: {k: v for k, v in p.items() if k not in ('pub',)} for h, p in B.get('products', {}).items()}
+    # shared template defaults (_template/config.json, e.g. the desktop "Why an app" stats) sit under the brand's own values,
+    # so they are edited once for every brand; brand.json / brand.overrides.json win (objects merge, lists replace, false hides)
+    cfg = template_config()
+    for k, v in cfg.items():
+        slim[k] = deep_merge(v, B[k]) if k in B else v
+    st = slim.get('stats')
+    if st and st.get('items'): log('· Desktop stats: %d boxes (%s)' % (len(st['items']), 'brand override' if 'stats' in B else 'template default'))
+    elif 'stats' in cfg: log('· Desktop stats: hidden for this brand')
     with open(os.path.join(out_dir, 'assets', 'brand.js'), 'w') as f:
         f.write('/* Generated from brand.json by tools/build_brand.py. Do not edit; edit brand.json / brand.overrides.json and run --rebuild. */\n')
         f.write('window.BRAND=' + json.dumps(slim, ensure_ascii=False, separators=(',', ':')) + ';\n')

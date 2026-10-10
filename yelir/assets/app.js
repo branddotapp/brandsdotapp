@@ -962,13 +962,21 @@ function buildChrome(){
   const pitch = B.pitch || {};
   const demoBtns = [['bag','Abandoned bag','What’s still in the bag, plus '+DISC.code],['restock','Back in stock','In your saved size'],...(ALL.some(x => x.cp > x.p) ? [['price','Price drop on wishlist','A real reduced item, badged in-app']] : []),['drop','Drop is live', DR ? 'DROP '+DR.num+' / '+DR.name+', app early access' : 'New arrivals'],['welcome','Show welcome message','The '+DISC.code+' offer shown on open']];
   demoHTML = demoBtns.map(d=>'<button class="demo-btn" data-demo="'+d[0]+'"><span><b>'+esc(d[1])+'</b><small>'+esc(d[2])+'</small></span>'+I.bell+'</button>').join('');
+  // desktop "Why an app" stats (defaults in _template/config.json, overridable per brand; "stats": false hides them)
+  const ST = B.stats && Array.isArray(B.stats.items) ? B.stats.items.filter(x => x && x.num) : [];
+  const safeUrl = u => /^https?:\/\//i.test(u || '') ? u : '';
+  const whyHTML = ST.length ? '<aside class="why" aria-label="'+esc(B.stats.heading||'Why an app')+'"><p class="why-h">'+esc(B.stats.heading||'Why an app')+'</p><div class="why-list">'+
+    ST.map((x,i) => '<article class="stat" style="--i:'+i+'"'+(x.copy?' title="'+esc(x.copy)+'"':'')+'><p class="stat-num">'+esc(x.num)+'</p><p class="stat-label">'+esc(x.label||'')+'</p>'+
+      (x.copy?'<p class="stat-copy">'+esc(x.copy)+'</p>':'')+
+      (x.source ? (safeUrl(x.url) ? '<a class="stat-src" href="'+esc(x.url)+'" target="_blank" rel="noopener noreferrer">'+esc(x.source)+I.ext+'</a>' : '<span class="stat-src">'+esc(x.source)+'</span>') : '')+
+    '</article>').join('')+'</div></aside>' : '';
   document.body.innerHTML =
   '<div class="stage">'+
-    '<aside class="pitch"><img class="pitch-logo" src="'+LOGO+'" alt="'+esc(NAME)+'">'+
+    '<div class="col col-l"><aside class="pitch"><img class="pitch-logo" src="'+LOGO+'" alt="'+esc(NAME)+'">'+
       '<p class="pitch-kicker">'+esc((B.short||NAME).toUpperCase())+' APP, CONCEPT</p><h1 class="pitch-title">'+(pitch.title||esc(NAME)+',<br>one tap away.')+'</h1>'+
       '<p class="pitch-copy">'+esc(pitch.copy||'')+'</p>'+
       (pitch.list && pitch.list.length ? '<ul class="pitch-list">'+pitch.list.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>' : '')+
-      '<div class="demo-panel"><p class="demo-h">Try it: send a push to the phone</p>'+demoHTML+'</div></aside>'+
+      '<div class="demo-panel"><p class="demo-h">Try it: send a push to the phone</p>'+demoHTML+'</div></aside></div>'+
     '<div class="device" id="device"><div class="device-btn b1"></div><div class="device-btn b2"></div><div class="device-btn b3"></div><div class="device-btn b4"></div>'+
       '<div class="screen" id="screen">'+
         '<div class="statusbar" id="statusbar"><span class="sb-time" id="sbTime">9:41</span><span class="island"></span><span class="sb-icons">'+
@@ -983,6 +991,7 @@ function buildChrome(){
           '<div class="browser" id="browser"></div><div class="welcome" id="welcome"></div>'+
           '<button class="demo-fab" id="demoFab" aria-label="Demo controls">'+I.bell+'Demo</button>'+
         '</main><div class="home-indicator"></div></div></div>'+
+    '<div class="col col-r">'+whyHTML+'</div>'+
     '<p class="credit">Concept app mockup for '+esc(NAME)+'</p>'+
   '</div>';
   stackEl = $('#stack');
@@ -1067,22 +1076,34 @@ document.addEventListener('click', e => {
 });
 
 // ---------- desktop fit ----------
-// Everything fits the viewport with no page scroll: the phone is scaled to the height left after the stage padding
-// (16px top, 34px bottom strip for the credit line), and the pitch panel is scaled down too if it is still taller.
-const STAGE_PAD = { t:16, b:34, x:24 };
+// Everything fits the viewport with no page scroll. Desktop is three columns (pitch | phone | why-an-app stats) with the
+// phone centred; below STATS_INLINE px wide the stats move under the pitch (two columns, compact 2x2). The phone is scaled to
+// the height left after the stage padding (16px top, 34px bottom strip for the credit line); each side column is then scaled
+// down (towards the phone) if it is still taller than that height or wider than the room beside the phone.
+const STAGE_PAD = { t:16, b:34, x:24 }, STATS_INLINE = 1100;
 function fit(){
-  const d = $('#device'), pt = $('.pitch');
-  if (window.innerWidth <= 520){ d.style.transform=''; d.style.margin=''; if (pt) pt.style.transform=''; return; }
+  const d = $('#device'), cl = $('.col-l'), cr = $('.col-r'), why = $('.why');
+  const cols = [cl, cr].filter(Boolean);
+  const reset = c => { c.style.transform = ''; c.style.margin = ''; };
+  if (window.innerWidth <= 520){ d.style.transform=''; d.style.margin=''; cols.forEach(reset); return; }
+  const narrow = window.innerWidth < STATS_INLINE;
+  if (why){ const home = narrow ? cl : cr; if (home && why.parentElement !== home) home.appendChild(why); }
+  document.body.classList.toggle('stats-inline', narrow);
   const availH = window.innerHeight - STAGE_PAD.t - STAGE_PAD.b;
   const s = Math.min(1, availH / 868, (window.innerWidth - STAGE_PAD.x*2) / 414);
   d.style.transform = s < 1 ? 'scale('+s+')' : '';
   d.style.margin = s < 1 ? (-(868*(1-s))/2)+'px '+(-(414*(1-s))/2)+'px' : '';
-  if (pt && getComputedStyle(pt).display !== 'none'){
-    pt.style.transform = '';
-    const ps = Math.min(1, availH / pt.offsetHeight);
-    pt.style.transform = ps < 1 ? 'scale('+ps+')' : '';
-    pt.style.marginRight = ps < 1 ? (-(pt.offsetWidth*(1-ps)))+'px' : '';
-  }
+  const gap = parseFloat(getComputedStyle($('.stage')).columnGap) || 0;
+  const room = narrow ? window.innerWidth - STAGE_PAD.x*2 - 414*s - gap : (window.innerWidth - STAGE_PAD.x*2 - 414*s - gap*2) / 2;
+  cols.forEach(c => {
+    reset(c);
+    if (getComputedStyle(c).display === 'none' || !c.children.length) return;
+    const w = c.offsetWidth, h = c.offsetHeight, k = Math.min(1, availH / h, room / w);
+    if (k >= 1) return;
+    c.style.transform = 'scale('+k+')';
+    const dx = -(w*(1-k))+'px', dy = -(h*(1-k))/2+'px';
+    c.style.margin = c === cl ? dy+' 0 '+dy+' '+dx : dy+' '+dx+' '+dy+' 0';   // shrink towards the phone
+  });
 }
 
 // ---------- boot ----------

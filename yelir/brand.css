@@ -79,3 +79,9 @@ body{background:radial-gradient(1200px 700px at 70% 30%,#ffffff 0%,#f0f0f0 55%,#
 .rewards-mini,.rcard{background:linear-gradient(135deg,#0d0d0d 0%,#1e1e1e 60%,#2e2e2e 100%)}
 .rewards-mini::before{background:radial-gradient(circle,rgba(255,255,255,.14),transparent 70%)}
 .rm-bar i,.rcard .tbar i{background:#fff}
+
+/* desktop "Why an app" stats: square corners and the bold headline weight, like the pitch panel */
+.stat,.col-l .stat{border-radius:0}
+.stat-num{font-weight:700;letter-spacing:-.01em}
+.stat-label{letter-spacing:.08em}
+.stat-copy{color:#4a4a4a}

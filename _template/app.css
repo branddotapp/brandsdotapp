@@ -15,7 +15,14 @@ img{display:block}
 svg{display:block}
 
 /* ---------- desktop stage ---------- */
-.stage{height:100vh;height:100dvh;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:clamp(44px,6vw,96px);padding:16px 24px 34px;position:relative}
+/* three columns: pitch + demo pushes | phone (centred in the window) | why-an-app stats. app.js fit() scales the phone to the
+   height and each side column towards the phone if it doesn't fit; below 1100px the stats move under the pitch (body.stats-inline) */
+.stage{height:100vh;height:100dvh;overflow:hidden;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);grid-template-rows:minmax(0,1fr);align-items:center;column-gap:clamp(40px,4.6vw,92px);padding:16px 24px 34px;position:relative}
+.col{min-width:0}
+.col-l{justify-self:end;transform-origin:right center}
+.col-r{justify-self:start;transform-origin:left center}
+.stats-inline .stage{grid-template-columns:auto auto;justify-content:center}
+.stats-inline .col-r{display:none}
 .pitch{width:340px;color:var(--ink)}
 .pitch-logo{width:150px;margin-bottom:46px}
 .pitch-kicker{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
@@ -25,7 +32,7 @@ svg{display:block}
 .pitch-list li{padding:12px 0;border-top:1px solid rgba(0,0,0,.1)}
 .pitch-list li:last-child{border-bottom:1px solid rgba(0,0,0,.1)}
 .credit{position:absolute;bottom:11px;left:0;right:0;pointer-events:none;text-align:center;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,0,0,.38)}
-@media (max-width:1000px){.pitch{display:none}}
+@media (max-width:1000px){.pitch,.col{display:none}.stage,.stats-inline .stage{grid-template-columns:auto}}
 
 .device{position:relative;width:414px;height:868px;border-radius:66px;background:#1b1b1b;padding:12px;flex:none;align-self:center;
   box-shadow:0 0 0 2px #3a3a3a,0 0 0 4px #0c0c0c,0 50px 90px -20px rgba(40,30,15,.45),0 30px 50px -30px rgba(0,0,0,.5);transform-origin:center}
@@ -422,7 +429,7 @@ svg{display:block}
 
 /* desktop pitch + demo panel: sizes follow the viewport height so the whole panel fits without scrolling
    (app.js fit() scales it down further if it still doesn't) */
-.pitch{width:350px;flex:none;transform-origin:left center}
+.pitch{width:350px;flex:none}
 .pitch-logo{width:clamp(96px,14vh,138px);margin-bottom:clamp(14px,3vh,30px);max-height:48px;object-fit:contain;object-position:left}
 .pitch-kicker{font-size:10.5px;margin-bottom:clamp(8px,1.4vh,12px)}
 .pitch-title{font-size:clamp(23px,3.4vh,31px);margin-bottom:clamp(10px,1.6vh,16px)}
@@ -440,6 +447,7 @@ svg{display:block}
 .pitch .demo-h{grid-column:1/-1}
 .pitch .demo-btn{padding:clamp(7px,1.1vh,10px) 11px;border-radius:10px;gap:8px;align-items:flex-start}
 .pitch .demo-btn:last-child{grid-column:1/-1}
+.pitch .demo-btn:nth-last-child(2):nth-child(even){grid-column:1/-1}   /* even number of buttons (no price-drop demo): no orphan half-width cell */
 .pitch .demo-btn b{font-size:11.5px}
 .pitch .demo-btn small{font-size:10.5px;line-height:1.35}
 .pitch .demo-btn svg{width:15px;height:15px;margin-top:1px;opacity:.7}
@@ -721,6 +729,35 @@ svg{display:block}
 .icon-btn .hb-count.pop{animation:pop .5s var(--spring)}
 .home-head .icon-btn .hb-count{background:#fff;color:#111;border-color:transparent}
 .icon-btn.glass .hb-count{top:1px;right:-1px;border-color:rgba(255,255,255,.9)}
+
+/* desktop "Why an app" stats column (right of the phone). Copy lives in _template/config.json -> stats (per-brand override
+   in brand.overrides.json). Type and colours come from the brand theme, matching the pitch panel; sizes follow the viewport height */
+.why{width:clamp(290px,22.5vw,330px);color:var(--ink)}
+.why-h{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-bottom:clamp(8px,1.4vh,12px);display:flex;align-items:center;gap:12px}
+.why-h::after{content:"";flex:1;height:1px;background:rgba(0,0,0,.1)}
+.why-list{display:flex;flex-direction:column;gap:clamp(6px,1vh,9px)}
+.stat{position:relative;padding:clamp(10px,1.6vh,15px) clamp(14px,1.2vw,18px) clamp(9px,1.4vh,13px);background:rgba(255,255,255,.6);border:1px solid rgba(0,0,0,.08);border-radius:12px;
+  transition:transform .35s var(--ease-out),background-color .25s,border-color .25s,box-shadow .35s var(--ease-out);animation:statIn .7s var(--ease-out) backwards;animation-delay:calc(.2s + var(--i,0) * .08s)}
+.why-h{animation:statIn .6s var(--ease-out) .12s backwards}
+.stat-num{font-size:clamp(24px,3.7vh,33px);font-weight:500;line-height:1;letter-spacing:-.02em;color:var(--ink);font-variant-numeric:lining-nums;margin-bottom:clamp(4px,.75vh,7px)}
+.stat-label{font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);line-height:1.35}
+.stat-copy{font-size:clamp(11.5px,1.55vh,12.5px);line-height:1.5;color:#55524d;margin-top:clamp(3px,.55vh,5px)}
+.stat-src{display:inline-flex;align-items:center;gap:4px;margin-top:clamp(4px,.7vh,7px);font-size:10px;letter-spacing:.06em;color:var(--muted);color:color-mix(in srgb,var(--muted) 70%,var(--ink));text-decoration:none;border-bottom:1px solid transparent;transition:color .2s,border-color .2s}
+.stat-src svg{width:10px;height:10px;stroke:currentColor;fill:none;stroke-width:2;flex:none;transition:transform .25s var(--ease-out)}
+@keyframes statIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (hover:hover){
+  .stat:hover{background:#fff;border-color:rgba(0,0,0,.16);transform:translateY(-2px);box-shadow:0 14px 30px -18px rgba(0,0,0,.22)}
+  .stat-src:hover{color:var(--ink);border-bottom-color:currentColor}
+  .stat-src:hover svg{transform:translate(1px,-1px)}
+}
+/* under 1100px wide: the stats sit under the pitch as a compact 2x2 (the one-line explanation stays as the box's tooltip) */
+.col-l .why{width:350px;margin-top:clamp(14px,2.4vh,24px)}
+.col-l .why-list{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.col-l .stat{padding:10px 12px 9px;border-radius:10px}
+.col-l .stat-num{font-size:24px;margin-bottom:4px}
+.col-l .stat-label{font-size:9.5px;letter-spacing:.12em}
+.col-l .stat-copy{display:none}
+.col-l .stat-src{margin-top:4px;font-size:9.5px}
 
 /* buttons: consistent press + desktop hover */
 .btn{transition:transform .22s var(--ease-out),background-color .2s,color .2s,border-color .2s,opacity .2s}

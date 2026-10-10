@@ -1,13 +1,14 @@
-"""Layout / visual QA pass for a built brand app. Usage: python3 tools/layout_check.py SLUG [--base URL] [--sizes 390x844,1440x800,1920x1080] [--shots DIR]
+"""Layout / visual QA pass for a built brand app. Usage: python3 tools/layout_check.py SLUG [--base URL] [--sizes 390x844,1280x720,1440x800,1920x1080] [--shots DIR]
 Visits every screen and state (tabs, both Shop segments, collection, product, sheets, auth, in-app browser, welcome, rewards,
 empty states) and flags, inside the phone screen: horizontal overflow, clipped text (overflow without an ellipsis/clamp),
 low-contrast text (WCAG AA), overlapping siblings in rows, misaligned header icons, tiny tap targets, non-brand fonts,
-broken images and console errors. On desktop it also checks that the stage fits the viewport with no page scroll."""
+broken images and console errors. On desktop it also checks that the stage fits the viewport with no page scroll, and the three-column layout: phone centred,
+4 "Why an app" stat boxes (valid new-tab source links, nothing clipped, overlapping, off-brand or low-contrast), columns never overlapping."""
 import sys, os, argparse, json
 from playwright.sync_api import sync_playwright
 
 ap = argparse.ArgumentParser(); ap.add_argument('slug'); ap.add_argument('--base', default='http://localhost:8765')
-ap.add_argument('--sizes', default='390x844,1440x800,1920x1080'); ap.add_argument('--shots'); ap.add_argument('-v', action='store_true')
+ap.add_argument('--sizes', default='390x844,1280x720,1440x800,1920x1080'); ap.add_argument('--shots'); ap.add_argument('-v', action='store_true')
 a = ap.parse_args()
 URL = '%s/%s/' % (a.base.rstrip('/'), a.slug)
 problems, notes = [], []
@@ -102,7 +103,43 @@ CHECK = r"""(name) => {
   document.querySelectorAll('.view.top img, #sheet img, #welcome img').forEach(i => { if (i.complete && i.naturalWidth === 0 && i.getBoundingClientRect().width > 0) out.push('broken image ' + i.src.slice(-60)); });
   // desktop stage fit
   if (innerWidth > 520) { if (document.documentElement.scrollHeight > innerHeight + 1) out.push('page scrolls on desktop');
-    ['.pitch', '#device', '.credit'].forEach(s => { const e = document.querySelector(s); if (!e || getComputedStyle(e).display === 'none') return; const q = e.getBoundingClientRect(); if (q.top < -1 || q.bottom > innerHeight + 1 || q.left < -1 || q.right > innerWidth + 1) out.push(s + ' outside viewport'); }); }
+    ['.pitch', '#device', '.why', '.credit'].forEach(s => { const e = document.querySelector(s); if (!e || getComputedStyle(e).display === 'none') return; const q = e.getBoundingClientRect(); if (q.top < -1 || q.bottom > innerHeight + 1 || q.left < -1 || q.right > innerWidth + 1) out.push(s + ' outside viewport'); });
+    // three-column stage (>1000px): pitch | phone | "Why an app" stats; below 1100px the stats sit under the pitch
+    if (innerWidth > 1000) {
+      const box = e => e.getBoundingClientRect(), hit = (p, q) => Math.min(p.right, q.right) - Math.max(p.left, q.left) > 1 && Math.min(p.bottom, q.bottom) - Math.max(p.top, q.top) > 1;
+      const why = document.querySelector('.why'), pitch = document.querySelector('.pitch'), dev = document.querySelector('#device');
+      if (!why) out.push('stats column missing');
+      else {
+        const stats = [...why.querySelectorAll('.stat')];
+        if (stats.length !== 4) out.push('stats: ' + stats.length + ' boxes (want 4)');
+        const pr = box(pitch), dr = box(dev), wr = box(why);
+        const cr = (() => { const g = document.createRange(); g.selectNodeContents(document.querySelector('.credit')); return g.getBoundingClientRect(); })();
+        if (hit(dr, wr)) out.push('stats column overlaps the phone'); if (hit(dr, pr)) out.push('pitch overlaps the phone');
+        if (hit(cr, wr) || hit(cr, pr) || hit(cr, dr)) out.push('credit line overlaps a column');
+        if (innerWidth >= 1100) {
+          if (!why.parentElement.classList.contains('col-r')) out.push('stats not in the right column');
+          if (Math.abs((dr.left + dr.right) / 2 - innerWidth / 2) > 2) out.push('phone not centred (' + Math.round((dr.left + dr.right) / 2) + ' vs ' + innerWidth / 2 + ')');
+          if (hit(pr, wr)) out.push('pitch overlaps stats');
+        } else if (wr.top < pr.bottom - 1) out.push('stats overlap the pitch (narrow layout)');
+        const want = getComputedStyle(document.documentElement).getPropertyValue('--font').trim().replace(/['"]/g,'');
+        const pageBg = (() => { const m = getComputedStyle(document.documentElement).getPropertyValue('--stage-b').trim().match(/^#([0-9a-f]{6})$/i); return m ? [0, 2, 4].map(i => parseInt(m[1].substr(i, 2), 16)).concat(1) : [230, 230, 230, 1]; })();
+        stats.forEach((s, i) => {
+          const sr = box(s), n = 'stat ' + (i + 1);
+          stats.slice(i + 1).forEach((t, j) => { if (hit(sr, box(t))) out.push(n + ' overlaps stat ' + (i + j + 2)); });
+          ['.stat-num', '.stat-label', '.stat-src'].forEach(q => { if (!s.querySelector(q) || !s.querySelector(q).textContent.trim()) out.push(n + ' missing ' + q); });
+          const a = s.querySelector('a.stat-src');
+          if (!a || !/^https:\/\/[a-z0-9.-]+\.[a-z]{2,}\//i.test(a.getAttribute('href') || '') || a.target !== '_blank' || !/noopener/.test(a.rel)) out.push(n + ' source link invalid');
+          const sbg = over(parse(getComputedStyle(s).backgroundColor) || [255, 255, 255, 0], pageBg);
+          s.querySelectorAll('p,a').forEach(e => { if (!vis(e)) return; const r = box(e), cs = getComputedStyle(e);
+            if (r.left < sr.left - 1 || r.right > sr.right + 1 || r.top < sr.top - 1 || r.bottom > sr.bottom + 1) out.push(n + ' text spills out of its box: ' + desc(e));
+            if ((e.scrollWidth > e.clientWidth + 1 || e.scrollHeight > e.clientHeight + 2) && cs.overflow !== 'visible') out.push(n + ' clipped text: ' + desc(e));
+            if (want && want !== '-apple-system' && !cs.fontFamily.replace(/['"]/g,'').includes(want)) out.push(n + ' font ' + cs.fontFamily);
+            const f = parse(cs.color); if (f) { const k = Math.abs(box(why.closest('.col')).width / why.closest('.col').offsetWidth) || 1, fc = over(f, sbg);
+              const ratio = (Math.max(L(fc), L(sbg)) + .05) / (Math.min(L(fc), L(sbg)) + .05), big = parseFloat(cs.fontSize) * k >= 18.6;
+              if (ratio < (big ? 3 : 4.5)) out.push(n + ' low contrast ' + ratio.toFixed(2) + ': ' + desc(e)); } });
+        });
+      }
+    } }
   return {out: [...new Set(out)], info: [...new Set(info)]};
 }"""
 

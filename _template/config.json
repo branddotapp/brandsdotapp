@@ -1,0 +1,20 @@
+{
+ "_comment": "Shared defaults for every brand. build_brand.py merges this under each brand (brand.json, then brand.overrides.json win), so edit a value here once for all brands, or override it per brand in <slug>/brand.overrides.json. Set \"stats\": false in a brand's overrides to hide the column.",
+ "stats": {
+  "heading": "Why an app",
+  "items": [
+   {"num": "1.8×", "label": "Higher conversion",
+    "copy": "App sessions convert at a median 1.8x the brand’s mobile site (21 retailers, like-for-like).",
+    "source": "Poq, 2026", "url": "https://poqcommerce.com/resources/the-mobile-app-revenue-case/"},
+   {"num": "+24%", "label": "Total revenue",
+    "copy": "Fashion brands’ average revenue lift after launching an app, across $31.5B of Shopify orders.",
+    "source": "Tapcart, 2025", "url": "https://www.tapcart.com/blog/mobile-incrementality-data-story"},
+   {"num": "33%", "label": "More frequent purchases",
+    "copy": "App adopters bought 33% more often and spent 37% more.",
+    "source": "Marketing Science, 2019", "url": "https://pubsonline.informs.org/doi/10.1287/mksc.2019.1169"},
+   {"num": "74%", "label": "Push opt-in",
+    "copy": "UK brand AYBL got 74% of app users to opt in to push, which drives 10%+ of its revenue.",
+    "source": "AYBL case study, Venn Apps", "url": "https://www.vennapps.com/case-studies/aybl"}
+  ]
+ }
+}

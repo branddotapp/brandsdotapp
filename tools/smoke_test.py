@@ -1,7 +1,8 @@
 """Headless smoke test for a built brand app. Usage: python3 tools/smoke_test.py SLUG [--base URL] [--shots DIR]
-Clicks through every tab and feature at phone (390x844) and desktop (1440x800) sizes, reports console errors,
-failed requests and broken images, and saves screenshots."""
-import sys, os, argparse, json
+Clicks through every tab and feature at phone (390x844) and desktop (1280x720, 1440x800, 1920x1080) sizes, reports console errors,
+failed requests and broken images, and saves screenshots. Desktop also checks the three-column stage: the "Why an app" stats column
+(4 boxes matching BRAND.stats, source links valid and opening in a new tab, hover + fade-in, nothing clipped or overlapping, phone centred)."""
+import sys, os, argparse, json, re, urllib.request, urllib.error
 from playwright.sync_api import sync_playwright
 
 ap = argparse.ArgumentParser(); ap.add_argument('slug'); ap.add_argument('--base', default='http://localhost:8765'); ap.add_argument('--shots')
@@ -12,6 +13,92 @@ os.makedirs(SH, exist_ok=True)
 problems, log = [], []
 def ok(m): log.append('  ✓ ' + m); print('  ✓ ' + m, flush=True)
 def bad(m): problems.append(m); print('  ✗ ' + m, flush=True)
+
+STATS_JS = r"""() => {
+  const why = document.querySelector('.why'), B = window.BRAND, want = (B.stats && B.stats.items) || [];
+  const rect = e => { const r = e.getBoundingClientRect(); return {l: r.left, t: r.top, r: r.right, b: r.bottom, w: r.width, h: r.height}; };
+  const shown = e => e && getComputedStyle(e).display !== 'none' && e.getBoundingClientRect().width > 0;
+  const cols = {pitch: document.querySelector('.pitch'), device: document.querySelector('#device'), why};
+  const R = {}; for (const k in cols) if (shown(cols[k])) R[k] = rect(cols[k]);
+  const stats = why ? [...why.querySelectorAll('.stat')].map(s => {
+    const q = c => s.querySelector(c), a = q('a.stat-src'), sr = s.getBoundingClientRect();
+    const spill = [...s.querySelectorAll('*')].filter(e => shown(e) && !e.closest('svg')).some(e => { const r = e.getBoundingClientRect(); return r.left < sr.left - 1 || r.right > sr.right + 1 || r.top < sr.top - 1 || r.bottom > sr.bottom + 1; });
+    const clipped = [...s.querySelectorAll('p,a')].some(e => shown(e) && (e.scrollWidth > e.clientWidth + 1 || e.scrollHeight > e.clientHeight + 2) && getComputedStyle(e).overflow !== 'visible');
+    return {num: (q('.stat-num') || {}).textContent, label: (q('.stat-label') || {}).textContent, copy: (q('.stat-copy') || {}).textContent, copyShown: shown(q('.stat-copy')),
+            src: a ? a.textContent : null, href: a ? a.getAttribute('href') : null, target: a ? a.target : null, rel: a ? a.rel : null, spill, clipped, rect: rect(s),
+            anim: getComputedStyle(s).animationName, font: getComputedStyle(q('.stat-num')).fontFamily};
+  }) : [];
+  return {R, stats, want, heading: why ? why.querySelector('.why-h').textContent : null, parent: why ? why.parentElement.className : null,
+          vw: innerWidth, vh: innerHeight, scrollH: document.documentElement.scrollHeight, font: getComputedStyle(document.documentElement).getPropertyValue('--font').trim().replace(/['"]/g, ''),
+          credit: (() => { const c = document.querySelector('.credit'); if (!shown(c)) return null; const g = document.createRange(); g.selectNodeContents(c); const r = g.getBoundingClientRect(); return {l: r.left, t: r.top, r: r.right, b: r.bottom}; })()};
+}"""
+
+def check_stats(p, tag, w, h, shot):
+    """Desktop three-column stage + "Why an app" stats column (>=1100 wide: own column right of a centred phone; 1001-1099: under the pitch)."""
+    d = p.evaluate(STATS_JS)
+    if w <= 1000:
+        (ok if 'why' not in d['R'] and 'pitch' not in d['R'] else bad)('%s: phone only, no pitch/stats columns' % tag if 'why' not in d['R'] and 'pitch' not in d['R'] else '[%s] side columns visible on a phone-only width: %s' % (tag, list(d['R'])))
+        return
+    want = d['want']
+    if len(d['stats']) == 4 and len(want) == 4: ok('stats: 4 boxes under "%s"' % d['heading'])
+    else: bad('[%s] stats: %d boxes rendered, %d in BRAND.stats (want 4)' % (tag, len(d['stats']), len(want)))
+    for i, (s, x) in enumerate(zip(d['stats'], want)):
+        n = i + 1
+        same = (s['num'], s['label'], s['copy'], s['src'], s['href']) == (x.get('num'), x.get('label'), x.get('copy'), x.get('source'), x.get('url'))
+        link = bool(s['href'] and re.match(r'^https://[a-z0-9.-]+\.[a-z]{2,}/\S*$', s['href'])) and s['target'] == '_blank' and 'noopener' in (s['rel'] or '')
+        if not same: bad('[%s] stat %d text differs from config: %s vs %s' % (tag, n, s, x))
+        if not link: bad('[%s] stat %d source link invalid (href %r, target %r, rel %r)' % (tag, n, s['href'], s['target'], s['rel']))
+        if s['spill'] or s['clipped']: bad('[%s] stat %d content clipped/spilling out of its box' % (tag, n))
+        if s['anim'] != 'statIn': bad('[%s] stat %d has no fade-in (animation %r)' % (tag, n, s['anim']))
+        if d['font'] and d['font'] != '-apple-system' and d['font'] not in s['font'].replace('"', '').replace("'", ''): bad('[%s] stat %d not in the brand font: %s' % (tag, n, s['font']))
+        if same and link and not s['spill'] and not s['clipped']: ok('stat %d: %s %s, source "%s" -> %s (new tab)%s' % (n, s['num'], s['label'], s['src'], s['href'], '' if s['copyShown'] else ' [compact: copy as tooltip]'))
+    # boxes must not overlap each other
+    rs = [s['rect'] for s in d['stats']]
+    ov = [(i + 1, j + 1) for i in range(len(rs)) for j in range(i + 1, len(rs)) if min(rs[i]['r'], rs[j]['r']) - max(rs[i]['l'], rs[j]['l']) > 1 and min(rs[i]['b'], rs[j]['b']) - max(rs[i]['t'], rs[j]['t']) > 1]
+    (ok if not ov else bad)('stat boxes do not overlap' if not ov else '[%s] stat boxes overlap: %s' % (tag, ov))
+    # every column inside the window, columns + credit line never overlap, phone fully visible
+    R = dict(d['R']); 
+    if d['credit']: R['credit'] = d['credit']
+    out = [k for k, r in R.items() if r['l'] < -1 or r['t'] < -1 or r['r'] > w + 1 or r['b'] > h + 1]
+    ks = list(R); hits = [(a, b) for i, a in enumerate(ks) for b in ks[i + 1:] if min(R[a]['r'], R[b]['r']) - max(R[a]['l'], R[b]['l']) > 1 and min(R[a]['b'], R[b]['b']) - max(R[a]['t'], R[b]['t']) > 1
+                          and not ({a, b} == {'pitch', 'why'} and d['parent'].startswith('col col-l'))]
+    if d['parent'] and 'col-l' in d['parent'] and 'pitch' in R and 'why' in R and R['why']['t'] < R['pitch']['b'] - 1: hits.append(('pitch', 'why'))
+    good = not out and not hits and d['scrollH'] <= h + 1
+    (ok if good else bad)('%dx%d: %s fit the window, no overlaps, no page scroll' % (w, h, '/'.join(R)) if good else '[%s] stage layout: outside %s, overlaps %s, scrollHeight %s' % (tag, out, hits, d['scrollH']))
+    if w >= 1100:
+        dv, pt, wy = R.get('device'), R.get('pitch'), R.get('why')
+        mid = (dv['l'] + dv['r']) / 2 if dv else 0
+        three = dv and pt and wy and 'col-r' in d['parent'] and pt['r'] <= dv['l'] and wy['l'] >= dv['r'] and abs(mid - w / 2) <= 2
+        (ok if three else bad)('three columns: pitch | phone (centre %.0f of %d) | stats' % (mid, w) if three else '[%s] not a centred three-column layout: %s parent=%s' % (tag, R, d['parent']))
+        gl, gr = (dv['l'] - pt['r'], wy['l'] - dv['r']) if three else (0, 0)
+        if three and abs(gl - gr) > 2: bad('[%s] side gaps unequal: %.0f vs %.0f' % (tag, gl, gr))
+    else:
+        (ok if 'col-l' in (d['parent'] or '') else bad)('narrow desktop: stats sit under the pitch' if 'col-l' in (d['parent'] or '') else '[%s] stats not under the pitch below 1100px' % tag)
+    if d['stats']:
+        # hover: box lifts and brightens
+        p.hover('.why .stat >> nth=1'); p.wait_for_timeout(500)
+        hv = p.evaluate("() => { const s = document.querySelectorAll('.why .stat')[1], cs = getComputedStyle(s); return {tf: cs.transform, bg: cs.backgroundColor}; }")
+        (ok if hv['tf'] != 'none' and hv['bg'] in ('rgb(255, 255, 255)', 'rgba(255, 255, 255, 1)') else bad)('stat hover lifts + brightens (%s)' % hv['tf'] if hv['tf'] != 'none' else '[%s] stat hover state missing: %s' % (tag, hv))
+        shot('00-stats-hover'); p.mouse.move(2, 2); p.wait_for_timeout(300)
+        # a source link opens in a new tab (target page stubbed, nothing loaded from the network)
+        url = d['stats'][0]['href']
+        p.context.route(url, lambda r: r.fulfill(status=200, content_type='text/html', body='<title>stub</title>'))
+        try:
+            with p.context.expect_page(timeout=5000) as pg: p.click('.why .stat >> nth=0 >> a.stat-src')
+            np = pg.value; np.wait_for_load_state(); (ok if np.url == url else bad)('source link opens in a new tab: %s' % np.url if np.url == url else '[%s] new tab opened %s, want %s' % (tag, np.url, url)); np.close()
+        except Exception as e: bad('[%s] source link did not open a new tab: %s' % (tag, e))
+
+def check_stat_links(items):
+    """Each source URL answers (2xx/3xx). 401/403/429 are bot walls on publisher/vendor sites (the page loads in a browser): noted, not failed."""
+    for x in items:
+        u = x.get('url')
+        try:
+            r = urllib.request.urlopen(urllib.request.Request(u, headers={'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128 Safari/537.36', 'Accept': 'text/html'}), timeout=25)
+            ok('source link live: HTTP %d %s' % (r.status, u))
+        except urllib.error.HTTPError as e:
+            if e.code in (401, 403, 429): ok('source link reachable, bot wall HTTP %d (not a dead link): %s' % (e.code, u))
+            else: bad('source link broken: HTTP %d %s' % (e.code, u))
+        except Exception as e: bad('source link unreachable: %s (%s)' % (u, e))
 
 def run(pw, w, h, tag):
     # real desktop Chrome autoplay policy (no --autoplay-policy override): muted autoplay must work on its own
@@ -85,6 +172,7 @@ def run(pw, w, h, tag):
     if 'copied' in p.inner_text('#toast').lower(): ok('APP10 tap-to-copy')
     else: bad('[%s] copy toast missing' % tag)
     p.click('#wlGo'); p.wait_for_timeout(600)
+    check_stats(p, tag, w, h, shot)
     assert_hero_playing('initial load')
     # 2 home
     t = p.text_content('.view.top')
@@ -613,11 +701,14 @@ def autoplay_refused(pw, w, h):
 
 with sync_playwright() as pw:
     run(pw, 390, 844, 'mobile')
+    run(pw, 1280, 720, 'desktop-1280')
     run(pw, 1440, 800, 'desktop')
     run(pw, 1920, 1080, 'desktop-1920')
     reduced_motion(pw)
     autoplay_refused(pw, 1440, 800)
     autoplay_refused(pw, 390, 844)
+print('== stats source links')
+check_stat_links((json.loads(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', a.slug, 'assets', 'brand.js')).read().split('window.BRAND=', 1)[1].rstrip().rstrip(';')).get('stats') or {}).get('items', []))
 print('\n%d problem(s)' % len(problems))
 for x in problems: print(' -', x)
 sys.exit(1 if problems else 0)
