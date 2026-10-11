@@ -419,7 +419,8 @@ def svg_to_png(svg_bytes):
 
 def logo_tone(path):
     im = Image.open(path).convert('RGBA')
-    px = [p for p in list(im.convert('RGBA').tobytes()[i:i+4] for i in range(0, im.width*im.height*4, 4)) if p[3] > 100]
+    data = im.tobytes()   # once: calling tobytes() per pixel made big logos take minutes
+    px = [data[i:i+4] for i in range(0, len(data), 4) if data[i+3] > 100]
     if not px: return 'dark', True
     L = sum(lum(p[:3]) for p in px) / len(px)
     sat = sum(max(p[:3]) - min(p[:3]) for p in px) / len(px)

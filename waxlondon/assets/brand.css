@@ -1,0 +1,103 @@
+/* WAX LONDON: brand layer loaded after the shared app.css (copied to assets/brand.css by tools/build_brand.py).
+   Matches waxlondon.com: white page, #333 type, Maison Neue for UI and product names, ITC Clearface bold for headings
+   (sentence/title case: "Overshirts", "Archive Sale: Up To 60% Off", PDP titles and prices), white pill buttons over
+   imagery (60px radius, 14px medium, "Shop Overshirts"), black pills on white, the orange uppercase "ADD TO BAG" pill,
+   sale green for markdowns, light grey product image backgrounds, white rounded product labels, and the wax / london
+   serif wordmark. Fonts hotlinked from the site's own Shopify CDN. */
+
+@font-face{font-family:'Maison Neue';src:url('https://waxlondon.com/cdn/shop/t/378/assets/MaisonNeue-Book.woff2?v=76063278486294997921767084989') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Maison Neue';src:url('https://waxlondon.com/cdn/shop/t/378/assets/MaisonNeue-Medium.woff2?v=66685502859410096521767084990') format('woff2');font-weight:500 600;font-style:normal;font-display:swap}
+@font-face{font-family:'Maison Neue';src:url('https://waxlondon.com/cdn/shop/t/378/assets/MaisonNeue-Bold.woff2?v=89608103790610592201767084995') format('woff2');font-weight:700 900;font-style:normal;font-display:swap}
+@font-face{font-family:'ITC Clearface';src:url('https://cdn.shopify.com/s/files/1/0575/9575/6709/files/clearface-regular.woff2?v=1669376314') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'ITC Clearface';src:url('https://cdn.shopify.com/s/files/1/0575/9575/6709/files/clearface-bold.woff2?v=1669376296') format('woff2');font-weight:500 900;font-style:normal;font-display:swap}
+
+/* the serif stack names Maison Neue too so the layout check's brand-font rule still recognises it */
+:root{font-family:'Maison Neue',Helvetica,Arial,sans-serif;--wx-serif:'ITC Clearface','Maison Neue',Georgia,serif;--wx-orange:#f26924;--deep-band:light}
+
+/* ---- neutral greys ---- */
+body{background:radial-gradient(1200px 700px at 70% 30%,#ffffff 0%,#f2f2f2 55%,#e6e6e6 100%)}
+.pcard .pimg,.cat-tile,.cat-row img,.bag-item img{background:#efefef}
+.seg{background:#efefef}
+.seg button{color:#555}
+.chip,.qty,.sfield{border-color:#d6d6d6}
+.switch{background:#cfcfcf}
+.link-row{border-top-color:#ececec}
+.pitch-copy{color:#4a4a4a}
+.drop-banner{border-color:#e2e2e2}
+.br-url{background:#efefef}
+.summary,.acct-card,.size-filter,.pref-group{border:1px solid #e6e6e6}
+
+/* ---- type: Clearface bold headings, Maison Neue UI ---- */
+.hero-title{font-family:var(--wx-serif);font-size:34px;font-weight:700;letter-spacing:0;line-height:1.05;text-transform:none;margin-bottom:18px}
+.editorial .hero-title{font-size:32px;text-transform:none}
+.eyebrow{font-size:13px;font-weight:500;letter-spacing:0;text-transform:none;opacity:1}
+.sec-head h2{font-family:var(--wx-serif);font-size:22px;font-weight:700;letter-spacing:0;text-transform:none}
+.sec-head p{font-size:12.5px;color:#6a6a6a}
+.large-title{font-family:var(--wx-serif);font-size:28px;font-weight:700;letter-spacing:0;text-transform:none}
+.large-title small{font-family:'Maison Neue',Helvetica,Arial,sans-serif;font-weight:500;letter-spacing:.5px;color:#6a6a6a}
+.tb-title{font-family:var(--wx-serif);font-weight:700;letter-spacing:0;text-transform:none;font-size:17px}
+.feature-card b{font-family:var(--wx-serif);font-weight:700;letter-spacing:0;font-size:23px;text-transform:none;line-height:1.1}
+.dc-title{font-family:var(--wx-serif);font-weight:700;letter-spacing:0;text-transform:none}
+.dc-title span{font-weight:700}
+.cat-tile span{font-family:var(--wx-serif);font-weight:700;font-size:15px;letter-spacing:0;text-transform:none}
+.cat-row b{font-family:var(--wx-serif);font-weight:700;letter-spacing:0;text-transform:none;font-size:16px}
+.empty h3{font-family:var(--wx-serif);font-weight:700;letter-spacing:0;text-transform:none}
+.pdp-info h1{font-family:var(--wx-serif);font-weight:700;font-size:22px;letter-spacing:0;line-height:1.2;text-transform:none}
+.pdp-info .ptype{font-weight:400;letter-spacing:.5px;color:#6a6a6a}
+.pdp-info .price{font-family:var(--wx-serif)}
+.wl-body h2,.auth h2{font-family:var(--wx-serif);font-weight:700;letter-spacing:0;text-transform:none}
+.pitch-title{font-family:var(--wx-serif);font-weight:700;letter-spacing:-.01em;text-transform:none}
+.pitch-kicker{letter-spacing:.14em}
+.pitch-list{letter-spacing:0;font-weight:500}
+.label-row b{font-weight:500;letter-spacing:0;text-transform:none}
+.stat-num{font-family:var(--wx-serif);font-weight:700;letter-spacing:0}
+.stat-label{letter-spacing:.5px}
+
+/* ---- buttons: pills, 14px medium sentence case; orange uppercase add-to-bag like the site ---- */
+.btn{border-radius:60px;font-size:14px;font-weight:500;letter-spacing:0;text-transform:none;height:46px;padding:0 26px}
+.btn-dark{background:#000;color:#fff}
+.btn-outline{border-radius:60px;border-color:#000}
+.link{font-weight:500;letter-spacing:0;text-transform:none;font-size:13px;text-decoration:underline;text-underline-offset:4px}
+.hero .btn-light,.editorial .btn-light,.feature-card .btn-light,.drop-card .btn-light{background:#fff;color:#000;border:1px solid #fff}
+@media (hover:hover){.btn-dark:hover{background:#262626}.hero .btn-light:hover,.editorial .btn-light:hover,.feature-card .btn-light:hover,.drop-card .btn-light:hover{background:#f0f0f0}}
+.feature-card .btn-sm{height:39px;padding:0 20px;font-size:13px;border-radius:80px}
+.buybar .btn-dark{background:var(--wx-orange);color:#fff;text-transform:uppercase;font-weight:700;letter-spacing:.3px}
+@media (hover:hover){.buybar .btn-dark:hover{background:#e25a17}}
+
+/* ---- rounded controls ---- */
+.seg,.seg button,.seg .seg-ind,.chip,.sfield,.promo-cta,.wl-code,.toast,.dc-tag,.g-badge{border-radius:60px}
+.size{border-radius:4px;border-color:#d6d6d6}
+.size.out::after{left:12%;right:12%}
+
+/* ---- product cards: left-aligned 13.5px regular names (model on its own line, then the colour/fabric), medium price;
+        white rounded labels like 'Back in Stock', green sale label ---- */
+.pcard .pmeta{text-align:left;padding:9px 2px 4px}
+.pcard .pname{font-size:13.5px;font-weight:500;letter-spacing:0;text-transform:none}
+.pcard .pcol{font-size:12.5px;color:#555;line-height:1.35}
+.pcard .price{font-weight:500;font-size:13px}
+.pcard .tag{background:#fff;color:#333;border-radius:4px;padding:4px 8px;letter-spacing:0;font-weight:500;text-transform:none;font-size:11px}
+.pcard .tag.sale{background:#55702f;color:#fff}
+
+/* ---- the wax / london serif wordmark ---- */
+.home-head .tb-logo{height:34px;max-width:none}
+.tb-logo{height:28px;max-width:none}
+.splash{background:#333}
+.splash-logo{width:150px}
+.wl-logo{height:54px;max-width:none}
+.auth-logo{height:48px}
+.about img{width:110px}
+.acct-foot img{height:36px}
+.rcard .rc-top img{height:28px}
+.pitch-logo{width:clamp(100px,14vh,124px);max-height:none}
+
+/* Home band past the hero: white with dark icons and the black wordmark, like the site's header */
+.home-head.deep .home-band{background:rgba(255,255,255,.97);color:#333;box-shadow:0 1px 0 #e6e6e6}
+.home-head.deep .tb-logo{filter:none}
+.home-head.deep .icon-btn .hb-count{background:#333;color:#fff}
+
+/* ---- rewards card (illustrative concept): charcoal ---- */
+.rewards-mini,.rcard{background:linear-gradient(135deg,#222 0%,#333 60%,#444 100%)}
+.rewards-mini::before,.rcard::before{background:radial-gradient(circle,rgba(255,255,255,.14),transparent 70%)}
+.rm-bar i,.rcard .tbar i{background:#fff}
+.stat{border-radius:14px}
+.sec-head .link{white-space:nowrap;flex-shrink:0}

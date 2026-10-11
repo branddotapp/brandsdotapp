@@ -1,0 +1,340 @@
+{
+  "_note": "Hand-tuned layer on top of the scraped brand.json (waxlondon.com, Shopify). Run: python3 tools/build_brand.py --rebuild waxlondon. Hand-picked images in assets/brand/ are crops of the site's own homepage/menu imagery: hero = the Outerwear menu image (AW26 shoot; the homepage's Wax x Deveaux slide is a pale paper collage with the logo baked in, which the white app menu can't sit on), the Overshirts category tile, the Colour Spotlight: Brown banner, the Wax x Deveaux desktop banner and the Camden Town Brewery journal banner. Logos are the site's header SVG (wax / london).",
+  "scrape": {
+    "_extraCollections": "Homepage + menu collections the static nav parse missed.",
+    "extraCollections": [
+      "deveaux-woven-into-wax-london",
+      "wax-london-x-camden-town-brewery",
+      "denim",
+      "archive-sale"
+    ]
+  },
+  "name": "Wax London",
+  "short": "WAX LONDON",
+  "assets": {
+    "logoDark": "assets/brand/logo-black.png",
+    "logoLight": "assets/brand/logo-white.png",
+    "favicon": "assets/img/favicon.png"
+  },
+  "_theme": "waxlondon.com: white page, #333333 type, Maison Neue (Book/Medium/Bold) for UI and product names, ITC Clearface bold for headings ('Overshirts', 'Archive Sale: Up To 60% Off', product titles on the PDP), white pill buttons over imagery (60px radius, 14px medium, sentence case 'Shop Overshirts'), black pills on white ('Shop The Collection'), orange #f26924 uppercase 'ADD TO BAG' pill, sale green #6c8b41 (Archive Sale link and sale prices; darkened to #55702f for small text so it passes WCAG AA), light grey product image backgrounds. Fonts hotlinked from the site's Shopify CDN in brand.css.",
+  "theme": {
+    "ink": "#000000",
+    "bg": "#ffffff",
+    "bgRgb": "255,255,255",
+    "text": "#333333",
+    "muted": "#6a6a6a",
+    "line": "#e6e6e6",
+    "stone": "#6a6a6a",
+    "sand": "#ececec",
+    "sand2": "#f4f4f4",
+    "sale": "#55702f",
+    "stageA": "#ffffff",
+    "stageB": "#f2f2f2",
+    "stageC": "#e6e6e6",
+    "font": "Maison Neue",
+    "fontHref": null
+  },
+  "pitch": {
+    "title": "Clothes with character,<br>one tap away.",
+    "copy": "A concept for the Wax London app: Autumn 26 drops and collaborations like Camden Town Brewery with app-only early access, every Whiting overshirt colourway in one swipe, your saved size and Shopify checkout with Apple Pay, Shop Pay and PayPal. Tap around, everything works.",
+    "list": [
+      "Drops with app-only early access",
+      "Saved size and back-in-size alerts",
+      "Shopify checkout with Apple Pay and Shop Pay"
+    ]
+  },
+  "home": {
+    "newCol": "new-arrivals",
+    "newSub": "The latest Autumn 26 pieces",
+    "bestCol": "best-sellers",
+    "bestSub": "The Wax London pieces on repeat",
+    "hero": {
+      "poster": "assets/brand/hero.jpg",
+      "eyebrow": "Autumn 26",
+      "title": "Autumn 26 Collection",
+      "cta": "Shop All Autumn 26",
+      "col": "autumn-26-collection"
+    },
+    "tiles": [
+      [
+        "overshirts",
+        "Overshirts"
+      ],
+      [
+        "knitwear",
+        "Knitwear"
+      ],
+      [
+        "coats-and-jackets",
+        "Outerwear"
+      ],
+      [
+        "denim",
+        "Denim"
+      ],
+      [
+        "trousers",
+        "Trousers"
+      ],
+      [
+        "archive-sale",
+        "Archive Sale"
+      ]
+    ],
+    "editorial": {
+      "col": "overshirts",
+      "img": "assets/brand/overshirts.jpg",
+      "eyebrow": "Shop now",
+      "title": "Overshirts"
+    },
+    "feature": {
+      "col": "deveaux-woven-into-wax-london",
+      "img": "assets/brand/deveaux-wide.jpg",
+      "title": "Deveaux: Woven Into Wax London",
+      "cta": "Shop Overshirts"
+    }
+  },
+  "collectionTitles": {
+    "coats-and-jackets": "Outerwear",
+    "archive-sale": "Archive Sale: Up To 60% Off",
+    "deveaux-woven-into-wax-london": "Wax x Deveaux",
+    "wax-london-x-camden-town-brewery": "Wax London x Camden Town Brewery",
+    "colour-spotlight-brown": "Colour Spotlight: Brown"
+  },
+  "shop": {
+    "kicker": "WAX LONDON",
+    "featureCats": {
+      "col": "colour-spotlight-brown",
+      "title": "Colour Spotlight: Brown",
+      "cta": "Shop Now",
+      "idx": 0,
+      "img": "assets/brand/brown-wide.jpg"
+    },
+    "featureEdits": {
+      "col": "deveaux-woven-into-wax-london",
+      "title": "Wax x Deveaux",
+      "cta": "Shop Overshirts",
+      "idx": 0,
+      "img": "assets/brand/deveaux-wide.jpg"
+    },
+    "cats": [
+      "overshirts",
+      "knitwear",
+      "coats-and-jackets",
+      "shirts",
+      "long-sleeve-shirts",
+      "short-sleeve-shirts",
+      "polos",
+      "t-shirts",
+      "sweats",
+      "trousers",
+      "denim",
+      "jeans",
+      "suits",
+      "wool",
+      "corduroy",
+      "organic-cotton"
+    ],
+    "edits": [
+      "new-arrivals",
+      "autumn-26-collection",
+      "autumn-26-drop-two",
+      "autumn-26-drop-one",
+      "wax-london-x-camden-town-brewery",
+      "deveaux-woven-into-wax-london",
+      "colour-spotlight-brown",
+      "transitional-pieces",
+      "best-sellers",
+      "wax-essentials",
+      "archive-sale"
+    ]
+  },
+  "search": {
+    "trending": [
+      "Whiting overshirt",
+      "Knitwear",
+      "Felix jeans",
+      "Wool coat",
+      "Polo",
+      "Corduroy",
+      "Camden",
+      "Trousers"
+    ],
+    "popular": [
+      "new-arrivals",
+      "overshirts",
+      "knitwear",
+      "archive-sale"
+    ]
+  },
+  "perks": [
+    "Free UK shipping on orders over £125 + free returns",
+    "Archive Sale: up to 60% off",
+    "30-day returns and exchanges",
+    "Next-day delivery: order before 6pm",
+    "Stores in London, Leeds, Kingston and Newcastle"
+  ],
+  "pdpPerks": [
+    "Free UK shipping over £125",
+    "Free UK returns",
+    "30-day returns"
+  ],
+  "payments": [
+    "apple_pay",
+    "google_pay",
+    "shopify_pay",
+    "paypal",
+    "klarna",
+    "visa",
+    "master",
+    "american_express"
+  ],
+  "_shipping": "From waxlondon.com/pages/delivery-returns (UK, checked 11 Oct 2026): Standard (Royal Mail) 2-3 working days, £5.00, free over £125; Next Day (Royal Mail) £9.50, order before 6pm.",
+  "shipping": {
+    "region": "UK",
+    "freeOver": 125,
+    "options": [
+      {
+        "id": "standard",
+        "name": "Standard (Royal Mail)",
+        "desc": "2–3 working days, free over £125",
+        "price": 5.0,
+        "freeOver": 125,
+        "short": "Standard"
+      },
+      {
+        "id": "next-day",
+        "name": "Next Day (Royal Mail)",
+        "desc": "Next working day, order before 6pm",
+        "price": 9.5,
+        "short": "Next Day"
+      }
+    ],
+    "notes": [
+      "Free UK standard shipping on orders over £125.",
+      "Orders are dispatched Monday to Friday; weekend orders go out the next working day."
+    ]
+  },
+  "returns": {
+    "summary": "Returns and exchanges are accepted within 30 calendar days of delivery. UK returns start in our returns portal with your order number and email. Underwear is non-returnable; fragrances and candles must be returned sealed.",
+    "short": "30-day returns"
+  },
+  "_rewards": "Wax London has no loyalty programme. The template's Account rewards card is kept as an illustrative app concept (as the yelir reference build) and its fine print says so; it never claims a real scheme.",
+  "rewards": {
+    "enabled": true,
+    "name": "Wax London Rewards",
+    "real": false,
+    "stockists": false
+  },
+  "_discount": "The site's sign-up offers 10% off your first full-price purchase (code emailed). The app pop-up mirrors 10% with the placeholder code APP10.",
+  "discount": {
+    "code": "APP10",
+    "pct": 10
+  },
+  "copy": {
+    "about": "Founded in 2015, Wax is a London-based brand born out of a desire to make clothes with character. We source unique fabrics, weaves, textures, patterns and prints from sustainable mills and partners, blending British heritage, Mediterranean sensibility and Indian craftsmanship through a London-centric lens.",
+    "emptyBag": "Nothing in here yet. Start with the Autumn 26 Collection or the Whiting overshirt.",
+    "heroNotif": "Wax London x Camden Town Brewery: the collaboration is live."
+  },
+  "_drop": "No release date is announced, so the Drops tab demos app early access with the newest collection on the site, Wax London x Camden Town Brewery (published 6 Oct 2026; overshirt, cap and tote). Previous: Autumn 26 Drop Two. Date/time is the template's rolling placeholder.",
+  "drop": {
+    "num": "01",
+    "name": "WAX LONDON X CAMDEN TOWN BREWERY",
+    "title": "Camden Town Brewery",
+    "col": "wax-london-x-camden-town-brewery",
+    "image": "assets/brand/camden.jpg",
+    "products": [
+      "whiting-ecru-and-red-camden-tempo-check-overshirt",
+      "spencer-ecru-and-red-camden-cotton-sports-cap",
+      "truman-black-and-red-camden-canvas-tote-bag"
+    ],
+    "previous": {
+      "col": "autumn-26-drop-two",
+      "title": "AUTUMN 26 DROP TWO"
+    }
+  },
+  "report": {
+    "missing": [
+      "No hero video on the site: the hero is an AW26 campaign image from the site (Outerwear menu image); the homepage's own Wax x Deveaux slide is used as the feature card",
+      "No site-wide review score (Reviews.io product reviews only), so no reviews block",
+      "No loyalty programme: the Account rewards card is an illustrative concept",
+      "The site's 10% sign-up code is emailed, not published: APP10 is a placeholder app code",
+      "No release date is announced: the Drops tab demos early access with Wax London x Camden Town Brewery; drop date/time is the rolling placeholder"
+    ]
+  },
+  "_instagram": "Collected in a browser from the brand's Instagram profile on 2026-10-11 (pinned posts excluded; profile/collaborator-path URLs normalised to /p/<code>/ or /reel/<code>/). Thumbnails: assets/ig/N.jpg, square-cropped, max 600px.",
+  "instagram": {
+    "handle": "waxlondonclothing",
+    "url": "https://www.instagram.com/waxlondonclothing/",
+    "followers": "124K",
+    "bio": "Clothes With Character",
+    "collected": "2026-10-11",
+    "posts": [
+      {
+        "url": "https://www.instagram.com/reel/DeXOj09RRGC/",
+        "type": "reel",
+        "image": "assets/ig/1.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeUP-SDgRyd/",
+        "type": "carousel",
+        "image": "assets/ig/2.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DeRfftvkqK9/",
+        "type": "reel",
+        "image": "assets/ig/3.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeRXCQYEZpH/",
+        "type": "carousel",
+        "image": "assets/ig/4.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeRWZ9zESMw/",
+        "type": "carousel",
+        "image": "assets/ig/5.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DePBeXhkWeZ/",
+        "type": "reel",
+        "image": "assets/ig/6.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeMDuMokUlz/",
+        "type": "carousel",
+        "image": "assets/ig/7.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeKKElpE4VU/",
+        "type": "carousel",
+        "image": "assets/ig/8.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeH4ceAERTG/",
+        "type": "carousel",
+        "image": "assets/ig/9.jpg"
+      }
+    ]
+  },
+  "_pages": "The Help Centre page on the site is an empty shell (help widget only), so it is replaced by the real Stores page; Returns copy is the site's refund policy.",
+  "pages": {
+    "help": [
+      {
+        "t": "Delivery & Returns",
+        "url": "https://waxlondon.com/pages/delivery-returns",
+        "sum": "Delivery\nOrders are dispatched Monday to Friday. Orders placed on Saturday or Sunday will be processed on the next working day.\nThe below times are indicative and will vary based on specific end location details.\nStandard (Royal Mail) - Free With Orders Above £125 (£5.00 Otherwise)\nSent via Royal Mail on a 2-3 working days service.\nIf for some reason you're not home when Royal Mail call, they will attempt redelivery once and will leave you a contact card to reschedule a delivery.\nNext Day (Royal Mail) - £9.50\nSent on a next working day service (order before 6PM UK time).\nIf for some reason you're not home when delivery is attempted, they will attempt redelivery once, and will leave you a contact card to reschedule a delivery.\nEurope\nStandard delivery is expected within 4-10 working days - Free (above €150)\nExpress delivery is expected within 2-3 days working days - €25 (above €150), €40 (below €150)"
+      },
+      {
+        "t": "Returns",
+        "url": "https://waxlondon.com/policies/refund-policy",
+        "sum": "Returns & Exchanges: items you want to return for a refund or an exchange will be accepted within 30 calendar days of delivery (Worldwide).\nUK returns and exchanges: start in our returns portal with your order number and the email address used to place the order.\nUnderwear is non returnable. Fragrances & Candles must be returned in the original sealed packaging."
+      },
+      {
+        "t": "Stores",
+        "url": "https://waxlondon.com/pages/stores",
+        "sum": "Covent Garden, London: 45 Neal Street, London, WC2H 9PR\nBerwick Street, London: 67 Berwick Street, London, W1F 8GR\nSpitalfields, London: 105a Commercial Street, London, E1 6BG\nCanary Wharf, London: Unit 8A, Cabot Square, London, E14 4QT\nCounty Arcade, Leeds: 38-40 County Arcade, Leeds, LS1 6BH\nFenwick Concession, Kingston: Wood St, Kingston upon Thames, KT1 1TX\nFenwick Concession, Newcastle: 39 Northumberland St, Newcastle, NE1 7AS"
+      }
+    ]
+  }
+}
