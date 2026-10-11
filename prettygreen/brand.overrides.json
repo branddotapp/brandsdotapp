@@ -1,0 +1,369 @@
+{
+  "scrape": {
+    "_colours": "Product titles lead with the colour ('Black Supernova Graphic T-Shirt') and there's no Colour option; these are every colour word that starts a title on the site (checked 11 Oct 2026).",
+    "colourPosition": "start",
+    "colours": [
+      "Sky Blue",
+      "Dark Blue",
+      "Light Blue",
+      "Black",
+      "White",
+      "Navy",
+      "Grey",
+      "Red",
+      "Khaki",
+      "Multi",
+      "Blue",
+      "Orange",
+      "Stone",
+      "Green",
+      "Champagne",
+      "Rust",
+      "Rinse",
+      "Tan",
+      "Brown",
+      "Camel",
+      "Taupe"
+    ],
+    "_extraCollections": "Bestsellers is the site's whole range in best-selling order (skipped by the nav parse as an 'all products' link).",
+    "extraCollections": [
+      "bestsellers"
+    ]
+  },
+  "_note": "Hand-tuned layer on top of the scraped brand.json (prettygreen.com, Shopify). Run: python3 tools/build_brand.py --rebuild prettygreen. No homepage video. Hand-picked images in assets/brand/ are crops of the site's own Autumn '26 campaign (shot with Manchester band Arkayla): hero = the homepage mobile banner, the Kingsleigh and Outerwear homepage tiles, the desktop Arkayla banner, the New Arrivals menu banner, and a Rave On Paisley product close-up for the drop. Logo = the site's round Pretty Green mark (generator).",
+  "name": "Pretty Green",
+  "short": "PRETTY GREEN",
+  "_theme": "prettygreen.com: white page, black type, warm grey #ededeb footer/panels, Acumin Pro (Adobe Fonts) for UI (product names 14px light with 0.96px tracking, prices 14px medium, buttons 12px medium uppercase with 2.5px tracking), Nimbus Roman uppercase with wide 3px tracking for section headings ('OUTERWEAR', 'RECENTLY VIEWED'), square black and white buttons ('SHOP NOW', 'ADD TO CART +'), and the homepage hero title in a solid black box ('AUTUMN '26'). Fonts hotlinked from the site's Adobe Fonts kit files in brand.css.",
+  "theme": {
+    "ink": "#000000",
+    "bg": "#ffffff",
+    "bgRgb": "255,255,255",
+    "text": "#000000",
+    "muted": "#666666",
+    "line": "#e3e3e1",
+    "stone": "#666666",
+    "sand": "#ededeb",
+    "sand2": "#f5f5f3",
+    "sale": "#b0201e",
+    "stageA": "#ffffff",
+    "stageB": "#f2f2f0",
+    "stageC": "#e6e6e3",
+    "font": "acumin-pro",
+    "fontHref": null
+  },
+  "pitch": {
+    "title": "For the benefit of<br>the like-minded.",
+    "copy": "A concept for the Pretty Green app: Autumn '26 drops like Rave On Paisley with app-only early access, every colourway of a smock or polo in one swipe, your saved size, and Shopify checkout with Apple Pay, PayPal and Klarna. Tap around, everything works.",
+    "list": [
+      "Drops with app-only early access",
+      "Saved size and back-in-size alerts",
+      "Shopify checkout with Apple Pay, PayPal and Klarna"
+    ]
+  },
+  "home": {
+    "newCol": "new-arrivals",
+    "newSub": "The latest Autumn '26 pieces",
+    "bestCol": "bestsellers",
+    "bestSub": "The Pretty Green pieces on repeat",
+    "hero": {
+      "poster": "assets/brand/hero.jpg",
+      "eyebrow": "Now live",
+      "title": "Autumn '26",
+      "cta": "Shop Now",
+      "col": "new-arrivals"
+    },
+    "tiles": [
+      [
+        "outerwear",
+        "Outerwear"
+      ],
+      [
+        "knitwear",
+        "Knitwear"
+      ],
+      [
+        "polos",
+        "Polos"
+      ],
+      [
+        "t-shirt",
+        "T-Shirts"
+      ],
+      [
+        "shirts-overshirts",
+        "Shirts & Overshirts"
+      ],
+      [
+        "all-sale",
+        "Outlet"
+      ]
+    ],
+    "editorial": {
+      "col": "kingsleigh-collection",
+      "img": "assets/brand/kingsleigh.jpg",
+      "eyebrow": "Autumn '26",
+      "title": "Kingsleigh"
+    },
+    "feature": {
+      "col": "the-arkayla-edit",
+      "img": "assets/brand/arkayla-wide.jpg",
+      "title": "The Arkayla Edit",
+      "cta": "Shop now"
+    }
+  },
+  "collectionTitles": {
+    "new-arrivals": "New Arrivals",
+    "outerwear": "Outerwear",
+    "all-sale": "Outlet",
+    "sale-under-50": "Outlet Under £50",
+    "sale-under-100": "Outlet Under £100",
+    "outlet-graphic-t-shirts": "Outlet Graphic T-Shirts",
+    "footwear": "Footwear",
+    "accessories": "Accessories",
+    "all-tops": "All Tops",
+    "all-legwear": "Legwear",
+    "bestsellers": "Bestsellers"
+  },
+  "shop": {
+    "kicker": "PRETTY GREEN",
+    "featureCats": {
+      "col": "outerwear",
+      "title": "Outerwear",
+      "cta": "Shop now",
+      "idx": 0,
+      "img": "assets/brand/outerwear-wide.jpg"
+    },
+    "featureEdits": {
+      "col": "new-arrivals",
+      "title": "New Arrivals",
+      "cta": "Shop now",
+      "idx": 0,
+      "img": "assets/brand/new-arrivals-wide.jpg"
+    },
+    "cats": [
+      "t-shirt",
+      "outerwear",
+      "knitwear",
+      "polos",
+      "shirts-overshirts",
+      "all-tops",
+      "jeans",
+      "all-legwear",
+      "boots",
+      "footwear",
+      "hats",
+      "bags",
+      "accessories",
+      "voucher"
+    ],
+    "edits": [
+      "new-arrivals",
+      "rave-on-paisley",
+      "the-arkayla-edit",
+      "kingsleigh-collection",
+      "rave-camo",
+      "strobe-check",
+      "bestsellers",
+      "all-sale",
+      "sale-under-50",
+      "sale-under-100",
+      "outlet-graphic-t-shirts"
+    ]
+  },
+  "search": {
+    "trending": [
+      "Paisley",
+      "Smock",
+      "Kingsleigh",
+      "Polo",
+      "Knitwear",
+      "Rave On",
+      "Supernova",
+      "Football top"
+    ],
+    "popular": [
+      "new-arrivals",
+      "outerwear",
+      "rave-on-paisley",
+      "all-sale"
+    ]
+  },
+  "perks": [
+    "Autumn '26 now live",
+    "Sign up for 10% off your first order",
+    "Extra 20% off Outlet: code EXTRA20",
+    "30-day UK returns",
+    "Pay later with Klarna"
+  ],
+  "pdpPerks": [
+    "DPD express delivery, 1–2 working days",
+    "30-day UK returns",
+    "Pay later with Klarna"
+  ],
+  "payments": [
+    "apple_pay",
+    "shopify_pay",
+    "paypal",
+    "klarna",
+    "visa",
+    "master"
+  ],
+  "_shipping": "From prettygreen.com/pages/uk-delivery-and-returns (UK, checked 11 Oct 2026): DPD Express 1-2 working days £7.99; Royal Mail Tracked 48 4-6 working days £4.99; orders before 2pm Mon-Fri. No free-delivery threshold is published.",
+  "shipping": {
+    "region": "UK",
+    "freeOver": null,
+    "options": [
+      {
+        "id": "tracked-48",
+        "name": "Royal Mail Tracked 48",
+        "desc": "4–6 working days",
+        "price": 4.99,
+        "short": "Tracked 48"
+      },
+      {
+        "id": "express",
+        "name": "DPD Express Delivery",
+        "desc": "1–2 working days",
+        "price": 7.99,
+        "short": "Express"
+      }
+    ],
+    "notes": [
+      "Delivery options are for orders placed before 2pm Monday to Friday.",
+      "Delivery dates given at checkout are estimates only."
+    ]
+  },
+  "returns": {
+    "summary": "UK returns are accepted within 30 days of receiving your order, for an exchange or refund, in original condition with all tags attached. Register your return in our Returns Portal with your order number and email; returning via our tracked Royal Mail service costs £5.00, deducted from your refund. Online purchases can't be returned in store.",
+    "short": "30-day returns"
+  },
+  "_rewards": "Pretty Green has no loyalty programme. The Account rewards card is kept as an illustrative app concept (as yelir) and its fine print says so.",
+  "rewards": {
+    "enabled": true,
+    "name": "Pretty Green Rewards",
+    "real": false,
+    "stockists": false
+  },
+  "_discount": "The announcement bar offers 10% off your first order for signing up (code emailed). The app pop-up mirrors 10% with the placeholder code APP10. (The public Outlet code EXTRA20 is shown as a perk, not used as the welcome code.)",
+  "discount": {
+    "code": "APP10",
+    "pct": 10
+  },
+  "copy": {
+    "about": "Pretty Green captures the spirit of rock 'n' roll, embodying the essence of rebellion and individuality. Drawing inspiration from Britain's rich history of subculture, from the mods to the ravers, we combine past and present. Founded by Liam Gallagher in 2009, Pretty Green unites those who share a passion for music and fashion.",
+    "emptyBag": "Nothing in here yet. Start with Autumn '26 or the Rave On Paisley collection.",
+    "heroNotif": "Autumn '26 is here: shot with Manchester's Arkayla."
+  },
+  "_drop": "No release date is announced, so the Drops tab demos app early access with the newest collection on the site, Rave On Paisley (launched 12 Aug 2026 with the Autumn '26 drop; latest piece added 9 Oct). Previous: Kingsleigh. Date/time is the template's rolling placeholder.",
+  "drop": {
+    "num": "01",
+    "name": "RAVE ON PAISLEY",
+    "title": "Rave On Paisley",
+    "col": "rave-on-paisley",
+    "image": "assets/brand/paisley.jpg",
+    "products": [
+      "multi-rave_on-paisley-smock",
+      "multi-rave_on-paisley-bomber",
+      "blue-rave_on-paisley-smock",
+      "blue-rave_on-paisley-bomber",
+      "black-rave_on-paisley-logo-t_shirt",
+      "multi-rave_on-paisley-bucket-hat"
+    ],
+    "previous": {
+      "col": "kingsleigh-collection",
+      "title": "KINGSLEIGH"
+    }
+  },
+  "report": {
+    "missing": [
+      "No homepage video: the hero is the site's Autumn '26 campaign banner",
+      "No site-wide review score, so no reviews block",
+      "No loyalty programme: the Account rewards card is an illustrative concept",
+      "No free-delivery threshold is published, so none is shown",
+      "The site's 10% sign-up code is emailed, not published: APP10 is a placeholder app code",
+      "No release date is announced: the Drops tab demos early access with Rave On Paisley; drop date/time is the rolling placeholder"
+    ]
+  },
+  "_pages": "Help: the UK delivery page and the UK returns section of the refund policy (the generator had picked the international page for Returns); About: the site's The Brand page.",
+  "pages": {
+    "help": [
+      {
+        "t": "Shipping",
+        "url": "https://prettygreen.com/pages/uk-delivery-and-returns",
+        "sum": "We offer the following delivery options for orders placed before 2pm Monday-Friday (please note during periods of high volume this may differ). We'll provide an estimated delivery date at checkout based on your delivery selection:\nDPD Express Delivery\n£7.99\n1-2 working days\nRoyal Mail Tracked 48\n£4.99\n4-6 working days\nRoyal Mail Tracked 24\nIsle of Man, Jersey & Guernsey\n5-7 working days\nFor full delivery information, please visit our Help Centre (click here).\nOur packaging is branded with the Pretty Green logo and we do not currently offer gift packaging/wrapping.\nDelivery dates given at checkout are estimates only, not guaranteed.\nDue to the UK public holiday our fulfilment centre will be closed on 25/05/2026. All express orders placed over this period will be despatched with priority on 26/05/2026 when we return.\nOrder Amendment/cancellation: Unfortunately, once payment has been accepted, we cannot amend your order in the following ways: changing the size or colour of an item, removing an item, adding an item, or changing payment method."
+      },
+      {
+        "t": "Returns",
+        "url": "https://www.prettygreen.com/policies/refund-policy",
+        "sum": "Refund policy\nUK Returns: We hope you are delighted with your purchase, however we will accept returns within 30 days of the receipt of your order, should you wish for an exchange or refund. Please ensure the item(s) are in their original condition and packaging, with all tags attached. Please include your return form paperwork in the return parcel with your return request (refund/exchange) clearly marked.\nTo register your return, please log on to our Returns Portal and follow the steps provided. You will need your order number as stated on your order confirmation and the email address used to place the order.\nWe offer an easy tracked return service in the UK. To return any orders from outside of the UK please visit our partner’s returns portal.\nIf you choose to return via our return service, the costs indicated below will be deducted from your refund.\nReturn Method\nReturn Courier Charge\nRoyal Mail"
+      },
+      {
+        "t": "Help & FAQs",
+        "url": "https://help.prettygreen.com/hc/en-us",
+        "sum": "Pretty Green Help Centre: delivery, returns, orders and account questions, plus contact options for the customer service team.\nUK delivery: DPD Express Delivery £7.99 (1-2 working days) or Royal Mail Tracked 48 £4.99 (4-6 working days) for orders placed before 2pm Monday-Friday.\nUK returns: within 30 days of receipt via the Returns Portal; tracked Royal Mail returns cost £5.00, deducted from your refund."
+      }
+    ],
+    "about": [
+      {
+        "t": "The Brand",
+        "url": "https://www.prettygreen.com/pages/the-brand",
+        "sum": "Pretty Green captures the spirit of rock ‘n’ roll, embodying the essence of rebellion and individuality. Drawing inspiration from Britain’s rich history of subculture, from the mods to the ravers, we seamlessly combine past and present.\nFounded by Liam Gallagher in 2009, Pretty Green unites those who share a passion for music and fashion. As a brand synonymous with music, we’re committed to nurturing the next generation of artists, with 2024 marking our inaugural festival sponsorship at Truck Festival in Oxford.\nAutumn ’26: inspired by the nightlife of 90s Manchester and the rise of rave culture. Shot with Manchester four-piece Arkayla, one of the city’s most exciting acts."
+      }
+    ]
+  },
+  "_instagram": "Collected in a browser from the brand's Instagram profile on 2026-10-11 (pinned posts excluded; profile/collaborator-path URLs normalised to /p/<code>/ or /reel/<code>/). Thumbnails: assets/ig/N.jpg, square-cropped, max 600px.",
+  "instagram": {
+    "handle": "prettygreenltd",
+    "url": "https://www.instagram.com/prettygreenltd/",
+    "followers": "223K",
+    "bio": "For the benefit of the like-minded.",
+    "collected": "2026-10-11",
+    "posts": [
+      {
+        "url": "https://www.instagram.com/p/Dd-5gLJDVWJ/",
+        "type": "carousel",
+        "image": "assets/ig/1.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/Dd1jy_LKtER/",
+        "type": "photo",
+        "image": "assets/ig/2.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DdrQ1mgoLSA/",
+        "type": "photo",
+        "image": "assets/ig/3.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/Ddnxu1XDQWE/",
+        "type": "photo",
+        "image": "assets/ig/4.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/Dddbn6TiGnI/",
+        "type": "carousel",
+        "image": "assets/ig/5.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/Ddbu-T3CB2o/",
+        "type": "carousel",
+        "image": "assets/ig/6.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DdZQ42OgvL6/",
+        "type": "carousel",
+        "image": "assets/ig/7.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DdWxa3mqA-a/",
+        "type": "photo",
+        "image": "assets/ig/8.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DdUFwmoCUly/",
+        "type": "carousel",
+        "image": "assets/ig/9.jpg"
+      }
+    ]
+  }
+}

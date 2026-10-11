@@ -1,0 +1,109 @@
+/* PRETTY GREEN: brand layer loaded after the shared app.css (copied to assets/brand.css by tools/build_brand.py).
+   Matches prettygreen.com: white page, black type, warm grey #ededeb panels, Acumin Pro for UI (light 14px product names
+   with 0.96px tracking, medium prices, 12px medium uppercase buttons with 2.5px tracking), Nimbus Roman uppercase with wide
+   tracking for section headings ("OUTERWEAR", "RECENTLY VIEWED"), square black / white buttons ("SHOP NOW",
+   "ADD TO CART +"), the hero title set in a solid black box ("AUTUMN '26"), and the round Pretty Green mark.
+   Fonts hotlinked from the site's Adobe Fonts kit files (ACAO *). */
+
+@font-face{font-family:'acumin-pro';src:url('https://use.typekit.net/af/a2c82e/00000000000000003b9acaf4/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n3&v=3') format('woff2');font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:'acumin-pro';src:url('https://use.typekit.net/af/46da36/00000000000000003b9acaf6/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'acumin-pro';src:url('https://use.typekit.net/af/829fc1/00000000000000003b9acaf8/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'acumin-pro';src:url('https://use.typekit.net/af/027dd4/00000000000000003b9acafa/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n6&v=3') format('woff2');font-weight:600 900;font-style:normal;font-display:swap}
+@font-face{font-family:'nimbus-roman';src:url('https://use.typekit.net/af/019711/000000000000000077359eed/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3') format('woff2');font-weight:400 600;font-style:normal;font-display:swap}
+@font-face{font-family:'nimbus-roman';src:url('https://use.typekit.net/af/29b397/000000000000000077359ef2/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3') format('woff2');font-weight:700 900;font-style:normal;font-display:swap}
+
+/* the serif stack names acumin-pro too so the layout check's brand-font rule still recognises it */
+:root{font-family:'acumin-pro',Helvetica,Arial,sans-serif;--pg-serif:'nimbus-roman','acumin-pro','Times New Roman',serif;--deep-band:light}
+
+/* ---- warm greys ---- */
+body{background:radial-gradient(1200px 700px at 70% 30%,#ffffff 0%,#f2f2f0 55%,#e6e6e3 100%)}
+.pcard .pimg,.cat-tile,.cat-row img,.bag-item img{background:#f2f2f0}
+.seg{background:#ededeb}
+.seg button{color:#555}
+.chip,.qty,.sfield{border-color:#d6d6d3}
+.switch{background:#cdcdca}
+.link-row{border-top-color:#e9e9e7}
+.pitch-copy{color:#444}
+.drop-banner{border-color:#e3e3e1}
+.br-url{background:#ededeb}
+.summary,.acct-card,.size-filter,.pref-group{border:1px solid #e3e3e1}
+
+/* ---- type: Nimbus Roman uppercase headings with wide tracking, Acumin UI ---- */
+.hero-title{display:inline-block;background:#000;color:#fff;font-family:'acumin-pro',Helvetica,Arial,sans-serif;font-size:26px;font-weight:300;letter-spacing:.02em;line-height:1.1;text-transform:uppercase;padding:14px 26px;margin-bottom:10px}
+.editorial .hero-title{font-size:24px}
+.hero .hero-copy,.editorial .hero-copy{display:flex;flex-direction:column;align-items:flex-start}
+.eyebrow{font-size:11px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;opacity:1}
+.sec-head h2{font-family:var(--pg-serif);font-size:20px;font-weight:400;letter-spacing:3px;text-transform:uppercase}
+.sec-head p{font-size:12px;color:#666;letter-spacing:.3px}
+.large-title{font-family:var(--pg-serif);font-size:24px;font-weight:400;letter-spacing:3px;text-transform:uppercase}
+.large-title small{font-family:'acumin-pro',Helvetica,Arial,sans-serif;font-weight:400;letter-spacing:2px;color:#666}
+.tb-title{font-family:var(--pg-serif);font-weight:400;letter-spacing:3px;text-transform:uppercase;font-size:15px}
+.feature-card b{font-family:'acumin-pro',Helvetica,Arial,sans-serif;font-weight:300;letter-spacing:.04em;font-size:24px;text-transform:uppercase;line-height:1.1}
+.dc-title{font-family:var(--pg-serif);font-weight:400;letter-spacing:2px;text-transform:uppercase}
+.dc-title span{font-weight:400}
+.cat-tile span{font-family:'acumin-pro',Helvetica,Arial,sans-serif;font-weight:400;font-size:12px;letter-spacing:2.5px;text-transform:uppercase}
+.cat-row b{font-family:var(--pg-serif);font-weight:400;letter-spacing:2.5px;text-transform:uppercase;font-size:15px}
+.empty h3{font-family:var(--pg-serif);font-weight:400;letter-spacing:2.5px;text-transform:uppercase}
+.pdp-info h1{font-family:'acumin-pro',Helvetica,Arial,sans-serif;font-weight:300;font-size:22px;letter-spacing:.96px;line-height:1.25;text-transform:none}
+.pdp-info .ptype{font-weight:400;letter-spacing:2px;color:#666}
+.pdp-info .price{font-weight:500;letter-spacing:.84px}
+.wl-body h2,.auth h2{font-family:var(--pg-serif);font-weight:400;letter-spacing:3px;text-transform:uppercase}
+.pitch-title{font-family:var(--pg-serif);font-weight:400;letter-spacing:.06em;text-transform:uppercase;line-height:1.1}
+.pitch-kicker{letter-spacing:.24em}
+.pitch-list{letter-spacing:2px;font-weight:500}
+.label-row b{font-weight:500;letter-spacing:2px;text-transform:uppercase}
+.stat-num{font-family:var(--pg-serif);font-weight:400;letter-spacing:.02em}
+.stat-label{letter-spacing:1.5px}
+
+/* ---- buttons: square, 12px medium uppercase, 2.5px tracking; white 'SHOP NOW' under the black title box ---- */
+.btn{border-radius:0;font-size:12px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;height:44px;padding:0 26px}
+.btn-dark{background:#000;color:#fff}
+.btn-outline{border-radius:0;border-color:#000}
+.link{font-weight:500;letter-spacing:2px;text-transform:uppercase;font-size:11px;text-decoration:underline;text-underline-offset:4px}
+.hero .btn-light,.editorial .btn-light,.feature-card .btn-light,.drop-card .btn-light{background:#fff;color:#000;border:1px solid #fff}
+@media (hover:hover){.btn-dark:hover{background:#222}.hero .btn-light:hover,.editorial .btn-light:hover,.feature-card .btn-light:hover,.drop-card .btn-light:hover{background:#000;color:#fff;border-color:#000}}
+.feature-card .btn-sm{height:38px;padding:0 20px;font-size:11px;border-radius:0}
+.buybar .btn-dark{background:#000;color:#fff}
+
+/* ---- square controls ---- */
+.seg,.seg button,.seg .seg-ind,.chip,.sfield,.promo-cta,.wl-code,.toast,.dc-tag,.g-badge{border-radius:0}
+.size{border-radius:0;border-color:#d6d6d3}
+.size.out::after{left:4%;right:4%}
+
+/* ---- product cards: light 14px names with 0.96px tracking, medium prices; black square labels ---- */
+.pcard .pmeta{text-align:left;padding:10px 2px 4px}
+.pcard .pname{font-size:14px;font-weight:300;letter-spacing:.96px;text-transform:none}
+.pcard .pcol{font-size:12px;color:#666;line-height:1.35;letter-spacing:.3px}
+.pcard .price{font-weight:500;font-size:14px;letter-spacing:.84px}
+.pcard .tag{background:#000;color:#fff;border-radius:0;padding:4px 8px;letter-spacing:1.5px;font-weight:500;text-transform:uppercase;font-size:10px}
+.pcard .tag.sale{background:#b0201e;color:#fff}
+
+/* ---- the round Pretty Green mark ---- */
+.home-head .tb-logo{height:40px;max-width:none}
+.tb-logo{height:32px;max-width:none}
+.splash{background:#000}
+.splash-logo{width:120px}
+.wl-logo{height:64px;max-width:none}
+.auth-logo{height:56px}
+.about img{width:90px}
+.acct-foot img{height:40px}
+.rcard .rc-top img{height:30px}
+.pitch-logo{width:clamp(80px,11vh,100px);max-height:none}
+
+/* Home band past the hero: white with dark icons and the black mark, like the site's header */
+.home-head.deep .home-band{background:rgba(255,255,255,.97);color:#000;box-shadow:0 1px 0 #e3e3e1}
+.home-head.deep .tb-logo{filter:none}
+.home-head.deep .icon-btn .hb-count{background:#000;color:#fff}
+
+/* top scrim (plain gradient, no blur) so the white icons and mark read over the warm interior of the hero */
+.hero::after{background:linear-gradient(180deg,rgba(0,0,0,.42) 0%,rgba(0,0,0,.2) 12%,rgba(0,0,0,0) 28%,rgba(0,0,0,0) 48%,rgba(0,0,0,.55) 100%)}
+
+/* ---- rewards card (illustrative concept): black ---- */
+.rewards-mini,.rcard{background:linear-gradient(135deg,#000 0%,#151515 60%,#262626 100%);border-radius:0}
+.rewards-mini::before,.rcard::before{background:radial-gradient(circle,rgba(255,255,255,.12),transparent 70%)}
+.rm-bar i,.rcard .tbar i{background:#fff}
+.stat{border-radius:0}
+.sec-head .link{white-space:nowrap;flex-shrink:0}
+
+/* Acumin's 'normal' line height is tall: keep the demo sheet rows to the template's height */
+.sheet h3,.demo-btn b,.demo-btn small{line-height:1.2}
