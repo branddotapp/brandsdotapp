@@ -531,7 +531,9 @@ def run(pw, w, h, tag):
     }""")
     (ok if synced2['match'] else bad)('New drops pref syncs drop alerts card' if synced2['match'] else '[%s] New drops did not sync drop card: %s' % (tag, synced2))
     shot('06-account')
-    p.click('.acct-size .size[data-o="M"]'); p.wait_for_timeout(400)
+    # letter size M where the brand has one; otherwise (e.g. ring sizes) the first saved-size option
+    m = p.locator('.acct-size .size[data-o="M"]')
+    (m if m.count() else p.locator('.acct-size .size').first).click(); p.wait_for_timeout(400)
     waist = p.locator('.acct-size .size[data-o="32"]')
     if waist.count(): waist.click(); p.wait_for_timeout(300)
     ok('saved size: ' + p.inner_text('#toast'))
