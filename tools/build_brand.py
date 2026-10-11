@@ -498,8 +498,8 @@ def encode_hero(src, out_mp4, out_poster, out_webm=None, S=HERO):
         filt = ['-t', '%.4f' % L, '-vf', vf]; how = 'ends on a scene cut at %.2fs' % L
     else:
         L = min(S['loop_target'], max(1.0, dur - xf - 0.1))
-        filt = ['-filter_complex', '[0:v]%s,split[a][b];[a]trim=start=%g:end=%g,setpts=PTS-STARTPTS[A];[b]trim=0:%g,setpts=PTS-STARTPTS[B];[A][B]xfade=transition=fade:duration=%g:offset=%g[v]'
-                % (vf, xf, L + xf, xf, xf, L - xf), '-map', '[v]']
+        filt = ['-filter_complex', '[0:v]%s,split[a][b];[a]trim=start=%g:end=%g,setpts=PTS-STARTPTS,fps=%g[A];[b]trim=0:%g,setpts=PTS-STARTPTS,fps=%g[B];[A][B]xfade=transition=fade:duration=%g:offset=%g[v]'
+                % (vf, xf, L + xf, round(fps, 3), xf, round(fps, 3), xf, L - xf), '-map', '[v]']
         how = 'cross-faded loop'
     x264 = ['-c:v', 'libx264', '-preset', S['preset'], '-crf', str(S['crf']), '-profile:v', 'high', '-level:v', '4.0', '-pix_fmt', 'yuv420p',
             '-g', str(S['gop']), '-keyint_min', str(S['gop'] // 2), '-sc_threshold', '0', '-movflags', '+faststart', '-an']
@@ -968,10 +968,10 @@ def split_colours(B):
     if not names: return
     n = 0
     for p in (B.get('products') or {}).values():
-        if p.get('c'): continue
+        if p.get('c') and p.get('n') != p.get('t'): continue   # already split (' - Colour'); a Colour option alone leaves the title whole
         t = p.get('t') or p.get('n') or ''
         c = next((c for c in names if t.lower().endswith(' ' + c.lower())), None)
-        if c: p['n'], p['c'] = t[:-len(c)].strip(), c; n += 1
+        if c: p['n'], p['c'] = t[:-len(c)].strip().rstrip('|-–—,').strip(), c; n += 1   # 'Name | Colour' / 'Name - Colour' too
     log('· Colours split from product titles (scrape.colours): %d products' % n)
 
 # ---------------------------------------------------------------- write the app

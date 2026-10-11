@@ -1,0 +1,419 @@
+{
+  "_note": "Hand-tuned layer on top of the scraped brand.json (maharishistore.com, Shopify). Run: python3 tools/build_brand.py --rebuild maharishi. Hand-picked images in assets/brand/ are crops of the site's own homepage images (AW26 Thailand jungle hero, Outerwear and Trousers tiles, the Maharishi AW26 journal banner, 'The Names Are Many, The Truth Is One' 30th anniversary shoot). Logos are the lowercase 'maharishi' wordmark from the site header SVG.",
+  "scrape": {
+    "_extraCollections": "The site's menu is rendered by JS (static parse found none); these are its collections.",
+    "extraCollections": [
+      "new-arrivals",
+      "autumn-winter2026",
+      "year-of-the-praying-mantis",
+      "aw26-preseason-collection",
+      "trousers",
+      "outerwear",
+      "sweatshirts",
+      "knitwear",
+      "t-shirts",
+      "shirts",
+      "shorts",
+      "womens",
+      "bags",
+      "footwear",
+      "hats-scarves"
+    ],
+    "_colours": "Colour names from the site's Color option as they end product titles ('7364 Sakura Dragon Camp Collar Shirt Olive OG-107F').",
+    "colours": [
+      "Rosin/Cool Grey 5C/Unexplored",
+      "Black BLK-108F/Colour",
+      "Mint Gold Tigerstripe",
+      "Pristine/Black/Silver",
+      "Stainless Steel Black",
+      "John Wayne Colourway",
+      "Olive OG-107F/Colour",
+      "Black Sand/Black",
+      "Black BLK-108FF",
+      "Air Force Blue",
+      "Black BLK-108F",
+      "Black/Charcoal",
+      "Natural Indigo",
+      "Olive OG-107FF",
+      "Antique White",
+      "Natural Olive",
+      "Olive OG-107F",
+      "Subdued Night",
+      "Washed Indigo",
+      "Blaze Orange",
+      "Night Jungle",
+      "Steel Silver",
+      "Aizome Navy",
+      "Black/Black",
+      "Black/Olive",
+      "Brown/Olive",
+      "Camo/Colour",
+      "Earth Brown",
+      "Faded Khaki",
+      "Black Sand",
+      "Camo/Black",
+      "Dark Brown",
+      "Dark Olive",
+      "Ecru/Olive",
+      "Koke Olive",
+      "Light Blue",
+      "Navy/Olive",
+      "Sand/Olive",
+      "Stone Coin",
+      "Black O/D",
+      "Maha Sand",
+      "Mint Gold",
+      "Navy/Ecru",
+      "Stainless",
+      "Hot Pink",
+      "Lavender",
+      "Mid Blue",
+      "Woodland",
+      "Cerise",
+      "Coyote",
+      "Indigo",
+      "Jungle",
+      "Maroon",
+      "Orange",
+      "Purple",
+      "Silver",
+      "Yellow",
+      "Black",
+      "Brown",
+      "Green",
+      "Mocha",
+      "Multi",
+      "Night",
+      "Olive",
+      "Stone",
+      "Taupe",
+      "Thyme",
+      "Urban",
+      "White",
+      "Blue",
+      "Ecru",
+      "Gold",
+      "Grey",
+      "Mink",
+      "Navy",
+      "Pink",
+      "Rust",
+      "Sage",
+      "Sand",
+      "Red"
+    ]
+  },
+  "_instagram": "Collected in a browser from the brand's Instagram profile on 2026-10-11 (pinned posts excluded; collaborator-path URLs normalised to /p/<code>/). Thumbnails: assets/ig/N.jpg, square-cropped, max 600px.",
+  "instagram": {
+    "handle": "maharishi",
+    "url": "https://www.instagram.com/maharishi/",
+    "followers": "237K",
+    "bio": "The Names Are Many, The Truth Is One",
+    "collected": "2026-10-11",
+    "posts": [
+      {
+        "url": "https://www.instagram.com/p/DeRWgTPiBxY/",
+        "type": "carousel",
+        "image": "assets/ig/1.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeMM_E2kSTx/",
+        "type": "carousel",
+        "image": "assets/ig/2.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/Dd6LYCviH9I/",
+        "type": "carousel",
+        "image": "assets/ig/3.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/Dd1Bzi4CPud/",
+        "type": "carousel",
+        "image": "assets/ig/4.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/Dd6tultiFLr/",
+        "type": "carousel",
+        "image": "assets/ig/5.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DdqupyRCH-L/",
+        "type": "photo",
+        "image": "assets/ig/6.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DdllAyBiAOA/",
+        "type": "carousel",
+        "image": "assets/ig/7.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DdjAQ4tCFDt/",
+        "type": "carousel",
+        "image": "assets/ig/8.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DddvztECEt3/",
+        "type": "photo",
+        "image": "assets/ig/9.jpg"
+      }
+    ]
+  },
+  "name": "Maharishi",
+  "short": "MAHARISHI",
+  "assets": {
+    "logoDark": "assets/brand/logo-black.png",
+    "logoLight": "assets/brand/logo-white.png",
+    "favicon": "assets/img/favicon.png"
+  },
+  "_theme": "maharishistore.com: black announcement bar ('Express Shipping & Easy Returns'), full-bleed imagery, white page below, Univers throughout (55 Roman for text, 63 Bold sparingly), small black square buttons with uppercase labels ('SHOP AW26'), underlined section titles ('New Season') over large grey sub-copy, product tags as thin grey-bordered boxes ('New Arrival'), and the lowercase 'maharishi' wordmark. Univers is hotlinked from the site's own Shopify CDN in brand.css.",
+  "theme": {
+    "ink": "#000000",
+    "bg": "#ffffff",
+    "bgRgb": "255,255,255",
+    "text": "#000000",
+    "muted": "#6b6b6b",
+    "line": "#e3e3e3",
+    "stone": "#858585",
+    "sand": "#ececec",
+    "sand2": "#f6f6f6",
+    "sale": "#000000",
+    "stageA": "#ffffff",
+    "stageB": "#f0f0f0",
+    "stageC": "#e2e2e2",
+    "font": "Univers",
+    "fontHref": null
+  },
+  "pitch": {
+    "title": "Great vision.<br>Small screen.",
+    "copy": "A concept for the Maharishi app: AW26 and the Year of the Praying Mantis in your pocket, app-only early access on new capsules, your saved size, free lifetime repairs a tap away and Shopify checkout with Apple Pay and Klarna. Tap around, everything works.",
+    "list": [
+      "Drops with app-only early access",
+      "Saved size and back-in-size alerts",
+      "Shopify checkout with Apple Pay and Klarna"
+    ]
+  },
+  "home": {
+    "newCol": "new-arrivals",
+    "newSub": "New arrivals from the Maharishi AW26 collection",
+    "bestCol": "trousers",
+    "bestSub": "Original Snopants® and the trousers Maharishi is known for",
+    "hero": {
+      "poster": "assets/brand/hero.jpg",
+      "eyebrow": "Maharishi AW26",
+      "title": "New Season",
+      "cta": "Shop AW26",
+      "col": "autumn-winter2026"
+    },
+    "tiles": [
+      [
+        "trousers",
+        "Trousers"
+      ],
+      [
+        "outerwear",
+        "Outerwear"
+      ],
+      [
+        "shirts",
+        "Shirts"
+      ],
+      [
+        "sweatshirts",
+        "Sweats & Knits"
+      ],
+      [
+        "t-shirts",
+        "T-Shirts"
+      ],
+      [
+        "footwear",
+        "Footwear"
+      ]
+    ],
+    "editorial": {
+      "col": "outerwear",
+      "img": "assets/brand/outerwear.jpg",
+      "eyebrow": "New Season",
+      "title": "Outerwear"
+    },
+    "feature": {
+      "col": "new-arrivals",
+      "img": "assets/brand/tlb-wide.jpg",
+      "title": "The Names Are Many, The Truth Is One",
+      "cta": "Shop now"
+    }
+  },
+  "collectionTitles": {
+    "autumn-winter2026": "AW26",
+    "year-of-the-praying-mantis": "Year of the Praying Mantis",
+    "aw26-preseason-collection": "AW26 Pre-season",
+    "hats-scarves": "Hats & Scarves",
+    "womens": "Womens"
+  },
+  "shop": {
+    "kicker": "MAHARISHI",
+    "cats": [
+      "trousers",
+      "outerwear",
+      "shirts",
+      "sweatshirts",
+      "knitwear",
+      "t-shirts",
+      "shorts",
+      "womens",
+      "bags",
+      "footwear",
+      "hats-scarves"
+    ],
+    "edits": [
+      "new-arrivals",
+      "autumn-winter2026",
+      "year-of-the-praying-mantis",
+      "aw26-preseason-collection"
+    ],
+    "featureCats": {
+      "col": "trousers",
+      "title": "Trousers",
+      "cta": "Shop now",
+      "idx": 0,
+      "img": "assets/brand/trousers-wide.jpg"
+    },
+    "featureEdits": {
+      "col": "autumn-winter2026",
+      "title": "Maharishi AW26",
+      "cta": "Shop collection",
+      "idx": 0,
+      "img": "assets/brand/aw26-wide.jpg"
+    }
+  },
+  "search": {
+    "trending": [
+      "Snopants",
+      "Cargo",
+      "Mantis",
+      "MA-1",
+      "Hooded sweat",
+      "Camo",
+      "Cap",
+      "Shorts"
+    ],
+    "popular": [
+      "new-arrivals",
+      "trousers",
+      "outerwear",
+      "autumn-winter2026"
+    ]
+  },
+  "perks": [
+    "Express Shipping & Easy Returns",
+    "Free Lifetime Repair Service",
+    "10% off your first order when you sign up",
+    "Pay in 3 with Klarna",
+    "Stores in London (Great Pulteney Street) and New York"
+  ],
+  "pdpPerks": [
+    "Express UK shipping",
+    "14-day returns",
+    "Free lifetime repairs"
+  ],
+  "payments": [
+    "apple_pay",
+    "google_pay",
+    "shopify_pay",
+    "paypal",
+    "klarna",
+    "visa",
+    "master",
+    "american_express"
+  ],
+  "_shipping": "From maharishistore.com/pages/shipping (UK, checked 11 Oct 2026): Royal Mail 3-5 Day Signed £6; DPD 2-3 Day Standard £6; DPD 1-2 Day Express £10; DPD 2 Day Local Pick-up Point £4.25. No free-shipping threshold is published.",
+  "shipping": {
+    "region": "UK",
+    "freeOver": null,
+    "options": [
+      {
+        "id": "dpd-express",
+        "name": "DPD Express",
+        "desc": "1–2 days",
+        "price": 10.0,
+        "short": "Express"
+      },
+      {
+        "id": "dpd-standard",
+        "name": "DPD Standard",
+        "desc": "2–3 days",
+        "price": 6.0,
+        "short": "Standard"
+      },
+      {
+        "id": "royal-mail",
+        "name": "Royal Mail Signed",
+        "desc": "3–5 days",
+        "price": 6.0,
+        "short": "Royal Mail"
+      },
+      {
+        "id": "dpd-pickup",
+        "name": "DPD Pick-up Point",
+        "desc": "2 days, collect locally",
+        "price": 4.25,
+        "short": "Pick-up"
+      }
+    ],
+    "notes": [
+      "UK orders ship with DPD express 1–2 day, DPD 2–3 day standard or Royal Mail 3–5 day."
+    ]
+  },
+  "returns": {
+    "summary": "Register returns on our returns portal within 14 days of delivery and choose a refund, exchange or credit; you then have a further 14 days to send the goods back, unworn, with all original tags and branded packaging.",
+    "short": "14-day returns"
+  },
+  "_rewards": "Maharishi has no loyalty programme. The template's Account rewards card is kept as an illustrative app concept (same as the yelir reference build) and its fine print says so; it never claims a real scheme.",
+  "rewards": {
+    "enabled": true,
+    "name": "Maharishi Rewards",
+    "real": false,
+    "stockists": false
+  },
+  "_discount": "The site's sign-up offers 10% off a first order (code emailed, not public). The app pop-up uses the same 10% with a placeholder app code.",
+  "discount": {
+    "code": "APP10",
+    "pct": 10
+  },
+  "copy": {
+    "about": "(MAA·HUH·REE·SHEE) Sanskrit: Great vision. Maharishi was founded by Hardy Blechman in 1994 with a vision to create environmentally conscious, durable, utilitarian clothing, using hemp, organic cotton and upcycled military fabrics.",
+    "emptyBag": "Nothing in here yet. Start with the new AW26 collection.",
+    "heroNotif": "New Season: the Maharishi AW26 collection is here."
+  },
+  "_drop": "No release date is announced: the Drops tab demos app early access with the Year of the Praying Mantis (AW26 pre-season) capsule. Previous: AW26. Date/time is the template's rolling placeholder.",
+  "drop": {
+    "num": "01",
+    "name": "PRAYING MANTIS",
+    "title": "Year of the Praying Mantis",
+    "col": "year-of-the-praying-mantis",
+    "image": "assets/brand/mantis.jpg",
+    "products": [
+      "5305-asym-track-pants-sand",
+      "7558-mantis-league-6-panel-cap-ecru",
+      "7583-orchid-mantis-pashmina-navy",
+      "7556-7-star-mantis-ma1-jacket-olive",
+      "7557-7-star-mantis-loose-snopants-olive-og-107f",
+      "7559-orchid-mantis-loose-snoshorts-sand"
+    ],
+    "previous": {
+      "col": "autumn-winter2026",
+      "title": "AW26"
+    }
+  },
+  "report": {
+    "missing": [
+      "No hero video on the site's homepage: the hero is the AW26 Thailand campaign image",
+      "No sustainability, stockists or cookie page found",
+      "No review score on the site, so no reviews block",
+      "No loyalty programme: the Account rewards card is an illustrative concept",
+      "The site's 10% sign-up code is emailed, not published: APP10 is a placeholder app code",
+      "No release date is announced: the Drops tab demos early access with Year of the Praying Mantis; drop date/time is the rolling placeholder",
+      "The original-snopants® collection handle is non-ASCII and was skipped (its products appear under Trousers)"
+    ]
+  }
+}

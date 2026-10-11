@@ -1,0 +1,95 @@
+/* MAHARISHI: brand layer loaded after the shared app.css (copied to assets/brand.css by tools/build_brand.py).
+   Matches maharishistore.com: black announcement bar, full-bleed campaign imagery, white page, Univers throughout
+   (55 Roman for text, 63 Bold sparingly; hotlinked from the site's own Shopify CDN), underlined sentence-case section
+   titles ("New Season") with large grey sub-copy, small black square buttons with uppercase labels ("SHOP AW26"),
+   thin grey-bordered product tags ("New Arrival"), and the lowercase "maharishi" wordmark. */
+
+@font-face{font-family:'Univers';src:url('https://www.maharishistore.com/cdn/shop/t/80/assets/univers_lt_w01_55_roman1475956.woff2?v=24919334203661420571695821076') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Univers';src:url('https://www.maharishistore.com/cdn/shop/t/80/assets/univers_lt_w01_63_bold_1476034.woff2?v=15604301587378531321695821076') format('woff2');font-weight:600 800;font-style:normal;font-display:swap}
+@font-face{font-family:'Univers Extended';src:url('https://www.maharishistore.com/cdn/shop/t/80/assets/univers_lt_w01_53_extended.woff2?v=25978620107238978561695821075') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+
+:root{font-family:'Univers',Helvetica,Arial,sans-serif;--deep-band:light}
+
+/* ---- neutral greys ---- */
+body{background:radial-gradient(1200px 700px at 70% 30%,#ffffff 0%,#f0f0f0 55%,#e2e2e2 100%)}
+.pcard .pimg,.cat-tile,.cat-row img,.bag-item img{background:#f3f3f3}
+.seg{background:#efefef}
+.seg button{color:#555}
+.chip,.qty,.sfield{border-color:#d2d2d2}
+.switch{background:#cfcfcf}
+.link-row{border-top-color:#ececec}
+.pitch-copy{color:#555}
+.drop-banner{border-color:#e2e2e2}
+.br-url{background:#efefef}
+.summary,.acct-card,.size-filter,.pref-group{border:1px solid #e3e3e3}
+
+/* ---- type: Univers roman, sentence case, underlined section titles ---- */
+.hero-title{font-size:32px;font-weight:400;letter-spacing:-.01em;line-height:1.05;text-transform:none;margin-bottom:16px;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px}
+.editorial .hero-title{font-size:28px}
+.eyebrow{font-size:13px;font-weight:400;letter-spacing:0;text-transform:none;opacity:1}
+.sec-head h2{font-size:19px;font-weight:400;letter-spacing:0;text-transform:none;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
+.sec-head p{font-size:13px;color:#6b6b6b}
+.large-title{font-size:26px;font-weight:400;letter-spacing:-.01em}
+.large-title small{font-weight:400;letter-spacing:.5px;color:#6b6b6b}
+.tb-title{font-weight:400;letter-spacing:0}
+.feature-card b{font-weight:400;letter-spacing:0;font-size:21px;line-height:1.15;text-transform:none}
+.dc-title{font-weight:400;letter-spacing:0}
+.dc-title span{font-weight:400}
+.cat-tile span{font-weight:400;font-size:12px;letter-spacing:.5px;text-transform:uppercase}
+.cat-row b{font-weight:400;letter-spacing:0;text-transform:none;font-size:15px}
+.empty h3{font-weight:400;letter-spacing:0}
+.pdp-info h1{font-weight:400;font-size:20px;letter-spacing:0;line-height:1.25}
+.pdp-info .ptype{font-weight:400;letter-spacing:.5px}
+.wl-body h2,.auth h2{font-weight:400;letter-spacing:-.01em}
+.pitch-title{font-weight:400;letter-spacing:-.02em}
+.pitch-kicker{letter-spacing:.12em}
+.pitch-list{letter-spacing:.5px;font-weight:400;text-transform:uppercase;font-size:11px}
+.label-row b{font-weight:400;letter-spacing:0;text-transform:none}
+.stat-num{font-weight:400;letter-spacing:-.02em}
+
+/* ---- buttons: small black squares, uppercase 12px labels ---- */
+.btn{border-radius:0;font-size:12px;font-weight:400;letter-spacing:.04em;text-transform:uppercase;height:44px;padding:0 22px}
+.btn-dark{background:#000;color:#fff}
+.btn-outline{border-radius:0;border-color:#000}
+.link{font-weight:400;letter-spacing:.04em;text-transform:uppercase;font-size:11.5px}
+.hero .btn-light,.editorial .btn-light{background:#000;color:#fff;border:1px solid #000}
+.feature-card .btn-light,.drop-card .btn-light{background:#fff;color:#000;border:1px solid #fff}
+@media (hover:hover){.btn-dark:hover,.hero .btn-light:hover,.editorial .btn-light:hover{background:#262626}.feature-card .btn-light:hover,.drop-card .btn-light:hover{background:#ececec}}
+
+/* ---- square corners throughout ---- */
+.seg,.seg button,.seg .seg-ind,.chip,.sfield,.size,.promo,.promo-cta,.wl-code,.dc-tag,.g-badge,.pcard .tag,.summary,.acct-card,.size-filter,.pref-group,.feature-card,.drop-card{border-radius:0}
+.size{border-color:#d2d2d2}
+
+/* ---- product cards: left-aligned roman name and price; thin grey-bordered tags ('New Arrival') ---- */
+.pcard .pmeta{text-align:left;padding:10px 2px 4px}
+.pcard .pname{font-size:12.5px;font-weight:400;letter-spacing:0;text-transform:none}
+.pcard .pcol{font-size:12px;color:#6b6b6b}
+.pcard .price{font-weight:400;font-size:12.5px}
+.pcard .tag{background:#fff;color:#555;border:1px solid #cfcfcf;padding:3px 7px;letter-spacing:0;font-weight:400;text-transform:none;font-size:10.5px}
+.pcard .tag.sale{background:#000;color:#fff;border-color:#000}
+
+/* ---- the lowercase wordmark ---- */
+.home-head .tb-logo{height:24px;max-width:none}
+.tb-logo{height:20px;max-width:none}
+.splash{background:#000}
+.splash-logo{width:190px}
+.wl-logo{height:34px;max-width:none}
+.auth-logo{height:30px}
+.about img{width:150px}
+.acct-foot img{height:22px}
+.rcard .rc-top img{height:18px}
+.pitch-logo{width:clamp(150px,20vh,190px);max-height:none}
+
+/* Home band past the hero: white with black icons and the black wordmark */
+.home-head.deep .home-band{background:rgba(255,255,255,.97);color:#000;box-shadow:0 1px 0 #e3e3e3}
+.home-head.deep .tb-logo{filter:none}
+.home-head.deep .icon-btn .hb-count{background:#000;color:#fff}
+
+/* ---- rewards card: jungle black-olive ---- */
+.rewards-mini,.rcard{background:linear-gradient(135deg,#0b0d0a 0%,#1a1e17 60%,#2a3024 100%)}
+.rewards-mini::before,.rcard::before{background:radial-gradient(circle,rgba(255,255,255,.12),transparent 70%)}
+.rm-bar i,.rcard .tbar i{background:#fff}
+.stat{border-radius:0}
+.sec-head .link{white-space:nowrap;flex-shrink:0}
+/* sold-out strike kept inside the box (the template line overhangs and reads as clipped) */
+.size.out::after{left:12%;right:12%}
