@@ -1,0 +1,97 @@
+/* PERCIVAL: brand layer loaded after the shared app.css (copied to assets/brand.css by tools/build_brand.py).
+   Matches percivalclo.com: white page, black type with #757575 secondary text, Aktiv Grotesk regular everywhere (the
+   site never goes bold; titles are sentence case, only the 13px category labels are uppercase), black square buttons
+   with regular sentence-case labels ("Small batch, shop now", 50px tall), small square "New" tags, sale prices left
+   black beside a grey struck-through price, and the script "Percival" logo. Aktiv Grotesk is hotlinked from the site's
+   own Shopify CDN. */
+
+@font-face{font-family:'Aktiv Grotesk';src:url('https://www.percivalclo.com/cdn/shop/t/134/assets/AktivGrotesk_W_Rg.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
+
+:root{font-family:'Aktiv Grotesk',system-ui,Helvetica,Arial,sans-serif;--deep-band:light}
+
+/* ---- neutral greys ---- */
+body{background:radial-gradient(1200px 700px at 70% 30%,#ffffff 0%,#f2f2f2 55%,#e7e7e7 100%)}
+.pcard .pimg,.cat-tile,.cat-row img,.bag-item img{background:#f3f3f3}
+.seg{background:#efefef}
+.seg button{color:#555}
+.chip,.qty,.sfield{border-color:#d4d4d4}
+.switch{background:#cfcfcf}
+.link-row{border-top-color:#ececec}
+.pitch-copy{color:#555}
+.drop-banner{border-color:#e2e2e2}
+.br-url{background:#efefef}
+.summary,.acct-card,.size-filter,.pref-group{border:1px solid #e6e6e6}
+
+/* ---- type: one regular weight, sentence case, no tracking ---- */
+.hero-title{font-size:32px;font-weight:400;letter-spacing:-.01em;line-height:1.05;text-transform:none;margin-bottom:18px}
+.editorial .hero-title{font-size:28px;text-transform:none}
+.eyebrow{font-size:13px;font-weight:400;letter-spacing:0;text-transform:none;opacity:1}
+.sec-head h2{font-size:18px;font-weight:400;letter-spacing:0;text-transform:none}
+.sec-head p{font-size:12.5px;color:#757575}
+.large-title{font-size:26px;font-weight:400;letter-spacing:-.01em}
+.large-title small{font-weight:400;letter-spacing:.5px;color:#757575}
+.tb-title{font-weight:400;letter-spacing:0}
+.feature-card b{font-weight:400;letter-spacing:0;font-size:22px;text-transform:none}
+.dc-title{font-weight:400;letter-spacing:0}
+.dc-title span{font-weight:400}
+.cat-tile span{font-weight:400;font-size:13px;letter-spacing:.5px;text-transform:uppercase}
+.cat-row b{font-weight:400;letter-spacing:0;text-transform:none;font-size:15px}
+.empty h3{font-weight:400;letter-spacing:0}
+.pdp-info h1{font-weight:400;font-size:20px;letter-spacing:0;line-height:1.25}
+.pdp-info .ptype{font-weight:400;letter-spacing:0;color:#757575}
+.wl-body h2,.auth h2{font-weight:400;letter-spacing:-.01em}
+.pitch-title{font-weight:400;letter-spacing:-.02em}
+.pitch-kicker{letter-spacing:.12em}
+.pitch-list{letter-spacing:0;font-weight:400}
+.label-row b{font-weight:400;letter-spacing:0;text-transform:none}
+.stat-num{font-weight:400;letter-spacing:-.02em}
+.stat-label{letter-spacing:.5px}
+b,strong{font-weight:500}
+
+/* ---- buttons: black squares, regular sentence-case labels ---- */
+.btn{border-radius:0;font-size:13px;font-weight:400;letter-spacing:0;text-transform:none;height:50px;padding:0 28px}
+.btn-dark{background:#000;color:#fff}
+.btn-outline{border-radius:0;border-color:#000}
+.link{font-weight:400;letter-spacing:0;text-transform:none;font-size:13px}
+.hero .btn-light,.editorial .btn-light{background:#000;color:#fff;border:1px solid #000}
+.feature-card .btn-light,.drop-card .btn-light{background:#fff;color:#000;border:1px solid #fff}
+@media (hover:hover){.btn-dark:hover,.hero .btn-light:hover,.editorial .btn-light:hover{background:#262626}.feature-card .btn-light:hover,.drop-card .btn-light:hover{background:#f0f0f0}}
+.feature-card .btn-sm{height:40px;padding:0 20px;font-size:13px}
+
+/* ---- square corners throughout ---- */
+.seg,.seg button,.seg .seg-ind,.chip,.sfield,.size,.promo,.promo-cta,.wl-code,.dc-tag,.g-badge,.pcard .tag,.summary,.acct-card,.size-filter,.pref-group,.feature-card,.drop-card{border-radius:0}
+.size{border-color:#d4d4d4}
+
+/* ---- product cards: left-aligned regular name, grey colour line, regular price; white square 'New' tag ---- */
+.pcard .pmeta{text-align:left;padding:10px 2px 4px}
+.pcard .pname{font-size:13px;font-weight:400;letter-spacing:0;text-transform:none}
+.pcard .pcol{font-size:12px;color:#757575}
+.pcard .price{font-weight:400;font-size:12.5px}
+.pcard .tag{background:#fff;color:#000;border:1px solid #e0e0e0;padding:3px 7px;letter-spacing:0;font-weight:400;text-transform:none;font-size:10.5px}
+.pcard .tag.sale{background:#000;color:#fff;border-color:#000}
+
+/* ---- the script 'Percival' logo ---- */
+.home-head .tb-logo{height:40px;max-width:none}
+.tb-logo{height:32px;max-width:none}
+.splash{background:#000}
+.splash-logo{width:150px}
+.wl-logo{height:62px;max-width:none}
+.auth-logo{height:56px}
+.about img{width:110px}
+.acct-foot img{height:40px}
+.rcard .rc-top img{height:30px}
+.pitch-logo{width:clamp(110px,15vh,140px);max-height:none}
+
+/* Home band past the hero: white with black icons and the black logo */
+.home-head.deep .home-band{background:rgba(255,255,255,.97);color:#000;box-shadow:0 1px 0 #e6e6e6}
+.home-head.deep .tb-logo{filter:none}
+.home-head.deep .icon-btn .hb-count{background:#000;color:#fff}
+
+/* ---- The Membership card: deep club green-black ---- */
+.rewards-mini,.rcard{background:linear-gradient(135deg,#0d0d0d 0%,#1b1b1b 60%,#2b2b2b 100%)}
+.rewards-mini::before,.rcard::before{background:radial-gradient(circle,rgba(255,255,255,.12),transparent 70%)}
+.rm-bar i,.rcard .tbar i{background:#fff}
+.stat{border-radius:0}
+.sec-head .link{white-space:nowrap;flex-shrink:0}
+/* sold-out strike kept inside the box (the template line overhangs and reads as clipped) */
+.size.out::after{left:12%;right:12%}

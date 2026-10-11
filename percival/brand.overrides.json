@@ -1,0 +1,491 @@
+{
+  "_note": "Hand-tuned layer on top of the scraped brand.json (percivalclo.com, Shopify). Run: python3 tools/build_brand.py --rebuild percival. The hero video is the site's own Made in England film (15d38d86…mp4 on the homepage, re-encoded to 680x1080, 10s cross-faded loop). Hand-picked images in assets/brand/ are crops of the site's own homepage banners (AW26 Drop 3, Guinness x Percival, Trench Coats tile) and a Ford x Percival campaign photo. Logos are the script 'Percival' from the site header SVG.",
+  "scrape": {
+    "_extraCollections": "The site's Shop menu is rendered by JS; these are its collections.",
+    "extraCollections": [
+      "new-arrivals",
+      "best-sellers",
+      "made-in-england",
+      "autumn-winter",
+      "aw26-percival-x-ford",
+      "guinness-x-percival",
+      "mens-coats",
+      "trench-coats",
+      "mens-jackets",
+      "knitwear",
+      "shirts",
+      "t-shirts",
+      "polo-shirts",
+      "rugby-shirts",
+      "trousers",
+      "suits",
+      "footwear",
+      "accessories-1"
+    ],
+    "_colours": "Titles are 'Name | Fabric | Colour'; these are the colour segments used on the site.",
+    "colours": [
+      "Black with Watcher Check",
+      "Black Polarized Lenses",
+      "Espresso with Cinnamon",
+      "Dusty Pink and White",
+      "White / Black / Navy",
+      "Bottle Green Lenses",
+      "Burgundy with Denim",
+      "Midnight with Olive",
+      "Stone with Cinnamon",
+      "Textured Dark Brown",
+      "Light Brown Lenses",
+      "Cream with Forest",
+      "Forest with Check",
+      "Forest with Cream",
+      "Black with Brown",
+      "Black with White",
+      "Brown Cognac Gum",
+      "Cream and Orange",
+      "Cream with Black",
+      "Dark Brown Suede",
+      "Dark Indigo Blue",
+      "Smoke Grey Suede",
+      "Black and White",
+      "Chocolate Beige",
+      "Chocolate Suede",
+      "Cream and Black",
+      "Cream and Brown",
+      "Cream with Blue",
+      "Cream with Navy",
+      "Light Wash Blue",
+      "White with Navy",
+      "Cream and Blue",
+      "Cream with Red",
+      "Green Jacquard",
+      "Warm Grey Wash",
+      "White and Blue",
+      "White with Red",
+      "Athletic Grey",
+      "Blue Jacquard",
+      "Mid Wash Blue",
+      "Navy Burgundy",
+      "Tobacco Brown",
+      "Watcher Check",
+      "White and Red",
+      "Black Stripe",
+      "Cream Orange",
+      "Cream Stripe",
+      "Forest Green",
+      "Heather Blue",
+      "Textured Tan",
+      "Washed Black",
+      "White Stripe",
+      "Blue Stripe",
+      "Brown Check",
+      "Brown Fleck",
+      "Cobalt Blue",
+      "Cream Check",
+      "Dark Indigo",
+      "Earth Suede",
+      "Forest Marl",
+      "Maple Suede",
+      "Multi Check",
+      "Navy Stripe",
+      "Blue Check",
+      "Blue Fleck",
+      "Cream Blue",
+      "Cream Navy",
+      "Dark Brown",
+      "Dusty Pink",
+      "Ecru Cream",
+      "Fern Green",
+      "Grey/Black",
+      "Light Blue",
+      "Mint Green",
+      "Ombre Blue",
+      "Slate Blue",
+      "Stone Wash",
+      "Blue/Navy",
+      "Navy Marl",
+      "Off White",
+      "Pistachio",
+      "Sage Marl",
+      "Burgundy",
+      "Charcoal",
+      "Espresso",
+      "Oat Marl",
+      "Beeswax",
+      "Brazil",
+      "Cognac",
+      "Forest",
+      "Giclée",
+      "Marron",
+      "Merlot",
+      "Orange",
+      "Yellow",
+      "Beige",
+      "Black",
+      "Brown",
+      "Check",
+      "Cream",
+      "Green",
+      "Khaki",
+      "Mocha",
+      "Multi",
+      "Olive",
+      "Stone",
+      "White",
+      "Blue",
+      "Ecru",
+      "Grey",
+      "Navy",
+      "Pink",
+      "Rust",
+      "Sage",
+      "Wine",
+      "Oak",
+      "Oat",
+      "Raw",
+      "Red",
+      "Tan"
+    ]
+  },
+  "_instagram": "Collected in a browser from the brand's Instagram profile on 2026-10-11 (pinned posts excluded; collaborator-path URLs normalised to /p/<code>/). Thumbnails: assets/ig/N.jpg, square-cropped, max 600px.",
+  "instagram": {
+    "handle": "percival_menswear",
+    "url": "https://www.instagram.com/percival_menswear/",
+    "followers": "243K",
+    "bio": "Performance @pcvlbypercival",
+    "collected": "2026-10-11",
+    "posts": [
+      {
+        "url": "https://www.instagram.com/p/DeWREPlDUpt/",
+        "type": "carousel",
+        "image": "assets/ig/1.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DePYI53t8ok/",
+        "type": "reel",
+        "image": "assets/ig/2.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeMye76DSuZ/",
+        "type": "carousel",
+        "image": "assets/ig/3.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeKdLBZjIaU/",
+        "type": "carousel",
+        "image": "assets/ig/4.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeH7s3KDZIR/",
+        "type": "carousel",
+        "image": "assets/ig/5.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeEOHdzDYkR/",
+        "type": "carousel",
+        "image": "assets/ig/6.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeBj_B7DXM2/",
+        "type": "carousel",
+        "image": "assets/ig/7.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/Dd83KTZDag3/",
+        "type": "carousel",
+        "image": "assets/ig/8.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/Dd4LBBUN50M/",
+        "type": "reel",
+        "image": "assets/ig/9.jpg"
+      }
+    ]
+  },
+  "name": "Percival",
+  "short": "PERCIVAL",
+  "assets": {
+    "logoDark": "assets/brand/logo-black.png",
+    "logoLight": "assets/brand/logo-white.png",
+    "favicon": "assets/img/favicon.png"
+  },
+  "_theme": "percivalclo.com: white page, black announcement bar, black type with #757575 secondary text, Aktiv Grotesk regular throughout (no bold, sentence case; uppercase only for the 13px category labels), black square buttons ('Small batch, shop now', 13px regular, 50px tall), small square 'New' tags, sale prices simply black next to a grey struck-through price. Aktiv Grotesk is hotlinked from the site's own Shopify CDN in brand.css.",
+  "theme": {
+    "ink": "#000000",
+    "bg": "#ffffff",
+    "bgRgb": "255,255,255",
+    "text": "#000000",
+    "muted": "#757575",
+    "line": "#e6e6e6",
+    "stone": "#757575",
+    "sand": "#ededed",
+    "sand2": "#f5f5f5",
+    "sale": "#000000",
+    "stageA": "#ffffff",
+    "stageB": "#f2f2f2",
+    "stageC": "#e7e7e7",
+    "font": "Aktiv Grotesk",
+    "fontHref": null
+  },
+  "pitch": {
+    "title": "Small batch.<br>Big pocket.",
+    "copy": "A concept for the Percival app: Made in England and every AW26 drop in one place, app-only early access on collaborations like Ford x Percival, your saved size, The Membership in your pocket and Shopify checkout with Apple Pay. Tap around, everything works.",
+    "list": [
+      "Drops with app-only early access",
+      "Saved size and back-in-size alerts",
+      "The Membership card in the app"
+    ]
+  },
+  "home": {
+    "newCol": "new-arrivals",
+    "newSub": "The latest Autumn Winter '26 pieces",
+    "bestCol": "best-sellers",
+    "bestSub": "The Percival pieces on repeat",
+    "hero": {
+      "video": "assets/hero.mp4",
+      "videoWebm": "assets/hero.webm",
+      "videoW": 680,
+      "videoH": 1080,
+      "poster": "assets/img/hero-video-poster.jpg",
+      "eyebrow": "Our strongest collection to date.",
+      "title": "Made in England",
+      "cta": "Small batch, shop now",
+      "col": "made-in-england"
+    },
+    "tiles": [
+      [
+        "trench-coats",
+        "Trench Coats"
+      ],
+      [
+        "knitwear",
+        "Knitwear"
+      ],
+      [
+        "rugby-shirts",
+        "Rugby Shirts"
+      ],
+      [
+        "accessories-1",
+        "Accessories"
+      ],
+      [
+        "mens-jackets",
+        "Jackets"
+      ],
+      [
+        "made-in-england",
+        "Made in England"
+      ]
+    ],
+    "editorial": {
+      "col": "autumn-winter",
+      "img": "assets/brand/drop3.jpg",
+      "eyebrow": "Autumn Winter '26",
+      "title": "AW26 Drop 3"
+    },
+    "feature": {
+      "col": "guinness-x-percival",
+      "img": "assets/brand/guinness-wide.jpg",
+      "title": "Guinness x Percival",
+      "cta": "Shop now"
+    }
+  },
+  "collectionTitles": {
+    "autumn-winter": "Autumn Winter '26",
+    "mens-coats": "Coats",
+    "mens-jackets": "Jackets",
+    "knitwear": "Knitwear",
+    "shirts": "Shirts",
+    "t-shirts": "T-Shirts",
+    "polo-shirts": "Polo Shirts",
+    "rugby-shirts": "Rugby Shirts",
+    "trousers": "Trousers",
+    "footwear": "Footwear",
+    "accessories-1": "Accessories",
+    "outerwear": "Outerwear",
+    "suits": "Suits",
+    "aw26-percival-x-ford": "Ford x Percival",
+    "new-arrivals": "New Arrivals",
+    "best-sellers": "Bestsellers",
+    "made-in-england": "Made in England"
+  },
+  "shop": {
+    "kicker": "PERCIVAL",
+    "cats": [
+      "mens-coats",
+      "trench-coats",
+      "mens-overcoats",
+      "pea-coats",
+      "waterproof",
+      "mens-jackets",
+      "outerwear",
+      "overshirts",
+      "knitwear",
+      "shirts",
+      "t-shirts",
+      "polo-shirts",
+      "rugby-shirts",
+      "trousers",
+      "suits",
+      "linen-suits",
+      "footwear",
+      "accessories-1"
+    ],
+    "edits": [
+      "new-arrivals",
+      "best-sellers",
+      "made-in-england",
+      "autumn-winter",
+      "aw26-percival-x-ford",
+      "guinness-x-percival",
+      "the-sherlock"
+    ],
+    "featureCats": {
+      "col": "trench-coats",
+      "title": "Trench Coats",
+      "cta": "Shop now",
+      "idx": 0,
+      "img": "assets/brand/trenches-wide.jpg"
+    },
+    "featureEdits": {
+      "col": "autumn-winter",
+      "title": "AW26 Drop 3",
+      "cta": "Shop now",
+      "idx": 0,
+      "img": "assets/brand/drop3-wide.jpg"
+    }
+  },
+  "search": {
+    "trending": [
+      "Trench coat",
+      "Rugby shirt",
+      "Made in England",
+      "Guinness",
+      "Ford",
+      "Knitwear",
+      "Overshirt",
+      "Car coat"
+    ],
+    "popular": [
+      "new-arrivals",
+      "made-in-england",
+      "trench-coats",
+      "knitwear"
+    ]
+  },
+  "perks": [
+    "Free UK shipping on orders over £100",
+    "21-day returns",
+    "10% off your first order",
+    "Buy 2 T-shirts, get 1 free",
+    "Earn coins with The Membership",
+    "Made in England: our strongest collection to date"
+  ],
+  "pdpPerks": [
+    "Free UK shipping over £100",
+    "21-day returns",
+    "Earn The Membership coins"
+  ],
+  "payments": [
+    "apple_pay",
+    "google_pay",
+    "shopify_pay",
+    "paypal",
+    "klarna",
+    "visa",
+    "master",
+    "american_express"
+  ],
+  "_shipping": "From percivalclo.com/pages/shipping (UK): free over £100; Standard 48hrs tracked £5.00; Express DPD Next Day £5.00–£7.00, order by 7pm (shown at £5); London Same Day £3.99. Checked 11 Oct 2026.",
+  "shipping": {
+    "region": "UK",
+    "freeOver": 100,
+    "options": [
+      {
+        "id": "standard",
+        "name": "Standard Tracked",
+        "desc": "48 hours, free over £100",
+        "price": 5.0,
+        "freeOver": 100,
+        "short": "Standard"
+      },
+      {
+        "id": "express",
+        "name": "Express DPD Next Day",
+        "desc": "Next working day, order by 7pm",
+        "price": 5.0,
+        "short": "Next Day"
+      },
+      {
+        "id": "london",
+        "name": "London Same Day",
+        "desc": "Same day in London",
+        "price": 3.99,
+        "short": "Same Day"
+      }
+    ],
+    "notes": [
+      "Free UK shipping on orders over £100.",
+      "Express next-day orders must be placed by 7pm."
+    ]
+  },
+  "returns": {
+    "summary": "You have 21 days from the date your goods are dispatched to return your order, in original condition with all tags attached. UK returns and exchanges are paperless through our returns portal; refunds go back to your original payment method within 5 working days.",
+    "short": "21-day returns"
+  },
+  "_reviews": "Real: Yotpo store rating on percivalclo.com/pages/reviews, 4.9 from 3,056 reviews (checked 11 Oct 2026).",
+  "reviews": {
+    "score": 4.9,
+    "count": 3056,
+    "label": "What our customers think",
+    "source": "Yotpo",
+    "url": "https://www.percivalclo.com/pages/reviews",
+    "checked": "11 Oct 2026"
+  },
+  "_rewards": "The Membership is real (tiers The Reception / The Library / The Terrace, 1 coin per £1). The balance and card in the app are illustrative.",
+  "rewards": {
+    "enabled": true,
+    "name": "The Membership",
+    "real": true,
+    "stockists": false
+  },
+  "_discount": "The site's pop-up offers 10% off a first order (code emailed, not public). The app pop-up uses the same 10% with a placeholder app code.",
+  "discount": {
+    "code": "APP10",
+    "pct": 10
+  },
+  "copy": {
+    "about": "Over the years, we’ve been lucky to see artists, actors, athletes and tastemakers make Percival their everyday uniform. It's not just for the cameras or the red carpet; it’s for the pub, the morning coffee and the Sunday stroll too. After all, a garment is only finished once it’s lived in.",
+    "emptyBag": "Nothing in here yet. Start with Made in England or AW26 Drop 3.",
+    "heroNotif": "Made in England: our strongest collection to date."
+  },
+  "_drop": "No release date is announced: the Drops tab demos app early access with the AW26 Ford x Percival collaboration. Previous: Autumn Winter '26 (AW26 Drop 3 banner). Date/time is the template's rolling placeholder.",
+  "drop": {
+    "num": "01",
+    "name": "FORD X PERCIVAL",
+    "title": "Ford x Percival",
+    "col": "aw26-percival-x-ford",
+    "image": "assets/brand/ford.jpg",
+    "products": [
+      "gt40-embroidered-canvas-jacket-ford-x-percival-navy",
+      "miles-garage-embroidered-shirt-ford-x-percival-beige",
+      "gardner-knitted-zip-cardigan-ford-x-percival-blue",
+      "le-mans-oversized-t-shirt-ford-x-percival-white",
+      "triple-triumph-long-sleeve-t-shirt-percival-x-ford-white",
+      "cord-embroidered-soft-trucker-cap-ford-x-percival-red"
+    ],
+    "previous": {
+      "col": "autumn-winter",
+      "title": "AUTUMN WINTER '26"
+    }
+  },
+  "report": {
+    "missing": [
+      "The homepage hero is an image slideshow; the hero here is the site's own Made in England film from further down the homepage",
+      "No contact or sustainability page found",
+      "The site's 10% sign-up code is emailed, not published: APP10 is a placeholder app code",
+      "No release date is announced: the Drops tab demos early access with Ford x Percival; drop date/time is the rolling placeholder",
+      "The Membership balance and card in the app are illustrative"
+    ]
+  }
+}
