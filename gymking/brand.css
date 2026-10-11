@@ -1,0 +1,103 @@
+/* GYM KING: brand layer loaded after the shared app.css (copied to assets/brand.css by tools/build_brand.py).
+   Matches thegymking.com: white page, #1f1e1f type, warm off-white #f6f5f3 panels, the theme's condensed face for uppercase
+   display headings ("HERITAGE COLLECTION", "MEN'S NEW", category tiles), its 'regular' grotesk for UI and product names
+   (sentence-case names, grey colour line, bold prices), white near-square buttons over imagery (2px radius, 12px bold
+   uppercase, 0.9px tracking), widely spaced uppercase sub-titles ("GYM KING REIMAGINED") and the spaced GYMKING wordmark.
+   Fonts hotlinked from the site's own Shopify CDN (renamed GK Regular / GK Condensed here). */
+
+@font-face{font-family:'GK Regular';src:url('https://thegymking.com/cdn/shop/t/410/assets/font-regular.woff2?v=107035815880976640031789480142') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'GK Regular';src:url('https://thegymking.com/cdn/shop/t/410/assets/font-regular-bold.woff2?v=123927478956395258291789480139') format('woff2');font-weight:500 900;font-style:normal;font-display:swap}
+@font-face{font-family:'GK Condensed';src:url('https://thegymking.com/cdn/shop/t/410/assets/font-condensed.woff2?v=9885340758385570651789480146') format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
+
+/* the condensed stack names GK Regular too so the layout check's brand-font rule still recognises it */
+:root{font-family:'GK Regular',Helvetica,Arial,sans-serif;--gk-cond:'GK Condensed','GK Regular','Bebas Neue',sans-serif;--deep-band:light}
+
+/* ---- warm neutrals ---- */
+body{background:radial-gradient(1200px 700px at 70% 30%,#ffffff 0%,#f6f5f3 55%,#ebe9e5 100%)}
+.pcard .pimg,.cat-tile,.cat-row img,.bag-item img{background:#f6f5f3}
+.seg{background:#f1efec}
+.seg button{color:#555}
+.chip,.qty,.sfield{border-color:#dcdad6}
+.switch{background:#cfcdc9}
+.link-row{border-top-color:#ecebe8}
+.pitch-copy{color:#444}
+.drop-banner{border-color:#e6e5e3}
+.br-url{background:#f1efec}
+.summary,.acct-card,.size-filter,.pref-group{border:1px solid #e6e5e3}
+
+/* ---- type: condensed uppercase display, regular grotesk UI ---- */
+.hero-title{font-family:var(--gk-cond);font-size:46px;font-weight:400;letter-spacing:.06em;line-height:.98;text-transform:uppercase;margin-bottom:16px}
+.editorial .hero-title{font-size:40px;text-transform:uppercase}
+.eyebrow{font-size:11.5px;font-weight:400;letter-spacing:.3em;text-transform:uppercase;opacity:1}
+.sec-head h2{font-family:var(--gk-cond);font-size:27px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;line-height:1}
+.sec-head p{font-size:12px;color:#6b6b6b}
+.large-title{font-family:var(--gk-cond);font-size:34px;font-weight:400;letter-spacing:.05em;text-transform:uppercase;line-height:1}
+.large-title small{font-family:'GK Regular',Helvetica,Arial,sans-serif;font-weight:400;letter-spacing:.12em;color:#6b6b6b}
+.tb-title{font-family:var(--gk-cond);font-weight:400;letter-spacing:.07em;text-transform:uppercase;font-size:21px}
+.feature-card b{font-family:var(--gk-cond);font-weight:400;letter-spacing:.06em;font-size:32px;text-transform:uppercase;line-height:1}
+.dc-title{font-family:var(--gk-cond);font-weight:400;letter-spacing:.05em;text-transform:uppercase}
+.dc-title span{font-weight:400}
+.cat-tile span{font-family:var(--gk-cond);font-weight:400;font-size:21px;letter-spacing:.05em;text-transform:uppercase}
+.cat-row b{font-family:var(--gk-cond);font-weight:400;letter-spacing:.05em;text-transform:uppercase;font-size:20px}
+.empty h3{font-family:var(--gk-cond);font-weight:400;letter-spacing:.05em;text-transform:uppercase;font-size:26px}
+.pdp-info h1{font-family:'GK Regular',Helvetica,Arial,sans-serif;font-weight:400;font-size:21px;letter-spacing:0;line-height:1.25;text-transform:none}
+.pdp-info .ptype{font-weight:400;letter-spacing:.14em;color:#6b6b6b}
+.pdp-info .price{font-weight:700}
+.wl-body h2,.auth h2{font-family:var(--gk-cond);font-weight:400;letter-spacing:.05em;text-transform:uppercase;font-size:30px}
+.pitch-title{font-family:var(--gk-cond);font-weight:400;letter-spacing:.04em;text-transform:uppercase;line-height:1}
+.pitch-kicker{letter-spacing:.24em}
+.pitch-list{letter-spacing:.06em;font-weight:700}
+.label-row b{font-weight:700;letter-spacing:.07em;text-transform:uppercase}
+.stat-num{font-family:var(--gk-cond);font-weight:400;letter-spacing:.03em}
+.stat-label{letter-spacing:.1em}
+
+/* ---- buttons: near-square, 12px bold uppercase, 0.9px tracking; white over imagery like 'SHOP WOMENS' ---- */
+.btn{border-radius:2px;font-size:12px;font-weight:700;letter-spacing:.9px;text-transform:uppercase;height:44px;padding:0 24px}
+.btn-dark{background:#1f1e1f;color:#fff}
+.btn-outline{border-radius:2px;border-color:#1f1e1f}
+.link{font-weight:700;letter-spacing:.9px;text-transform:uppercase;font-size:11.5px;text-decoration:underline;text-underline-offset:4px}
+.hero .btn-light,.editorial .btn-light,.feature-card .btn-light,.drop-card .btn-light{background:#fff;color:#1f1e1f;border:1px solid #fff}
+@media (hover:hover){.btn-dark:hover{background:#000}.hero .btn-light:hover,.editorial .btn-light:hover,.feature-card .btn-light:hover,.drop-card .btn-light:hover{background:#f6f5f3}}
+.feature-card .btn-sm{height:38px;padding:0 20px;font-size:11.5px;border-radius:2px}
+.buybar .btn-dark{background:#1f1e1f;color:#fff}
+
+/* ---- near-square controls ---- */
+.seg,.seg button,.seg .seg-ind,.chip,.sfield,.promo-cta,.wl-code,.toast,.dc-tag,.g-badge{border-radius:2px}
+.size{border-radius:2px;border-color:#dcdad6}
+
+/* ---- product cards: sentence-case regular names, grey colour line, bold prices; dark labels ---- */
+.pcard .pmeta{text-align:left;padding:10px 2px 4px}
+.pcard .pname{font-size:14px;font-weight:400;letter-spacing:0;text-transform:none}
+.pcard .pcol{font-size:12px;color:#6b6b6b;line-height:1.35}
+.pcard .price{font-weight:700;font-size:14px}
+.pcard .tag{background:#1f1e1f;color:#fff;border-radius:2px;padding:4px 7px;letter-spacing:.08em;font-weight:700;text-transform:uppercase;font-size:10px}
+.pcard .tag.sale{background:#c0182b;color:#fff}
+
+/* ---- the spaced GYMKING wordmark (628x60) ---- */
+.home-head .tb-logo{height:17px;max-width:none}
+.tb-logo{height:15px;max-width:none}
+.splash{background:#1f1e1f}
+.splash-logo{width:210px}
+.wl-logo{height:22px;max-width:none}
+.auth-logo{height:20px}
+.about img{width:180px}
+.acct-foot img{height:15px}
+.rcard .rc-top img{height:13px}
+.pitch-logo{width:clamp(170px,24vh,220px);max-height:none}
+
+/* Home band past the hero: white with dark icons and the black wordmark, like the site's header */
+.home-head.deep .home-band{background:rgba(255,255,255,.97);color:#1f1e1f;box-shadow:0 1px 0 #e6e5e3}
+.home-head.deep .tb-logo{filter:none}
+.home-head.deep .icon-btn .hb-count{background:#1f1e1f;color:#fff}
+
+/* ---- Loyalty Club card: near-black ---- */
+.rewards-mini,.rcard{background:linear-gradient(135deg,#141314 0%,#1f1e1f 60%,#2e2c2e 100%);border-radius:4px}
+.rewards-mini::before,.rcard::before{background:radial-gradient(circle,rgba(255,255,255,.12),transparent 70%)}
+.rm-bar i,.rcard .tbar i{background:#fff}
+.stat{border-radius:4px}
+.sec-head .link{white-space:nowrap;flex-shrink:0}
+
+/* the grotesk's 'normal' line height is tall: keep the demo sheet rows to the template's height */
+.sheet h3,.demo-btn b,.demo-btn small{line-height:1.2}
+/* sold-out strike kept inside the button (the shared -10% overhang trips the clipped-text check at the 1920 scale) */
+.size.out::after{left:4%;right:4%}

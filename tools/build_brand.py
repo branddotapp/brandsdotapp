@@ -627,7 +627,7 @@ def homepage_videos(soup, base):
 # ---------------------------------------------------------------- scrape
 GENERIC_WORDS = r'\b(clothing|clothes|clo|apparel|official|store|shop|online|ltd|limited|uk|co|company|menswear|womenswear|london)\b'
 
-def scrape(url, slug, out_dir, do_render=True, max_products=400, extra_cols=()):
+def scrape(url, slug, out_dir, do_render=True, max_products=400, extra_cols=(), skip_cols=()):
     base = url.rstrip('/')
     if not re.match(r'^https?://', base): base = 'https://' + base
     st, hdrs, home = fetch(base + '/')
@@ -665,6 +665,7 @@ def scrape(url, slug, out_dir, do_render=True, max_products=400, extra_cols=()):
         colmeta = {c['handle']: c for c in all_cols}
         total = len(raw) or 1
         for h, txt in nav:
+            if h in skip_cols: continue   # brand.overrides.json -> scrape.skipCollections
             cm = colmeta.get(h, {})
             if cm.get('products_count', 1) == 0: continue
             if cm.get('products_count', 0) > 0.8 * total and len(nav) > 4: continue   # skip "all products" style links
@@ -982,6 +983,17 @@ def split_colours(B):
         if c: p['n'], p['c'] = t[:-len(c)].strip().rstrip('|-–—,').strip(), c; n += 1   # 'Name | Colour' / 'Name - Colour' too
     log('· Colours split from product titles (scrape.colours): %d products' % n)
 
+def strip_name_prefix(B):
+    """Stores that start every product title with the brand ("Gym King Heritage Full Zip Hood") but show the short name on
+    their product cards: brand.overrides.json -> scrape.namePrefix is removed from the start of each product name."""
+    pre = ((B.get('scrape') or {}).get('namePrefix') or '').strip()
+    if not pre: return
+    n = 0
+    for p in (B.get('products') or {}).values():
+        nm = p.get('n') or ''
+        if nm.lower().startswith(pre.lower() + ' ') and len(nm) > len(pre) + 1: p['n'] = nm[len(pre):].strip(); n += 1
+    log('· Brand prefix "%s" removed from %d product names (scrape.namePrefix)' % (pre, n))
+
 # ---------------------------------------------------------------- write the app
 def deep_merge(a, b):
     """b wins. dicts merge recursively; lists and scalars are replaced. Keys starting with '_' are comments."""
@@ -1069,8 +1081,9 @@ def main():
         os.makedirs(out, exist_ok=True)
         log('Scraping %s → %s/' % (a.url, os.path.relpath(out, a.root)))
         ovp = os.path.join(out, 'brand.overrides.json')
-        extra = (json.load(open(ovp)).get('scrape', {}) if os.path.exists(ovp) else {}).get('extraCollections', [])
-        B = scrape(a.url, a.slug, out, do_render=not a.no_render, max_products=a.max_products, extra_cols=extra)
+        sc = json.load(open(ovp)).get('scrape', {}) if os.path.exists(ovp) else {}
+        B = scrape(a.url, a.slug, out, do_render=not a.no_render, max_products=a.max_products,
+                   extra_cols=sc.get('extraCollections', []), skip_cols=sc.get('skipCollections', []))
     ov = os.path.join(out, 'brand.overrides.json')
     if os.path.exists(ov):
         B = deep_merge(B, json.load(open(ov)))
@@ -1079,6 +1092,7 @@ def main():
             if c['h'] in (B.get('collectionTitles') or {}): c['t'] = B['collectionTitles'][c['h']]
         log('· Applied overrides from %s' % os.path.relpath(ov, a.root))
     split_colours(B)
+    strip_name_prefix(B)
     check_instagram(B, out)
     json.dump(B, open(os.path.join(out, 'brand.json'), 'w'), ensure_ascii=False, indent=1)
     write_app(B, out)

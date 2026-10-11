@@ -1,0 +1,398 @@
+{
+  "_note": "Hand-tuned layer on top of the scraped brand.json (thegymking.com, Shopify). Run: python3 tools/build_brand.py --rebuild gymking. No homepage video. Hand-picked images in assets/brand/ are crops of the site's own imagery: hero = the homepage Heritage Collection mobile hero, drop = the Heritage desktop hero, the Women's New In menu image, the Men's Signature and Women's homepage banners, and the Outerwear menu image. Logos are the site's header SVG wordmark (the generator picked a product photo).",
+  "scrape": {
+    "_extraCollections": "The static nav parse only reached the men's menu; these are the Heritage launch, best sellers and the main women's collections from the rendered menu/homepage.",
+    "extraCollections": [
+      "heritage-collection",
+      "mens-bestsellers",
+      "womens-new",
+      "bestsellers-womens",
+      "womens-gym-clothes",
+      "all-womens-leggings",
+      "womens-sweatshirts-hoodies",
+      "womens-coats-jackets",
+      "all-womens-shorts",
+      "womens-borg-fleece-collection",
+      "womens-1-4-zip-tops",
+      "womens-365-collection"
+    ],
+    "_namePrefix": "Every product title starts with 'Gym King'; the site's product cards show the short name ('Heritage Full Zip Hood').",
+    "namePrefix": "Gym King",
+    "_skipCollections": "Left out so the 900-product cap covers men's and women's categories: the sale lists (362 + 78 styles), the all-women list, and menu edits that overlap the main categories.",
+    "skipCollections": [
+      "gym-king-mens-sale",
+      "mens-airport-outfits",
+      "mens-essentials",
+      "mens-gym-layers",
+      "long-sleeve-tops",
+      "mens-accessories",
+      "mens-tracksuits",
+      "mens-running-collection",
+      "womens",
+      "gym-king-womens-sale",
+      "womens-petite-clothing",
+      "yoga-pants"
+    ]
+  },
+  "name": "Gym King",
+  "short": "GYM KING",
+  "assets": {
+    "logoDark": "assets/brand/logo-black.png",
+    "logoLight": "assets/brand/logo-white.png",
+    "favicon": "assets/img/favicon.png"
+  },
+  "_theme": "thegymking.com: white page, #1f1e1f type, warm off-white #f6f5f3 announcement bar and tiles, condensed uppercase display headings ('HERITAGE COLLECTION', 'MEN'S NEW', category tiles) in the theme's 'condensed' face, the theme's 'regular' grotesk for UI and product names (16px regular names, grey 12px colour line, bold prices), white near-square buttons over imagery (2px radius, 12px bold uppercase, 0.9px tracking, arrow), spaced uppercase sub-titles ('GYM KING REIMAGINED'). Fonts hotlinked from the site's Shopify CDN in brand.css.",
+  "theme": {
+    "ink": "#000000",
+    "bg": "#ffffff",
+    "bgRgb": "255,255,255",
+    "text": "#1f1e1f",
+    "muted": "#6b6b6b",
+    "line": "#e6e5e3",
+    "stone": "#6b6b6b",
+    "sand": "#f6f5f3",
+    "sand2": "#f6f5f3",
+    "sale": "#c0182b",
+    "stageA": "#ffffff",
+    "stageB": "#f6f5f3",
+    "stageC": "#ebe9e5",
+    "font": "GK Regular",
+    "fontHref": null
+  },
+  "pitch": {
+    "title": "Nothing beats belief,<br>one tap away.",
+    "copy": "A concept for the Gym King app: launches like the Heritage Collection with app-only early access, your saved size across men's and women's, Loyalty Club in your pocket, and Shopify checkout with Apple Pay, Klarna and Clearpay. Tap around, everything works.",
+    "list": [
+      "Launches with app-only early access",
+      "Saved size and back-in-size alerts",
+      "Loyalty Club and Shopify checkout in one place"
+    ]
+  },
+  "home": {
+    "newCol": "mens-new",
+    "newSub": "The latest drops for men",
+    "bestCol": "mens-bestsellers",
+    "bestSub": "The Gym King pieces on repeat",
+    "hero": {
+      "poster": "assets/brand/hero.jpg",
+      "eyebrow": "Gym King Reimagined",
+      "title": "Heritage Collection",
+      "cta": "Shop Heritage",
+      "col": "heritage-collection"
+    },
+    "tiles": [
+      [
+        "all-mens-t-shirts",
+        "T-Shirts"
+      ],
+      [
+        "twin-sets",
+        "Twin Sets"
+      ],
+      [
+        "mens-gym-clothes",
+        "Gymwear"
+      ],
+      [
+        "all-mens-shorts",
+        "Shorts"
+      ],
+      [
+        "all-womens-leggings",
+        "Leggings"
+      ],
+      [
+        "womens-sweatshirts-hoodies",
+        "Women's Hoodies"
+      ]
+    ],
+    "editorial": {
+      "col": "womens-new",
+      "img": "assets/brand/womens.jpg",
+      "eyebrow": "Womens",
+      "title": "Women's New In"
+    },
+    "feature": {
+      "col": "mens-signature-collection",
+      "img": "assets/brand/signature-wide.jpg",
+      "title": "Signature",
+      "cta": "Shop now"
+    }
+  },
+  "collectionTitles": {
+    "gym-king-mens-sale": "Men's Sale",
+    "mens-new": "Men's New In",
+    "womens-new": "Women's New In",
+    "mens-bestsellers": "Men's Best Sellers",
+    "bestsellers-womens": "Women's Best Sellers",
+    "heritage-collection": "Heritage Collection",
+    "womens-gym-clothes": "Women's Gymwear",
+    "all-womens-leggings": "Leggings",
+    "womens-sweatshirts-hoodies": "Women's Sweatshirts & Hoodies",
+    "womens-coats-jackets": "Women's Coats & Jackets",
+    "all-womens-shorts": "Women's Shorts",
+    "womens-borg-fleece-collection": "Borg Fleece Collection",
+    "mens-signature-collection": "Signature",
+    "womens-1-4-zip-tops": "Women's 1/4 Zips",
+    "womens-365-collection": "365 Collection"
+  },
+  "shop": {
+    "kicker": "GYM KING",
+    "featureCats": {
+      "col": "mens-jackets-coats",
+      "title": "Jackets & Coats",
+      "cta": "Shop now",
+      "idx": 0,
+      "img": "assets/brand/outerwear-wide.jpg"
+    },
+    "featureEdits": {
+      "col": "bestsellers-womens",
+      "title": "Women's Best Sellers",
+      "cta": "Shop now",
+      "idx": 0,
+      "img": "assets/brand/womens-wide.jpg"
+    },
+    "cats": [
+      "all-mens-t-shirts",
+      "mens-sweatshirts-hoodies",
+      "mens-tracksuit-tops",
+      "mens-tracksuit-bottoms",
+      "all-mens-shorts",
+      "mens-muscle-fit-tops",
+      "mens-vests",
+      "mens-jackets-coats",
+      "mens-shirts-and-polo-shirts",
+      "mens-trousers",
+      "mens-gym-clothes",
+      "all-womens-leggings",
+      "womens-sweatshirts-hoodies",
+      "womens-1-4-zip-tops",
+      "womens-coats-jackets",
+      "all-womens-shorts",
+      "womens-gym-clothes"
+    ],
+    "edits": [
+      "heritage-collection",
+      "mens-new",
+      "womens-new",
+      "mens-bestsellers",
+      "bestsellers-womens",
+      "fight-division-collection",
+      "womens-borg-fleece-collection",
+      "twin-sets",
+      "mens-signature-collection",
+      "womens-365-collection"
+    ]
+  },
+  "search": {
+    "trending": [
+      "Heritage",
+      "Tracksuit",
+      "Twin set",
+      "Pro Logo",
+      "Fight Division",
+      "Leggings",
+      "Borg",
+      "Shorts"
+    ],
+    "popular": [
+      "heritage-collection",
+      "mens-new",
+      "womens-new",
+      "twin-sets"
+    ]
+  },
+  "perks": [
+    "Free UK standard delivery on orders over £75",
+    "20% off your first order",
+    "Sign up to Loyalty Club today",
+    "Free express UK delivery over £125",
+    "30-day returns",
+    "Pay later with Klarna or Clearpay"
+  ],
+  "pdpPerks": [
+    "Free UK standard delivery over £75",
+    "Free express delivery over £125",
+    "30-day returns"
+  ],
+  "payments": [
+    "apple_pay",
+    "google_pay",
+    "paypal",
+    "klarna",
+    "clearpay",
+    "visa",
+    "master",
+    "american_express"
+  ],
+  "_shipping": "From thegymking.com/pages/help-centre-delivery-and-orders (UK, checked 11 Oct 2026): Standard Royal Mail 3-5 days £3.99 (free over £75); InPost locker £3.99 (free over £75); Express DPD 1-2 working days £5.99 (free over £125); Saturday DPD £8.99. (Unlimited UK Delivery £10/year not modelled.)",
+  "shipping": {
+    "region": "UK",
+    "freeOver": 75,
+    "options": [
+      {
+        "id": "standard",
+        "name": "Standard UK Delivery (Royal Mail)",
+        "desc": "3–5 days, free over £75",
+        "price": 3.99,
+        "freeOver": 75,
+        "short": "Standard"
+      },
+      {
+        "id": "inpost",
+        "name": "Click & Collect (InPost locker)",
+        "desc": "3–5 days, free over £75",
+        "price": 3.99,
+        "freeOver": 75,
+        "short": "InPost"
+      },
+      {
+        "id": "express",
+        "name": "Express UK Delivery (DPD)",
+        "desc": "1–2 working days, free over £125",
+        "price": 5.99,
+        "freeOver": 125,
+        "short": "Express"
+      },
+      {
+        "id": "saturday",
+        "name": "Saturday UK Delivery (DPD)",
+        "desc": "Order Mon–Thu, or before 7pm Friday",
+        "price": 8.99,
+        "short": "Saturday"
+      }
+    ],
+    "notes": [
+      "Free UK standard delivery on orders over £75; free express over £125.",
+      "DPD deliveries use a secure PIN sent by email and text."
+    ]
+  },
+  "returns": {
+    "summary": "Return within 30 days of delivery, unworn with tags attached, through our returns portal (InPost locker, Post Office or DPD drop-off). A fixed £3.49 charge per order applies; items are refunded, as we don't offer exchanges. Final Sale items and underwear are non-returnable.",
+    "short": "30-day returns"
+  },
+  "_rewards": "Gym King runs a real Loyalty Club (thegymking.com/pages/rewards, Yotpo; 'Sign up to Loyalty Club today' in the announcement bar). Earn rates aren't published in the page HTML, so none are quoted; the app's points balance is illustrative.",
+  "rewards": {
+    "enabled": true,
+    "name": "Gym King Loyalty Club",
+    "real": true,
+    "stockists": false
+  },
+  "_discount": "The announcement bar offers 20% off your first order (sign-up). The app pop-up mirrors 20% with the placeholder code APP20.",
+  "discount": {
+    "code": "APP20",
+    "pct": 20
+  },
+  "copy": {
+    "about": "Gym King is premium gym clothing, loungewear and activewear designed for both performance and lifestyle, from tracksuits, fleece and borg layers to high-performance gym wear. Rooted in resilience, ambition and community: more than just workout clothing, it's a mindset.",
+    "emptyBag": "Nothing in here yet. Start with the Heritage Collection or a Twin Set.",
+    "heroNotif": "Heritage Collection: Gym King reimagined, now live."
+  },
+  "_drop": "No release date is announced, so the Drops tab demos app early access with the newest collection on the site, the Heritage Collection (homepage hero; products published 14–25 Sep 2026). Previous: Borg Fleece Collection. Date/time is the template's rolling placeholder.",
+  "drop": {
+    "num": "01",
+    "name": "HERITAGE COLLECTION",
+    "title": "Heritage",
+    "col": "heritage-collection",
+    "image": "assets/brand/heritage-drop.jpg",
+    "products": [
+      "gym-king-heritage-1-4-zip-funnel-emerald",
+      "gym-king-heritage-rugby-sweatshirt-emerald-cream",
+      "gym-king-heritage-track-jacket-black",
+      "gym-king-heritage-track-pants-black",
+      "gym-king-heritage-woven-placket-borg-claret",
+      "gym-king-heritage-track-jacket-indigo"
+    ],
+    "previous": {
+      "col": "womens-borg-fleece-collection",
+      "title": "BORG FLEECE COLLECTION"
+    }
+  },
+  "report": {
+    "missing": [
+      "No homepage video: the hero is the site's Heritage Collection campaign image",
+      "Loyalty Club is real but its earn rates aren't published in the page, so none are shown; the points balance is illustrative",
+      "The site's 20% sign-up code is emailed, not published: APP20 is a placeholder app code",
+      "Kidswear is not included (men's and women's only)",
+      "No release date is announced: the Drops tab demos early access with the Heritage Collection; drop date/time is the rolling placeholder",
+      "The Sale lists (men's 362, women's 78 styles) and a few overlapping menu edits are left out to keep the app catalogue at about 1,050 products across men's and women's"
+    ]
+  },
+  "_instagram": "Collected in a browser from the brand's Instagram profile on 2026-10-11 (pinned posts excluded; profile/collaborator-path URLs normalised to /p/<code>/ or /reel/<code>/). Thumbnails: assets/ig/N.jpg, square-cropped, max 600px.",
+  "instagram": {
+    "handle": "gymking",
+    "url": "https://www.instagram.com/gymking/",
+    "followers": "339K",
+    "bio": "Nothing Beats Belief™",
+    "collected": "2026-10-11",
+    "posts": [
+      {
+        "url": "https://www.instagram.com/p/DeTtlfRl09R/",
+        "type": "carousel",
+        "image": "assets/ig/1.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeRHTkAqyRB/",
+        "type": "photo",
+        "image": "assets/ig/2.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DeOj-NSDwH2/",
+        "type": "reel",
+        "image": "assets/ig/3.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DeL_M0RlNfv/",
+        "type": "reel",
+        "image": "assets/ig/4.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeKRW_pCvrc/",
+        "type": "carousel",
+        "image": "assets/ig/5.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeHskwvDPUr/",
+        "type": "carousel",
+        "image": "assets/ig/6.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeCkdlsCiyB/",
+        "type": "carousel",
+        "image": "assets/ig/7.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/Dd_-MYKDGD7/",
+        "type": "carousel",
+        "image": "assets/ig/8.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/Dd67e2hAJAT/",
+        "type": "reel",
+        "image": "assets/ig/9.jpg"
+      }
+    ]
+  },
+  "_frameable": "thegymking.com allows framing, but inside the in-app browser its own scripts (Grafana Faro, Bing, Shop Pay) throw blocked/402 errors; the in-app browser shows the page summary + 'Open on site' instead, as for brands that can't be framed.",
+  "frameable": false,
+  "_pages": "The FAQs page is only a list of category links (no answers in the HTML), so Help keeps Shipping, Returns and Contact.",
+  "pages": {
+    "help": [
+      {
+        "t": "Shipping",
+        "url": "https://thegymking.com/pages/help-centre-delivery-and-orders",
+        "sum": "What services do you offer?\nDelivery Information\nService\nPrice\nTransit Time\nCarrier\nNotes\nUnlimited UK Delivery\n£10 per year\n3-5 days\nRoyal Mail\nUnlimited Standard UK delivery with no minimum order value for 12 months.\nStandard UK Delivery\n£3.99\nFree on orders over £75\nClick and Collect UK Locker Delivery\nInPost\nExpress UK Delivery\n£5.99\n1-2 working days\nDPD: PIN number, Secure Delivery Method.\nFree on orders over £125\nSaturday UK Delivery\n£8.99\nSaturday Delivery\nPIN number, Secure Delivery Method. Order Monday to Thursday, or before 7pm Friday to receive on the nearest Saturday.\nWorldwide Standard Shipping from £5\n(in local currency)\nFrom 5 days+\n(varies per country)\nVaries per Country\nWorldwide Express Shipping from £10\nFrom 3 days+\nDHL: Our DPD deliveries are on a secure PIN delivery service:\nWhen the driver comes to deliver your order you will be asked for a PIN number. This number is unique to each individual order, and is only sent to the person that placed the order. Your PIN number will be sent to you via email and text message by DPD when your order is marked as out for delivery."
+      },
+      {
+        "t": "Returns",
+        "url": "https://thegymking.com/pages/help-centre-returns",
+        "sum": "Help Centre - Returns\nStart a UK Return\nStart an International Return\nStart a Marketplace Return\nWhat is your returns policy?\nItems should be returned within 30 days of delivery, in original saleable condition, unworn, unwashed, with all tags still attached and in original packaging. All items are inspected on return, returns that are refused will be posted back to you.\nThere is a fixed charge of £3.49 per order payable when you create your return in the return portal.\nPlease keep your proof of return to allow you/ us to track your parcel and investigate any returns that go missing, without the tracking we are unable to investigate.\nFor international orders please see the International Returns section below.\nAbuse of our Returns Policy (including repeated refunds, free wardrobing and chargeback fraud) will NOT be accepted. Gym King reserves the right to make the final decision on returns and refunds and reserve the right to close a customer account if we deem it necessary."
+      },
+      {
+        "t": "Contact",
+        "url": "https://thegymking.com/pages/contact-us",
+        "sum": "Our customer service team is available Monday to Friday 9am to 5pm (excluding UK national holidays). email us at customerservice@gymking.com\nFor international orders, please contact our global sales partner via the\nGlobal-e Service Portal\nHead Office\nThe Gym King\nUnit 6, Temple Point\nBullerthorpe Lane\nColton, LEEDS\nLS15 9JL: For fast answers read our FAQ's or visit our support centre\nFAQ's\nSupport Center\nLooking for information on your latest order?\nDPD\nDHL: Royal Mail\nInternational Parcels"
+      }
+    ]
+  }
+}
