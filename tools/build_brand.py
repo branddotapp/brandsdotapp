@@ -975,10 +975,15 @@ def split_colours(B):
     name + colour (longest match first), so colour siblings share a name and show as swatches on the product page."""
     names = sorted((B.get('scrape') or {}).get('colours') or [], key=len, reverse=True)
     if not names: return
+    start = ((B.get('scrape') or {}).get('colourPosition') or 'end') == 'start'
     n = 0
     for p in (B.get('products') or {}).values():
         if p.get('c') and p.get('n') != p.get('t'): continue   # already split (' - Colour'); a Colour option alone leaves the title whole
         t = p.get('t') or p.get('n') or ''
+        if start:   # scrape.colourPosition = "start": 'Black Supernova Graphic T-Shirt'
+            c = next((c for c in names if t.lower().startswith(c.lower() + ' ')), None)
+            if c: p['n'], p['c'] = t[len(c):].strip().lstrip('|-–—,').strip(), c; n += 1
+            continue
         c = next((c for c in names if t.lower().endswith(' ' + c.lower())), None)
         if c: p['n'], p['c'] = t[:-len(c)].strip().rstrip('|-–—,').strip(), c; n += 1   # 'Name | Colour' / 'Name - Colour' too
     log('· Colours split from product titles (scrape.colours): %d products' % n)

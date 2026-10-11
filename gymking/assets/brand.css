@@ -101,3 +101,7 @@ body{background:radial-gradient(1200px 700px at 70% 30%,#ffffff 0%,#f6f5f3 55%,#
 .sheet h3,.demo-btn b,.demo-btn small{line-height:1.2}
 /* sold-out strike kept inside the button (the shared -10% overhang trips the clipped-text check at the 1920 scale) */
 .size.out::after{left:4%;right:4%}
+
+/* the Heritage hero has a sunlit white wall at the top: a stronger (plain gradient, no blur) top scrim keeps the white
+   icons and wordmark readable; the bottom stays as the template's for the copy */
+.hero::after{background:linear-gradient(180deg,rgba(0,0,0,.5) 0%,rgba(0,0,0,.28) 12%,rgba(0,0,0,0) 30%,rgba(0,0,0,0) 48%,rgba(0,0,0,.58) 100%)}
