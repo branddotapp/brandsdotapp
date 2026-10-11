@@ -1,0 +1,364 @@
+{
+  "_note": "Hand-tuned layer on top of the scraped brand.json (nicceclothing.com, Shopify). Run: python3 tools/build_brand.py --rebuild nicce. Hand-picked images in assets/brand/ are crops of the site's own homepage banners (the NEW SEASON SETS slide, the Shop Hoodies / T-Shirts / Tracksuits category tiles) and a Mercury Collection product lifestyle shot. Logos are the NICCE header wordmark.",
+  "scrape": {
+    "_colours": "Titles are 'NICCE Name | Colour'; these are the colour segments used on the site.",
+    "colours": [
+      "Future Grey / Black",
+      "Circular Grey",
+      "Ice Grey Marl",
+      "Juniper Green",
+      "Element Blue",
+      "Washed Black",
+      "Allure Blue",
+      "Cobalt Blue",
+      "Future Grey",
+      "Indigo Wash",
+      "Skyway Blue",
+      "Black/Coal",
+      "Chalk Grey",
+      "Grey Stone",
+      "Light Blue",
+      "Royal Blue",
+      "Snow White",
+      "Steel Blue",
+      "Steel Grey",
+      "Taupe Zeal",
+      "Blue Aura",
+      "Grey Marl",
+      "Off White",
+      "Sandshell",
+      "Assorted",
+      "Burgundy",
+      "Graphite",
+      "Jet Grey",
+      "Asphalt",
+      "Purple",
+      "BLACK",
+      "Black",
+      "Brown",
+      "Green",
+      "Khaki",
+      "Lilac",
+      "Multi",
+      "Stone",
+      "Taupe",
+      "WHITE",
+      "White",
+      "Blue",
+      "Camo",
+      "Coal",
+      "Gold",
+      "Grey",
+      "Mink",
+      "Mint",
+      "Navy",
+      "Pink",
+      "Sage",
+      "Ash",
+      "Fig",
+      "Red"
+    ]
+  },
+  "_instagram": "Collected in a browser from the brand's Instagram profile on 2026-10-11 (pinned posts excluded; collaborator-path URLs normalised to /p/<code>/). Thumbnails: assets/ig/N.jpg, square-cropped, max 600px.",
+  "instagram": {
+    "handle": "nicce",
+    "url": "https://www.instagram.com/nicce/",
+    "followers": "129K",
+    "bio": "it’s pronounced NICCE 👀",
+    "collected": "2026-10-11",
+    "posts": [
+      {
+        "url": "https://www.instagram.com/reel/DeSGmVYDXXU/",
+        "type": "reel",
+        "image": "assets/ig/1.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeMvRyiDOOA/",
+        "type": "photo",
+        "image": "assets/ig/2.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeBr_0LDXfX/",
+        "type": "photo",
+        "image": "assets/ig/3.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/Dd69O6GD2wG/",
+        "type": "photo",
+        "image": "assets/ig/4.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DdzGM6ejbhu/",
+        "type": "reel",
+        "image": "assets/ig/5.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DduKVmVjDvK/",
+        "type": "photo",
+        "image": "assets/ig/6.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/Ddo5fXCDnB-/",
+        "type": "photo",
+        "image": "assets/ig/7.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DdhLkqDgWH7/",
+        "type": "reel",
+        "image": "assets/ig/8.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DdcIu1FDx5G/",
+        "type": "photo",
+        "image": "assets/ig/9.jpg"
+      }
+    ]
+  },
+  "name": "NICCE",
+  "short": "NICCE",
+  "assets": {
+    "logoDark": "assets/brand/logo-black.png",
+    "logoLight": "assets/brand/logo-white.png",
+    "favicon": "assets/img/favicon.png"
+  },
+  "_theme": "nicceclothing.com: white page, near-black type, dark grey announcement bar, Epilogue (Google Fonts) throughout with bold uppercase section titles ('LATEST ARRIVALS'), white 'Shop Now' buttons with a black border and 10px radius over imagery, black filled pills for the sign-up tab, product titles 14px semibold, black promo tags ('25% off: Code NEW25'), sale red #f2220a (the SALE nav link and 'UP TO 70% OFF').",
+  "theme": {
+    "ink": "#000000",
+    "bg": "#ffffff",
+    "bgRgb": "255,255,255",
+    "text": "#111111",
+    "muted": "#696969",
+    "line": "#e3e3e3",
+    "stone": "#777777",
+    "sand": "#ececec",
+    "sand2": "#f5f5f5",
+    "sale": "#d81e05",
+    "stageA": "#ffffff",
+    "stageB": "#f1f1f1",
+    "stageC": "#e4e4e4",
+    "font": "Epilogue",
+    "fontHref": "https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700;800&display=swap"
+  },
+  "pitch": {
+    "title": "It's pronounced<br>NICCE.",
+    "copy": "A concept for the NICCE app: new season sets and the Mercury Collection in one place, app-only early access on drops, your saved size and Shopify checkout with Apple Pay and Klarna. Tap around, everything works.",
+    "list": [
+      "Drops with app-only early access",
+      "Saved size and back-in-size alerts",
+      "Shopify checkout with Apple Pay and Klarna"
+    ]
+  },
+  "home": {
+    "newCol": "new-arrivals",
+    "newSub": "Discover all our new styles",
+    "bestCol": "exclusives",
+    "bestSub": "Only at NICCE",
+    "hero": {
+      "poster": "assets/brand/hero.jpg",
+      "eyebrow": "Autumn // Winter 26",
+      "title": "NEW SEASON SETS",
+      "cta": "Shop Now",
+      "col": "tracksuit-sets"
+    },
+    "tiles": [
+      [
+        "mens-sweatshirts-and-hoods",
+        "Hoodies"
+      ],
+      [
+        "t-shirts-mens",
+        "T-Shirts"
+      ],
+      [
+        "tracksuit-sets",
+        "Tracksuits"
+      ],
+      [
+        "mens-coats-and-jackets",
+        "Coats & Jackets"
+      ],
+      [
+        "mens-joggers",
+        "Joggers"
+      ],
+      [
+        "womens-clothing",
+        "Womens"
+      ]
+    ],
+    "editorial": {
+      "col": "mens-sweatshirts-and-hoods",
+      "img": "assets/brand/hoodies.jpg",
+      "eyebrow": "Shop",
+      "title": "HOODIES"
+    },
+    "feature": {
+      "col": "t-shirts-mens",
+      "img": "assets/brand/tshirts-wide.jpg",
+      "title": "T-SHIRTS",
+      "cta": "Shop Now"
+    }
+  },
+  "collectionTitles": {
+    "nicce-sale": "Mid-Season Sale",
+    "the-mercury-collection": "Mercury Collection",
+    "the-luxe-collection": "Luxe Collection",
+    "mens-underwear-1": "Underwear & Socks",
+    "womens-sweatshirts-and-hoods": "Women's Hoodies & Sweatshirts"
+  },
+  "shop": {
+    "kicker": "NICCE",
+    "cats": [
+      "mens-sweatshirts-and-hoods",
+      "t-shirts-mens",
+      "tracksuit-sets",
+      "mens-coats-and-jackets",
+      "mens-joggers",
+      "mens-cargopants",
+      "mens-jeans",
+      "mens-shorts",
+      "mens-polo-shirts",
+      "mens-swim-shorts",
+      "mens-underwear-1",
+      "footwear",
+      "caps",
+      "accessories",
+      "womens-clothing"
+    ],
+    "edits": [
+      "new-arrivals",
+      "mens-new-arrivals",
+      "nicce-sale",
+      "exclusives",
+      "the-mercury-collection",
+      "football",
+      "the-luxe-collection",
+      "womens-new-arrivals"
+    ],
+    "featureCats": {
+      "col": "tracksuit-sets",
+      "title": "TRACKSUITS",
+      "cta": "Shop Now",
+      "idx": 0,
+      "img": "assets/brand/tracksuits-wide.jpg"
+    },
+    "featureEdits": null
+  },
+  "search": {
+    "trending": [
+      "Mercury",
+      "Tracksuit",
+      "Hoodie",
+      "Joggers",
+      "Script",
+      "Shorts",
+      "Football",
+      "Luxe"
+    ],
+    "popular": [
+      "new-arrivals",
+      "nicce-sale",
+      "mens-sweatshirts-and-hoods",
+      "tracksuit-sets"
+    ]
+  },
+  "perks": [
+    "FREE Delivery On Orders Over £60",
+    "Student Discount - 30% Off",
+    "25% off new arrivals with code: NEW25",
+    "Mid-Season Sale: up to 70% off",
+    "14-day returns"
+  ],
+  "pdpPerks": [
+    "Free UK delivery over £60",
+    "14-day returns",
+    "Klarna available"
+  ],
+  "payments": [
+    "apple_pay",
+    "google_pay",
+    "shopify_pay",
+    "paypal",
+    "klarna",
+    "visa",
+    "master",
+    "american_express"
+  ],
+  "_shipping": "From nicceclothing.com/pages/delivery-information (UK, checked 11 Oct 2026): Standard 5-7 working days £4.99, free over £60 to UK mainland; Express 1-2 days £6.99 (not Northern Ireland); orders before 2pm Mon-Fri dispatched same day.",
+  "shipping": {
+    "region": "UK",
+    "freeOver": 60,
+    "options": [
+      {
+        "id": "standard",
+        "name": "Standard Delivery",
+        "desc": "5–7 working days, free over £60",
+        "price": 4.99,
+        "freeOver": 60,
+        "short": "Standard"
+      },
+      {
+        "id": "express",
+        "name": "Express Delivery",
+        "desc": "1–2 days (not Northern Ireland)",
+        "price": 6.99,
+        "short": "Express"
+      }
+    ],
+    "notes": [
+      "FREE standard delivery to UK mainland on orders over £60.",
+      "Orders placed before 2pm Monday–Friday are dispatched the same day."
+    ]
+  },
+  "returns": {
+    "summary": "Cancel and return within 14 days of receiving your order. Items must be unused and in their original condition; we refund the full order value within 14 days. Underwear and socks can't be returned for hygiene reasons.",
+    "short": "14-day returns"
+  },
+  "_rewards": "NICCE has no loyalty programme (student discount only). The template's Account rewards card is kept as an illustrative app concept (same as the yelir reference build) and its fine print says so; it never claims a real scheme.",
+  "rewards": {
+    "enabled": true,
+    "name": "NICCE Rewards",
+    "real": false,
+    "stockists": false
+  },
+  "_discount": "The site's pop-up offers 20% off a first order ('Get 20% Off', code emailed). The app pop-up uses the same 20% with a placeholder app code.",
+  "discount": {
+    "code": "APP20",
+    "pct": 20
+  },
+  "copy": {
+    "about": "It's pronounced 'nee chee'. The name came from playing with 'Niiiice', an expression of joy and support for others; we added the extra 'c' for a 'ch' sound like in cappuccino. Ultimately, we don't care how you pronounce it, as long as you enjoy it!",
+    "emptyBag": "Nothing in here yet. Start with New Season Sets or the Mercury Collection.",
+    "heroNotif": "New Season Sets: Autumn // Winter 26 is here."
+  },
+  "_drop": "No upcoming release is announced, so the Drops tab demos app early access with the newest capsule on the site, the Mercury Collection (latest pieces published 26 Sep 2026). Previous: Luxe Collection. Date/time is the template's rolling placeholder.",
+  "drop": {
+    "num": "01",
+    "name": "MERCURY COLLECTION",
+    "title": "Mercury Collection",
+    "col": "the-mercury-collection",
+    "image": "assets/brand/mercury.jpg",
+    "products": [
+      "nicce-mens-mercury-hoodie-green",
+      "nicce-mens-mercury-jogger-green",
+      "nicce-mercury-t-shirt-green",
+      "nicce-mens-mercury-hoodie-sandshell",
+      "nicce-mens-mercury-hoodie-burgundy",
+      "nicce-mens-mercury-hoodie-light-blue"
+    ],
+    "previous": {
+      "col": "the-luxe-collection",
+      "title": "LUXE COLLECTION"
+    }
+  },
+  "report": {
+    "missing": [
+      "No hero video on the site's homepage: the hero is cropped from the NEW SEASON SETS homepage banner",
+      "No returns page (Returns Portal only); returns copy is from the refund policy",
+      "No review score on the site, so no reviews block",
+      "No loyalty programme: the Account rewards card is an illustrative concept",
+      "The site's 20% sign-up code is emailed, not published: APP20 is a placeholder app code",
+      "No upcoming release is announced: the Drops tab demos early access with the Mercury Collection; drop date/time is the rolling placeholder"
+    ]
+  }
+}

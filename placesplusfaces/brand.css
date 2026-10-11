@@ -1,0 +1,99 @@
+/* PLACES+FACES: brand layer loaded after the shared app.css (copied to assets/brand.css by tools/build_brand.py).
+   Matches placesplusfaces.com: white page, black type, the system sans (-apple-system / Helvetica) for body copy and
+   uppercase product names, Liberator Medium / Heavy (the site's own display face, hotlinked from its Shopify CDN) for
+   headings, nav and buttons, black square buttons with 0.5px tracking ("VIEW ALL"), and yellow #ffc72c only as the
+   accent (the PLACES+FACES sign, 13 Bloody Years wristbands and the "JOIN THE COMMUNITY!" pop-up). */
+
+@font-face{font-family:'Liberator Medium';src:url('https://www.placesplusfaces.com/cdn/shop/t/25/assets/Liberator-Medium.ttf?v=111739571288790953031780328377') format('truetype');font-display:swap}
+@font-face{font-family:'Liberator Heavy';src:url('https://www.placesplusfaces.com/cdn/shop/t/25/assets/Liberator-Heavy.ttf?v=53179979548025103491780328377') format('truetype');font-display:swap}
+
+:root{font-family:-apple-system,BlinkMacSystemFont,'San Francisco',Helvetica,Arial,sans-serif;--pf-yellow:#ffc72c;--pf-disp:'Liberator Medium',-apple-system,Helvetica,Arial,sans-serif;--pf-heavy:'Liberator Heavy','Liberator Medium',-apple-system,Helvetica,Arial,sans-serif;--deep-band:light}
+
+/* ---- neutral greys ---- */
+body{background:radial-gradient(1200px 700px at 70% 30%,#ffffff 0%,#f2f2f2 55%,#e6e6e6 100%)}
+.pcard .pimg,.cat-tile,.cat-row img,.bag-item img{background:#f2f2f2}
+.seg{background:#efefef}
+.seg button{color:#555}
+.chip,.qty,.sfield{border-color:#d0d0d0}
+.switch{background:#cfcfcf}
+.link-row{border-top-color:#ececec}
+.pitch-copy{color:#444}
+.drop-banner{border-color:#e2e2e2}
+.br-url{background:#efefef}
+.summary,.acct-card,.size-filter,.pref-group{border:1px solid #e6e6e6}
+
+/* ---- display type: Liberator, uppercase, no luxury tracking ---- */
+.hero-title,.editorial .hero-title{font-family:var(--pf-heavy);font-weight:400;font-size:40px;letter-spacing:0;line-height:.95;text-transform:uppercase;margin-bottom:16px}
+.editorial .hero-title{font-size:32px}
+.eyebrow{font-family:var(--pf-disp);font-size:14px;font-weight:400;letter-spacing:.5px;text-transform:uppercase;opacity:1}
+.sec-head h2{font-family:var(--pf-disp);font-size:21px;font-weight:400;letter-spacing:0;text-transform:uppercase}
+.sec-head p{font-size:12.5px;color:#666}
+.large-title{font-family:var(--pf-heavy);font-size:30px;font-weight:400;letter-spacing:0;text-transform:uppercase}
+.large-title small{font-family:var(--pf-disp);font-weight:400;letter-spacing:.5px;color:#666}
+.tb-title{font-family:var(--pf-disp);font-weight:400;letter-spacing:.5px;text-transform:uppercase}
+.feature-card b{font-family:var(--pf-heavy);font-weight:400;letter-spacing:0;font-size:30px;text-transform:uppercase}
+.dc-title{font-family:var(--pf-heavy);font-weight:400;letter-spacing:0;text-transform:uppercase}
+.dc-title span{font-family:var(--pf-disp)}
+.cat-tile span{font-family:var(--pf-disp);font-weight:400;font-size:14px;letter-spacing:.5px;text-transform:uppercase}
+.cat-row b{font-family:var(--pf-disp);font-weight:400;letter-spacing:.5px;text-transform:uppercase;font-size:15px}
+.empty h3{font-family:var(--pf-disp);font-weight:400;letter-spacing:0;text-transform:uppercase}
+.pdp-info h1{font-family:var(--pf-disp);font-weight:400;font-size:22px;letter-spacing:0;line-height:1.15;text-transform:uppercase}
+.pdp-info .ptype{letter-spacing:.5px}
+.wl-body h2,.auth h2{font-family:var(--pf-heavy);font-weight:400;letter-spacing:0;text-transform:uppercase}
+.pitch-title{font-family:var(--pf-heavy);font-weight:400;letter-spacing:0;text-transform:uppercase;line-height:.95}
+.pitch-kicker{font-family:var(--pf-disp);letter-spacing:.12em}
+.pitch-list{font-family:var(--pf-disp);letter-spacing:.5px;font-weight:400;text-transform:uppercase}
+.label-row b{font-family:var(--pf-disp);font-weight:400;letter-spacing:.5px;text-transform:uppercase}
+.stat-num{font-family:var(--pf-heavy);font-weight:400;letter-spacing:0}
+.stat-label{font-family:var(--pf-disp);letter-spacing:.5px}
+
+/* ---- buttons: black squares, Liberator Medium uppercase, 0.5px tracking ---- */
+.btn{border-radius:0;font-family:var(--pf-disp);font-size:14px;font-weight:400;letter-spacing:.5px;text-transform:uppercase;height:48px;padding:0 28px}
+.btn-dark{background:#000;color:#fff}
+.btn-outline{border-radius:0;border-color:#000}
+.link{font-family:var(--pf-disp);font-weight:400;letter-spacing:.5px;text-transform:uppercase;font-size:13px}
+.hero .btn-light,.editorial .btn-light,.feature-card .btn-light,.drop-card .btn-light{background:#fff;color:#000;border:1px solid #fff}
+@media (hover:hover){.btn-dark:hover{background:#222}.hero .btn-light:hover,.editorial .btn-light:hover,.feature-card .btn-light:hover,.drop-card .btn-light:hover{background:var(--pf-yellow);border-color:var(--pf-yellow)}}
+
+/* ---- square everything, like the site ---- */
+.seg,.seg button,.seg .seg-ind,.chip,.sfield,.size,.promo,.promo-cta,.wl-code,.dc-tag,.g-badge,.pcard .tag,.summary,.acct-card,.size-filter,.pref-group,.feature-card,.drop-card{border-radius:0}
+.size{border-color:#cfcfcf}
+
+/* ---- yellow accent: tags, promo, toast ---- */
+.pcard .tag{background:var(--pf-yellow);color:#000;font-family:var(--pf-disp);font-weight:400;letter-spacing:.5px}
+.pcard .tag.sale{background:var(--sale);color:#fff}
+.dc-tag,.promo-cta{background:var(--pf-yellow);color:#000}
+
+/* ---- product cards: centred uppercase system-sans name, bold small price (as the site) ---- */
+.pcard .pmeta{text-align:center;padding:10px 4px 4px}
+.pcard .pname{font-size:13px;font-weight:400;letter-spacing:0;text-transform:uppercase}
+.pcard .pcol{font-size:11.5px;text-transform:uppercase}
+.pcard .price{font-weight:700;font-size:12px}
+
+/* ---- the wide PLACES+FACES wordmark ---- */
+.home-head .tb-logo{height:18px;max-width:none}
+.tb-logo{height:15px;max-width:none}
+.splash{background:#000}
+.splash-logo{width:220px}
+.wl-logo{height:26px;max-width:none}
+.auth-logo{height:22px}
+.about img{width:180px}
+.acct-foot img{height:18px}
+.rcard .rc-top img{height:14px}
+.pitch-logo{width:clamp(180px,22vh,240px);max-height:none}
+
+/* Home band past the hero: white with black icons and the black wordmark, like the site's header */
+.home-head.deep .home-band{background:rgba(255,255,255,.97);color:#000;box-shadow:0 1px 0 #e6e6e6}
+.home-head.deep .tb-logo{filter:none}
+.home-head.deep .icon-btn .hb-count{background:#000;color:#fff}
+
+/* ---- rewards card: black with the yellow sign accent ---- */
+.rewards-mini,.rcard{background:linear-gradient(135deg,#000 0%,#151515 70%,#262626 100%)}
+.rewards-mini::before,.rcard::before{background:radial-gradient(circle,rgba(255,199,44,.22),transparent 70%)}
+.rm-bar i,.rcard .tbar i{background:var(--pf-yellow)}
+.stat{border-radius:0}
+.sec-head .link{white-space:nowrap;flex-shrink:0}
+/* sold-out strike kept inside the box (the template line overhangs and reads as clipped) */
+.size.out::after{left:12%;right:12%}
+/* long unbroken product names ("P+F x Medicom/FABRICK®️CUSHION") wrap instead of widening the grid */
+.pcard .pname,.pdp-info h1,.bag-item b{overflow-wrap:anywhere}

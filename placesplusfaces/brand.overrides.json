@@ -1,0 +1,315 @@
+{
+  "_note": "Hand-tuned layer on top of the scraped brand.json (placesplusfaces.com, Shopify). Run: python3 tools/build_brand.py --rebuild placesplusfaces. Hand-picked images in assets/brand/ are crops of the site's own homepage hero (the 13 Bloody Years 'Smile! / Places+Faces Forever' shot) and its homepage studio photo (the yellow PLACES+FACES sign). Logos are the site's own header wordmark and + icon.",
+  "scrape": {
+    "_extraCollections": "Category and capsule collections from /collections.json (the header nav only links NEW, 13 BLOODY YEARS, WOMENSWEAR, COOL SHIT, BOOKS, BLOG, ARSENAL x P+F).",
+    "extraCollections": [
+      "all",
+      "tops",
+      "sweatshirt",
+      "bottoms",
+      "outerwear",
+      "knitwear",
+      "accessories",
+      "footwear",
+      "homeware",
+      "film-club",
+      "black-capsule",
+      "greatest-hits",
+      "rizla-x-p-f",
+      "reebok-x-p-f",
+      "10-year-anniversary"
+    ]
+  },
+  "_instagram": "Collected in a browser from the brand's Instagram profile on 2026-10-11 (pinned posts excluded; collaborator-path URLs normalised to /p/<code>/). Thumbnails: assets/ig/N.jpg, square-cropped, max 600px.",
+  "instagram": {
+    "handle": "placesplusfaces",
+    "url": "https://www.instagram.com/placesplusfaces/",
+    "followers": "339K",
+    "bio": "Our Photos. Our Clothes.",
+    "collected": "2026-10-11",
+    "posts": [
+      {
+        "url": "https://www.instagram.com/p/Dd5sblUiZt5/",
+        "type": "carousel",
+        "image": "assets/ig/1.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/Dd1ZlvJAFmR/",
+        "type": "carousel",
+        "image": "assets/ig/2.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/Ddoeh14gmoN/",
+        "type": "reel",
+        "image": "assets/ig/3.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/Dc6uYaqAHUm/",
+        "type": "carousel",
+        "image": "assets/ig/4.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/Dc3lfXLgIQS/",
+        "type": "carousel",
+        "image": "assets/ig/5.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/Dc1VjvsgOq8/",
+        "type": "carousel",
+        "image": "assets/ig/6.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DcwXDJeAAk3/",
+        "type": "reel",
+        "image": "assets/ig/7.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/Dcnzo0dAAoU/",
+        "type": "photo",
+        "image": "assets/ig/8.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DcY9bQyCDyo/",
+        "type": "carousel",
+        "image": "assets/ig/9.jpg"
+      }
+    ]
+  },
+  "name": "PLACES+FACES",
+  "short": "PLACES+FACES",
+  "assets": {
+    "logoDark": "assets/brand/logo-black.png",
+    "logoLight": "assets/brand/logo-white.png",
+    "favicon": "assets/img/favicon.png"
+  },
+  "_theme": "placesplusfaces.com: white page, black type, black square buttons (0 radius, Liberator Medium 13px uppercase, 0.5px tracking), Liberator Medium/Heavy for headings and nav, system sans (-apple-system/Helvetica) for body and product names (uppercase 14px), yellow (#ffc72c) only as the brand accent (sign, wristbands, community pop-up). Liberator is hotlinked from the site's own Shopify CDN in brand.css.",
+  "theme": {
+    "ink": "#000000",
+    "bg": "#ffffff",
+    "bgRgb": "255,255,255",
+    "text": "#000000",
+    "muted": "#666666",
+    "line": "#e5e5e5",
+    "stone": "#777777",
+    "sand": "#ececec",
+    "sand2": "#f5f5f5",
+    "sale": "#d0021b",
+    "stageA": "#ffffff",
+    "stageB": "#f2f2f2",
+    "stageC": "#e6e6e6",
+    "font": "-apple-system",
+    "fontHref": null
+  },
+  "pitch": {
+    "title": "Our photos.<br>Our clothes.<br>Your phone.",
+    "copy": "A concept for the PLACES+FACES app: 13 Bloody Years and every capsule in one place, app-only early access on drops like ARSENAL x P+F, your saved size and Shopify checkout with Apple Pay. Tap around, everything works.",
+    "list": [
+      "Drops with app-only early access",
+      "Saved size and back-in-size alerts",
+      "Shopify checkout with Apple Pay and Shop Pay"
+    ]
+  },
+  "home": {
+    "newCol": "newstuff",
+    "newSub": "The latest from PLACES+FACES",
+    "bestCol": "13-year-anniversary",
+    "bestSub": "13 Year Collection",
+    "hero": {
+      "poster": "assets/brand/hero.jpg",
+      "eyebrow": "Smile! You're on camera",
+      "title": "13 BLOODY YEARS",
+      "cta": "Shop now",
+      "col": "13-year-anniversary"
+    },
+    "tiles": [
+      [
+        "newstuff",
+        "New"
+      ],
+      [
+        "13-year-anniversary",
+        "13 Bloody Years"
+      ],
+      [
+        "womenswear",
+        "Womenswear"
+      ],
+      [
+        "cool-shit",
+        "Cool Shit"
+      ],
+      [
+        "magazines",
+        "Books"
+      ],
+      [
+        "arsenal-x-places-faces",
+        "ARSENAL x P+F"
+      ]
+    ],
+    "editorial": {
+      "col": "all",
+      "img": "assets/brand/forever.jpg",
+      "eyebrow": "Our photos. Our clothes.",
+      "title": "PLACES+FACES FOREVER"
+    },
+    "feature": {
+      "col": "magazines",
+      "img": "assets/brand/sign-wide.jpg",
+      "title": "BOOKS",
+      "cta": "Shop now"
+    }
+  },
+  "collectionTitles": {
+    "newstuff": "New",
+    "13-year-anniversary": "13 Bloody Years",
+    "magazines": "Books",
+    "arsenal-x-places-faces": "ARSENAL x P+F",
+    "sweatshirt": "Sweatshirts",
+    "rizla-x-p-f": "Rizla x P+F",
+    "reebok-x-p-f": "Reebok x P+F",
+    "10-year-anniversary": "10 Year Anniversary"
+  },
+  "shop": {
+    "kicker": "PLACES+FACES",
+    "cats": [
+      "all",
+      "sweatshirt",
+      "tops",
+      "bottoms",
+      "outerwear",
+      "knitwear",
+      "womenswear",
+      "accessories",
+      "footwear",
+      "homeware",
+      "cool-shit",
+      "magazines"
+    ],
+    "edits": [
+      "newstuff",
+      "13-year-anniversary",
+      "arsenal-x-places-faces",
+      "black-capsule",
+      "film-club",
+      "rizla-x-p-f",
+      "reebok-x-p-f",
+      "10-year-anniversary"
+    ],
+    "featureCats": {
+      "col": "sweatshirt",
+      "title": "SWEATSHIRTS",
+      "cta": "Shop now",
+      "idx": 0,
+      "img": "assets/brand/sign-wide.jpg"
+    },
+    "featureEdits": {
+      "col": "13-year-anniversary",
+      "title": "13 BLOODY YEARS",
+      "cta": "Shop now",
+      "idx": 0,
+      "img": "assets/brand/forever-wide.jpg"
+    }
+  },
+  "search": {
+    "trending": [
+      "Arsenal",
+      "Smile T-shirt",
+      "Hoodie",
+      "Baby tee",
+      "Sweatpants",
+      "Reebok",
+      "Magazine",
+      "Rizla"
+    ],
+    "popular": [
+      "newstuff",
+      "13-year-anniversary",
+      "womenswear",
+      "arsenal-x-places-faces"
+    ]
+  },
+  "perks": [
+    "Tracked UK delivery with DPD",
+    "30-day returns",
+    "13 Bloody Years: out now",
+    "ARSENAL x P+F: shop the collection"
+  ],
+  "pdpPerks": [
+    "Tracked DPD delivery",
+    "30-day returns",
+    "Shopify checkout"
+  ],
+  "_shipping": "Real UK rate from the site's checkout (/cart/shipping_rates.json for a GB address, checked 11 Oct 2026): 'DPD - DOMESTIC' £10.00. No free-shipping threshold is published; the shipping policy page is empty.",
+  "shipping": {
+    "region": "UK",
+    "freeOver": null,
+    "options": [
+      {
+        "id": "dpd-domestic",
+        "name": "DPD Domestic",
+        "desc": "Tracked UK delivery",
+        "price": 10.0,
+        "short": "DPD"
+      }
+    ],
+    "notes": [
+      "UK orders ship tracked with DPD."
+    ]
+  },
+  "returns": {
+    "summary": "Our policy lasts 30 days. If 30 days have gone by since your purchase, we can't offer a refund or exchange. Items must be unworn and in the same condition you received them, in the original packaging.",
+    "short": "30-day returns"
+  },
+  "_rewards": "PLACES+FACES has no loyalty programme. The template's Account rewards card is kept as an illustrative app concept (same as the yelir reference build) and its fine print says so; it never claims a real scheme.",
+  "rewards": {
+    "enabled": true,
+    "name": "P+F Rewards",
+    "real": false,
+    "stockists": false
+  },
+  "_discount": "The site's pop-up ('JOIN THE PLACES+FACES COMMUNITY') offers no discount. The app shows the template's first-app-order concept offer with a placeholder code (APP10).",
+  "discount": {
+    "code": "APP10",
+    "pct": 10
+  },
+  "copy": {
+    "about": "PLACES+FACES began in 2013 when Ciesay spent his summer in New York City, talking his way into hip hop shows and photographing artists in their prime element, while Soulz was back in London photographing the culture, concerts and artists there. What started as two friends documenting the world around them became something much bigger.",
+    "emptyBag": "Nothing in here yet. Start with 13 Bloody Years.",
+    "heroNotif": "13 Bloody Years: the anniversary collection is live."
+  },
+  "_drop": "No upcoming release is announced, so the Drops tab demos app early access with the newest homepage collection, 13 Bloody Years. Previous drop: ARSENAL x P+F (nav). Date/time is the template's rolling placeholder.",
+  "drop": {
+    "num": "13",
+    "name": "13 BLOODY YEARS",
+    "title": "13 Bloody Years",
+    "col": "13-year-anniversary",
+    "image": "assets/brand/hero.jpg",
+    "products": [
+      "smile-t-shirt",
+      "p-f-t-shirt",
+      "photos-never-expire-t-shirt",
+      "mesh-top-black-yellow",
+      "13-bloody-years-wristband",
+      "13-bloody-years-cup"
+    ],
+    "previous": {
+      "col": "arsenal-x-places-faces",
+      "title": "ARSENAL x P+F"
+    }
+  },
+  "report": {
+    "missing": [
+      "No hero video on the site's homepage: the hero is the 13 Bloody Years homepage image",
+      "No FAQs, contact form, sustainability, stockists or cookie page found; shipping policy page is empty (delivery shown from the real checkout rate)",
+      "No review score on the site, so no reviews block",
+      "No loyalty programme: the Account rewards card is an illustrative concept",
+      "No sign-up discount on the site: APP10 is a placeholder first-app-order offer",
+      "No upcoming release is announced: the Drops tab demos early access with 13 Bloody Years; drop date/time is the rolling placeholder",
+      "Greatest Hits collection has no public products (left out)"
+    ]
+  },
+  "socials": {
+    "instagram": "placesplusfaces"
+  }
+}

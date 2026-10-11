@@ -1,0 +1,90 @@
+/* NICCE: brand layer loaded after the shared app.css (copied to assets/brand.css by tools/build_brand.py).
+   Matches nicceclothing.com: white page, near-black type, Epilogue throughout (Google Fonts), bold uppercase section
+   titles ("LATEST ARRIVALS"), white "Shop Now" buttons with a thin black border and 10px corners over imagery, black
+   filled buttons elsewhere, left-aligned 14px semibold product names with the colour on its own line, small black promo
+   tags ("25% off: Code NEW25"), sale red for the SALE link and markdowns, and the spaced NICCE wordmark. */
+
+:root{font-family:'Epilogue',Helvetica,Arial,sans-serif;--deep-band:light}
+
+/* ---- neutral greys ---- */
+body{background:radial-gradient(1200px 700px at 70% 30%,#ffffff 0%,#f1f1f1 55%,#e4e4e4 100%)}
+.pcard .pimg,.cat-tile,.cat-row img,.bag-item img{background:#f2f2f2}
+.seg{background:#efefef}
+.seg button{color:#555}
+.chip,.qty,.sfield{border-color:#d2d2d2}
+.switch{background:#cfcfcf}
+.link-row{border-top-color:#ececec}
+.pitch-copy{color:#444}
+.drop-banner{border-color:#e2e2e2}
+.br-url{background:#efefef}
+.summary,.acct-card,.size-filter,.pref-group{border:1px solid #e3e3e3}
+
+/* ---- type: Epilogue, bold uppercase titles ---- */
+.hero-title{font-size:32px;font-weight:700;letter-spacing:0;line-height:1.02;text-transform:uppercase;margin-bottom:16px}
+.editorial .hero-title{font-size:28px}
+.eyebrow{font-size:13px;font-weight:500;letter-spacing:0;text-transform:none;opacity:1}
+.sec-head h2{font-size:21px;font-weight:700;letter-spacing:0;text-transform:uppercase}
+.sec-head p{font-size:13px;color:#555}
+.large-title{font-size:26px;font-weight:700;letter-spacing:0;text-transform:uppercase}
+.large-title small{font-weight:500;letter-spacing:.5px;color:#666}
+.tb-title{font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+.feature-card b{font-weight:700;letter-spacing:0;font-size:24px;text-transform:uppercase}
+.dc-title{font-weight:700;letter-spacing:0}
+.cat-tile span{font-weight:700;font-size:12px;letter-spacing:.3px;text-transform:uppercase}
+.cat-row b{font-weight:700;letter-spacing:0;text-transform:uppercase;font-size:14px}
+.empty h3{font-weight:700;letter-spacing:0;text-transform:uppercase}
+.pdp-info h1{font-weight:600;font-size:20px;letter-spacing:0;line-height:1.25}
+.pdp-info .ptype{font-weight:500;letter-spacing:.5px}
+.wl-body h2,.auth h2{font-weight:700;letter-spacing:0;text-transform:uppercase}
+.pitch-title{font-weight:800;letter-spacing:-.01em;text-transform:uppercase}
+.pitch-kicker{letter-spacing:.14em}
+.pitch-list{letter-spacing:.3px;font-weight:600;text-transform:uppercase;font-size:11px}
+.label-row b{font-weight:700;letter-spacing:0;text-transform:uppercase}
+.stat-num{font-weight:800;letter-spacing:-.01em}
+
+/* ---- buttons: black filled with 10px corners; white bordered 'Shop Now' over imagery ---- */
+.btn{border-radius:10px;font-size:14px;font-weight:500;letter-spacing:0;text-transform:none;height:46px;padding:0 26px}
+.btn-dark{background:#000;color:#fff}
+.btn-outline{border-radius:10px;border-color:#000}
+.link{font-weight:600;letter-spacing:0;text-transform:uppercase;font-size:12.5px;color:#444}
+.hero .btn-light,.editorial .btn-light,.feature-card .btn-light,.drop-card .btn-light{background:#fff;color:#000;border:1px solid #000}
+@media (hover:hover){.btn-dark:hover{background:#262626}.hero .btn-light:hover,.editorial .btn-light:hover,.feature-card .btn-light:hover,.drop-card .btn-light:hover{background:#000;color:#fff;border-color:#fff}}
+.feature-card .btn-sm{height:40px;padding:0 20px;font-size:13px}
+
+/* ---- rounded-ish controls like the site ---- */
+.chip,.sfield,.promo,.wl-code{border-radius:10px}
+.size{border-radius:6px;border-color:#d2d2d2}
+.pcard .tag,.dc-tag{border-radius:0}
+
+/* ---- product cards: left-aligned semibold name, colour line, regular price; black promo tags ---- */
+.pcard .pmeta{text-align:left;padding:10px 4px 4px}
+.pcard .pname{font-size:13.5px;font-weight:600;letter-spacing:0;text-transform:none;line-height:1.35}
+.pcard .pcol{font-size:12.5px;color:#555}
+.pcard .price{font-weight:400;font-size:13px}
+.pcard .tag{background:#000;color:#fff;padding:4px 8px;letter-spacing:0;font-weight:500;text-transform:none;font-size:10.5px}
+.pcard .tag.sale{background:var(--sale)}
+
+/* ---- the spaced NICCE wordmark ---- */
+.home-head .tb-logo{height:19px;max-width:none}
+.tb-logo{height:16px;max-width:none}
+.splash{background:#1f1f1f}
+.splash-logo{width:170px}
+.wl-logo{height:28px;max-width:none}
+.auth-logo{height:24px}
+.about img{width:130px}
+.acct-foot img{height:18px}
+.rcard .rc-top img{height:15px}
+.pitch-logo{width:clamp(140px,18vh,170px);max-height:none}
+
+/* Home band past the hero: white with black icons and the black wordmark */
+.home-head.deep .home-band{background:rgba(255,255,255,.97);color:#000;box-shadow:0 1px 0 #e3e3e3}
+.home-head.deep .tb-logo{filter:none}
+.home-head.deep .icon-btn .hb-count{background:#000;color:#fff}
+
+/* ---- rewards card: the dark grey of the announcement bar ---- */
+.rewards-mini,.rcard{background:linear-gradient(135deg,#1c1c1c 0%,#2b2b2b 60%,#3a3a3a 100%)}
+.rewards-mini::before,.rcard::before{background:radial-gradient(circle,rgba(255,255,255,.14),transparent 70%)}
+.rm-bar i,.rcard .tbar i{background:#fff}
+.sec-head .link{white-space:nowrap;flex-shrink:0}
+/* sold-out strike kept inside the box (the template line overhangs and reads as clipped) */
+.size.out::after{left:12%;right:12%}
