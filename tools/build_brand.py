@@ -128,6 +128,12 @@ def html_text(s, limit=700):
         t = t[:limit].rsplit(' ', 1)[0].rstrip(',;:') + '…'
     return t
 
+SIZE_WORDS = {'EXTRA SMALL': 'XS', 'X-SMALL': 'XS', 'X SMALL': 'XS', 'SMALL': 'S', 'MEDIUM': 'M', 'LARGE': 'L',
+              'X-LARGE': 'XL', 'X LARGE': 'XL', 'EXTRA LARGE': 'XL'}
+def norm_size_word(lab):
+    # 'SMALL' / 'Medium' / 'XS / LARGE' -> 'S' / 'M' / 'XS / L' so the letter-size groups and saved sizes match
+    return ' / '.join(SIZE_WORDS.get(x.strip().upper(), x.strip()) for x in lab.split(' / ')) if lab else lab
+
 def map_product(p):
     title = p.get('title', '').strip()
     name, colour = (title.rsplit(' - ', 1) + [''])[:2] if ' - ' in title else (title, '')
@@ -141,6 +147,7 @@ def map_product(p):
         else:
             lab = v.get('option%d' % (si + 1)) or ''
         if lab == 'Default Title': lab = 'One size'
+        lab = norm_size_word(lab)
         if lab in seen:
             seen[lab][1] = seen[lab][1] or (1 if v.get('available') else 0)
         else:
@@ -770,7 +777,7 @@ def scrape(url, slug, out_dir, do_render=True, max_products=400, extra_cols=()):
     for im in main.find_all('img'):
         u = im.get('src') or im.get('data-src') or ''
         srcset = im.get('srcset') or im.get('data-srcset') or ''
-        w = max([int(x) for x in re.findall(r'\s(\d{3,4})w', srcset)] or [int(im.get('width') or 0)])
+        w = max([int(x) for x in re.findall(r'\s(\d{3,4})w', srcset)] or [int(re.sub(r'\D', '', str(im.get('width') or '')) or 0)])
         if u and w >= 900 and '/products/' not in u and 'logo' not in u.lower():
             big_imgs.append(absu(base, u))
     big_imgs = list(dict.fromkeys(big_imgs))

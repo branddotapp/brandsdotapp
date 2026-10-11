@@ -1,0 +1,91 @@
+/* CLOSURE LONDON: brand layer loaded after the shared app.css (copied to assets/brand.css by tools/build_brand.py).
+   Matches closurelondon.com: white page, Helvetica/Arial throughout (the site uses no web font), regular-weight titles
+   ("New Arrivals") over tiny uppercase tracked eyebrows ("MENSWEAR"), grey #676869 body copy and product names
+   ("Premium Skate Shoe | White/Grey", 14px regular), square black buttons with small regular white labels ("Shop Mens"),
+   white square buttons over lighter imagery ("Shop Now"), square size boxes, light grey panels and the CLOSURE LDN™ wordmark. */
+
+:root{font-family:Helvetica,Arial,sans-serif;--deep-band:light}
+
+/* ---- neutral greys ---- */
+body{background:radial-gradient(1200px 700px at 70% 30%,#ffffff 0%,#f2f2f2 55%,#e6e6e6 100%)}
+.pcard .pimg,.cat-tile,.cat-row img,.bag-item img{background:#f2f2f2}
+.seg{background:#efefef}
+.seg button{color:#555}
+.chip,.qty,.sfield{border-color:#d6d6d6}
+.switch{background:#cfcfcf}
+.link-row{border-top-color:#ececec}
+.pitch-copy{color:#555}
+.drop-banner{border-color:#e2e2e2}
+.br-url{background:#efefef}
+.summary,.acct-card,.size-filter,.pref-group{border:1px solid #e6e6e6}
+
+/* ---- type: regular-weight Helvetica titles, tiny tracked uppercase eyebrows ---- */
+.hero-title{font-size:32px;font-weight:400;letter-spacing:0;line-height:1.08;text-transform:none;margin-bottom:16px}
+.editorial .hero-title{font-size:28px;text-transform:none}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;opacity:1;margin-bottom:6px}
+.sec-head h2{font-size:20px;font-weight:400;letter-spacing:0;text-transform:none;color:#171717}
+.sec-head p{font-size:12.5px;color:#666}
+.large-title{font-size:26px;font-weight:400;letter-spacing:0;text-transform:none}
+.large-title small{font-weight:700;font-size:10px;letter-spacing:.18em;color:#666}
+.tb-title{font-weight:400;letter-spacing:0;text-transform:none}
+.feature-card b{font-weight:400;letter-spacing:0;font-size:24px;text-transform:none}
+.dc-title{font-weight:400;letter-spacing:0;text-transform:none}
+.dc-title span{font-weight:400}
+.cat-tile span{font-weight:400;font-size:13px;letter-spacing:0;text-transform:none}
+.cat-row b{font-weight:400;letter-spacing:0;text-transform:none;font-size:15px;color:#171717}
+.empty h3{font-weight:400;letter-spacing:0;text-transform:none}
+.pdp-info h1{font-weight:400;font-size:21px;letter-spacing:0;line-height:1.25;color:#171717}
+.pdp-info .ptype{font-weight:700;font-size:10px;letter-spacing:.18em;text-transform:uppercase}
+.wl-body h2,.auth h2{font-weight:400;letter-spacing:0;text-transform:none}
+.pitch-title{font-weight:400;letter-spacing:-.01em;text-transform:none}
+.pitch-kicker{letter-spacing:.18em}
+.pitch-list{letter-spacing:.12em;font-weight:400;font-size:11px}
+.label-row b{font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+.stat-num{font-weight:400;letter-spacing:-.01em}
+
+/* ---- buttons: square black, small regular labels; white squares over imagery ---- */
+.btn{border-radius:0;font-size:13px;font-weight:400;letter-spacing:0;text-transform:none;height:46px;padding:0 26px}
+.btn-dark{background:#000;color:#fff}
+.btn-outline{border-radius:0;border-color:#171717}
+.link{font-weight:400;letter-spacing:0;text-transform:none;font-size:13px;text-decoration:underline;text-underline-offset:3px;color:#171717}
+.hero .btn-light,.editorial .btn-light{background:#000;color:#fff;border:1px solid #000}
+.feature-card .btn-light,.drop-card .btn-light{background:#fff;color:#000;border:1px solid #fff}
+@media (hover:hover){.btn-dark:hover,.hero .btn-light:hover,.editorial .btn-light:hover{background:#262626}.feature-card .btn-light:hover,.drop-card .btn-light:hover{background:#ededed}}
+.feature-card .btn-sm{height:38px;padding:0 20px;font-size:12.5px}
+
+/* ---- square corners throughout ---- */
+.seg,.seg button,.seg .seg-ind,.chip,.sfield,.size,.promo,.promo-cta,.wl-code,.dc-tag,.g-badge,.pcard .tag,.summary,.acct-card,.size-filter,.pref-group,.feature-card,.drop-card,.toast{border-radius:0}
+.size{border-color:#d6d6d6}
+.size.out::after{left:12%;right:12%}
+
+/* ---- product cards: left-aligned regular grey names, colour line, grey price ---- */
+.pcard .pmeta{text-align:left;padding:10px 2px 4px}
+.pcard .pname{font-size:13.5px;font-weight:400;letter-spacing:0;text-transform:none;color:#4f5051}
+.pcard .pcol{font-size:12.5px;color:#666}
+.pcard .price{font-weight:400;font-size:13px;color:#4f5051}
+.pcard .tag{background:#000;color:#fff;padding:4px 8px;letter-spacing:.08em;font-weight:700;text-transform:uppercase;font-size:9.5px}
+.pcard .tag.sale{background:var(--sale)}
+
+/* ---- the CLOSURE LDN™ wordmark (wide, short) ---- */
+.home-head .tb-logo{height:17px;max-width:none}
+.tb-logo{height:14px;max-width:none}
+.splash{background:#000}
+.splash-logo{width:190px}
+.wl-logo{height:22px;max-width:none}
+.auth-logo{height:20px}
+.about img{width:160px}
+.acct-foot img{height:15px}
+.rcard .rc-top img{height:13px}
+.pitch-logo{width:clamp(170px,22vh,210px);max-height:none}
+
+/* Home band past the hero: white with black icons and the black wordmark */
+.home-head.deep .home-band{background:rgba(255,255,255,.97);color:#171717;box-shadow:0 1px 0 #e6e6e6}
+.home-head.deep .tb-logo{filter:none}
+.home-head.deep .icon-btn .hb-count{background:#000;color:#fff}
+
+/* ---- CLSR+ card: black ---- */
+.rewards-mini,.rcard{background:linear-gradient(135deg,#0b0b0b 0%,#1c1c1c 60%,#2c2c2c 100%)}
+.rewards-mini::before,.rcard::before{background:radial-gradient(circle,rgba(255,255,255,.12),transparent 70%)}
+.rm-bar i,.rcard .tbar i{background:#fff}
+.stat{border-radius:0}
+.sec-head .link{white-space:nowrap;flex-shrink:0}

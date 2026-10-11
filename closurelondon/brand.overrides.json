@@ -1,0 +1,569 @@
+{
+  "_note": "Hand-tuned layer on top of the scraped brand.json (closurelondon.com, Shopify). Run: python3 tools/build_brand.py --rebuild closurelondon. Hand-picked images in assets/brand/ are crops of the site's own homepage heroes (Menswear and Womenswear New Arrivals, mobile + desktop) and a Waterproof Rain Mac campaign photo. Logos are the site's header SVG (CLOSURE LDN™).",
+  "scrape": {
+    "_extraCollections": "The site's mega menu is rendered by JS; these are its collections.",
+    "extraCollections": [
+      "macs",
+      "new-in",
+      "womens",
+      "womens-tracksuits",
+      "womens-leggings",
+      "womens-jackets",
+      "womens-hoodies",
+      "womens-co-ords",
+      "womens-best-sellers",
+      "hoodies",
+      "joggers",
+      "tracksuits",
+      "jackets",
+      "mens-knitwear",
+      "overshirts",
+      "mens-pants",
+      "t-shirts",
+      "polos",
+      "cargo-pants",
+      "mens-twinsets",
+      "shorts",
+      "mens-shirts",
+      "jeans",
+      "footwear",
+      "accessories",
+      "smart-scuba",
+      "restocks",
+      "outlet",
+      "mens-best-sellers"
+    ],
+    "_colours": "Titles are 'Name | Colour'; these are the colour segments used on the site.",
+    "colours": [
+      "University Blue/Iron Grey",
+      "Navy/Light Blue/White",
+      "Oatmeal/Charcoal Marl",
+      "Vapour Green/Charcoal",
+      "Vibrant Pink/Charcoal",
+      "White/Black/Dark Grey",
+      "Grey Marl/Pine Green",
+      "Iron Grey Marl/Black",
+      "University Blue/Navy",
+      "White/Charcoal/Black",
+      "Aqua Blue/Iron Grey",
+      "Brown/Oatmeal/White",
+      "Charcoal/Light Blue",
+      "Clay/Black/Dark Gum",
+      "Aqua Blue/Ice Grey",
+      "Black/Graphite/Red",
+      "Charcoal/White/Gum",
+      "Brown/Stone/White",
+      "Charcoal/Mid Grey",
+      "Forest/Neon Green",
+      "Light Sand/Fossil",
+      "Black/Navy/White",
+      "Light Grey/White",
+      "Stone/Taupe/Grey",
+      "White/Light Grey",
+      "Black/Dark Grey",
+      "Black/Off White",
+      "Brown/White/Gum",
+      "Dark Grey/White",
+      "Light Blue Wash",
+      "Light Grey Marl",
+      "Navy/Slate Blue",
+      "Off White/Khaki",
+      "Slate Blue Marl",
+      "University Blue",
+      "Black/Charcoal",
+      "Black/Ice Grey",
+      "Burgundy/White",
+      "Charcoal/Black",
+      "Charcoal/White",
+      "Graphite/Lilac",
+      "Iron Grey Marl",
+      "Iron Grey/Grey",
+      "Iron Grey/Mint",
+      "Pink/Iron Grey",
+      "Sand Blue Wash",
+      "White/Charcoal",
+      "Aqua/Charcoal",
+      "Bright Yellow",
+      "Charcoal Fade",
+      "Charcoal Marl",
+      "Charcoal/Mint",
+      "Lime/Charcoal",
+      "Midnight Blue",
+      "Pink/Charcoal",
+      "Forest Green",
+      "Triple Black",
+      "Washed Black",
+      "Washed Brown",
+      "Washed Stone",
+      "Black/Stone",
+      "Black/White",
+      "Bright Pink",
+      "Carbon Fade",
+      "Dark Cherry",
+      "Dark Coffee",
+      "Dark Fossil",
+      "Dusty Mauve",
+      "Fossil Marl",
+      "Fossil/Navy",
+      "Khaki Multi",
+      "Light Khaki",
+      "Light Olive",
+      "Light Stone",
+      "Marshmallow",
+      "Silver 50cm",
+      "Smoke Black",
+      "Taupe/White",
+      "Washed Blue",
+      "White/Black",
+      "White/Brown",
+      "White/Stone",
+      "Black Wash",
+      "Black/Grey",
+      "Black/Navy",
+      "Black/Teal",
+      "Blue Multi",
+      "Brown Marl",
+      "Dark Brown",
+      "Dark Khaki",
+      "Dark Olive",
+      "Dark Stone",
+      "Dusky Mint",
+      "Frost Grey",
+      "Grey/White",
+      "Light Blue",
+      "Light Grey",
+      "Navy/White",
+      "Pine Green",
+      "Plum/White",
+      "Slate Blue",
+      "Steel Blue",
+      "Steel Grey",
+      "Warm Brown",
+      "White/Grey",
+      "White/Navy",
+      "Aqua Blue",
+      "Aqua/Grey",
+      "Black/Red",
+      "Chocolate",
+      "Coral Red",
+      "Dark Blue",
+      "Dark Grey",
+      "Dark Navy",
+      "Dark Sage",
+      "Dark Teal",
+      "Grey Marl",
+      "Grey Wash",
+      "Iron Grey",
+      "Navy/Blue",
+      "Off White",
+      "Pistachio",
+      "Burgundy",
+      "Charcoal",
+      "Dark Tan",
+      "Espresso",
+      "Graphite",
+      "Ice Grey",
+      "Mid Grey",
+      "Midnight",
+      "Mushroom",
+      "Oat Marl",
+      "Oatmeal",
+      "Cobalt",
+      "Coffee",
+      "Fossil",
+      "Matcha",
+      "Pebble",
+      "Silver",
+      "Black",
+      "Brown",
+      "Coral",
+      "Green",
+      "Khaki",
+      "Mocha",
+      "Multi",
+      "Olive",
+      "Slate",
+      "Stone",
+      "Taupe",
+      "White",
+      "Aqua",
+      "Blue",
+      "Ecru",
+      "Grey",
+      "Mink",
+      "Navy",
+      "Plum",
+      "Rock",
+      "Sage",
+      "Sand",
+      "Teal",
+      "Oat",
+      "Red",
+      "Tan"
+    ]
+  },
+  "name": "Closure London",
+  "short": "CLOSURE LDN",
+  "assets": {
+    "logoDark": "assets/brand/logo-black.png",
+    "logoLight": "assets/brand/logo-white.png",
+    "favicon": "assets/img/favicon.png"
+  },
+  "_theme": "closurelondon.com: white page, Helvetica/Arial throughout (no web font), #171717 headings, #676869 grey body and product names (14px regular), regular-weight hero titles ('New Arrivals', 30px) over tiny uppercase tracked eyebrows ('MENSWEAR'), square black buttons with white 12px labels ('Shop Mens'; white on imagery for Womens 'Shop Now'), light grey #f2f2f2 announcement bar with the Trustpilot score, orange Outlet link, sale prices struck through in grey. Theme ink is #000000 so the derived muted grey passes WCAG AA.",
+  "theme": {
+    "ink": "#000000",
+    "bg": "#ffffff",
+    "bgRgb": "255,255,255",
+    "text": "#171717",
+    "muted": "#676869",
+    "line": "#e6e6e6",
+    "stone": "#676869",
+    "sand": "#ededed",
+    "sand2": "#f5f5f5",
+    "sale": "#c8102e",
+    "stageA": "#ffffff",
+    "stageB": "#f2f2f2",
+    "stageC": "#e6e6e6",
+    "font": "Helvetica",
+    "fontHref": null
+  },
+  "pitch": {
+    "title": "Modern essentials,<br>one tap away.",
+    "copy": "A concept for the Closure London app: new-in tracksuits, twinsets and outerwear for men and women, app-only early access on drops, CLSR+ Rewards in your pocket, your saved size and Shopify checkout with Apple Pay, Klarna and Clearpay. Tap around, everything works.",
+    "list": [
+      "Drops with app-only early access",
+      "Saved size and back-in-size alerts",
+      "CLSR+ Rewards card in the app"
+    ]
+  },
+  "home": {
+    "newCol": "new-in",
+    "newSub": "The latest performancewear, premium basics and smart-casual staples",
+    "bestCol": "mens-best-sellers",
+    "bestSub": "The Closure London pieces on repeat",
+    "hero": {
+      "poster": "assets/brand/hero.jpg",
+      "eyebrow": "MENSWEAR",
+      "title": "New Arrivals",
+      "cta": "Shop Mens",
+      "col": "new-in"
+    },
+    "tiles": [
+      [
+        "tracksuits",
+        "Tracksuits"
+      ],
+      [
+        "hoodies",
+        "Hoodies"
+      ],
+      [
+        "jackets",
+        "Jackets"
+      ],
+      [
+        "mens-twinsets",
+        "Twinsets"
+      ],
+      [
+        "footwear",
+        "Footwear"
+      ],
+      [
+        "womens",
+        "Womens"
+      ]
+    ],
+    "editorial": {
+      "col": "womens",
+      "img": "assets/brand/womens.jpg",
+      "eyebrow": "WOMENSWEAR",
+      "title": "New Arrivals"
+    },
+    "feature": {
+      "col": "jackets",
+      "img": "assets/brand/mens-wide.jpg",
+      "title": "Coats & Jackets",
+      "cta": "Shop Now"
+    }
+  },
+  "collectionTitles": {
+    "mens-new-in": "Mens New In",
+    "mens-best-sellers": "Mens Best Sellers",
+    "womens-best-sellers": "Womens Best Sellers",
+    "mens-knitwear": "Knitwear",
+    "mens-pants": "Pants",
+    "mens-twinsets": "Twinsets",
+    "mens-shirts": "Shirts",
+    "womens-jackets": "Womens Coats & Jackets",
+    "womens-co-ords": "Womens Sets",
+    "smart-scuba": "Scuba",
+    "outlet": "Outlet",
+    "macs": "Macs"
+  },
+  "shop": {
+    "kicker": "CLOSURE LONDON",
+    "cats": [
+      "hoodies",
+      "joggers",
+      "tracksuits",
+      "jackets",
+      "mens-knitwear",
+      "overshirts",
+      "mens-pants",
+      "t-shirts",
+      "polos",
+      "cargo-pants",
+      "mens-twinsets",
+      "shorts",
+      "mens-shirts",
+      "jeans",
+      "footwear",
+      "accessories",
+      "womens",
+      "womens-tracksuits",
+      "womens-leggings",
+      "womens-jackets",
+      "womens-hoodies",
+      "womens-co-ords"
+    ],
+    "edits": [
+      "macs",
+      "new-in",
+      "restocks",
+      "smart-scuba",
+      "mens-best-sellers",
+      "womens-best-sellers",
+      "outlet"
+    ],
+    "featureCats": {
+      "col": "jackets",
+      "title": "Coats & Jackets",
+      "cta": "Shop Now",
+      "idx": 0,
+      "img": "assets/brand/mens-wide.jpg"
+    },
+    "featureEdits": {
+      "col": "womens",
+      "title": "Womenswear",
+      "cta": "Shop Now",
+      "idx": 0,
+      "img": "assets/brand/womens-wide.jpg"
+    },
+    "_edits": "Macs (newest collection, 29 Sep 2026) leads the Edits list; New In / Best Sellers hold up to 500 styles each (site collections are that broad)."
+  },
+  "search": {
+    "trending": [
+      "Tracksuit",
+      "Twinset",
+      "Scuba",
+      "Hoodie",
+      "Rain mac",
+      "Skate shoe",
+      "Joggers",
+      "Borg"
+    ],
+    "popular": [
+      "new-in",
+      "tracksuits",
+      "mens-twinsets",
+      "outlet"
+    ]
+  },
+  "perks": [
+    "Free UK standard delivery on orders over £75",
+    "Next day: order before 8pm, Mon–Thu",
+    "Earn 5 CLSR+ points per £1",
+    "10% student and key worker discount",
+    "Pay later with Klarna or Clearpay",
+    "28-day returns"
+  ],
+  "pdpPerks": [
+    "Free UK delivery over £75",
+    "28-day returns",
+    "Earn CLSR+ points"
+  ],
+  "payments": [
+    "apple_pay",
+    "google_pay",
+    "shopify_pay",
+    "paypal",
+    "klarna",
+    "clearpay",
+    "visa",
+    "master",
+    "american_express",
+    "maestro"
+  ],
+  "_shipping": "From closurelondon.com/pages/shipping (UK, checked 11 Oct 2026).",
+  "shipping": {
+    "region": "UK",
+    "freeOver": 75,
+    "options": [
+      {
+        "id": "standard",
+        "name": "Standard (Royal Mail)",
+        "desc": "3–5 working days, free over £75",
+        "price": 3.99,
+        "freeOver": 75,
+        "short": "Standard"
+      },
+      {
+        "id": "next-day",
+        "name": "Next Day (DPD)",
+        "desc": "1 working day, order before 8pm Mon–Thu",
+        "price": 5.99,
+        "short": "Next Day"
+      },
+      {
+        "id": "weekend",
+        "name": "Weekend (DPD)",
+        "desc": "Saturday, order before 8pm Friday",
+        "price": 6.99,
+        "short": "Saturday"
+      }
+    ],
+    "notes": [
+      "Free standard delivery on UK orders over £75.",
+      "Next day and weekend delivery: UK mainland only."
+    ]
+  },
+  "returns": {
+    "summary": "Our return policy lasts 28 days from the day you receive your order. Items must be unused, unwashed and in their original packaging with labels attached; start your return in our returns portal. Socks and underwear can't be returned for hygiene reasons.",
+    "short": "28-day returns"
+  },
+  "_rewards": "CLSR+ Rewards is real (closurelondon.com/pages/rewards: 5 points per £1, Bronze/Silver/Gold/VIP tiers, early sale access). The balance and card in the app are illustrative.",
+  "rewards": {
+    "enabled": true,
+    "name": "CLSR+ Rewards",
+    "real": true,
+    "stockists": false
+  },
+  "_discount": "The site's pop-up offers 10% off a first purchase (code emailed). The app pop-up mirrors 10% with the placeholder code APP10.",
+  "discount": {
+    "code": "APP10",
+    "pct": 10
+  },
+  "copy": {
+    "about": "Closure London creates modern essentials: performancewear, premium basics and smart-casual staples for men and women, each cut for a clean fit and made to last.",
+    "emptyBag": "Nothing in here yet. Start with New Arrivals or the latest tracksuits.",
+    "heroNotif": "New Arrivals: the latest performancewear and smart-casual staples have landed."
+  },
+  "_drop": "No release is announced, so the Drops tab demos app early access with the newest collection on the site, Macs (published 29 Sep 2026; the Waterproof Rain Mac landed 8 Oct). Previous: Smart Scuba. Date/time is the template's rolling placeholder.",
+  "drop": {
+    "num": "01",
+    "name": "MACS",
+    "title": "Macs",
+    "col": "macs",
+    "image": "assets/brand/macs.jpg",
+    "weekday": 4,
+    "hour": 19,
+    "earlyHours": 24,
+    "products": [
+      "waterproof-rain-mac-dark-brown",
+      "waterproof-rain-mac-black",
+      "waterproof-rain-mac-stone",
+      "smart-mac-coat-black",
+      "smart-mac-coat-navy",
+      "premium-mac-with-removable-lining-black"
+    ],
+    "previous": {
+      "col": "smart-scuba",
+      "title": "SCUBA"
+    }
+  },
+  "report": {
+    "missing": [
+      "No hero video on the site: the hero is cropped from the Menswear New Arrivals homepage banner",
+      "The FAQs page is empty on the site (help widget only): replaced by the real Student Discount page",
+      "The site's 10% sign-up code is emailed, not published: APP10 is a placeholder app code",
+      "No upcoming release is announced: the Drops tab demos early access with Macs; drop date/time is the rolling placeholder",
+      "CLSR+ balance and card in the app are illustrative",
+      "Font: Helvetica/Arial system stack, as on the site (no web font)"
+    ]
+  },
+  "pages": {
+    "help": [
+      {
+        "t": "Shipping",
+        "url": "https://closurelondon.com/pages/shipping",
+        "sum": "Shipping\nUK Delivery\nFree standard delivery on orders over £75\nNext day available — order before 8pm, Monday to Thursday\nOrder cut-off\nOrders after the cut-off ship the next working day.\nTracking\nYou'll get a tracking email as soon as your order ships.\nDuties & taxes\nOrders outside the UK may be subject to local customs charges.\nIreland & Europe\nWorldwide\nMethod\nDelivery\nCarrier\nPrice\nStandardOrders over £75\n3–5 working daysRoyal Mail\nRoyal Mail\nFree\nStandard\n£3.99\n3–5 working daysDPD\nDPD: £4.99\nNext DayOrder before 8pm, Mon–Thu\n1 working dayDPD\n£5.99\nWeekendOrder before 8pm Friday\nSaturdayDPD\n£6.99\nUK mainland only. Weekend orders placed with next day delivery arrive the following Tuesday.\nDestination\nIreland\n1 working dayAn Post\nAn Post\n£4.95\nEurope\n2–3 working daysDPD or DHL\nDPD or DHL\nFrom £6.99\nEU customs update — from 1 July 2026\nThe EU now applies a €3 customs charge to orders arriving from outside the EU valued at €150 or less. Depending on your order, this may apply to more than one item type. It's separate from VAT and delivery fees."
+      },
+      {
+        "t": "Returns",
+        "url": "https://closurelondon.com/pages/refund-policy",
+        "sum": "Our return policy lasts 28 days. If 28 days have passed since the day you received your order, a refund will no longer be offered.\nTo be eligible for a return, your item(s) must be unused and in the same condition that you received them in, in the original packaging with labels attached.\nSocks and underwear are non-refundable due to hygiene reasons.\nTo process your return, please visit our returns portal."
+      },
+      {
+        "t": "Student Discount",
+        "url": "https://closurelondon.com/pages/student-discount",
+        "sum": "Students can now benefit from 10% off at Closurelondon.com.\n1. Verify your education status\n2. Once verified, collect your discount code\n3. Enter your code when you checkout\nOur student discount is currently only available in the United Kingdom. Key workers get 10% off too."
+      },
+      {
+        "t": "CLSR+ Rewards",
+        "url": "https://closurelondon.com/pages/rewards",
+        "sum": "Earn points for purchases, referrals and more, and redeem them for discounts, early access to drops and sales, and perks.\n5 points per £1 · 100 points for signing up · 400 birthday points\nTiers: Bronze, Silver (spend £75), Gold (spend £150, 6 points per £1), VIP (spend £300, 8 points per £1)."
+      },
+      {
+        "t": "Contact",
+        "url": "https://closurelondon.com/pages/contact-us",
+        "sum": "Our dedicated team is available to assist you during the following hours (excluding UK public holidays):\nMonday – Friday: 07:30 – 17:30\nSaturday – Sunday: 11:00 – 19:00\nGet in touch: hello@closurelondon.com\nPlease allow 48–72 hours for a response. We aim to resolve all enquiries as efficiently as possible."
+      }
+    ]
+  },
+  "_instagram": "Collected in a browser from the brand's Instagram profile on 2026-10-11 (pinned posts excluded; profile/collaborator-path URLs normalised to /p/<code>/ or /reel/<code>/). Thumbnails: assets/ig/N.jpg, square-cropped, max 600px.",
+  "instagram": {
+    "handle": "closurelondon",
+    "url": "https://www.instagram.com/closurelondon/",
+    "followers": "128K",
+    "bio": "Creating Modern Essentials #CLOSURELONDON",
+    "collected": "2026-10-11",
+    "posts": [
+      {
+        "url": "https://www.instagram.com/p/DeUJEQajNeT/",
+        "type": "carousel",
+        "image": "assets/ig/1.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeHzcIdjDKY/",
+        "type": "carousel",
+        "image": "assets/ig/2.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeEleFUDO1Q/",
+        "type": "carousel",
+        "image": "assets/ig/3.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/Dd_3TgjjCg-/",
+        "type": "carousel",
+        "image": "assets/ig/4.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/Dd1a63YsT5K/",
+        "type": "photo",
+        "image": "assets/ig/5.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DdgNzk6Fq8e/",
+        "type": "carousel",
+        "image": "assets/ig/6.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DdgoJ4bDDnf/",
+        "type": "carousel",
+        "image": "assets/ig/7.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DdLnX25Fgzp/",
+        "type": "carousel",
+        "image": "assets/ig/8.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DdGrj1NnKR1/",
+        "type": "carousel",
+        "image": "assets/ig/9.jpg"
+      }
+    ]
+  }
+}
