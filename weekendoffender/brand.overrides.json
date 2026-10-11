@@ -1,0 +1,481 @@
+{
+  "_note": "Hand-tuned layer on top of the scraped brand.json (weekendoffender.com, Shopify). Run: python3 tools/build_brand.py --rebuild weekendoffender. Hand-picked images in assets/brand/ are crops of the site's own homepage banners (AUTUMN ESSENTIALS hero, The Technician Returns, WO x Leo Gregory). Logos are the site's own header PNGs (WO-LOGO-BLK / WO_White_600, knockout crown box).",
+  "scrape": {
+    "_extraCollections": "Homepage + menu collections the static nav parse missed.",
+    "extraCollections": [
+      "wo-x-leo-gregory",
+      "technician",
+      "winter-jackets",
+      "the-stratford-avenue-collection",
+      "polo-shirts",
+      "shirts",
+      "all-shorts-trousers",
+      "footwear",
+      "autumn-outfitting"
+    ],
+    "_colours": "Colour names derived from the site's own Color option values as they appear at the end of product titles ('Vettel Thermo Jacket Peruvian Blue').",
+    "colours": [
+      "Light Grey/ Deep Plum/ Juniper Blue",
+      "Black Forest Green/Julep Green",
+      "Chalk/Alabaster/Essence Blue",
+      "Ice Blue/Athletic Blue/Chalk",
+      "Chalk/Paperwhite/Glen Green",
+      "Shaved Chocolate/Adobe Rose",
+      "Insignia Blue/Grey Pelican",
+      "Pale Blush Pink/Candy Pink",
+      "Gray Flannel/Bright White",
+      "Lagoon Blue/Peruvian Blue",
+      "White/Black Forest Green",
+      "Avocado/Chocolate Torte",
+      "Castle Green Rain Camo",
+      "Black/Amazonite Green",
+      "Blue Tourmaline/Black",
+      "Blue Tourmaline/White",
+      "Carafe/Totale Eclipse",
+      "Field Green/Chalk/Gum",
+      "Ghost/Porpoise/Sunset",
+      "Aurora/Verdant Green",
+      "Foggy Dew/Pineneedle",
+      "Blaze Red Rain Camo",
+      "Chrosite Pink/Black",
+      "Jet Black/Nine Iron",
+      "Sea Foam/Pineneedle",
+      "White/Peridot Green",
+      "Black Forest Green",
+      "Classic Blue/White",
+      "Dark Sapphire Blue",
+      "Peruvian Blue/Navy",
+      "Black/Thyme Green",
+      "Cobalt Blue/White",
+      "Julep Green/Black",
+      "Large House Check",
+      "White/Lagoon Blue",
+      "White/Smokey Grey",
+      "Chromatic Bronze",
+      "Soft Pink/Kirsch",
+      "Amazonite Green",
+      "Black/Navy/Grey",
+      "Blue Tourmaline",
+      "Cornflower Blue",
+      "Grey Marl/Ghost",
+      "Gun Metal/Black",
+      "Mid House Check",
+      "Ocean Wave Blue",
+      "White/Soft Pink",
+      "Wild Lime Green",
+      "Bay Leaf Green",
+      "Chromatic Blue",
+      "Debonair/Black",
+      "Electric/White",
+      "Green/Dark Ivy",
+      "Ticking Stripe",
+      "Washed Vintage",
+      "White/Electric",
+      "Black Ripstop",
+      "Black/Calcium",
+      "Brown Affogat",
+      "Chrosite Pink",
+      "Kirsch/Cement",
+      "Peridot Green",
+      "Peruvian Blue",
+      "Sunset Orange",
+      "Thyme/Saffron",
+      "Tobacco Brown",
+      "Black/Yellow",
+      "Castle Green",
+      "Dark Vintage",
+      "Honey Yellow",
+      "Martini/Coca",
+      "White/Kirsch",
+      "Baltic Blue",
+      "Black/Ghost",
+      "Blue Shadow",
+      "Coca/Almond",
+      "Ensign Blue",
+      "Ghost/Black",
+      "House Check",
+      "Julep Green",
+      "Lagoon Blue",
+      "Smokey Grey",
+      "Thyme Green",
+      "White/Black",
+      "Bark Brown",
+      "Black/Blue",
+      "Ghost/Navy",
+      "Navy/Coral",
+      "Navy/White",
+      "Posy Green",
+      "Red/Yellow",
+      "Watermelon",
+      "White/Blue",
+      "White/Navy",
+      "White/Pink",
+      "Aubergine",
+      "Black Mix",
+      "Black/Red",
+      "Dark Navy",
+      "Driftwood",
+      "Fog/Naval",
+      "Grey Marl",
+      "Grey/Grey",
+      "Navy/Blue",
+      "Soft Pink",
+      "White/Gum",
+      "Ash Grey",
+      "Charcoal",
+      "Grey Oat",
+      "Mushroom",
+      "Sky Blue",
+      "Calcium",
+      "Saffron",
+      "Cement",
+      "Kirsch",
+      "Marron",
+      "Orange",
+      "Yellow",
+      "Black",
+      "Brick",
+      "Brown",
+      "Coral",
+      "Ghost",
+      "Green",
+      "Ivory",
+      "Stone",
+      "White",
+      "Bark",
+      "Blue",
+      "Gold",
+      "Lime",
+      "Navy",
+      "Rock",
+      "Red"
+    ]
+  },
+  "_instagram": "Collected in a browser from the brand's Instagram profile on 2026-10-11 (pinned posts excluded; collaborator-path URLs normalised to /p/<code>/). Thumbnails: assets/ig/N.jpg, square-cropped, max 600px.",
+  "instagram": {
+    "handle": "weekendoffender",
+    "url": "https://www.instagram.com/weekendoffender/",
+    "followers": "293K",
+    "bio": "AW26 now live 👇",
+    "collected": "2026-10-11",
+    "posts": [
+      {
+        "url": "https://www.instagram.com/reel/DeRnMxENwou/",
+        "type": "reel",
+        "image": "assets/ig/1.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeOlnsdjeuF/",
+        "type": "carousel",
+        "image": "assets/ig/2.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DeHv-OdNxLw/",
+        "type": "reel",
+        "image": "assets/ig/3.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DeETDecNrqb/",
+        "type": "reel",
+        "image": "assets/ig/4.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/Dd_-4wkDeT9/",
+        "type": "carousel",
+        "image": "assets/ig/5.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/Dd9YTmujR-Q/",
+        "type": "carousel",
+        "image": "assets/ig/6.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/Dd4KQ3NNFGY/",
+        "type": "reel",
+        "image": "assets/ig/7.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DdyY1cMNudT/",
+        "type": "reel",
+        "image": "assets/ig/8.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DdtjScvjdJX/",
+        "type": "carousel",
+        "image": "assets/ig/9.jpg"
+      }
+    ]
+  },
+  "name": "Weekend Offender",
+  "short": "WEEKEND OFFENDER",
+  "assets": {
+    "logoDark": "assets/brand/logo-black.png",
+    "logoLight": "assets/brand/logo-white.png",
+    "favicon": "assets/img/favicon.png"
+  },
+  "_theme": "weekendoffender.com: white page, #212121 text, #1a1a1a announcement bar and pill buttons (100px radius, Helvetica bold 15px, sentence case 'Shop now'), Outlet/sale red #cc0000, Helvetica/Arial throughout (no web font), product cards 13px regular. Logo is the knockout crown box (black on light, white over imagery). Radii, type and button styles live in weekendoffender/brand.css. Theme ink is #000000 (so the derived muted grey passes WCAG AA); the #1a1a1a buttons/bar are set in brand.css.",
+  "theme": {
+    "ink": "#000000",
+    "bg": "#ffffff",
+    "bgRgb": "255,255,255",
+    "text": "#212121",
+    "muted": "#666666",
+    "line": "#e5e5e5",
+    "stone": "#777777",
+    "sand": "#e6e6e6",
+    "sand2": "#f4f4f4",
+    "sale": "#cc0000",
+    "stageA": "#ffffff",
+    "stageB": "#f0f0f0",
+    "stageC": "#e3e3e3",
+    "font": "Helvetica",
+    "fontHref": null
+  },
+  "pitch": {
+    "title": "Admit nothing.<br>Just tap.",
+    "copy": "A concept for the Weekend Offender app: new drops like WO x Leo Gregory with app-only early access, your saved size from XS to 4XL, WO-COIN™ rewards in your pocket and Shopify checkout with Apple Pay, Google Pay and PayPal. Tap around, everything works.",
+    "list": [
+      "Drops with app-only early access",
+      "Saved size and back-in-size alerts",
+      "WO-COIN™ rewards card in the app"
+    ]
+  },
+  "home": {
+    "newCol": "new-in",
+    "newSub": "Fresh AW26 pieces, just landed",
+    "bestCol": "bestsellers",
+    "bestSub": "The Weekend Offender pieces on repeat",
+    "hero": {
+      "poster": "assets/brand/hero.jpg",
+      "eyebrow": "AW26",
+      "title": "AUTUMN ESSENTIALS",
+      "cta": "Shop now",
+      "col": "autumn-outfitting"
+    },
+    "tiles": [
+      [
+        "all-coats-and-jackets",
+        "Coats & Jackets"
+      ],
+      [
+        "graphic-tees",
+        "Graphic Tees"
+      ],
+      [
+        "all-hoodies-sweats",
+        "Hoodies & Sweats"
+      ],
+      [
+        "polo-shirts",
+        "Polo Shirts"
+      ],
+      [
+        "all-shorts-trousers",
+        "Shorts & Trousers"
+      ],
+      [
+        "footwear",
+        "Footwear"
+      ]
+    ],
+    "editorial": {
+      "col": "technician",
+      "img": "assets/brand/technician.jpg",
+      "eyebrow": "Back for a reason",
+      "title": "THE TECHNICIAN RETURNS"
+    },
+    "feature": {
+      "col": "wo-x-leo-gregory",
+      "img": "assets/brand/leo-gregory-wide.jpg",
+      "title": "WO X LEO GREGORY",
+      "cta": "Shop now"
+    }
+  },
+  "collectionTitles": {
+    "all-coats-and-jackets": "Coats & Jackets",
+    "all-hoodies-sweats": "Hoodies & Sweats",
+    "all-t-shirts-polos": "Tees & Polos",
+    "all-shorts-trousers": "Shorts & Trousers",
+    "autumn-winter-26": "AW26 Collection",
+    "technician": "The Technician",
+    "autumn-outfitting": "Autumn Essentials",
+    "plus-size-coats-jackets": "Plus Size Coats & Jackets",
+    "kids-coats-jackets": "Kids Coats & Jackets",
+    "plus-size-hoodies-sweats": "Plus Size Hoodies & Sweats",
+    "kids-hoodies-sweats": "Kids Hoodies & Sweats"
+  },
+  "shop": {
+    "kicker": "WEEKEND OFFENDER",
+    "cats": [
+      "all-coats-and-jackets",
+      "jackets",
+      "windbreakers",
+      "over-shirts-and-over-tops",
+      "gilets-utility-vests",
+      "down-jackets",
+      "all-hoodies-sweats",
+      "hoodies",
+      "jumpers-sweaters",
+      "knitwear",
+      "tracksuits",
+      "all-t-shirts-polos",
+      "graphic-tees",
+      "t-shirts",
+      "polo-shirts",
+      "shirts",
+      "all-shorts-trousers",
+      "footwear",
+      "plus-size-coats-jackets",
+      "kids-coats-jackets"
+    ],
+    "edits": [
+      "new-in",
+      "bestsellers",
+      "autumn-outfitting",
+      "autumn-winter-26",
+      "wo-x-leo-gregory",
+      "technician",
+      "winter-jackets",
+      "the-stratford-avenue-collection"
+    ],
+    "featureCats": {
+      "col": "technician",
+      "title": "THE TECHNICIAN",
+      "cta": "Shop now",
+      "idx": 0,
+      "img": "assets/brand/technician-wide.jpg"
+    },
+    "featureEdits": {
+      "col": "wo-x-leo-gregory",
+      "title": "WO X LEO GREGORY",
+      "cta": "Shop now",
+      "idx": 0,
+      "img": "assets/brand/leo-gregory-wide.jpg"
+    }
+  },
+  "search": {
+    "trending": [
+      "Technician",
+      "Graphic tee",
+      "Windbreaker",
+      "Polo shirt",
+      "Leo Gregory",
+      "Overshirt",
+      "Down jacket",
+      "Karhu"
+    ],
+    "popular": [
+      "new-in",
+      "all-coats-and-jackets",
+      "graphic-tees",
+      "polo-shirts"
+    ]
+  },
+  "perks": [
+    "Free UK shipping on orders £70+",
+    "Free 3-pack of socks with orders £80+",
+    "Free Overnighter Bag when you buy an insulated jacket",
+    "15% off with student discount",
+    "Earn WO-COIN™ on every order",
+    "Flagship store: Cambridge Street, Sheffield"
+  ],
+  "pdpPerks": [
+    "Free UK shipping over £70",
+    "14-day returns",
+    "Earn WO-COIN™ points"
+  ],
+  "payments": [
+    "apple_pay",
+    "google_pay",
+    "paypal",
+    "visa",
+    "master",
+    "american_express",
+    "maestro"
+  ],
+  "shipping": {
+    "region": "UK",
+    "freeOver": 70,
+    "options": [
+      {
+        "id": "free-uk",
+        "name": "Free UK Shipping",
+        "desc": "Orders £70+, 5–7 working days",
+        "price": 0,
+        "short": "Free UK"
+      },
+      {
+        "id": "dpd-standard",
+        "name": "DPD UK Standard",
+        "desc": "3–4 working days",
+        "price": 3.95,
+        "freeOver": 70,
+        "short": "Standard"
+      },
+      {
+        "id": "uk-express",
+        "name": "UK Express",
+        "desc": "1–2 working days, order before 12pm",
+        "price": 5.95,
+        "short": "Express"
+      }
+    ],
+    "notes": [
+      "Orders placed before 12:00pm Monday–Friday are dispatched the same day.",
+      "We don't deliver to PO boxes: a signature is needed on delivery."
+    ]
+  },
+  "returns": {
+    "summary": "Return items in their original packaging within 14 days of receiving your goods, with tags on and unworn. Complete the Returns Note emailed when your order shipped and send it to our Derby warehouse.",
+    "short": "14-day returns"
+  },
+  "_rewards": "WO-COIN™ Rewards Club is real (weekendoffender.com/pages/rewards, 'Start earning points with WO-COIN'). The balance and card in the app are illustrative.",
+  "rewards": {
+    "enabled": true,
+    "name": "WO-COIN™ Rewards",
+    "real": true,
+    "stockists": true
+  },
+  "_discount": "The site's pop-up offers 'an extra 15% off' for sign-ups (code emailed, not public). The app pop-up uses the same 15% with a placeholder app code.",
+  "discount": {
+    "code": "APP15",
+    "pct": 15
+  },
+  "copy": {
+    "about": "No-nonsense, functional clothes with an insubordinate twist. ADMIT NOTHING.",
+    "emptyBag": "Nothing in here yet. Start with Autumn Essentials or The Technician.",
+    "heroNotif": "WO x Leo Gregory: the new collection is live."
+  },
+  "_drop": "No upcoming release is announced on the site, so the Drops tab demos app early access with the newest real collection on the homepage, WO x Leo Gregory ('New: WO x Leo Gregory'). Previous drop: The Technician ('The Technician Returns' homepage banner). Date/time is the template's rolling placeholder.",
+  "drop": {
+    "num": "01",
+    "name": "WO X LEO GREGORY",
+    "title": "WO x Leo Gregory",
+    "col": "wo-x-leo-gregory",
+    "image": "assets/brand/leo-gregory.jpg",
+    "products": [
+      "ginola-graphic-t-shirt-black",
+      "mabutt-football-shirt-brown",
+      "anderton-t-shirt-black",
+      "sedgley-hoodie-black",
+      "leo-gregory-mono-graphic-t-shirt-navy-new-fit",
+      "leo-gregory-mono-graphic-t-shirt-white-new-fit"
+    ],
+    "previous": {
+      "col": "technician",
+      "title": "THE TECHNICIAN"
+    }
+  },
+  "_report": "The scraper's missing list, corrected for what is filled in by hand above.",
+  "report": {
+    "missing": [
+      "No hero video on the site's homepage (the WO x Leo Gregory film is a domain-locked Vimeo embed): the hero is the AUTUMN ESSENTIALS homepage banner",
+      "No FAQs (beyond the Orders & Returns page), about, sustainability or cookie policy page linked on the site",
+      "No site-wide review score (Stamped product badges only), so no reviews block",
+      "The site's 15% sign-up code is emailed, not published: the pop-up shows the real 15% with a placeholder app code (APP15)",
+      "No upcoming release is announced: the Drops tab demos early access with WO x Leo Gregory; drop date/time is the rolling placeholder",
+      "WO-COIN™ balance and card in the app are illustrative",
+      "Font: Helvetica/Arial system stack, as on the site (no web font)"
+    ]
+  }
+}

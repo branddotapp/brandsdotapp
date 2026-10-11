@@ -1,0 +1,101 @@
+/* WEEKEND OFFENDER: brand layer loaded after the shared app.css (copied to assets/brand.css by tools/build_brand.py).
+   Matches weekendoffender.com: white page, #212121 type, Helvetica/Arial throughout (the site uses no web font), bold
+   headings (uppercase campaign titles like AUTUMN ESSENTIALS, sentence-case section titles like "The Technician Returns"),
+   #1a1a1a pill buttons with bold sentence-case labels ("Shop now", 100px radius) - dark even over imagery - plus a white
+   outline pill ("Shop all"), centred 13px regular product names, Outlet / sale red #cc0000, neutral greys, and the knockout
+   crown-box logo (white over the hero, black on white). */
+
+:root{font-family:Helvetica,Arial,sans-serif;--wo-ink:#1a1a1a;--deep-band:light}
+
+/* ---- neutral greys instead of the template's warm sand ---- */
+body{background:radial-gradient(1200px 700px at 70% 30%,#ffffff 0%,#f0f0f0 55%,#e3e3e3 100%)}
+.pcard .pimg,.cat-tile,.cat-row img,.bag-item img{background:#f4f4f4}
+.seg{background:#efefef}
+.seg button{color:#555}
+.chip,.qty,.sfield{border-color:#d6d6d6}
+.switch{background:#cfcfcf}
+.link-row{border-top-color:#ececec}
+.pitch-copy{color:#4a4a4a}
+.drop-banner{border-color:#e2e2e2}
+.br-url{background:#efefef}
+.summary,.acct-card,.size-filter,.pref-group{border:1px solid #e6e6e6}
+
+/* ---- type: Helvetica bold, no wide luxury tracking ---- */
+.hero-title{font-size:30px;font-weight:700;letter-spacing:0;line-height:1.05;text-transform:uppercase;margin-bottom:16px}
+.editorial .hero-title{font-size:26px;text-transform:none}
+.eyebrow{font-size:13px;font-weight:400;letter-spacing:.02em;text-transform:none;opacity:1}
+.sec-head h2{font-size:17px;font-weight:700;letter-spacing:0;text-transform:none}
+.sec-head p{font-size:12.5px;color:#666}
+.large-title{font-size:26px;font-weight:700;letter-spacing:0}
+.large-title small{font-weight:400;letter-spacing:1px;color:#666}
+.tb-title{font-weight:700;letter-spacing:1px}
+.feature-card b{font-weight:700;letter-spacing:0;font-size:22px}
+.dc-title{font-weight:700;letter-spacing:0}
+.dc-title span{font-weight:400}
+.cat-tile span{font-weight:400;font-size:13px;letter-spacing:1px;text-transform:none}
+.cat-row b{font-weight:700;letter-spacing:0;text-transform:none;font-size:14px}
+.empty h3{font-weight:700;letter-spacing:0}
+.pdp-info h1{font-weight:700;font-size:19px;letter-spacing:0;line-height:1.25}
+.pdp-info .ptype{font-weight:400;letter-spacing:1px}
+.wl-body h2,.auth h2{font-weight:700;letter-spacing:0}
+.pitch-title{font-weight:700;letter-spacing:-.01em}
+.pitch-kicker{letter-spacing:.16em}
+.pitch-list{letter-spacing:1px;font-weight:400}
+.label-row b{font-weight:700;letter-spacing:0;text-transform:none}
+
+/* ---- buttons: #1a1a1a pills, bold sentence case (the site's 'Shop now') ---- */
+.btn{border-radius:100px;font-size:14px;font-weight:700;letter-spacing:0;text-transform:none;height:48px;padding:0 28px}
+.btn-dark{background:var(--wo-ink);color:#fff}
+.btn-outline{border-radius:100px}
+.link{font-weight:700;letter-spacing:0;text-transform:none;font-size:13px}
+.buybar .hbtn{border-radius:50%}
+/* over imagery the site keeps the dark pill (hero 'Shop now'); feature cards use its white outline pill ('Shop all') */
+.hero .btn-light,.editorial .btn-light{background:var(--wo-ink);color:#fff;border:1px solid #000}
+.feature-card .btn-light,.drop-card .btn-light{background:transparent;color:#fff;border:1px solid #fff}
+@media (hover:hover){.hero .btn-light:hover,.editorial .btn-light:hover{background:#000}.feature-card .btn-light:hover,.drop-card .btn-light:hover{background:#fff;color:#000}}
+.feature-card .btn-sm{height:38px;padding:0 22px;font-size:13px}
+
+/* ---- pills for chips, segmented control, search; square size boxes ---- */
+.seg,.seg button,.seg .seg-ind{border-radius:100px}
+.chip{border-radius:100px}
+.sfield{border-radius:100px}
+.promo-cta,.wl-code,.toast,.dc-tag,.g-badge{border-radius:100px}
+.size{border-radius:4px;border-color:#d6d6d6}
+.size.out::after{left:12%;right:12%}
+
+/* ---- product cards: centred 13px regular name, regular price (as the site) ---- */
+.pcard .pmeta{text-align:center;padding:10px 4px 4px}
+.pcard .pname{font-size:12.5px;font-weight:400;letter-spacing:0;text-transform:none}
+.pcard .pcol{font-size:11.5px}
+.pcard .price{font-weight:400}
+.pcard .tag{background:var(--wo-ink);color:#fff;border-radius:100px;padding:4px 9px;letter-spacing:0;font-weight:700;text-transform:none}
+.pcard .tag.sale{background:var(--sale)}
+
+/* ---- the knockout crown-box logo: big and boxy, like the site header ---- */
+.home-head .tb-logo{height:36px;max-width:none}
+.tb-logo{height:30px;max-width:none}
+.splash{background:#1a1a1a}
+.splash-logo{width:150px}
+.wl-logo{height:60px;max-width:none}
+.auth-logo{height:56px}
+.about img{width:110px}
+.acct-foot img{height:40px}
+.rcard .rc-top img{height:30px}
+.pitch-logo{width:clamp(96px,14vh,120px);max-height:none}
+
+/* Home band past the hero: white with black icons and the black logo, like the site's scrolled header */
+.home-head.deep .home-band{background:rgba(255,255,255,.97);color:#1a1a1a;box-shadow:0 1px 0 #e6e6e6}
+.home-head.deep .tb-logo{filter:none}
+.home-head.deep .icon-btn .hb-count{background:#1a1a1a;color:#fff}
+
+/* ---- WO-COIN rewards card: graphite ---- */
+.rewards-mini,.rcard{background:linear-gradient(135deg,#111 0%,#1f1f1f 60%,#2f2f2f 100%)}
+.rewards-mini::before,.rcard::before{background:radial-gradient(circle,rgba(255,255,255,.14),transparent 70%)}
+.rm-bar i,.rcard .tbar i{background:#fff}
+
+/* ---- desktop "Why an app" stats: bold numbers, rounded boxes like the pills ---- */
+.stat{border-radius:14px}
+.stat-num{font-weight:700;letter-spacing:-.01em}
+.stat-label{letter-spacing:1px}
+.stat-copy{color:#4a4a4a}
+.sec-head .link{white-space:nowrap;flex-shrink:0}
