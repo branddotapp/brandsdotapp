@@ -1,0 +1,104 @@
+/* SERGE DENIMES: brand layer loaded after the shared app.css (copied to assets/brand.css by tools/build_brand.py).
+   Matches sergedenimes.com: white page, #121212 type, Tiempos Headline (regular) for uppercase headings ("BEST SELLERS",
+   "ARMOUR"), NeueHaas for UI, uppercase 12px product names with 0.3px tracking, square transparent outline buttons over
+   imagery ("SHOP NOW": white 1px border, 12px uppercase), solid black buttons on white, square corners everywhere, black
+   badges, and the wide SERGE DENIMES wordmark. Fonts hotlinked from the site's own Shopify CDN. */
+
+@font-face{font-family:'NeueHaas';src:url('https://www.sergedenimes.com/cdn/shop/t/47/assets/neue-haas-regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'NeueHaas';src:url('https://www.sergedenimes.com/cdn/shop/t/47/assets/neue-haas-medium.woff2') format('woff2');font-weight:500 900;font-style:normal;font-display:swap}
+@font-face{font-family:'Tiempos Headline';src:url('https://www.sergedenimes.com/cdn/shop/t/47/assets/tiempos-headline-regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Tiempos Headline';src:url('https://www.sergedenimes.com/cdn/shop/t/47/assets/tiempos-headline-medium.woff2') format('woff2');font-weight:500 900;font-style:normal;font-display:swap}
+
+/* the serif stack names NeueHaas too so the layout check's brand-font rule still recognises it */
+:root{font-family:'NeueHaas',Helvetica,Arial,sans-serif;--sd-serif:'Tiempos Headline','NeueHaas',Georgia,serif;--deep-band:light}
+
+/* ---- neutral greys ---- */
+body{background:radial-gradient(1200px 700px at 70% 30%,#ffffff 0%,#f3f3f3 55%,#e7e7e7 100%)}
+.pcard .pimg,.cat-tile,.cat-row img,.bag-item img{background:#f2f2f2}
+.seg{background:#f0f0f0}
+.seg button{color:#555}
+.chip,.qty,.sfield{border-color:#d4d4d4}
+.switch{background:#cfcfcf}
+.link-row{border-top-color:#ececec}
+.pitch-copy{color:#444}
+.drop-banner{border-color:#e2e2e2}
+.br-url{background:#f0f0f0}
+.summary,.acct-card,.size-filter,.pref-group{border:1px solid #e5e5e5}
+
+/* ---- type: Tiempos Headline uppercase headings, NeueHaas UI ---- */
+.hero-title{font-family:var(--sd-serif);font-size:32px;font-weight:400;letter-spacing:.01em;line-height:1.08;text-transform:uppercase;margin-bottom:18px}
+.editorial .hero-title{font-size:30px;text-transform:uppercase}
+.eyebrow{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;opacity:1}
+.sec-head h2{font-family:var(--sd-serif);font-size:21px;font-weight:400;letter-spacing:.01em;text-transform:uppercase}
+.sec-head p{font-size:12px;color:#666}
+.large-title{font-family:var(--sd-serif);font-size:26px;font-weight:400;letter-spacing:.01em;text-transform:uppercase}
+.large-title small{font-family:'NeueHaas',Helvetica,Arial,sans-serif;font-weight:500;letter-spacing:.08em;color:#666}
+.tb-title{font-family:var(--sd-serif);font-weight:400;letter-spacing:.02em;text-transform:uppercase;font-size:16px}
+.feature-card b{font-family:var(--sd-serif);font-weight:400;letter-spacing:.01em;font-size:24px;text-transform:uppercase;line-height:1.1}
+.dc-title{font-family:var(--sd-serif);font-weight:400;letter-spacing:.01em;text-transform:uppercase}
+.dc-title span{font-weight:400}
+.cat-tile span{font-family:'NeueHaas',Helvetica,Arial,sans-serif;font-weight:500;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.cat-row b{font-family:'NeueHaas',Helvetica,Arial,sans-serif;font-weight:500;letter-spacing:.06em;text-transform:uppercase;font-size:13px}
+.empty h3{font-family:var(--sd-serif);font-weight:400;letter-spacing:.01em;text-transform:uppercase}
+.pdp-info h1{font-family:var(--sd-serif);font-weight:400;font-size:22px;letter-spacing:.01em;line-height:1.2;text-transform:uppercase}
+.pdp-info .ptype{font-weight:400;letter-spacing:.08em;color:#666}
+.wl-body h2,.auth h2{font-family:var(--sd-serif);font-weight:400;letter-spacing:.01em;text-transform:uppercase}
+.pitch-title{font-family:var(--sd-serif);font-weight:400;letter-spacing:0;text-transform:none}
+.pitch-kicker{letter-spacing:.16em}
+.pitch-list{letter-spacing:.02em;font-weight:500}
+.label-row b{font-weight:500;letter-spacing:.06em;text-transform:uppercase}
+.stat-num{font-family:var(--sd-serif);font-weight:400;letter-spacing:0}
+.stat-label{letter-spacing:.06em}
+
+/* ---- buttons: square, 12px uppercase, 0.3px tracking; outline white over imagery like 'SHOP NOW' ---- */
+.btn{border-radius:0;font-size:12px;font-weight:500;letter-spacing:.3px;text-transform:uppercase;height:44px;padding:0 26px}
+.btn-dark{background:#121212;color:#fff}
+.btn-outline{border-radius:0;border-color:#121212}
+.link{font-weight:500;letter-spacing:.3px;text-transform:uppercase;font-size:11.5px;text-decoration:underline;text-underline-offset:4px}
+.hero .btn-light,.editorial .btn-light,.feature-card .btn-light,.drop-card .btn-light{background:transparent;color:#fff;border:1px solid #fff}
+@media (hover:hover){.btn-dark:hover{background:#333}.hero .btn-light:hover,.editorial .btn-light:hover,.feature-card .btn-light:hover,.drop-card .btn-light:hover{background:#fff;color:#121212}}
+.feature-card .btn-sm{height:38px;padding:0 20px;font-size:11.5px;border-radius:0}
+.buybar .btn-dark{background:#121212;color:#fff}
+
+/* ---- square controls ---- */
+.seg,.seg button,.seg .seg-ind,.chip,.sfield,.promo-cta,.wl-code,.toast,.dc-tag,.g-badge{border-radius:0}
+.size{border-radius:0;border-color:#d4d4d4}
+.cat-tile,.feature-card,.editorial,.drop-card,.pcard .pimg{border-radius:0}
+
+/* ---- product cards: uppercase 12px names with 0.3px tracking, 12px regular prices; black badges ---- */
+.pcard .pmeta{text-align:left;padding:10px 2px 4px}
+.pcard .pname{font-size:12px;font-weight:500;letter-spacing:.3px;text-transform:uppercase}
+.pcard .pcol{font-size:11.5px;color:#666;line-height:1.35}
+.pcard .price{font-weight:400;font-size:12px;letter-spacing:.3px}
+.pcard .tag{background:#121212;color:#fff;border-radius:0;padding:4px 7px;letter-spacing:.06em;font-weight:500;text-transform:uppercase;font-size:10px}
+.pcard .tag.sale{background:#b3261e;color:#fff}
+
+/* ---- the wide SERGE DENIMES wordmark (523x52) ---- */
+.home-head .tb-logo{height:15px;max-width:none}
+.tb-logo{height:13px;max-width:none}
+.splash{background:#121212}
+.splash-logo{width:200px}
+.wl-logo{height:20px;max-width:none}
+.auth-logo{height:18px}
+.about img{width:170px}
+.acct-foot img{height:14px}
+.rcard .rc-top img{height:12px}
+.pitch-logo{width:clamp(170px,24vh,220px);max-height:none}
+
+/* Home band past the hero: white with dark icons and the black wordmark, like the site's header */
+.home-head.deep .home-band{background:rgba(255,255,255,.97);color:#121212;box-shadow:0 1px 0 #e5e5e5}
+.home-head.deep .tb-logo{filter:none}
+.home-head.deep .icon-btn .hb-count{background:#121212;color:#fff}
+
+/* ---- rewards card (illustrative concept): black ---- */
+.rewards-mini,.rcard{background:linear-gradient(135deg,#0d0d0d 0%,#1c1c1c 60%,#2a2a2a 100%);border-radius:0}
+.rewards-mini::before,.rcard::before{background:radial-gradient(circle,rgba(255,255,255,.12),transparent 70%)}
+.rm-bar i,.rcard .tbar i{background:#fff}
+.stat{border-radius:0}
+.sec-head .link{white-space:nowrap;flex-shrink:0}
+
+/* ring sizes are long labels ('UK P / US 8'): keep each on one line at its natural width */
+.size,.size.sm{flex-shrink:0;white-space:nowrap}
+.size.sm{padding:0 10px}
+/* sold-out strike stays inside the wider ring-size buttons (the shared -10% overhang trips the clipped-text check) */
+.size.out::after{left:6%;right:6%;transform:rotate(-14deg)}

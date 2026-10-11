@@ -1,0 +1,329 @@
+{
+  "_note": "Hand-tuned layer on top of the scraped brand.json (sergedenimes.com, Shopify). Run: python3 tools/build_brand.py --rebuild sergedenimes. The catalogue is now 100% jewellery (Rings 130, Necklaces 101, Bracelets 36, Earrings 25 + gift card; IG bio '925 Sterling Silver Jewellery'), so categories and copy are jewellery-only. Hero = the homepage's own craft video (re-encoded by the generator). Hand-picked images in assets/brand/ are crops of the site's own imagery: the homepage 'BEST SELLERS' hero, the 'ARMOUR / NOW LIVE' banner, a wide crop of the best-sellers campaign shot (rings), and the Redeemer (Anniversary) campaign image. Logos are the site's header SVG wordmark (the generator picked the search icon).",
+  "name": "Serge DeNimes",
+  "short": "SERGE DENIMES",
+  "assets": {
+    "logoDark": "assets/brand/logo-black.png",
+    "logoLight": "assets/brand/logo-white.png",
+    "favicon": "assets/img/favicon.png"
+  },
+  "_theme": "sergedenimes.com: white page, #121212 type, Tiempos Headline (regular, uppercase on the homepage: 'BEST SELLERS', 'ARMOUR') for headings, NeueHaas for UI, product names uppercase 12px semibold with 0.3px tracking, prices 12px regular, square transparent outline buttons over imagery (white 1px border, 12px uppercase 'SHOP NOW'), black announcement bar, square corners, black badges. Fonts hotlinked from the site's Shopify CDN in brand.css.",
+  "theme": {
+    "ink": "#000000",
+    "bg": "#ffffff",
+    "bgRgb": "255,255,255",
+    "text": "#121212",
+    "muted": "#666666",
+    "line": "#e5e5e5",
+    "stone": "#666666",
+    "sand": "#ededed",
+    "sand2": "#f5f5f5",
+    "sale": "#b3261e",
+    "stageA": "#ffffff",
+    "stageB": "#f3f3f3",
+    "stageC": "#e7e7e7",
+    "font": "NeueHaas",
+    "fontHref": null
+  },
+  "pitch": {
+    "title": "925 Sterling Silver,<br>one tap away.",
+    "copy": "A concept for the Serge DeNimes app: new collections like Anniversary and Armour with app-only early access, every ring, chain and pendant in one swipe, gift edits, and Shopify checkout with Apple Pay, Shop Pay and PayPal. Tap around, everything works.",
+    "list": [
+      "Collection drops with app-only early access",
+      "Rings, chains, pendants and bracelets in one swipe",
+      "Shopify checkout with Apple Pay and Shop Pay"
+    ]
+  },
+  "home": {
+    "newCol": "mens-new-in",
+    "newSub": "The latest 925 sterling silver pieces",
+    "bestCol": "mens-bestsellers",
+    "bestSub": "The Serge DeNimes pieces on repeat",
+    "hero": {
+      "eyebrow": "Designed in London",
+      "title": "925 Sterling Silver",
+      "cta": "Shop Best Sellers",
+      "col": "mens-bestsellers"
+    },
+    "tiles": [
+      [
+        "mens-chains",
+        "Chains"
+      ],
+      [
+        "mens-pendant-necklaces",
+        "Pendants"
+      ],
+      [
+        "mens-signet-rings",
+        "Signet Rings"
+      ],
+      [
+        "mens-band-rings",
+        "Band Rings"
+      ],
+      [
+        "mens-bracelets",
+        "Bracelets"
+      ],
+      [
+        "mens-earrings",
+        "Earrings"
+      ]
+    ],
+    "editorial": {
+      "col": "mens-bestsellers",
+      "img": "assets/brand/bestsellers.jpg",
+      "eyebrow": "Most wanted",
+      "title": "Best Sellers"
+    },
+    "feature": {
+      "col": "armour-collection",
+      "img": "assets/brand/armour-wide.jpg",
+      "title": "Armour",
+      "cta": "Shop now"
+    }
+  },
+  "collectionTitles": {
+    "mens-bracelets": "Bracelets",
+    "mens-drop-hoop-earrings": "Drop Earrings",
+    "armour-collection": "Armour",
+    "protection-collection": "Protection",
+    "mens-everyday-essentials": "Everyday Essentials"
+  },
+  "shop": {
+    "kicker": "SERGE DENIMES",
+    "featureCats": {
+      "col": "mens-signet-rings",
+      "title": "Signet Rings",
+      "cta": "Shop now",
+      "idx": 0,
+      "img": "assets/brand/rings-wide.jpg"
+    },
+    "featureEdits": {
+      "col": "armour-collection",
+      "title": "Armour",
+      "cta": "Shop now",
+      "idx": 0,
+      "img": "assets/brand/armour-wide.jpg"
+    },
+    "cats": [
+      "mens-signet-rings",
+      "mens-band-rings",
+      "mens-rings-under-150",
+      "mens-chains",
+      "mens-pendant-necklaces",
+      "mens-silver-necklaces",
+      "mens-necklaces-under-150",
+      "mens-bracelets",
+      "mens-silver-bracelets",
+      "mens-cuffs",
+      "mens-bracelets-under-150",
+      "mens-earrings",
+      "mens-silver-earrings",
+      "mens-drop-hoop-earrings",
+      "mens-earrings-under-50"
+    ],
+    "edits": [
+      "mens-new-in",
+      "anniversary",
+      "armour-collection",
+      "protection-collection",
+      "mens-bestsellers",
+      "mens-gift-edit",
+      "proudlocks-picks",
+      "in-the-press",
+      "mens-everyday-essentials"
+    ]
+  },
+  "search": {
+    "trending": [
+      "Signet ring",
+      "Curb chain",
+      "St Christopher",
+      "Padlock",
+      "Cross earrings",
+      "Cuff",
+      "Redeemer",
+      "Gift card"
+    ],
+    "popular": [
+      "mens-new-in",
+      "mens-bestsellers",
+      "mens-chains",
+      "mens-signet-rings"
+    ]
+  },
+  "perks": [
+    "Free UK delivery on £150+ orders",
+    "Free UK next day delivery on £250+ orders",
+    "925 sterling silver, hallmarked in the UK",
+    "Sign up for 10% off your first order",
+    "30-day returns"
+  ],
+  "pdpPerks": [
+    "925 sterling silver, hallmarked in the UK",
+    "Free UK delivery over £150",
+    "30-day returns"
+  ],
+  "payments": [
+    "apple_pay",
+    "google_pay",
+    "shopify_pay",
+    "paypal",
+    "visa",
+    "master",
+    "american_express"
+  ],
+  "_shipping": "From sergedenimes.com/pages/delivery (UK, checked 11 Oct 2026): Royal Mail Tracked 48 £3.95 (free over £150), DPD Next Day £4.95 (free over £250); orders before 1:30pm processed the same day.",
+  "shipping": {
+    "region": "UK",
+    "freeOver": 150,
+    "options": [
+      {
+        "id": "tracked-48",
+        "name": "Royal Mail Tracked 48",
+        "desc": "Tracked 48 hours, free over £150",
+        "price": 3.95,
+        "freeOver": 150,
+        "short": "Tracked 48"
+      },
+      {
+        "id": "next-day",
+        "name": "DPD Next Day",
+        "desc": "Next day, free over £250",
+        "price": 4.95,
+        "freeOver": 250,
+        "short": "Next Day"
+      }
+    ],
+    "notes": [
+      "Orders received before 1:30pm are processed the same day.",
+      "Free Royal Mail Tracked 48 over £150; free DPD Next Day over £250."
+    ]
+  },
+  "returns": {
+    "summary": "Return within 30 days of receiving your order through our returns portal, which also handles size swaps and return labels. Sale items: 14 days, store credit only. For hygiene reasons we can't accept change-of-mind returns on earrings or ring sizers. UK labels are free; a £3 handling fee is deducted from refunds, exchanges are free.",
+    "short": "30-day returns"
+  },
+  "_rewards": "No public loyalty programme page (a LoyaltyLion script is loaded on the site, but no rewards page exists: /pages/rewards and /pages/loyalty 404, nothing in the menus or footer). The Account rewards card is kept as an illustrative app concept (as yelir) and its fine print says so.",
+  "rewards": {
+    "enabled": true,
+    "name": "Serge DeNimes Rewards",
+    "real": false,
+    "stockists": true
+  },
+  "_discount": "The site's announcement bar offers 10% off your first order for signing up (code emailed). The app pop-up mirrors 10% with the placeholder code APP10.",
+  "discount": {
+    "code": "APP10",
+    "pct": 10
+  },
+  "copy": {
+    "about": "Founded in 2011 by Oliver Proudlock, Serge DeNimes found its home in jewellery in 2017. Every piece is designed in London, made from 925 sterling silver and hallmarked in the UK. Four collections a year, each with its own story to tell.",
+    "emptyBag": "Nothing in here yet. Start with the Best Sellers or the new Anniversary collection.",
+    "heroNotif": "Anniversary: the new collection is live."
+  },
+  "_drop": "No release date is announced, so the Drops tab demos app early access with the newest collection on the site, Anniversary (Redeemer necklace and ring, Triple Protect necklace, Harmony bracelet, Octagonal St Christopher necklace and ring; published Aug–Sep 2026). Previous: Armour. Date/time is the template's rolling placeholder.",
+  "drop": {
+    "num": "01",
+    "name": "ANNIVERSARY COLLECTION",
+    "title": "Anniversary",
+    "col": "anniversary",
+    "image": "assets/brand/redeemer.jpg",
+    "products": [
+      "silver-redeemer-necklace",
+      "silver-redeemer-ring",
+      "silver-triple-protect-necklace",
+      "silver-harmony-bracelet",
+      "silver-octagonal-st-christopher-necklace",
+      "silver-octagonal-st-christopher-ring"
+    ],
+    "previous": {
+      "col": "armour-collection",
+      "title": "ARMOUR"
+    }
+  },
+  "report": {
+    "missing": [
+      "The catalogue is now jewellery only (no clothing): app categories and copy are jewellery-only",
+      "Feefo shows only 12 reviews, too few to be a site-wide score, so no reviews block",
+      "No public loyalty programme: the Account rewards card is an illustrative concept",
+      "The site's 10% sign-up code is emailed, not published: APP10 is a placeholder app code",
+      "No release date is announced: the Drops tab demos early access with Anniversary; drop date/time is the rolling placeholder"
+    ]
+  },
+  "_instagram": "Collected in a browser from the brand's Instagram profile on 2026-10-11 (pinned posts excluded; profile/collaborator-path URLs normalised to /p/<code>/ or /reel/<code>/). Thumbnails: assets/ig/N.jpg, square-cropped, max 600px.",
+  "instagram": {
+    "handle": "sergedenimes",
+    "url": "https://www.instagram.com/sergedenimes/",
+    "followers": "105K",
+    "bio": "925 Sterling Silver Jewellery",
+    "collected": "2026-10-11",
+    "posts": [
+      {
+        "url": "https://www.instagram.com/reel/DeXHbn7s2lH/",
+        "type": "reel",
+        "image": "assets/ig/1.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeRwCJODKQW/",
+        "type": "carousel",
+        "image": "assets/ig/2.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DePQ_qjDOHu/",
+        "type": "carousel",
+        "image": "assets/ig/3.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeJn_E1DK2E/",
+        "type": "carousel",
+        "image": "assets/ig/4.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeCbbnTswUz/",
+        "type": "photo",
+        "image": "assets/ig/5.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DdmEAySjKAu/",
+        "type": "carousel",
+        "image": "assets/ig/6.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DdquoYQjGeB/",
+        "type": "carousel",
+        "image": "assets/ig/7.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DdwWxres6xy/",
+        "type": "photo",
+        "image": "assets/ig/8.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/Dd1rvwijIQi/",
+        "type": "carousel",
+        "image": "assets/ig/9.jpg"
+      }
+    ]
+  },
+  "_sizes": "Ring sizes from the variants (UK letter / US number, as labelled on the site). The generator's size groups only cover clothing letters and waists, so the ring group is set here; it drives the saved size, the 'in my size' filter and PDP pre-select.",
+  "sizes": {
+    "groups": [
+      {
+        "key": "ring",
+        "label": "Ring size",
+        "opts": [
+          "UK L / US 6",
+          "UK N / US 7",
+          "UK P / US 8",
+          "UK S / US 9.5",
+          "UK U / US 10.5",
+          "UK W / US 11.5"
+        ],
+        "prefix": ""
+      }
+    ]
+  },
+  "_hero": "Hero video = the homepage's craft clip (bd7b46…, 720p transcode; no public original upload). The source is only 5.5s, so the generator made a 4.8s cross-faded loop; that loop is played twice in assets/hero.mp4/.webm (9.7s, same H.264 CRF 23 / VP9 CRF 34 settings, no audio, faststart) to meet the README's 8–12s loop length."
+}
