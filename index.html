@@ -111,7 +111,7 @@ h1 b{font-weight:600;letter-spacing:-.05em}h1 i{font-style:italic;font-weight:30
 /* live */
 .live{display:grid;grid-template-columns:5fr 7fr;gap:28px;align-items:stretch}
 .panel{display:flex;flex-direction:column;justify-content:center;border-radius:32px;padding:36px 44px;background:linear-gradient(180deg,#18342f,#122826);border:1px solid var(--line)}
-.panel .blogo{height:22px;width:auto;margin-bottom:26px;opacity:.95}
+.panel .blogo{height:18px;width:auto;max-width:none;object-fit:contain;align-self:flex-start;margin-bottom:22px;opacity:.95}
 .panel h3{font-size:clamp(30px,3vw,42px);font-weight:300;letter-spacing:-.035em;line-height:1.08}
 .panel>p{margin-top:16px;color:var(--mut);font-size:15px;line-height:1.6}
 .panel ul{list-style:none;margin-top:20px}
@@ -126,7 +126,7 @@ h1 b{font-weight:600;letter-spacing:-.05em}h1 i{font-style:italic;font-weight:30
 .demos small{display:block;font-size:12px;color:#b9c7c3;margin-top:2px;line-height:1.35}
 .demos svg{position:absolute;top:10px;right:10px;width:16px;height:16px;color:#dfe9e6}
 .stagep{position:relative;border-radius:32px;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px 26px;background:radial-gradient(60% 50% at 50% 0%,rgba(156,200,224,.35),transparent 70%),linear-gradient(180deg,#1b3b44,#13302c 60%,#2f3b22)}
-.lphone{--k:.5;position:relative;width:calc(414px*var(--k));height:calc(868px*var(--k));flex:none}
+.lphone{--k:.78;position:relative;width:calc(414px*var(--k));height:calc(868px*var(--k));flex:none}
 .lphone .device{position:absolute;top:0;left:0;width:414px;height:868px;border-radius:66px;background:#1b1b1b;padding:12px;transform:scale(var(--k));transform-origin:0 0;box-shadow:0 0 0 2px #3a3a3a,0 0 0 4px #0c0c0c,0 50px 90px -20px rgba(0,0,0,.6),0 30px 50px -30px rgba(0,0,0,.5)}
 .lphone .device-btn{position:absolute;width:4px;background:#2a2a2a;border-radius:2px}
 .lphone .b1{left:-6px;top:130px;height:30px}.lphone .b2{left:-6px;top:190px;height:60px}.lphone .b3{left:-6px;top:262px;height:60px}.lphone .b4{right:-6px;top:210px;height:96px}
@@ -183,13 +183,13 @@ footer li a:hover{color:#fff}
 @media (min-width:981px){nav{padding:26px 96px}.hcopy{left:96px}.stores{right:96px}.hphone{right:calc(8% + clamp(100px,9.5vw,150px))}}
 /* responsive */
 @media (max-width:1180px){.scene{right:1%;width:42vw}}
-@media (max-width:980px){nav ul{display:none}.live{grid-template-columns:1fr}.lphone{--k:.62}.stagep{order:-1}.steps,.built{grid-template-columns:1fr}.step{min-height:0}.step h3{margin-top:0}.bc{height:380px}footer{grid-template-columns:1fr 1fr}
+@media (max-width:980px){nav ul{display:none}.live{grid-template-columns:1fr}.lphone{--k:.72}.stagep{order:-1}.steps,.built{grid-template-columns:1fr}.step{min-height:0}.step h3{margin-top:0}.bc{height:380px}footer{grid-template-columns:1fr 1fr}
  .hero{height:auto;min-height:0;padding:110px 0 0;display:flex;flex-direction:column}.hcopy{position:relative;left:auto;bottom:auto;padding:0 32px;order:1}.stores{position:relative;right:auto;bottom:auto;order:2;padding:0 32px;margin-top:18px}.hphone{--crop:140px;position:relative;right:auto;bottom:auto;order:3;width:min(62vw,370px);margin:36px auto -140px}.scene{position:relative;right:auto;top:auto;order:2;margin:30px auto -120px;width:min(80vw,520px)}}
 @media (max-width:600px){.wrap{padding:0 16px}.top{padding-top:10px}.hero{border-radius:28px;padding-top:96px}nav{padding:20px 20px}nav .logo img{height:20px}nav .btn{height:44px;padding:0 14px;font-size:13px}
  .hcopy{padding:0 22px}.stores{margin-top:16px;padding:0 22px}.hphone{--crop:110px;width:70%;margin:28px auto -110px}.stores img,.stores a{height:44px}.stores img{width:44px}.stores a{border-radius:6px}h1 b{font-weight:600;letter-spacing:-.05em}h1 i{font-style:italic;font-weight:300;padding-right:.05em}
 .hsub{font-size:15px}.scene{margin:10px auto -90px;width:96%}
  section{padding-top:90px}.demos{grid-template-columns:1fr 1fr}.demos button.wide{grid-column:1/-1}.pform{grid-template-columns:1fr}.stats{--pad:16px}.stat{min-height:380px;flex-basis:80%}.arrows{display:none}.shint{display:flex}.panel ul{display:none}
- .panel{padding:28px 22px}.stagep{padding:26px 14px 18px}.lphone{--k:.68}
+ .panel{padding:28px 22px}.stagep{padding:26px 14px 18px}.lphone{--k:.72}
  .cta{margin-top:90px;padding:64px 22px;border-radius:28px}footer{grid-template-columns:1fr 1fr}footer>div:first-child{grid-column:1/-1}}
 </style>
 </head>
