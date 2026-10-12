@@ -111,11 +111,12 @@ h1{font-size:clamp(46px,6.2vw,92px);font-weight:300;letter-spacing:-.045em;line-
 .panel li::before{content:"";position:absolute;left:2px;top:16px;width:9px;height:9px;border-radius:50%;background:var(--glow);box-shadow:0 0 12px var(--glow)}
 .demo-h{margin:28px 0 12px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
 .demos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.demos button{display:flex;justify-content:space-between;align-items:center;gap:10px;text-align:left;font:inherit;color:var(--txt);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:13px 14px;cursor:pointer;transition:background .3s,border-color .3s,transform .3s var(--ease)}
+.demos button{position:relative;display:flex;flex-direction:column;justify-content:flex-start;text-align:left;font:inherit;color:var(--txt);background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:16px 50px 16px 18px;min-height:76px;cursor:pointer;backdrop-filter:blur(10px);transition:background .3s,border-color .3s,transform .3s var(--ease)}
 .demos button:hover{background:rgba(156,200,224,.1);border-color:rgba(156,200,224,.35);transform:translateY(-2px)}
-.demos b{display:block;font-size:14px;font-weight:500}
-.demos small{display:block;font-size:13px;color:var(--mut);margin-top:3px}
-.demos i{font-style:normal;flex:0 0 28px;height:28px;border-radius:50%;background:rgba(156,200,224,.16);display:flex;align-items:center;justify-content:center;font-size:13px}
+.demos button.wide{grid-column:1/-1}
+.demos b{display:block;font-size:15.5px;font-weight:600;line-height:1.3}
+.demos small{display:block;font-size:14px;color:var(--mut);margin-top:3px;line-height:1.4}
+.demos svg{position:absolute;top:16px;right:16px;width:21px;height:21px;color:#dfe9e6}
 .stagep{position:relative;border-radius:32px;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:48px 20px;background:radial-gradient(60% 50% at 50% 0%,rgba(156,200,224,.35),transparent 70%),linear-gradient(180deg,#1b3b44,#13302c 60%,#2f3b22)}
 .lphone{position:relative;width:330px;height:690px;border-radius:58px;padding:5px;background:linear-gradient(135deg,#d9d6cf,#8d8a84 25%,#c9c6be 50%,#6d6a65 75%,#bdb9b1);box-shadow:0 50px 90px rgba(0,0,0,.5)}
 .lphone .bezel{width:100%;height:100%;border-radius:53px;background:#050606;padding:10px}
@@ -176,8 +177,8 @@ footer li a:hover{color:#fff}
  .hero{height:auto;min-height:0;padding:110px 0 0;display:flex;flex-direction:column}.hcopy{position:relative;left:auto;bottom:auto;padding:0 32px;order:1}.stores{position:relative;right:auto;bottom:auto;order:2;padding:0 32px;margin-top:18px}.hphone{--crop:140px;position:relative;right:auto;bottom:auto;order:3;width:min(62vw,370px);margin:36px auto -140px}.scene{position:relative;right:auto;top:auto;order:2;margin:30px auto -120px;width:min(80vw,520px)}}
 @media (max-width:600px){.wrap{padding:0 16px}.top{padding-top:10px}.hero{border-radius:28px;padding-top:96px}nav{padding:20px 20px}nav .logo img{height:20px}nav .btn{height:44px;padding:0 14px;font-size:13px}
  .hcopy{padding:0 22px}.stores{margin-top:16px;padding:0 22px}.hphone{--crop:110px;width:70%;margin:28px auto -110px}.stores img,.stores a{height:44px}.stores img{width:44px}.stores a{border-radius:6px}.hsub{font-size:15px}.scene{margin:10px auto -90px;width:96%}
- section{padding-top:90px}.pform{grid-template-columns:1fr}.stats{margin:0 -16px;padding:4px 16px 20px}.stat{flex-basis:78%}.arrows{display:none}.shint{display:flex}.panel ul{display:none}
- .panel{padding:28px 22px}.demos{grid-template-columns:1fr}.stagep{padding:30px 10px 50px}.lphone{width:300px;height:627px;border-radius:52px}.lphone .bezel{border-radius:48px;padding:9px}.lphone .scr{border-radius:40px}.lphone iframe{transform:scale(.7059)}
+ section{padding-top:90px}.demos button{padding:14px 38px 14px 14px}.demos svg{top:14px;right:12px}.pform{grid-template-columns:1fr}.stats{margin:0 -16px;padding:4px 16px 20px}.stat{flex-basis:78%}.arrows{display:none}.shint{display:flex}.panel ul{display:none}
+ .panel{padding:28px 22px}.stagep{padding:30px 10px 50px}.lphone{width:300px;height:627px;border-radius:52px}.lphone .bezel{border-radius:48px;padding:9px}.lphone .scr{border-radius:40px}.lphone iframe{transform:scale(.7059)}
  .cta{margin-top:90px;padding:64px 22px;border-radius:28px}footer{grid-template-columns:1fr 1fr}footer>div:first-child{grid-column:1/-1}}
 </style>
 </head>
@@ -219,16 +220,15 @@ footer li a:hover{color:#fff}
     <div class="live">
       <div class="panel rv">
         <img class="blogo" src="raith/assets/img/logo-white.png" alt="Raith">
-        <span class="kick">Raith app, concept</span>
+        <span class="kick">Raith · App preview</span>
         <h3 style="margin-top:12px">Timeless menswear,<br>one tap away.</h3>
-        <p>A concept for the Raith app: drops with app-only early access, a saved size that follows you round the store, and Shopify checkout with Apple Pay, Shop Pay and Klarna. Tap around, everything works.</p>
+        <p>This is what a Raith app could look like: drops with app-only early access, a saved size that follows you round the store, and Shopify checkout with Apple Pay, Shop Pay and Klarna. Tap around, everything works.</p>
         <ul><li>Drops 24 hours early for app users</li><li>Saved size and back-in-size alerts</li><li>Shopify checkout with Apple Pay, Shop Pay and Klarna</li></ul>
         <p class="demo-h">Try it: send a push to the phone</p>
         <div class="demos" id="demos"></div>
       </div>
       <div class="stagep rv">
         <div class="lphone"><div class="bezel"><div class="scr"><iframe id="rf" data-src="raith/" title="Raith app preview, interactive" loading="lazy"></iframe></div></div></div>
-        <a class="openf" href="raith/" target="_blank" rel="noopener">Open the Raith app preview full screen ↗</a>
       </div>
     </div>
   </section>
@@ -278,11 +278,11 @@ document.querySelectorAll('.arrows button').forEach(b=>b.addEventListener('click
 // live Raith demo: hide the welcome offer, mirror the preview's own push-demo buttons and fire them inside the iframe
 const rf=document.getElementById('rf'),demos=document.getElementById('demos');
 function hook(){try{const d=rf.contentDocument;if(!d||!d.head)return false;
-  if(!d.getElementById('appyhide')){const st=d.createElement('style');st.id='appyhide';st.textContent='#welcome{display:none!important}.demo-fab{display:none!important}';d.head.appendChild(st)}
+  if(!d.getElementById('appyhide')){const st=d.createElement('style');st.id='appyhide';st.textContent='html.appyhide #welcome{display:none!important}.demo-fab{display:none!important}';d.head.appendChild(st);d.documentElement.classList.add('appyhide')}
   const src=d.querySelectorAll('.pitch [data-demo]');if(!src.length)return false;
-  if(!demos.children.length)src.forEach(s=>{if(s.dataset.demo==='welcome')return;const b=document.createElement('button');b.type='button';const t=s.querySelector('b'),m=s.querySelector('small');
-    b.innerHTML='<span><b></b><small></small></span><i>🔔</i>';b.querySelector('b').textContent=t?t.textContent:s.dataset.demo;b.querySelector('small').textContent=m?m.textContent:'';
-    b.addEventListener('click',()=>{if(innerWidth<981)rf.closest('.stagep').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'center'});try{const w=rf.contentDocument.querySelector('#welcome');if(w)w.classList.remove('show');rf.contentDocument.querySelector('.pitch [data-demo="'+s.dataset.demo+'"]').click()}catch(e){}});demos.appendChild(b)});
+  if(!demos.children.length)src.forEach(s=>{const b=document.createElement('button');b.type='button';if(s.dataset.demo==='welcome')b.className='wide';const t=s.querySelector('b'),m=s.querySelector('small');
+    b.innerHTML='<span><b></b><small></small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></svg>';b.querySelector('b').textContent=t?t.textContent:s.dataset.demo;b.querySelector('small').textContent=m?m.textContent:'';
+    b.addEventListener('click',()=>{if(innerWidth<981)rf.closest('.stagep').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'center'});try{const cd=rf.contentDocument;if(s.dataset.demo==='welcome')cd.documentElement.classList.remove('appyhide');else{const w=cd.querySelector('#welcome');if(w)w.classList.remove('show')}rf.contentDocument.querySelector('.pitch [data-demo="'+s.dataset.demo+'"]').click()}catch(e){}});demos.appendChild(b)});
   return true}catch(e){return false}}
 document.getElementById('pform').addEventListener('submit',e=>{e.preventDefault();const f=e.target,v=n=>f.elements[n].value.trim();
   const body=`Hi AppyCo,\n\nI'd like a free app preview.\n\nName: ${v('name')}\nBusiness: ${v('business')}\nWebsite or Instagram: ${v('site')}\nEmail: ${v('email')}\n`;
