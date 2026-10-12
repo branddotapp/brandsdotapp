@@ -1,0 +1,32 @@
+/* SISTER JANE: brand layer loaded after the shared app.css (copied to assets/brand.css by tools/build_brand.py).
+   Matches sisterjane.com: white page, black type, Poppins 500 with 0.7px tracking everywhere (product names 16px, prices
+   13px), sage green #9baa9b announcement bar and pale sage #d6ddd6 footer, small square black buttons ('SHOP NEW IN') and
+   white label buttons over imagery ('SHOP WOMENSWEAR'), the typewriter-style lowercase 'sister jane' wordmark. */
+:root{font-family:'Poppins',Helvetica,Arial,sans-serif;--deep-band:light}
+body{background:radial-gradient(1200px 700px at 70% 30%,#ffffff 0%,#f1f4f1 55%,#e3e9e3 100%);letter-spacing:.05em}
+.pcard .pimg,.cat-tile,.cat-row img,.bag-item img{background:#f3f5f3}
+.seg{background:#eef1ee}
+.summary,.acct-card,.size-filter,.pref-group{border:1px solid #e3e7e3}
+
+.hero-title{font-family:'Poppins',Helvetica,Arial,sans-serif;font-size:28px;font-weight:500;letter-spacing:.025em;text-transform:none;line-height:1.15}
+.editorial .hero-title{font-size:24px}
+.eyebrow{font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:none;opacity:1}
+.sec-head h2{font-family:'Poppins',Helvetica,Arial,sans-serif;font-size:20px;font-weight:500;letter-spacing:.03em;text-transform:none}
+.sec-head p{font-size:13px;color:#5e5e5e;letter-spacing:.05em}
+.large-title,.tb-title,.dc-title,.wl-body h2,.auth h2,.empty h3{font-family:'Poppins',Helvetica,Arial,sans-serif;font-weight:500;letter-spacing:.03em;text-transform:none}
+.feature-card b{font-family:'Poppins',Helvetica,Arial,sans-serif;font-weight:500;font-size:22px;letter-spacing:.03em;text-transform:none;line-height:1.15}
+.cat-tile span{font-family:'Poppins',Helvetica,Arial,sans-serif;font-weight:600;font-size:12px;letter-spacing:.05em;text-transform:uppercase}
+.cat-row b{font-family:'Poppins',Helvetica,Arial,sans-serif;font-weight:500;letter-spacing:.04em;text-transform:none}
+.pcard .pname{font-size:13px;font-weight:500;letter-spacing:.05em}
+.pdp-info h1{font-family:'Poppins',Helvetica,Arial,sans-serif;font-weight:500;font-size:22px;letter-spacing:.03em;line-height:1.25;text-transform:none}
+.pitch-title{font-family:'Poppins',Helvetica,Arial,sans-serif;font-weight:500;letter-spacing:.01em;text-transform:none;line-height:1.05}
+.stat-num{font-family:'Poppins',Helvetica,Arial,sans-serif;font-weight:500}
+
+/* buttons: square, 12px semibold uppercase; white label buttons over imagery like the site's 'SHOP WOMENSWEAR' */
+.btn{border-radius:0;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;height:42px;padding:0 22px}
+.btn-dark{background:#000;color:#fff}
+
+.hero::after{background:linear-gradient(180deg,rgba(0,0,0,.42) 0%,rgba(0,0,0,.18) 14%,rgba(0,0,0,0) 32%,rgba(0,0,0,0) 50%,rgba(0,0,0,.5) 100%)}
+.size.out::after{left:4%;right:4%}
+.sheet h3,.demo-btn b,.demo-btn small{line-height:1.2}
+#sheet{letter-spacing:.01em}

@@ -1,0 +1,351 @@
+{
+  "scrape": {
+    "_skip": "The menu's big lists (Dresses 2.8k, Tops, Sale, All, DREAM, Ghospell) are over 80% of /products.json's first 2,000 and get dropped as 'all products' links; skip the menu parse except New In and list the collections in menu order via extraCollections, with perCollection so each gets a fair share of the 400-product cap.",
+    "skipCollections": [
+      "sale",
+      "dream",
+      "dresses",
+      "tops",
+      "bottoms",
+      "jackets",
+      "accessories",
+      "sister-jane-exclusives",
+      "all",
+      "menswear-the-art-of-living",
+      "menswear-shirts",
+      "menswear-bottoms",
+      "menswear-jackets",
+      "mens-accessories",
+      "menswear-sister-jane",
+      "ghospell",
+      "the-art-of-living/products/valance-spot-maxi-dress",
+      "the-art-of-living/products/mirage-velvet-jacket",
+      "the-art-of-living/products/joan-spot-bow-blouse"
+    ],
+    "extraCollections": [
+      "dresses",
+      "tops",
+      "bottoms",
+      "jackets",
+      "accessories",
+      "dream",
+      "sister-jane-exclusives",
+      "menswear-the-art-of-living",
+      "menswear-sister-jane",
+      "ghospell",
+      "sale"
+    ],
+    "perCollection": 36
+  },
+  "_instagram": "Collected in a browser from the brand's Instagram profile on 2026-10-12 (no pinned posts; profile/collaborator-path URLs normalised to /p/<code>/ or /reel/<code>/). Thumbnails: assets/ig/N.jpg, square-cropped, max 600px.",
+  "instagram": {
+    "handle": "dreamsisterjane",
+    "url": "https://www.instagram.com/dreamsisterjane/",
+    "followers": "378K",
+    "bio": "Bringing you limited edition designs from our London studio👗",
+    "collected": "2026-10-12",
+    "posts": [
+      {
+        "url": "https://www.instagram.com/p/DeXAueRHFKF/",
+        "type": "carousel",
+        "image": "assets/ig/1.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DeT4aw4FQNY/",
+        "type": "reel",
+        "image": "assets/ig/2.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DeR1y8_N3yw/",
+        "type": "reel",
+        "image": "assets/ig/3.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeRNXiYF-v3/",
+        "type": "carousel",
+        "image": "assets/ig/4.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DePRKdDEmdn/",
+        "type": "reel",
+        "image": "assets/ig/5.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeOskl2DERJ/",
+        "type": "carousel",
+        "image": "assets/ig/6.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeM2LBsF5oq/",
+        "type": "carousel",
+        "image": "assets/ig/7.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeMTx05jFfm/",
+        "type": "photo",
+        "image": "assets/ig/8.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeJ6cMEF3dz/",
+        "type": "carousel",
+        "image": "assets/ig/9.jpg"
+      }
+    ]
+  },
+  "_note": "Hand-tuned layer on top of the scraped brand.json (sisterjane.com, Shopify, GBP; sisterjane.co.uk redirects here). Run: python3 tools/build_brand.py --rebuild sisterjane. No homepage video: hero = the site's mobile 'The Art of Living' banner. assets/brand/ images are crops of the site's own homepage banners (text-free parts only).",
+  "name": "Sister Jane",
+  "short": "SISTER JANE",
+  "_theme": "sisterjane.com: white page, black type, Poppins 500 with 0.7px tracking everywhere (product names 16px, prices 13px), sage green #9baa9b announcement bar and pale sage #d6ddd6 footer, small square black buttons ('SHOP NEW IN') and white label buttons on imagery ('SHOP WOMENSWEAR'), and the typewriter-style lowercase 'sister jane' wordmark.",
+  "theme": {
+    "ink": "#000000",
+    "bg": "#ffffff",
+    "bgRgb": "255,255,255",
+    "text": "#000000",
+    "muted": "#5e5e5e",
+    "line": "#e3e7e3",
+    "stone": "#9baa9b",
+    "sand": "#d6ddd6",
+    "sand2": "#eef1ee",
+    "sale": "#b3261e",
+    "stageA": "#ffffff",
+    "stageB": "#f1f4f1",
+    "stageC": "#e3e9e3",
+    "font": "Poppins",
+    "fontHref": "https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap"
+  },
+  "pitch": {
+    "title": "A little<br>more drama",
+    "copy": "A concept for the Sister Jane app: a new capsule collection every 6 weeks with app-only early access, every colourway in one swipe, your saved size, and Shopify checkout with Apple Pay, Google Pay and PayPal. Tap around, everything works.",
+    "list": [
+      "Capsule drops with app-only early access",
+      "Saved size and back-in-size alerts",
+      "Shopify checkout with Apple Pay, Google Pay and PayPal"
+    ]
+  },
+  "home": {
+    "newCol": "the-art-of-living",
+    "newSub": "The Art of Living",
+    "bestCol": null,
+    "hero": {
+      "poster": "assets/brand/hero.jpg",
+      "eyebrow": "New in",
+      "title": "The Art of Living",
+      "cta": "Shop New In",
+      "col": "the-art-of-living"
+    },
+    "tiles": [
+      [
+        "dresses",
+        "Dresses"
+      ],
+      [
+        "tops",
+        "Tops"
+      ],
+      [
+        "bottoms",
+        "Bottoms"
+      ],
+      [
+        "jackets",
+        "Jackets"
+      ],
+      [
+        "accessories",
+        "Accessories"
+      ],
+      [
+        "menswear-sister-jane",
+        "Menswear"
+      ]
+    ],
+    "editorial": {
+      "col": "dresses",
+      "img": "assets/brand/womenswear.jpg",
+      "eyebrow": "A little more drama",
+      "title": "Shop Womenswear"
+    },
+    "feature": {
+      "col": "menswear-sister-jane",
+      "img": "assets/brand/menswear-wide.jpg",
+      "title": "Shop Menswear",
+      "cta": "Shop now"
+    }
+  },
+  "collectionTitles": {
+    "the-art-of-living": "New In",
+    "sister-jane-exclusives": "Online Exclusives",
+    "menswear-the-art-of-living": "Menswear New In",
+    "menswear-sister-jane": "Menswear",
+    "dream": "DREAM Sister Jane"
+  },
+  "shop": {
+    "kicker": "sister jane",
+    "cats": [
+      "dresses",
+      "tops",
+      "bottoms",
+      "jackets",
+      "accessories",
+      "dream",
+      "menswear-the-art-of-living",
+      "menswear-sister-jane",
+      "ghospell"
+    ],
+    "edits": [
+      "the-art-of-living",
+      "sister-jane-exclusives",
+      "sale"
+    ],
+    "featureCats": {
+      "col": "dresses",
+      "title": "Dresses",
+      "cta": "Shop now",
+      "idx": 0,
+      "img": "assets/brand/soiree-wide.jpg"
+    },
+    "featureEdits": {
+      "col": "the-art-of-living",
+      "title": "The Art of Living",
+      "cta": "Shop now",
+      "idx": 0,
+      "img": "assets/brand/art-of-living-wide.jpg"
+    }
+  },
+  "search": {
+    "trending": [
+      "Velvet",
+      "Sequin",
+      "Maxi Dress",
+      "Bow Blouse",
+      "Leopard",
+      "DREAM",
+      "Ghospell",
+      "Mini Skirt"
+    ],
+    "popular": [
+      "the-art-of-living",
+      "dresses",
+      "dream",
+      "sale"
+    ]
+  },
+  "perks": [
+    "Free delivery to United Kingdom above £60 ✈",
+    "The Art of Living: new in",
+    "A new capsule collection every 6 weeks",
+    "14-day returns"
+  ],
+  "payments": [
+    "apple_pay",
+    "google_pay",
+    "paypal",
+    "visa",
+    "master",
+    "american_express"
+  ],
+  "shipping": {
+    "region": "UK",
+    "freeOver": 60,
+    "options": [],
+    "notes": [
+      "Orders placed before 3pm on UK business days generally ship the same day.",
+      "Delivery options and prices are shown at checkout."
+    ]
+  },
+  "returns": {
+    "summary": "Return unworn items with all tags attached by post or in store within 14 days of receipt for a full refund to your original payment method. Delivery charges are non-refundable; earrings, socks and hair accessories can't be returned for hygiene reasons.",
+    "short": "14-day returns"
+  },
+  "rewards": {
+    "enabled": true,
+    "name": "Sister Jane Rewards",
+    "real": false,
+    "stockists": false
+  },
+  "discount": {
+    "code": "APP10",
+    "pct": 10
+  },
+  "drop": {
+    "num": "01",
+    "name": "THE ART OF LIVING",
+    "title": "The Art of Living",
+    "col": "the-art-of-living",
+    "image": "assets/brand/soiree.jpg",
+    "products": [
+      "mirage-velvet-jacket",
+      "joan-spot-fringe-scarf",
+      "mirage-velvet-trousers",
+      "alexis-jacquard-jacket",
+      "alexis-jacquard-bag",
+      "dynasty-check-jacket"
+    ],
+    "weekday": 4,
+    "hour": 19,
+    "earlyHours": 24,
+    "previous": {
+      "col": "dream",
+      "title": "DREAM SISTER JANE"
+    }
+  },
+  "pages": {
+    "help": [
+      {
+        "t": "Shipping",
+        "url": "https://sisterjane.com/pages/delivery",
+        "sum": "We know how excited you are to receive your order and we will do our best to send out your items in a flash!\nOrder Dispatch: We aim to ship your orders as soon as possible and we generally ship out same day until 3 pm on UK business days. Please be aware that during peak periods your order may take longer to be dispatched.\nOrders received after 3 pm (GMT) will be shipped the next business day.\nDelivery Services: We use different couriers for different delivery destination, and we always aim to offer you the best choice of courier available.\nWhen possible, we indicate average transit times for your specific destination. These transit times are given to us by couriers and they are average transit times. While they are generally reliable, they are not guaranteed. If your parcel is running late, our customer service team will be glad to help you liaise with the courier to investigate its whereabouts. However, we are generally unable to offer refunds on any shipping charges if your parcel has been delivered later than the stated transit time."
+      },
+      {
+        "t": "Returns",
+        "url": "https://sisterjane.com/pages/return-policy",
+        "sum": "If you are not satisfied with your purchase you may return it to us by post using a delivery service of your choice or in store, within 14 days of receipt, and we will issue a full refund.\nThe item must be returned in its unworn original condition, with all paper tags and barcode labels attached.\nFace masks, headbands, hair clips, hair ties, socks or earrings cannot be returned or exchanged due to hygiene reasons.\nAll refunds will be credited directly to your original method of payment. Delivery charges are non-refundable. Refunds are usually made by your payment provider within 7-10 working days."
+      },
+      {
+        "t": "Contact",
+        "url": "https://sisterjane.com/pages/contact-us",
+        "sum": "International - (+44) 20 7148 0791\nQuestions? - hello@sisterjane.com\nWholesale - wholesale@sisterjane.com\nPress - press@sisterjane.com"
+      }
+    ]
+  },
+  "copy": {
+    "about": "We combine whimsical eccentricity with a distinctive style signature. Pieces emphasise unique, unexpected details that are colourful, fresh, and trend-led, while carrying a retro nod. No day is the same: we aim to refresh your wardrobe with a new capsule collection every 6 weeks, making every piece a limited-edition gem.",
+    "emptyBag": "Nothing in here yet. Start with The Art of Living.",
+    "heroNotif": "The Art of Living is here."
+  },
+  "pdpPerks": [
+    "Free UK delivery over £60",
+    "14-day returns",
+    "Pay with Apple Pay, Google Pay or PayPal"
+  ],
+  "report": {
+    "missing": [
+      "No homepage video: the hero is the site's 'The Art of Living' mobile banner",
+      "No site-wide review score, so no reviews block",
+      "Loyalty: the site loads a LoyaltyLion widget but publishes no points scheme, so the Account rewards card is an illustrative concept",
+      "UK delivery prices aren't published (only free delivery over £60), so no delivery options are listed",
+      "No sign-up discount percentage is published: APP10 is a placeholder app code",
+      "No release date is announced: the Drops tab demos early access with The Art of Living; drop date/time is the rolling placeholder"
+    ]
+  },
+  "frameable": false,
+  "_frameable": "The site allows framing, but its pages throw console errors inside the in-app iframe; use the summary + 'Open on site' view.",
+  "sizes": {
+    "groups": [
+      {
+        "key": "top",
+        "label": "Clothing size",
+        "opts": [
+          "XS",
+          "S",
+          "M",
+          "M+",
+          "L",
+          "L+",
+          "XL"
+        ]
+      }
+    ]
+  },
+  "_sizes": "The site's size run is XS–XL with M+ and L+ in between (XXS appears on one product only), so the size sheet starts at XS."
+}

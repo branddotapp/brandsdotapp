@@ -627,7 +627,7 @@ def homepage_videos(soup, base):
 # ---------------------------------------------------------------- scrape
 GENERIC_WORDS = r'\b(clothing|clothes|clo|apparel|official|store|shop|online|ltd|limited|uk|co|company|menswear|womenswear|london)\b'
 
-def scrape(url, slug, out_dir, do_render=True, max_products=400, extra_cols=(), skip_cols=()):
+def scrape(url, slug, out_dir, do_render=True, max_products=400, extra_cols=(), skip_cols=(), per_col=0):
     base = url.rstrip('/')
     if not re.match(r'^https?://', base): base = 'https://' + base
     st, hdrs, home = fetch(base + '/')
@@ -670,6 +670,7 @@ def scrape(url, slug, out_dir, do_render=True, max_products=400, extra_cols=(), 
             if cm.get('products_count', 1) == 0: continue
             if cm.get('products_count', 0) > 0.8 * total and len(nav) > 4: continue   # skip "all products" style links
             items = paged(base + '/collections/' + h + '/products.json?limit=250&page={page}', 'products', 2)
+            if per_col: items = items[:per_col]   # brand.overrides.json -> scrape.perCollection
             if not items: continue
             for p in items: by_handle.setdefault(p['handle'], p)
             title = nice_title(txt)
@@ -683,6 +684,7 @@ def scrape(url, slug, out_dir, do_render=True, max_products=400, extra_cols=(), 
         for h in extra_cols:
             if h in [c['h'] for c in cols]: continue
             items = paged(base + '/collections/' + h + '/products.json?limit=250&page={page}', 'products', 2)
+            if per_col: items = items[:per_col]   # brand.overrides.json -> scrape.perCollection
             if not items: missing('Extra collection %s: no public products' % h); continue
             for p in items: by_handle.setdefault(p['handle'], p)
             cols.append({'h': h, 't': nice_title(colmeta.get(h, {}).get('title', h.replace('-', ' '))), 'p': [p['handle'] for p in items]})
@@ -988,6 +990,17 @@ def split_colours(B):
         if c: p['n'], p['c'] = t[:-len(c)].strip().rstrip('|-–—,').strip(), c; n += 1   # 'Name | Colour' / 'Name - Colour' too
     log('· Colours split from product titles (scrape.colours): %d products' % n)
 
+def strip_name_tags(B):
+    """Stores that put markup in product titles ("<b>DREAM</b> Orion Leopard Mini Skirt"): the tags are removed so the
+    name reads as plain text (no-op for titles without tags)."""
+    n = 0
+    for p in (B.get('products') or {}).values():
+        for k in ('t', 'n'):
+            v = p.get(k) or ''
+            if '<' in v and re.search(r'<[^>]+>', v):
+                p[k] = re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', '', v)).strip(); n += 1
+    if n: log('· HTML tags removed from %d product titles/names' % n)
+
 def strip_name_prefix(B):
     """Stores that start every product title with the brand ("Gym King Heritage Full Zip Hood") but show the short name on
     their product cards: brand.overrides.json -> scrape.namePrefix is removed from the start of each product name."""
@@ -1088,7 +1101,8 @@ def main():
         ovp = os.path.join(out, 'brand.overrides.json')
         sc = json.load(open(ovp)).get('scrape', {}) if os.path.exists(ovp) else {}
         B = scrape(a.url, a.slug, out, do_render=not a.no_render, max_products=a.max_products,
-                   extra_cols=sc.get('extraCollections', []), skip_cols=sc.get('skipCollections', []))
+                   extra_cols=sc.get('extraCollections', []), skip_cols=sc.get('skipCollections', []),
+                   per_col=int(sc.get('perCollection') or 0))
     ov = os.path.join(out, 'brand.overrides.json')
     if os.path.exists(ov):
         B = deep_merge(B, json.load(open(ov)))
@@ -1096,6 +1110,7 @@ def main():
         for c in B.get('collections', []):
             if c['h'] in (B.get('collectionTitles') or {}): c['t'] = B['collectionTitles'][c['h']]
         log('· Applied overrides from %s' % os.path.relpath(ov, a.root))
+    strip_name_tags(B)
     split_colours(B)
     strip_name_prefix(B)
     check_instagram(B, out)
