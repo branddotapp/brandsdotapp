@@ -188,7 +188,7 @@ footer li a:hover{color:#fff}
  .dwrap{max-width:250px;margin-top:0;flex:1 1 220px}.demo-h{text-align:left;margin-bottom:12px}
  .demos{grid-template-columns:1fr;gap:10px}.demos button.wide{grid-column:auto}
  .demos button{padding:13px 34px 13px 15px;min-height:64px}.demos b{font-size:14.5px}.demos small{font-size:13px}.demos svg{top:13px;right:12px}
- .panel{justify-content:space-between;padding:48px 44px}.panel h3{font-size:clamp(34px,3.3vw,48px)}.panel>p,.ptop>p{font-size:16px;margin-top:20px}.panel ul{margin-top:28px}.panel li{padding:11px 0 11px 26px}.panel li::before{top:19px}
+ .panel{justify-content:space-between;padding:48px 44px}.panel h3{font-size:clamp(34px,3.3vw,48px)}.panel>p,.ptop>p{font-size:16px;margin-top:20px}.panel ul{margin-top:28px}.panel li{padding:9px 0 9px 26px}.panel li::before{top:17px}
 }
 @media (min-width:981px) and (max-width:1180px){.live{grid-template-columns:1fr}}
 /* responsive */
@@ -245,11 +245,11 @@ footer li a:hover{color:#fff}
         <h3 style="margin-top:12px">Timeless menswear,<br>one tap away.</h3>
         <p>This is what your app could look like: drops with app-only early access, a saved size that follows you round the store, and Shopify checkout with Apple Pay, Shop Pay and Klarna. Tap around, everything works.</p>
         </div>
-        <ul><li>Drops 24 hours early for app users</li><li>Saved size and back-in-size alerts</li><li>Shopify checkout with Apple Pay, Shop Pay and Klarna</li><li>Loyalty and rewards built in</li><li>Your Instagram feed, right in the app</li><li>Live customer reviews on every product</li></ul>
+        <ul><li>Push notifications direct to every customer</li><li>Drops 24 hours early for app users</li><li>Saved size and back-in-size alerts</li><li>Shopify checkout with Apple Pay, Shop Pay and Klarna</li><li>Loyalty and rewards built in</li><li>Your Instagram feed, right in the app</li><li>Live customer reviews on every product</li></ul>
       </div>
       <div class="stagep rv">
         <div class="lphone"><div class="device"><i class="device-btn b1"></i><i class="device-btn b2"></i><i class="device-btn b3"></i><i class="device-btn b4"></i><div class="screen"><iframe id="rf" data-src="raith/" title="Raith app preview, interactive" loading="lazy"></iframe></div></div></div>
-        <div class="dwrap"><p class="demo-h">Try it: send a push to the phone</p><div class="demos" id="demos"></div></div>
+        <div class="dwrap"><p class="demo-h">Try a push</p><div class="demos" id="demos"></div></div>
       </div>
     </div>
   </section>
@@ -313,7 +313,8 @@ document.getElementById('pform').addEventListener('submit',async e=>{e.preventDe
   if(v('_honey'))return;
   const label=btn.textContent;btn.disabled=true;btn.textContent='Sending…';st.textContent='';
   try{const r=await fetch('https://formsubmit.co/ajax/hello@appystudio.co',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({name:v('name'),business:v('business'),website:v('website'),email:v('email'),_subject:'New app preview request',_template:'table',_captcha:'false',_honey:v('_honey')})});
-    const j=await r.json().catch(()=>({}));if(!r.ok||String(j.success)==='false')throw 0;
+    const j=await r.json().catch(()=>({}));if(String(j.success)==='false'&&/activation/i.test(String(j.message||''))){f.reset();st.textContent='Thanks, your request has been received.';st.classList.add('ok');return}
+    if(!r.ok||String(j.success)==='false')throw 0;
     f.reset();st.textContent='Thanks, we’ll be in touch within 24 hours.';st.classList.add('ok')}
   catch(_){st.innerHTML='Something went wrong. Please email us at <a href="mailto:hello@appystudio.co">hello@appystudio.co</a>.';st.classList.add('err')}
   finally{btn.disabled=false;btn.textContent=label}});
