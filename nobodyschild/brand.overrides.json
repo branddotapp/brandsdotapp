@@ -1,0 +1,442 @@
+{
+  "scrape": {
+    "_extraCollections": "Collections the homepage features but the nav parse doesn't take within its cap: the AW26 Nobody's Child x Elizabeth Scarlett collab, Going Out Tops and Partywear.",
+    "extraCollections": [
+      "elizabeth-scarlett",
+      "going-out-tops",
+      "partywear"
+    ],
+    "perCollection": 40,
+    "colourPosition": "start",
+    "_colours": "Titles lead with the colour ('Burgundy Crochet Trim Wool Blend Elodie Cardigan') with no Colour option; these are every colour prefix on the site's titles (12 Oct 2026).",
+    "colours": [
+      "Burgundy and Cream",
+      "Blue and Burgundy",
+      "Brown and Yellow",
+      "Black and Orange",
+      "Burgundy and Tan",
+      "Cream and Brown",
+      "Chocolate Brown",
+      "Brown and White",
+      "Dark Blue Denim",
+      "Black and White",
+      "Beige and Cream",
+      "Brown and Cream",
+      "Brown and Green",
+      "Cornflower Blue",
+      "Mid-Blue Denim",
+      "Blue and White",
+      "Green and Blue",
+      "Brown and Blue",
+      "Brown and Pink",
+      "Cream and Pink",
+      "White and Grey",
+      "Multi-Coloured",
+      "Black and Blue",
+      "Blue and Green",
+      "Emerald Green",
+      "Burgundy Marl",
+      "Brown and Red",
+      "Charcoal Grey",
+      "Electric Blue",
+      "Black and Red",
+      "Blue and Grey",
+      "Pink and Grey",
+      "Mid-Wash Blue",
+      "Pink and Red",
+      "Forest Green",
+      "Blue and Red",
+      "Olive Green",
+      "Khaki Green",
+      "Rust Orange",
+      "Cobalt Blue",
+      "Dark Green",
+      "Brown Marl",
+      "Light Blue",
+      "Blush Pink",
+      "Light Pink",
+      "Taupe Marl",
+      "Baby Blue",
+      "Grey Marl",
+      "Moss Marl",
+      "Dark Blue",
+      "Burgundy",
+      "Mid Blue",
+      "Mid-Wash",
+      "Oatmeal",
+      "Leopard",
+      "Purple",
+      "Auburn",
+      "Black",
+      "Beige",
+      "Brown",
+      "Green",
+      "Khaki",
+      "White",
+      "Cream",
+      "Ochre",
+      "Ivory",
+      "Mauve",
+      "Camel",
+      "Navy",
+      "Blue",
+      "Grey",
+      "Pink",
+      "Red"
+    ]
+  },
+  "_note": "Hand-tuned layer on top of the scraped brand.json (nobodyschild.com, Shopify, GBP). Run: python3 tools/build_brand.py --rebuild nobodyschild. No homepage video: hero = the site's mobile 'Layers to Linger In' knitwear banner. assets/brand/ images are the site's own homepage / nav banners.",
+  "name": "Nobody's Child",
+  "short": "NOBODY'S CHILD",
+  "_theme": "nobodyschild.com: warm off-white #f8f9f5 page, cream #f1eee6 announcement bar and #f1ecdf footer, near-black #1b1b1b type, Romie (serif, self-hosted on the Shopify CDN, ACAO *) for headlines in sentence case ('Layers to Linger In', 'Going Out Tops'), Selecta light for UI and product cards, uppercase 14px light buttons with a 2px radius: cream filled and white outline over imagery ('SHOP NEW IN', 'SHOP KNITWEAR').",
+  "theme": {
+    "ink": "#1b1b1b",
+    "bg": "#f8f9f5",
+    "bgRgb": "248,249,245",
+    "text": "#1b1b1b",
+    "muted": "#6b665a",
+    "line": "#e4e0d4",
+    "stone": "#6b665a",
+    "sand": "#f1ecdf",
+    "sand2": "#f6f3ea",
+    "sale": "#9e2a1f",
+    "stageA": "#fbfbf8",
+    "stageB": "#f3f1ea",
+    "stageC": "#e9e5d9",
+    "font": "Selecta",
+    "fontHref": null
+  },
+  "pitch": {
+    "title": "More than just<br><em>that</em> dress brand",
+    "copy": "A concept for the Nobody's Child app: Nobody's Club early access to new launches like the Elizabeth Scarlett collab, every colourway of a cardigan in one swipe, your saved size, and Shopify checkout with Apple Pay, PayPal and Klarna. Tap around, everything works.",
+    "list": [
+      "Nobody's Club early access, in-app",
+      "Saved size and back-in-size alerts",
+      "Shopify checkout with Apple Pay, PayPal and Klarna"
+    ]
+  },
+  "home": {
+    "newCol": "new-in",
+    "newSub": "Layers to linger in",
+    "bestCol": "bestsellers",
+    "bestSub": "The Nobody's Child pieces on repeat",
+    "hero": {
+      "poster": "assets/brand/hero.jpg",
+      "eyebrow": "The Knitwear Edit",
+      "title": "Layers to Linger In",
+      "cta": "Shop New In",
+      "col": "new-in"
+    },
+    "tiles": [
+      [
+        "dresses",
+        "Dresses"
+      ],
+      [
+        "knitwear",
+        "Knitwear"
+      ],
+      [
+        "coats-jackets",
+        "Coats & Jackets"
+      ],
+      [
+        "tops",
+        "Tops"
+      ],
+      [
+        "skirts",
+        "Skirts"
+      ],
+      [
+        "accessories",
+        "Shoes & Accessories"
+      ]
+    ],
+    "editorial": {
+      "col": "going-out-tops",
+      "img": "assets/brand/going-out-tops.jpg",
+      "eyebrow": "Partywear",
+      "title": "Going Out Tops"
+    },
+    "feature": {
+      "col": "elizabeth-scarlett",
+      "img": "assets/brand/es-wide.jpg",
+      "title": "Nobody's Child x Elizabeth Scarlett",
+      "cta": "Shop the collab"
+    }
+  },
+  "collectionTitles": {
+    "knitwear": "Knitwear",
+    "elizabeth-scarlett": "NC x Elizabeth Scarlett",
+    "accessories": "Shoes & Accessories"
+  },
+  "shop": {
+    "kicker": "NOBODY'S CHILD",
+    "cats": [
+      "dresses",
+      "knitwear",
+      "tops",
+      "jumpers-cardigans",
+      "cardigans",
+      "coats-jackets",
+      "trench-coats",
+      "skirts",
+      "shirts-blouses",
+      "trousers",
+      "jeans",
+      "denim",
+      "co-ords",
+      "blazers",
+      "jumpsuits-playsuits",
+      "petite",
+      "accessories"
+    ],
+    "edits": [
+      "new-in",
+      "new-in-dresses",
+      "new-in-tops",
+      "elizabeth-scarlett",
+      "bestsellers",
+      "the-check-edit",
+      "the-burgundy-collection",
+      "going-out-tops",
+      "partywear"
+    ],
+    "featureCats": {
+      "col": "knitwear",
+      "title": "Layers to Linger In",
+      "cta": "Shop knitwear",
+      "idx": 0,
+      "img": "assets/brand/knitwear-wide.jpg"
+    },
+    "featureEdits": {
+      "col": "new-in",
+      "title": "New In",
+      "cta": "Shop now",
+      "idx": 0,
+      "img": "assets/brand/new-in-wide.jpg"
+    }
+  },
+  "search": {
+    "trending": [
+      "Cardigan",
+      "Midi Dress",
+      "Velvet",
+      "Check",
+      "Burgundy",
+      "Cord",
+      "Petite",
+      "Elizabeth Scarlett"
+    ],
+    "popular": [
+      "new-in",
+      "dresses",
+      "knitwear",
+      "bestsellers"
+    ]
+  },
+  "perks": [
+    "15% off when you join Nobody's Club",
+    "The Knitwear Edit: find your new favourite layer",
+    "Free UK standard delivery over £150",
+    "30-day returns on full price",
+    "Pay later with Klarna"
+  ],
+  "payments": [
+    "apple_pay",
+    "paypal",
+    "klarna",
+    "visa",
+    "master",
+    "american_express",
+    "maestro"
+  ],
+  "shipping": {
+    "region": "UK",
+    "freeOver": 150,
+    "options": [
+      {
+        "id": "standard",
+        "name": "Royal Mail Standard",
+        "desc": "3–5 working days",
+        "price": 5.0,
+        "short": "Standard"
+      },
+      {
+        "id": "collect",
+        "name": "Click & Collect (InPost Locker or Shop)",
+        "desc": "5–7 working days",
+        "price": 5.0,
+        "short": "Click & Collect"
+      },
+      {
+        "id": "next-day",
+        "name": "DPD Next Working Day",
+        "desc": "Order before 7:30pm Mon–Thu",
+        "price": 8.0,
+        "short": "Next day"
+      },
+      {
+        "id": "saturday",
+        "name": "DPD Saturday Delivery",
+        "desc": "Order before 7:30pm Friday",
+        "price": 10.0,
+        "short": "Saturday"
+      },
+      {
+        "id": "am",
+        "name": "DPD Next Working Day AM",
+        "desc": "Before 12pm next working day",
+        "price": 12.0,
+        "short": "AM"
+      }
+    ],
+    "notes": [
+      "Free Royal Mail standard delivery and Click & Collect on orders of £150 and over.",
+      "Orders aren't dispatched on Sundays or bank holidays."
+    ]
+  },
+  "returns": {
+    "summary": "Return full-price items within 30 days of receipt and sale or markdown items within 14 days, in perfect condition, unworn and with tags attached, through the online returns portal (QR code or printed label). A £4 return fee applies per return. Jewellery, fragrance and bath & body products can't be returned.",
+    "short": "30-day returns"
+  },
+  "rewards": {
+    "enabled": true,
+    "name": "Nobody's Club",
+    "real": true,
+    "stockists": false
+  },
+  "_rewards": "Nobody's Club is real (nobodyschild.com/pages/nc-club): 15% off your first full-price order, early access to new launches, members-only rewards and discounts, birthday treat, store event invites. No points rates are published; the app's balance/card is illustrative.",
+  "discount": {
+    "code": "APP15",
+    "pct": 15
+  },
+  "_discount": "Joining Nobody's Club gives 15% off your first full-price order (code emailed). The app pop-up mirrors 15% with the placeholder code APP15.",
+  "drop": {
+    "num": "01",
+    "name": "NC X ELIZABETH SCARLETT",
+    "title": "Nobody's Child x Elizabeth Scarlett",
+    "col": "elizabeth-scarlett",
+    "image": "assets/brand/es-wide.jpg",
+    "products": [
+      "annette-blouse-2613982003",
+      "eva-top-2614186006",
+      "annette-blouse-2613982002",
+      "lianne-midaxi-dress-2617603001",
+      "fleur-mini-dress-2613703005"
+    ],
+    "weekday": 4,
+    "hour": 19,
+    "earlyHours": 24,
+    "previous": {
+      "col": "the-burgundy-collection",
+      "title": "THE BURGUNDY EDIT"
+    }
+  },
+  "sizes": {
+    "groups": [
+      {
+        "key": "uk",
+        "label": "UK size (dresses, tops, trousers)",
+        "opts": [
+          "4",
+          "6",
+          "8",
+          "10",
+          "12",
+          "14",
+          "16",
+          "18",
+          "20"
+        ],
+        "prefix": "UK "
+      },
+      {
+        "key": "top",
+        "label": "Knitwear & jackets",
+        "opts": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      }
+    ]
+  },
+  "copy": {
+    "emptyBag": "Nothing in here yet. Start with the Knitwear Edit or New In.",
+    "heroNotif": "The Knitwear Edit: find your new favourite layer.",
+    "about": "For the free thinkers, the dreamers and the go-getters. We champion those who embrace individuality, live with purpose, and seek to make a positive impact on the world around them. Designed for real life, our collections are made to be worn through seasons and occasions. We value fair supply chains, circular business models, and responsible materials."
+  },
+  "pdpPerks": [
+    "Free UK standard delivery over £150",
+    "30-day returns on full price",
+    "Pay later with Klarna"
+  ],
+  "report": {
+    "missing": [
+      "No homepage video: the hero is the site's 'Layers to Linger In' knitwear banner",
+      "No site-wide review score, so no reviews block",
+      "Nobody's Club is real but publishes no points rates: the Account card's balance is illustrative",
+      "The 15% sign-up code is emailed, not published: APP15 is a placeholder app code mirroring it",
+      "No release date is announced: the Drops tab demos early access with the NC x Elizabeth Scarlett collab; drop date/time is the rolling placeholder"
+    ]
+  },
+  "_instagram": "Collected in a browser from the brand's Instagram profile on 2026-10-12 (no pinned posts; profile/collaborator-path URLs normalised to /p/<code>/ or /reel/<code>/). Thumbnails: assets/ig/N.jpg, square-cropped, max 600px.",
+  "instagram": {
+    "handle": "nobodyschild",
+    "url": "https://www.instagram.com/nobodyschild/",
+    "followers": "481K",
+    "bio": "More than just *that* dress brand",
+    "collected": "2026-10-12",
+    "posts": [
+      {
+        "url": "https://www.instagram.com/p/DeWKsUtiOft/",
+        "type": "carousel",
+        "image": "assets/ig/1.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DeTk-gqIeGy/",
+        "type": "reel",
+        "image": "assets/ig/2.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DeR_z3EIgon/",
+        "type": "reel",
+        "image": "assets/ig/3.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DePXOmEoFVy/",
+        "type": "reel",
+        "image": "assets/ig/4.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeMzL1ciPkq/",
+        "type": "carousel",
+        "image": "assets/ig/5.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeMAhgNjXfK/",
+        "type": "carousel",
+        "image": "assets/ig/6.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DeJTTWqInyU/",
+        "type": "reel",
+        "image": "assets/ig/7.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DeHzcSpTCHp/",
+        "type": "reel",
+        "image": "assets/ig/8.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DeHnATZoWe0/",
+        "type": "reel",
+        "image": "assets/ig/9.jpg"
+      }
+    ]
+  }
+}
