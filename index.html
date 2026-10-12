@@ -1,1 +1,88 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>brandsdotapp</title><meta name="robots" content="noindex"></head><body style="font-family:system-ui;display:grid;place-items:center;height:100vh;margin:0"><p>brandsdotapp</p></body></html>
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- ===== CONFIG: BRAND NAME =====
+     Name lives in ONE spot: the --brand CSS variable below (rendered via .brand::after).
+     Also update <title> for SEO/tab text. Candidates: Hem & Tap, Tap Atelier, Tap & Thread. -->
+<title>brandsdotapp — custom shopping apps for fashion brands</title>
+<meta name="description" content="Custom iOS and Android shopping apps for UK fashion brands on Shopify.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brand:"brandsdotapp"; /* <-- CONFIG: swap brand name here */
+  --ink:#0d0d0d;--paper:#faf8f4;--muted:#6b6862;--line:#e4e0d8;--white:#fff;
+  --serif:"Fraunces",Georgia,serif;--sans:"Inter",system-ui,sans-serif;
+}
+.brand::after{content:var(--brand)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font:400 16px/1.6 var(--sans);color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+header{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
+.logo{font:500 20px var(--serif);letter-spacing:-.01em;text-decoration:none}
+.btn{display:inline-block;background:var(--ink);color:var(--paper);text-decoration:none;padding:14px 26px;border-radius:999px;font-weight:500;font-size:15px;transition:transform .2s,opacity .2s}
+.btn:hover{transform:translateY(-1px);opacity:.88}
+.btn.sm{padding:9px 18px;font-size:14px}
+h1,h2{font-family:var(--serif);font-weight:400;letter-spacing:-.02em;line-height:1.05}
+.hero{padding:72px 0 88px}
+.hero h1{font-size:clamp(44px,9vw,104px);max-width:11ch}
+.hero p{font-size:clamp(17px,2.2vw,20px);color:var(--muted);max-width:34em;margin:24px 0 34px}
+section{padding:80px 0;border-top:1px solid var(--line)}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+h2{font-size:clamp(32px,5vw,52px);margin-bottom:40px}
+.stats{list-style:none;display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}
+.stat{background:var(--paper);padding:30px 26px}
+.num{font:400 clamp(48px,6vw,64px)/1 var(--serif);display:block;margin-bottom:14px}
+.stat h3{font-size:15px;font-weight:600;margin-bottom:6px}
+.stat p{color:var(--muted);font-size:14.5px;margin-bottom:14px}
+.stat a{font-size:13px;color:var(--muted);text-underline-offset:3px}
+.work{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.work a{display:block;text-decoration:none}
+.work img{width:100%;height:auto;display:block;border-radius:18px;background:var(--white);border:1px solid var(--line);transition:transform .35s ease,box-shadow .35s ease}
+.work a:hover img{transform:translateY(-4px);box-shadow:0 18px 40px -20px rgba(0,0,0,.35)}
+.work span{display:block;font-size:14px;margin-top:10px;font-weight:500}
+.note{font-size:13px;color:var(--muted);margin-top:28px;max-width:44em}
+.steps{list-style:none;display:grid;gap:34px;counter-reset:s}
+.steps li{counter-increment:s;border-top:1px solid var(--ink);padding-top:20px}
+.steps li::before{content:"0" counter(s);font:400 15px var(--serif);color:var(--muted)}
+.steps h3{font:400 26px/1.2 var(--serif);margin:8px 0}
+.steps p{color:var(--muted)}
+.cta{text-align:center;background:var(--ink);color:var(--paper);border:0}
+.cta h2{margin-bottom:28px}.cta .btn{background:var(--paper);color:var(--ink)}
+footer{padding:36px 0;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
+@media(min-width:720px){.stats{grid-template-columns:repeat(2,1fr)}.work{grid-template-columns:repeat(4,1fr);gap:24px}.steps{grid-template-columns:repeat(3,1fr)}.hero{padding:110px 0 130px}}
+@media(min-width:1024px){.stats{grid-template-columns:repeat(4,1fr)}}
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<!-- TODO(email): replace hello@example.com (placeholder) with the real address — 3 mailto links + footer text. Search "hello@example.com". -->
+<div class="wrap">
+<header><a class="logo brand" href="#" aria-label="Home"></a><a class="btn sm" href="mailto:hello@example.com">Get in touch</a></header>
+<div class="hero">
+<h1 class="reveal">Your brand, in their pocket.</h1>
+<p class="reveal">We build custom iOS and Android shopping apps for UK fashion brands already selling on Shopify.</p>
+<a class="btn reveal" href="mailto:hello@example.com?subject=Concept%20app">Request your free concept</a>
+</div>
+</div>
+<section><div class="wrap"><p class="eyebrow">Why an app</p><h2>Mobile web is where they browse. Apps are where they buy.</h2><ul class="stats"><li class="stat reveal"><span class="num">1.8×</span><h3>Higher conversion</h3><p>App sessions convert at a median 1.8x the brand’s mobile site (21 retailers, like-for-like).</p><a href="https://poqcommerce.com/resources/the-mobile-app-revenue-case/" target="_blank" rel="noopener">Source: Poq ↗</a></li><li class="stat reveal"><span class="num">+24%</span><h3>Total revenue</h3><p>Fashion brands’ average revenue lift after launching an app, across $31.5B of Shopify orders.</p><a href="https://www.tapcart.com/blog/mobile-incrementality-data-story" target="_blank" rel="noopener">Source: Tapcart ↗</a></li><li class="stat reveal"><span class="num">+9%</span><h3>Higher order value</h3><p>80% of retailers saw higher average order values in-app, with a median uplift of 9% (21 retailers, app vs mobile web).</p><a href="https://poqcommerce.com/resources/the-mobile-app-revenue-case/" target="_blank" rel="noopener">Source: Poq ↗</a></li><li class="stat reveal"><span class="num">74%</span><h3>Push opt-in</h3><p>UK brand AYBL got 74% of app users to opt in to push, which drives 10%+ of its revenue.</p><a href="https://www.vennapps.com/case-studies/aybl" target="_blank" rel="noopener">Source: AYBL case study, Venn Apps ↗</a></li></ul></div></section>
+<section><div class="wrap"><p class="eyebrow">Example work</p><h2>Live concept apps</h2><ul class="work"><li class="reveal"><a href="https://branddotapp.github.io/brandsdotapp/raith/" target="_blank" rel="noopener"><img src="assets/work/raith.webp" width="400" height="866" loading="lazy" alt="Concept app screen for Raith"><span>Concept for Raith</span></a></li><li class="reveal"><a href="https://branddotapp.github.io/brandsdotapp/yelir/" target="_blank" rel="noopener"><img src="assets/work/yelir.webp" width="400" height="866" loading="lazy" alt="Concept app screen for Yelir"><span>Concept for Yelir</span></a></li><li class="reveal"><a href="https://branddotapp.github.io/brandsdotapp/sculpt/" target="_blank" rel="noopener"><img src="assets/work/sculpt.webp" width="400" height="866" loading="lazy" alt="Concept app screen for Sculpt"><span>Concept for Sculpt</span></a></li><li class="reveal"><a href="https://branddotapp.github.io/brandsdotapp/percival/" target="_blank" rel="noopener"><img src="assets/work/percival.webp" width="400" height="866" loading="lazy" alt="Concept app screen for Percival"><span>Concept for Percival</span></a></li><li class="reveal"><a href="https://branddotapp.github.io/brandsdotapp/weekendoffender/" target="_blank" rel="noopener"><img src="assets/work/weekendoffender.webp" width="400" height="866" loading="lazy" alt="Concept app screen for Weekend Offender"><span>Concept for Weekend Offender</span></a></li><li class="reveal"><a href="https://branddotapp.github.io/brandsdotapp/waxlondon/" target="_blank" rel="noopener"><img src="assets/work/waxlondon.webp" width="400" height="866" loading="lazy" alt="Concept app screen for Wax London"><span>Concept for Wax London</span></a></li><li class="reveal"><a href="https://branddotapp.github.io/brandsdotapp/closurelondon/" target="_blank" rel="noopener"><img src="assets/work/closurelondon.webp" width="400" height="866" loading="lazy" alt="Concept app screen for Closure London"><span>Concept for Closure London</span></a></li><li class="reveal"><a href="https://branddotapp.github.io/brandsdotapp/gymking/" target="_blank" rel="noopener"><img src="assets/work/gymking.webp" width="400" height="866" loading="lazy" alt="Concept app screen for Gym King"><span>Concept for Gym King</span></a></li></ul>
+<p class="note">These are unofficial concepts built to demonstrate the format. They are not affiliated with, endorsed by, or commissioned by the brands shown.</p></div></section>
+<section><div class="wrap"><p class="eyebrow">How it works</p><h2>Three simple steps</h2><ol class="steps">
+<li class="reveal"><h3>We build a free concept</h3><p>A working concept of your app, built around your brand and products.</p></li>
+<li class="reveal"><h3>You try it</h3><p>Open it on your phone and see how your store feels as an app.</p></li>
+<li class="reveal"><h3>We launch it</h3><p>We take it live on the App Store and Google Play.</p></li>
+</ol></div></section>
+<section class="cta"><div class="wrap"><h2>See your brand as an app.</h2><a class="btn" href="mailto:hello@example.com?subject=Concept%20app">Request your free concept</a></div></section>
+<div class="wrap"><footer><span>© <span class="brand"></span></span><a href="mailto:hello@example.com">hello@example.com</a></footer></div>
+<script>
+if('IntersectionObserver' in window&&!matchMedia('(prefers-reduced-motion: reduce)').matches){const o=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');o.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'});document.querySelectorAll('.reveal').forEach(el=>o.observe(el))}else document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
+</script>
+</body>
+</html>
