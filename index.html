@@ -111,7 +111,9 @@ h1{font-size:clamp(46px,6.2vw,92px);font-weight:300;letter-spacing:-.045em;line-
 .step{border-radius:28px;padding:32px;min-height:320px;display:flex;flex-direction:column;background:linear-gradient(180deg,#18342f,#132a27);border:1px solid var(--line);position:relative;overflow:hidden;transition:transform .5s var(--ease)}
 .step:hover{transform:translateY(-6px)}
 .step:nth-child(3){background:linear-gradient(180deg,#1d3a3a,#3a4726)}
-.step .num{font-size:13px;color:var(--mut);letter-spacing:.1em}
+.step .when{position:absolute;top:26px;right:26px;display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:500;color:#dfe8c9;background:linear-gradient(180deg,rgba(150,170,90,.22),rgba(110,130,60,.14));border:1px solid rgba(190,205,140,.28);border-radius:999px;padding:6px 12px 6px 10px;backdrop-filter:blur(8px)}
+.step .when svg{color:#c9d89a}
+.step .num{font-size:13px;color:var(--mut);letter-spacing:.12em;text-transform:uppercase}
 .step h3{margin-top:auto;font-size:26px;font-weight:400;letter-spacing:-.03em;line-height:1.15}
 .step p{margin-top:12px;color:var(--mut);font-size:14.5px;line-height:1.6}
 .step code{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;color:#cfe3ec;background:rgba(156,200,224,.12);padding:2px 6px;border-radius:6px}
@@ -207,19 +209,20 @@ footer li a:hover{color:#fff}
   <section id="process">
     <div class="shead"><div class="rv"><span class="kick">Process</span><h2>From your website<br>to your own app</h2></div><p class="lead rv">No briefs and no guesswork. We start with your real products, imagery and style.</p></div>
     <div class="steps">
-      <div class="step rv"><span class="num">01</span><div class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="#cfe3ec" stroke-width="1.6" stroke-linecap="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 18h4"/></svg></div><h3>We build your mockup</h3><p>Made from your own site: your logo, products, prices, sizes and imagery, styled to match your brand.</p></div>
-      <div class="step rv"><span class="num">02</span><div class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="#cfe3ec" stroke-width="1.6" stroke-linecap="round"><path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg></div><h3>You try it on your phone</h3><p>We send you a link like <code>appystudio.co/your-brand/</code>. Tap around, add to bag and check out. Nothing to install.</p></div>
-      <div class="step rv"><span class="num">03</span><div class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="#cfe3ec" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15c-1 2-1 4-1 5 1 0 3 0 5-1"/><path d="M9 15l-3-3c2-6 7-9 14-9 0 7-3 12-9 14z"/></svg></div><h3>We launch your app</h3><p>Like it? We build it for real, connected to your Shopify store, and launch it on iOS and Android.</p></div>
+      <div class="step rv"><span class="num">01 / Preview</span><span class="when"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>Within 24 hours</span><div class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="#cfe3ec" stroke-width="1.6" stroke-linecap="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 18h4"/></svg></div><h3>We build your mockup</h3><p>See your brand transformed into an app, using your existing products, imagery and styling. No lengthy briefs or design process.</p></div>
+      <div class="step rv"><span class="num">02 / Finalisation</span><span class="when"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>Within 3 days</span><div class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="#cfe3ec" stroke-width="1.6" stroke-linecap="round"><path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg></div><h3>Your app, ready to review</h3><p>Try your preview on your phone, explore the experience and share any feedback. We’ll refine your app and connect it to your Shopify store.</p></div>
+      <div class="step rv"><span class="num">03 / Launch</span><span class="when"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>Within 5 days</span><div class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="#cfe3ec" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15c-1 2-1 4-1 5 1 0 3 0 5-1"/><path d="M9 15l-3-3c2-6 7-9 14-9 0 7-3 12-9 14z"/></svg></div><h3>Go live on the App Store</h3><p>We prepare your app for submission to Apple and Google, so you can start putting your brand in customers’ pockets and driving repeat purchases.</p></div>
     </div>
   </section>
 
   <section id="built">
-    <div class="shead"><div class="rv"><span class="kick">Who it’s for</span><h2>Built for UK<br>retail brands</h2></div><p class="lead rv">Brands with a Shopify store that sells, but no app yet.</p></div>
+    <div class="shead"><div class="rv"><span class="kick">Who it’s for</span><h2>Built for ambitious<br>businesses.</h2></div><p class="lead rv">Retail brands, cafés and restaurants, and fitness and wellness businesses looking to drive more sales and customer loyalty through their own app.</p></div>
     <div class="built">
-      <a class="bc rv" href="universalworks/"><img src="assets/land/c1.webp" alt="Universal Works on Instagram"><div class="t"><b>Menswear labels</b><span>Universal Works, Percival, Wax London and more, each in its own style.</span></div></a>
-      <a class="bc rv" href="raith/"><img src="assets/land/c2.webp" alt="Raith on Instagram"><div class="t"><b>Independent UK brands</b><span>A website that sells, but no app yet. That’s who we build for.</span></div></a>
-      <a class="bc rv" href="finisterre/"><img src="assets/land/c3.webp" alt="Finisterre on Instagram"><div class="t"><b>Outdoor and activewear</b><span>Finisterre, Gym King and Sculpt, built from their own sites.</span></div></a>
+      <a class="bc rv" href="#live"><img src="assets/land/c1.webp" alt="Menswear from a UK retail brand"><div class="t"><b>Retail brands</b><span>From fashion and beauty to lifestyle and outdoor, we turn your existing online store into a branded mobile app.</span></div></a>
+      <div class="bc rv"><img src="assets/land/who-cafe.webp" alt="Barista behind a café counter"><div class="t"><b>Cafés &amp; restaurants</b><span>Make it easier for customers to order, return and stay connected to your business.</span></div></div>
+      <div class="bc rv"><img src="assets/land/who-fitness.webp" alt="Man doing push-ups in a dimly lit gym"><div class="t"><b>Fitness &amp; wellness</b><span>Build stronger communities, encourage repeat visits and keep your customers coming back.</span></div></div>
     </div>
+    <!-- Photos: café by Johan Mouchet (unsplash.com/photos/G7r3eLlyJ5E), fitness by Anastase Maragos (unsplash.com/photos/uhilWzMiJGs), Unsplash License -->
   </section>
 
   <div class="cta rv"><span class="kick">Get started</span><h2>See your brand as an app</h2><p>Have a Shopify store but no app? We’ll build a clickable mockup of yours.</p>
