@@ -983,3 +983,5 @@ button:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 @media (prefers-reduced-motion:reduce){.th-like.burst svg{animation:none}}
 /* image that failed twice: hide the broken-image glyph, keep the neutral tile background */
 img.img-err{visibility:hidden}
+/* reduced motion: no fade, so a loaded image is visible the instant it is painted (don't wait for the .in class) */
+@media (prefers-reduced-motion:reduce){.pimg img,.gtrack img,.cat-tile img,.cat-row img,.ig-tile img,.bag-item img,.s-row img,.editorial img,.feature-card img,.drop-card>img,.swatch img,.added img{opacity:1;transition:none}}

@@ -981,3 +981,7 @@ button:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:2px solid 
 .acct-link > svg:last-child{width:14px;height:14px;fill:none;stroke:var(--ink);stroke-width:1.6;flex:none}
 @media (hover:hover){.thread:not(.solo):hover,.comm-teaser:hover,.ev-card:hover{box-shadow:0 2px 4px rgba(0,0,0,.05),0 12px 28px -14px rgba(0,0,0,.25)}}
 @media (prefers-reduced-motion:reduce){.th-like.burst svg{animation:none}}
+/* image that failed twice: hide the broken-image glyph, keep the neutral tile background */
+img.img-err{visibility:hidden}
+/* reduced motion: no fade, so a loaded image is visible the instant it is painted (don't wait for the .in class) */
+@media (prefers-reduced-motion:reduce){.pimg img,.gtrack img,.cat-tile img,.cat-row img,.ig-tile img,.bag-item img,.s-row img,.editorial img,.feature-card img,.drop-card>img,.swatch img,.added img{opacity:1;transition:none}}

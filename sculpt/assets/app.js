@@ -24,6 +24,11 @@ const $ = (s, r=document) => r.querySelector(s);
 const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const img = (u, w=600) => !u ? '' : (/cdn\.shopify\.com|\/cdn\/shop\//.test(u) ? u + (u.includes('?') ? '&' : '?') + 'width=' + w : u);
+// Sized Shopify image: src at w plus a w/2..1.25w srcset, so the browser fetches what the slot needs at its DPR.
+// Widths are shared across contexts (product card, category cover = 400) so the same file is reused from cache.
+const SHOP_RE = /cdn\.shopify\.com|\/cdn\/shop\//;
+const srcs = (u, w=600, sz) => { if (!u) return 'src=""'; if (!SHOP_RE.test(u)) return 'src="'+esc(u)+'"';
+  const c = [Math.round(w/2), w, Math.round(w*1.25)]; return 'src="'+img(u,w)+'" srcset="'+c.map(x=>img(u,x)+' '+x+'w').join(', ')+'" sizes="'+(sz||Math.round(w/2.2))+'px"'; };
 const money = n => CUR + (Math.round(n*100)/100).toFixed(2);
 const prods = h => ((colBy(h) || {}).p || []).map(x => P[x]).filter(Boolean);
 const ALL = Object.values(P);
@@ -237,7 +242,7 @@ function pcard(p, opts={}){
     : pd ? '<span class="tag drop">Price drop</span>'
     : out ? '<span class="tag">Sold out</span>' : sale ? '<span class="tag sale">-'+Math.round((1-p.p/p.cp)*100)+'%</span>' : isNew ? '<span class="tag">New in</span>' : '';
   return '<div class="pcard" data-act="pdp" data-v="'+esc(p.h)+'">'+
-    '<div class="pimg"><img loading="lazy" src="'+img(p.im[0], opts.w||500)+'" alt="'+esc(p.t)+'">'+tag+
+    '<div class="pimg"><img loading="lazy" decoding="async" '+srcs(p.im[0], opts.w||500, opts.w===400?152:180)+' alt="'+esc(p.t)+'">'+tag+
     '<button class="heart '+(inWish(p.h)?'on':'')+'" data-act="wish" data-v="'+esc(p.h)+'" data-wish="'+esc(p.h)+'" aria-label="Save">'+I.heart+'</button></div>'+
     '<div class="pmeta"><div class="pname">'+esc(p.n)+'</div>'+(p.c?'<div class="pcol">'+esc(p.c)+'</div>':'')+priceHTML(p)+'</div></div>';
 }
@@ -281,7 +286,7 @@ function igHTML(){
   return '<section class="section ig-feed"><div class="sec-head"><div><h2 class="ig-handle">'+I.ig+'@'+esc(handle)+'</h2>'+
     (G.followers ? '<p><b>'+esc(G.followers)+'</b> followers</p>' : '')+(G.bio ? '<p class="ig-bio">'+esc(G.bio)+'</p>' : '')+'</div>'+
     '<a class="btn btn-dark ig-follow" href="'+esc(prof)+'" target="_blank" rel="noopener">Follow</a></div>'+
-    '<div class="ig-grid">'+posts.map((p,i)=>'<a class="ig-tile" href="'+esc(p.url)+'" target="_blank" rel="noopener" aria-label="'+esc((p.type||'post')+' '+(i+1)+' on Instagram')+'"><img loading="lazy" src="'+esc(p.image)+'" alt="">'+badge(p.type)+'</a>').join('')+'</div></section>';
+    '<div class="ig-grid">'+posts.map((p,i)=>'<a class="ig-tile" href="'+esc(p.url)+'" target="_blank" rel="noopener" aria-label="'+esc((p.type||'post')+' '+(i+1)+' on Instagram')+'"><img loading="lazy" decoding="async" fetchpriority="high" data-prio src="'+esc(p.image)+'" alt="">'+badge(p.type)+'</a>').join('')+'</div></section>';
 }
 
 // drag-to-scroll for desktop mice
@@ -364,8 +369,8 @@ function heroEl(){
   const hero = H.hero || {};
   const d = document.createElement('div');
   d.className = 'hero';
-  const v = hero.video ? '<video autoplay muted loop playsinline preload="auto" disablepictureinpicture disableremoteplayback'+(hero.poster?' poster="'+esc(hero.poster)+'"':'')+(hero.videoW?' width="'+hero.videoW+'" height="'+hero.videoH+'"':'')+'>'+
-    '<source src="'+esc(hero.video)+'" type="video/mp4">'+(hero.videoWebm?'<source src="'+esc(hero.videoWebm)+'" type="video/webm">':'')+'</video>' : '';
+  const v = hero.video ? '<video autoplay muted loop playsinline preload="metadata" disablepictureinpicture disableremoteplayback'+(hero.poster?' poster="'+esc(hero.poster)+'"':'')+(hero.videoW?' width="'+hero.videoW+'" height="'+hero.videoH+'"':'')+'>'+
+    '<source data-src="'+esc(hero.video)+'" type="video/mp4">'+(hero.videoWebm?'<source data-src="'+esc(hero.videoWebm)+'" type="video/webm">':'')+'</video>' : '';
   d.innerHTML = '<img class="poster" src="'+esc(hero.poster||'')+'" alt="">'+v+
     '<div class="hero-copy"><div class="eyebrow">'+esc(hero.eyebrow||'')+'</div><div class="hero-title">'+esc(hero.title||NAME)+'</div>'+(hero.col&&colBy(hero.col)?'<button class="btn btn-light" data-act="col" data-v="'+esc(hero.col)+'">'+esc(hero.cta||'Shop now')+'</button>':'')+'</div>'+
     marquee();
@@ -375,6 +380,18 @@ function heroEl(){
     vid.setAttribute('playsinline', '');
     try { vid.playsInline = true; } catch (_) {}
     vid.addEventListener('playing', () => { const pi = $('.poster', d); if (pi) pi.style.opacity = 0; });
+    // Don't let the ~1-2 MB hero video compete with the first images: the poster shows until window load (eager images
+    // done) and the browser is idle, then the sources are attached and the video buffers/plays as before.
+    let gateOpen = false;
+    const openGate = () => { if (gateOpen) return; gateOpen = true; window.__heroGate = true;
+      $$('source[data-src]', vid).forEach(s => { s.src = s.dataset.src; s.removeAttribute('data-src'); });
+      vid.preload = 'auto'; try { vid.load(); } catch (_) {} setTimeout(() => { try { sync(); } catch (_) {} }, 0); };
+    const whenIdle = f => ('requestIdleCallback' in window) ? requestIdleCallback(f, { timeout: 1500 }) : setTimeout(f, 200);
+    // ...and after the prioritised IG/category images (queued just after load) have arrived, or 5 s at most.
+    const afterPrio = () => { const t0 = Date.now(); const chk = () => { const pend = $$('.view.top img[data-prio]').some(i => !i.complete);
+      if (!pend || Date.now() - t0 > 5000) whenIdle(openGate); else setTimeout(chk, 250); }; setTimeout(chk, 400); };
+    if (window.__heroGate) openGate();   // page already past first load (later Home views): play straight away
+    else if (document.readyState === 'complete') afterPrio(); else window.addEventListener('load', afterPrio, { once: true });
     // play only while the hero is on screen and the page is visible (saves decode work for the rest of the app).
     // After push/back the Home view is briefly visibility:hidden, so IntersectionObserver leaves onScreen=false
     // and does not always re-fire the moment Home is shown again — sync() re-checks .view.top and retries play().
@@ -386,7 +403,7 @@ function heroEl(){
       return r.height > 0 && r.bottom > 0 && r.top < (window.innerHeight || 0);
     };
     const tryPlay = () => {
-      if (!d.isConnected || document.hidden || !onScreen) return;
+      if (!gateOpen || !d.isConnected || document.hidden || !onScreen) return;
       want = true;
       vid.muted = true;
       if (vid.readyState === 0 && vid.networkState === 3) { try { vid.load(); } catch (_) {} }   // NETWORK_NO_SOURCE: re-pick a source
@@ -440,14 +457,14 @@ function Home(el){
     // drop pieces that aren't live yet ("Coming soon", not buyable) go to the end of the New In rail, so it opens on something you can buy
     const newAll = prods(H.newCol), newIn = newAll.filter(p => !isComing(p.h)).concat(newAll.filter(p => isComing(p.h))).slice(0, 12);
     const best = prods(H.bestCol).slice(0, 12);
-    const cover = h => { const p = prods(h)[0]; return p ? img(p.im[0], 500) : ''; };
+    const cover = h => { const p = prods(h)[0]; return p ? srcs(p.im[0], 400, 180) : 'src=""'; };
     const tiles = (H.tiles || []).filter(t => prods(t[0]).length);
     const fc = H.feature && prods(H.feature.col)[0];
     el.innerHTML =
       '<div class="home-head"><div class="home-band">'+topbar({ logo:true, left:'<button class="icon-btn" data-act="tab" data-v="account" aria-label="Account">'+I.user+'</button>', right:'<div class="tb-r">'+searchBtn()+wishBtn()+bagBtn()+'</div>' }) + '</div></div>'+
       '<div class="hero-slot"></div>'+
       (newIn.length ? '<section class="section"><div class="sec-head"><div><h2>New In</h2><p>'+esc(H.newSub||'The latest arrivals')+'</p></div><button class="link" data-act="col" data-v="'+esc(H.newCol)+'">View all</button></div><div class="hscroll">'+newIn.map(p=>pcard(p,{w:400})).join('')+'</div></section>' : '')+
-      (tiles.length ? '<section class="section"><div class="sec-head"><div><h2>Shop by Category</h2></div><button class="link" data-act="tab" data-v="shop">All</button></div><div class="cat-grid">'+tiles.map(t=>'<div class="cat-tile" data-act="col" data-v="'+esc(t[0])+'"><img loading="lazy" src="'+cover(t[0])+'" alt=""><span>'+esc(t[1])+'</span></div>').join('')+'</div></section>' : '')+
+      (tiles.length ? '<section class="section"><div class="sec-head"><div><h2>Shop by Category</h2></div><button class="link" data-act="tab" data-v="shop">All</button></div><div class="cat-grid">'+tiles.map(t=>'<div class="cat-tile" data-act="col" data-v="'+esc(t[0])+'"><img loading="lazy" decoding="async" fetchpriority="high" data-prio '+cover(t[0])+' alt=""><span>'+esc(t[1])+'</span></div>').join('')+'</div></section>' : '')+
       (H.editorial && H.editorial.img && colBy(H.editorial.col) ? '<div class="editorial" data-act="col" data-v="'+esc(H.editorial.col)+'"><img loading="lazy" src="'+esc(H.editorial.img)+'" alt=""><div class="hero-copy"><div class="eyebrow">'+esc(H.editorial.eyebrow||'')+'</div><div class="hero-title">'+esc(H.editorial.title||'')+'</div><span class="btn btn-light">Shop now</span></div></div>' : '')+
       (best.length ? '<section class="section"><div class="sec-head"><div><h2>Best Sellers</h2><p>'+esc(H.bestSub||'The pieces everyone’s wearing')+'</p></div><button class="link" data-act="col" data-v="'+esc(H.bestCol)+'">View all</button></div><div class="hscroll">'+best.map(p=>pcard(p,{w:400})).join('')+'</div></section>' : '')+
       (fc ? '<div class="feature-card" style="margin-top:28px" data-act="col" data-v="'+esc(H.feature.col)+'"><img loading="lazy" src="'+(H.feature.img ? esc(H.feature.img) : img(fc.im[1]||fc.im[0],700))+'" alt=""><div><b>'+esc(H.feature.title)+'</b><span class="btn btn-light btn-sm">'+esc(H.feature.cta||'Shop now')+'</span></div></div>' : '')+
@@ -474,7 +491,7 @@ function Home(el){
 let shopSeg = 'cats';   // remembered while the app is open, so popping back to Shop keeps the chosen segment
 function Shop(el, seg){
   if (seg === 'cats' || seg === 'edits') shopSeg = seg;
-  const row = h => { const c = colBy(h), n = prods(h).length, p = prods(h)[0]; if (!c || !p) return ''; return '<div class="cat-row" data-act="col" data-v="'+esc(h)+'"><img loading="lazy" src="'+img(p.im[0],200)+'" alt=""><div><b>'+esc(c.t)+'</b><small>'+n+(n===1?' style':' styles')+'</small></div>'+I.chev+'</div>'; };
+  const row = h => { const c = colBy(h), n = prods(h).length, p = prods(h)[0]; if (!c || !p) return ''; return '<div class="cat-row" data-act="col" data-v="'+esc(h)+'"><img loading="lazy" decoding="async" '+srcs(p.im[0],200,56)+' alt=""><div><b>'+esc(c.t)+'</b><small>'+n+(n===1?' style':' styles')+'</small></div>'+I.chev+'</div>'; };
   const body = s => {
     const list = (s === 'cats' ? SH.cats : SH.edits) || [];
     const f = s === 'cats' ? SH.featureCats : SH.featureEdits;
@@ -559,7 +576,7 @@ function PDP(el, h){
       (sale ? '<div class="price sale"><b>'+money(p.p)+'</b><s>'+money(p.cp)+'</s>'+(pd?'<span class="pd-badge">Price drop</span>':'')+'</div>' : '<div class="price">'+money(p.p)+'</div>')+
       (pays('klarna') ? '<div class="klarna">Or 3 payments of '+money(p.p/3)+' with Klarna</div>' : '')+proofHTML(true)+
       (coming ? '<div class="soon-note">'+I.drop+'<div><b>DROP '+esc(DR.num)+' / '+esc(DR.name)+'</b><span>App early access '+fmtDay(dropTimes().app)+'. Website 24 hours later.</span></div></div>' : '')+
-      (sibs.length > 1 ? '<div class="label-row"><b>Colour</b><span>'+esc(p.c)+'</span></div><div class="swatches">'+sibs.map(s=>'<button class="swatch '+(s.h===h?'on':'')+'" data-sib="'+esc(s.h)+'" aria-label="'+esc(s.c)+'"><img loading="lazy" src="'+img(s.im[0],150)+'" alt=""></button>').join('')+'</div>' : '')+
+      (sibs.length > 1 ? '<div class="label-row"><b>Colour</b><span>'+esc(p.c)+'</span></div><div class="swatches">'+sibs.map(s=>'<button class="swatch '+(s.h===h?'on':'')+'" data-sib="'+esc(s.h)+'" aria-label="'+esc(s.c)+'"><img loading="lazy" decoding="async" '+srcs(s.im[0],150,44)+' alt=""></button>').join('')+'</div>' : '')+
       '<div class="label-row"><b>Size</b><span id="sizeLbl">'+(mineAvail?'Your saved size: '+esc(prettySize(size)):mineOut?'Your size ('+esc(sizeLabel())+') is sold out':'Select a size')+'</span></div>'+
       '<div class="sizes">'+p.sz.map(s=>'<button class="size '+(long?'sm ':'')+(s[1]?'':'out ')+(s[0]===size?'on ':'')+(hasSize()&&sizeMatch(s[0])?'mine':'')+'" data-size="'+esc(s[0])+'" data-in="'+s[1]+'">'+esc(prettySize(s[0]))+'</button>').join('')+'</div>'+
       '<div class="size-hint">'+I.bell+'<span>'+(mineOut?'Tap your size for a back-in-size alert':'Tap a sold-out size for a back-in-stock alert')+'</span>'+(SIZE_GROUPS.length?'<button class="link sm" data-act="size">'+(hasSize()?'Change size':'Save my size')+'</button>':'')+'</div>'+
@@ -732,7 +749,7 @@ function Search(el, q0){
     body.innerHTML =
       (recent.length ? '<div class="s-sec"><h4>Recent</h4><div class="chips">'+recent.map(r=>'<button class="chip" data-q="'+esc(r)+'">'+esc(r)+'</button>').join('')+'</div></div>' : '')+
       (TR.length ? '<div class="s-sec"><h4>Trending</h4><div class="chips">'+TR.map(r=>'<button class="chip" data-q="'+esc(r)+'">'+esc(r)+'</button>').join('')+'</div></div>' : '')+
-      (POP.length ? '<div class="s-sec"><h4>Popular categories</h4></div><div class="cat-list">'+POP.map(h=>{const c=colBy(h),p=prods(h)[0];const n = prods(h).length; return '<div class="cat-row" data-act="col" data-v="'+esc(h)+'"><img loading="lazy" src="'+img(p.im[0],200)+'" alt=""><div><b>'+esc(c.t)+'</b><small>'+n+(n===1?' style':' styles')+'</small></div>'+I.chev+'</div>';}).join('')+'</div>' : '')+credit();
+      (POP.length ? '<div class="s-sec"><h4>Popular categories</h4></div><div class="cat-list">'+POP.map(h=>{const c=colBy(h),p=prods(h)[0];const n = prods(h).length; return '<div class="cat-row" data-act="col" data-v="'+esc(h)+'"><img loading="lazy" decoding="async" '+srcs(p.im[0],200,56)+' alt=""><div><b>'+esc(c.t)+'</b><small>'+n+(n===1?' style':' styles')+'</small></div>'+I.chev+'</div>';}).join('')+'</div>' : '')+credit();
     bindQ();
   };
   const run = (commit) => {
@@ -744,7 +761,7 @@ function Search(el, q0){
     if (commit){ recent = [inp.value.trim(), ...recent.filter(r=>r.toLowerCase()!==q)].slice(0,5); store.set('recent', recent); }
     const re = new RegExp('('+terms.map(t=>t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')','ig');
     body.innerHTML = res.length
-      ? '<div class="count" style="padding-top:4px">'+res.length+(res.length===1?' result':' results')+' for “'+esc(inp.value.trim())+'”</div><div class="s-res">'+res.slice(0,40).map(p=>'<div class="s-row" data-act="pdp" data-v="'+esc(p.h)+'"><img loading="lazy" src="'+img(p.im[0],150)+'" alt=""><div><b>'+esc(p.n).replace(re,'<mark>$1</mark>')+'</b><small>'+[p.c, tcase(p.ty)].filter(Boolean).map(esc).join(' · ').replace(re,'<mark>$1</mark>')+'</small></div>'+priceHTML(p)+'</div>').join('')+'</div>'
+      ? '<div class="count" style="padding-top:4px">'+res.length+(res.length===1?' result':' results')+' for “'+esc(inp.value.trim())+'”</div><div class="s-res">'+res.slice(0,40).map(p=>'<div class="s-row" data-act="pdp" data-v="'+esc(p.h)+'"><img loading="lazy" decoding="async" '+srcs(p.im[0],150,56)+' alt=""><div><b>'+esc(p.n).replace(re,'<mark>$1</mark>')+'</b><small>'+[p.c, tcase(p.ty)].filter(Boolean).map(esc).join(' · ').replace(re,'<mark>$1</mark>')+'</small></div>'+priceHTML(p)+'</div>').join('')+'</div>'
       : '<div class="empty" style="padding-top:40px"><div class="eic">'+I.search+'</div><h3>No results</h3><p>Nothing matched “'+esc(inp.value.trim())+'”. Try a trending search instead.</p><div class="chips" style="justify-content:center;flex-wrap:wrap">'+TR.slice(0,4).map(r=>'<button class="chip" data-q="'+esc(r)+'">'+esc(r)+'</button>').join('')+'</div></div>';
     bindQ();
   };
@@ -922,7 +939,7 @@ function threadCard(t){
   return '<article class="thread'+(t.mine?' mine':'')+'" data-thread="'+esc(t.id)+'">'+
     '<div class="th-top">'+avHTML(t.author)+'<div class="th-who"><b>'+esc(t.author.name)+'</b><small>'+esc(t.ago||'Just now')+'</small></div><span class="th-topic">'+esc(t.topic)+'</span></div>'+
     '<h3>'+esc(t.title)+'</h3>'+(t.body?'<p class="th-body">'+esc(t.body)+'</p>':'')+
-    (pr ? '<div class="th-prod" data-act="pdp" data-v="'+esc(pr.h)+'"><img loading="lazy" src="'+img(pr.im[0],150)+'" alt=""><span><b>'+esc(pr.n)+'</b><small>'+esc([pr.c, money(pr.p)].filter(Boolean).join(' · '))+'</small></span>'+I.chev+'</div>' : '')+
+    (pr ? '<div class="th-prod" data-act="pdp" data-v="'+esc(pr.h)+'"><img loading="lazy" decoding="async" '+srcs(pr.im[0],150,56)+' alt=""><span><b>'+esc(pr.n)+'</b><small>'+esc([pr.c, money(pr.p)].filter(Boolean).join(' · '))+'</small></span>'+I.chev+'</div>' : '')+
     '<div class="th-foot"><button class="th-like'+(forumLikes[t.id]?' on':'')+'" data-like="'+esc(t.id)+'" aria-pressed="'+!!forumLikes[t.id]+'" aria-label="Like">'+I.heart+'<span>'+likeN(t)+'</span></button>'+
       '<span class="th-replies">'+I.chat+'<span>'+n+(n===1?' reply':' replies')+'</span></span></div></article>';
 }
@@ -984,7 +1001,7 @@ function Thread(el, id){
       '<div class="th-view"><article class="thread solo" data-thread="'+esc(t.id)+'">'+
         '<div class="th-top">'+avHTML(t.author)+'<div class="th-who"><b>'+esc(t.author.name)+'</b><small>'+esc(t.ago||'Just now')+'</small></div><span class="th-topic">'+esc(t.topic)+'</span></div>'+
         '<h1>'+esc(t.title)+'</h1>'+(t.body?'<p class="th-body full">'+esc(t.body)+'</p>':'')+
-        (pr ? '<div class="th-prod" data-act="pdp" data-v="'+esc(pr.h)+'"><img loading="lazy" src="'+img(pr.im[0],150)+'" alt=""><span><b>'+esc(pr.n)+'</b><small>'+esc([pr.c, money(pr.p)].filter(Boolean).join(' · '))+'</small></span>'+I.chev+'</div>' : '')+
+        (pr ? '<div class="th-prod" data-act="pdp" data-v="'+esc(pr.h)+'"><img loading="lazy" decoding="async" '+srcs(pr.im[0],150,56)+' alt=""><span><b>'+esc(pr.n)+'</b><small>'+esc([pr.c, money(pr.p)].filter(Boolean).join(' · '))+'</small></span>'+I.chev+'</div>' : '')+
         '<div class="th-foot"><button class="th-like'+(forumLikes[t.id]?' on':'')+'" data-like="'+esc(t.id)+'" aria-pressed="'+!!forumLikes[t.id]+'" aria-label="Like">'+I.heart+'<span>'+likeN(t)+'</span></button><span class="th-replies">'+I.chat+'<span>'+rs.length+(rs.length===1?' reply':' replies')+'</span></span></div></article>'+
       '<div class="replies"><h4>'+(rs.length ? rs.length+(rs.length===1?' reply':' replies') : 'No replies yet')+'</h4>'+rs.map(reply).join('')+'</div>'+credit()+'</div></div>'+
       '<form class="reply-bar" id="replyBar">'+avHTML(ME,'sm')+'<input id="replyIn" type="text" maxlength="280" placeholder="Write a reply…" autocomplete="off" aria-label="Write a reply"><button class="send" id="replySend" type="submit" aria-label="Send reply" disabled>'+I.send+'</button></form>';
@@ -1228,13 +1245,36 @@ function sheetDrag(){
   window.addEventListener('pointerup', end); window.addEventListener('pointercancel', end);
 }
 // Images fade in once decoded (product images sit on a shimmer placeholder until then).
+// Lazy images live inside the phone's own scroll container (.view), not the page: native loading=lazy measures against
+// the window there (and WebKit can wait until scrolling stops), so we also watch each lazy image against its scroller
+// with a generous rootMargin and switch it to eager in time. IG + category tiles (data-prio) are queued right after load.
 function imgFade(){
-  const mark = i => { if (i.complete) i.classList.add('in'); };
-  document.addEventListener('load', e => { if (e.target.tagName === 'IMG') e.target.classList.add('in'); }, true);
-  document.addEventListener('error', e => { if (e.target.tagName === 'IMG') e.target.classList.add('in'); }, true);
-  new MutationObserver(ms => { for (const m of ms) for (const n of m.addedNodes) { if (n.nodeType !== 1) continue; if (n.tagName === 'IMG') mark(n); else n.querySelectorAll && n.querySelectorAll('img').forEach(mark); } })
+  const show = i => { i.classList.add('in'); };
+  const mark = i => { if (i.complete && (i.naturalWidth || !i.getAttribute('src'))) show(i); else if (i.complete && i.getAttribute('src')) fail(i); else watch(i); };
+  const fail = i => {
+    // one retry without the srcset (a bad width variant / transient CDN error), then give up quietly: stop the shimmer
+    if (!i.dataset.retried && i.getAttribute('src')){ i.dataset.retried = 1; i.removeAttribute('srcset'); i.loading = 'eager'; const u = i.getAttribute('src'); i.src = u + (u.includes('?') ? '&' : '?') + 'retry=1'; return; }
+    i.classList.add('in', 'img-err');
+  };
+  document.addEventListener('load', e => { if (e.target.tagName === 'IMG') show(e.target); }, true);
+  document.addEventListener('error', e => { if (e.target.tagName === 'IMG') fail(e.target); }, true);
+  const ios = new Map();
+  const scroller = i => i.closest('.view,.pscroll,.th-scroll,.sheet,.br-body');
+  const watch = i => {
+    if (i.loading !== 'lazy' || !('IntersectionObserver' in window)) return;
+    const r = scroller(i) || null;
+    let io = ios.get(r);
+    if (!io){ io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ e.target.loading = 'eager'; io.unobserve(e.target); } }), { root: r, rootMargin: '900px 300px' }); ios.set(r, io); }
+    io.observe(i);
+  };
+  const scan = n => { if (n.tagName === 'IMG') mark(n); else n.querySelectorAll && n.querySelectorAll('img').forEach(mark); };
+  new MutationObserver(ms => { for (const m of ms) for (const n of m.addedNodes) if (n.nodeType === 1) scan(n); })
     .observe(document.body, { childList:true, subtree:true });
   $$('img').forEach(mark);
+  // after first paint/load: start the IG grid and category tiles even if the user hasn't scrolled there yet
+  const prio = () => $$('img[data-prio]').forEach(i => { if (i.loading === 'lazy') i.loading = 'eager'; });
+  const later = () => setTimeout(prio, 300);
+  if (document.readyState === 'complete') later(); else window.addEventListener('load', later, { once: true });
 }
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape'){

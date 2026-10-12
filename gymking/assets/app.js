@@ -383,11 +383,15 @@ function heroEl(){
     // Don't let the ~1-2 MB hero video compete with the first images: the poster shows until window load (eager images
     // done) and the browser is idle, then the sources are attached and the video buffers/plays as before.
     let gateOpen = false;
-    const openGate = () => { if (gateOpen) return; gateOpen = true;
+    const openGate = () => { if (gateOpen) return; gateOpen = true; window.__heroGate = true;
       $$('source[data-src]', vid).forEach(s => { s.src = s.dataset.src; s.removeAttribute('data-src'); });
       vid.preload = 'auto'; try { vid.load(); } catch (_) {} setTimeout(() => { try { sync(); } catch (_) {} }, 0); };
     const whenIdle = f => ('requestIdleCallback' in window) ? requestIdleCallback(f, { timeout: 1500 }) : setTimeout(f, 200);
-    if (document.readyState === 'complete') whenIdle(openGate); else window.addEventListener('load', () => whenIdle(openGate), { once: true });
+    // ...and after the prioritised IG/category images (queued just after load) have arrived, or 5 s at most.
+    const afterPrio = () => { const t0 = Date.now(); const chk = () => { const pend = $$('.view.top img[data-prio]').some(i => !i.complete);
+      if (!pend || Date.now() - t0 > 5000) whenIdle(openGate); else setTimeout(chk, 250); }; setTimeout(chk, 400); };
+    if (window.__heroGate) openGate();   // page already past first load (later Home views): play straight away
+    else if (document.readyState === 'complete') afterPrio(); else window.addEventListener('load', afterPrio, { once: true });
     // play only while the hero is on screen and the page is visible (saves decode work for the rest of the app).
     // After push/back the Home view is briefly visibility:hidden, so IntersectionObserver leaves onScreen=false
     // and does not always re-fire the moment Home is shown again — sync() re-checks .view.top and retries play().
