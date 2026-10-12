@@ -144,6 +144,12 @@ h1{font-size:clamp(46px,6.2vw,92px);font-weight:300;letter-spacing:-.045em;line-
 .cta{margin-top:130px;border-radius:36px;padding:90px 40px;text-align:center;position:relative;overflow:hidden;background:radial-gradient(50% 70% at 50% 0%,rgba(190,225,240,.6),transparent 70%),linear-gradient(180deg,#1f4450,#14322f 55%,#4a5a2e)}
 .cta h2{margin:0 auto;max-width:700px}
 .cta p{color:#c3cfcb;margin:18px auto 30px;max-width:460px;line-height:1.6}
+.pform{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:620px;margin:0 auto;text-align:left}
+.pform label span{display:block;font-size:13px;color:#c3cfcb;margin:0 0 6px 4px}
+.pform input{width:100%;height:48px;border-radius:14px;border:1px solid rgba(255,255,255,.16);background:rgba(10,25,24,.35);color:#fff;font:inherit;font-size:16px;padding:0 16px;transition:border-color .3s}
+.pform input::placeholder{color:#7f918d}.pform input:focus{border-color:var(--glow)}
+.pform button{grid-column:1/-1;height:52px;margin-top:6px;border:0;cursor:pointer;font:inherit;font-size:15px;font-weight:500}
+.pnote{font-size:14px!important;margin:18px auto 0!important}.pnote a{text-decoration:underline;color:#eef3f1;display:inline-block;padding:12px 0}
 .cta .row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
 footer{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:30px;padding:70px 0 30px}
 footer .logo img{height:24px;width:auto}
@@ -163,7 +169,7 @@ footer li a:hover{color:#fff}
  .hero{height:auto;min-height:0;padding:110px 0 0;display:flex;flex-direction:column}.hcopy{position:relative;left:auto;bottom:auto;padding:0 32px;order:1}.hphone{--crop:140px;position:relative;right:auto;bottom:auto;order:3;width:min(62vw,370px);margin:36px auto -140px}.scene{position:relative;right:auto;top:auto;order:2;margin:30px auto -120px;width:min(80vw,520px)}}
 @media (max-width:600px){.wrap{padding:0 16px}.top{padding-top:10px}.hero{border-radius:28px;padding-top:96px}nav{padding:20px 20px}nav .logo img{height:20px}nav .btn{height:38px;padding:0 14px;font-size:13px}
  .hcopy{padding:0 22px}.stores{margin-top:16px}.hphone{--crop:110px;width:70%;margin:28px auto -110px}.stores img,.stores a{height:44px}.stores img{width:44px}.stores a{border-radius:6px}.hsub{font-size:15px}.scene{margin:10px auto -90px;width:96%}
- section{padding-top:90px}.stats{margin:0 -16px;padding:4px 16px 20px}.stat{flex-basis:78%}.arrows{display:none}
+ section{padding-top:90px}.pform{grid-template-columns:1fr}.stats{margin:0 -16px;padding:4px 16px 20px}.stat{flex-basis:78%}.arrows{display:none}
  .panel{padding:28px 22px}.demos{grid-template-columns:1fr}.stagep{padding:30px 10px 50px}.lphone{width:300px;height:627px;border-radius:52px}.lphone .bezel{border-radius:48px;padding:9px}.lphone .scr{border-radius:40px}.lphone iframe{transform:scale(.7059)}
  .cta{margin-top:90px;padding:64px 22px;border-radius:28px}footer{grid-template-columns:1fr 1fr}footer>div:first-child{grid-column:1/-1}}
 </style>
@@ -174,12 +180,12 @@ footer li a:hover{color:#fff}
   <nav>
     <a class="logo" href="#top" aria-label="AppyCo home"><img src="assets/appyco-logo-white.svg" alt="AppyCo" width="1854" height="343"></a>
     <ul><li><a href="#stats">Why an app</a></li><li><a href="#live">Live demo</a></li><li><a href="#process">Process</a></li><li><a href="#built">Who it’s for</a></li></ul>
-    <a class="btn btn-l" href="mailto:hello@appystudio.co?subject=My%20free%20app%20preview">Get your app preview</a>
+    <a class="btn btn-l" href="#preview">Get your app preview</a>
   </nav>
   <div class="hcopy">
     <h1 class="rv">Your brand.<br>Their pocket.</h1>
     <p class="hsub rv">We build iOS and Android apps that drive sales, loyalty and repeat purchases.</p>
-    <div class="hcta rv"><a class="btn btn-l" href="mailto:hello@appystudio.co?subject=My%20free%20app%20preview">Get your free app preview</a><a class="btn btn-g" href="#live">Try the live demo</a></div>
+    <div class="hcta rv"><a class="btn btn-l" href="#preview">Get your free app preview</a><a class="btn btn-g" href="#live">Try the live demo</a></div>
     <div class="stores rv" aria-label="Available on iOS and Android"><a href="#live" aria-label="App Store (see the live demo)"><img src="assets/icon-app-store.png" alt="App Store" width="48" height="48"></a><a href="#live" aria-label="Google Play (see the live demo)"><img src="assets/icon-google-play.png" alt="Google Play" width="48" height="48"></a></div>
   </div>
 
@@ -237,14 +243,21 @@ footer li a:hover{color:#fff}
     </div>
   </section>
 
-  <div class="cta rv"><span class="kick">Get started</span><h2>See your brand as an app</h2><p>Shop, café or gym, send us your website or Instagram and we’ll build you a free app preview.</p>
-    <div class="row"><a class="btn btn-l" href="mailto:hello@appystudio.co?subject=My%20free%20app%20preview">Get your free app preview</a><a class="btn btn-g" href="mailto:hello@appystudio.co">hello@appystudio.co</a></div></div>
+  <div class="cta rv" id="preview"><span class="kick">Get started</span><h2>See your brand as an app</h2><p>Shop, café or gym, send us your website or Instagram and we’ll build you a free app preview.</p>
+    <form class="pform" id="pform" action="mailto:hello@appystudio.co" method="post" enctype="text/plain">
+      <label><span>Your name</span><input name="name" autocomplete="name" required></label>
+      <label><span>Business name</span><input name="business" autocomplete="organization" required></label>
+      <label><span>Website or Instagram</span><input name="site" placeholder="yourbrand.co.uk or @yourbrand" required></label>
+      <label><span>Email</span><input name="email" type="email" autocomplete="email" required></label>
+      <button class="btn btn-l" type="submit">Get your free app preview</button>
+    </form>
+    <p class="pnote">Opens your email app with your details filled in. Or email us at <a href="mailto:hello@appystudio.co">hello@appystudio.co</a></p></div>
 
   <footer>
     <div><a class="logo" href="#top" aria-label="AppyCo home"><img src="assets/appyco-logo-white.svg" alt="AppyCo" width="1854" height="343"></a><p class="tag">iOS and Android apps for UK retail brands, cafés and fitness businesses.</p></div>
     <div><h4>Explore</h4><ul><li><a href="#stats">Why an app</a></li><li><a href="#live">Live demo</a></li><li><a href="#process">Process</a></li><li><a href="#built">Who it’s for</a></li></ul></div>
     <div><h4>App previews</h4><ul><li><a href="raith/">Raith</a></li><li><a href="hera/">HERA</a></li><li><a href="finisterre/">Finisterre</a></li></ul></div>
-    <div><h4>Contact</h4><ul><li><a href="mailto:hello@appystudio.co">hello@appystudio.co</a></li><li><a href="mailto:hello@appystudio.co?subject=My%20free%20app%20preview">Request an app preview</a></li></ul></div>
+    <div><h4>Contact</h4><ul><li><a href="mailto:hello@appystudio.co">hello@appystudio.co</a></li><li><a href="#preview">Request an app preview</a></li></ul></div>
   </footer>
   <div class="fbot"><span>© 2026 AppyCo</span><span>Apps for UK brands</span></div>
 </main>
@@ -262,6 +275,9 @@ function hook(){try{const d=rf.contentDocument;if(!d||!d.head)return false;
     b.innerHTML='<span><b></b><small></small></span><i>🔔</i>';b.querySelector('b').textContent=t?t.textContent:s.dataset.demo;b.querySelector('small').textContent=m?m.textContent:'';
     b.addEventListener('click',()=>{if(innerWidth<981)rf.closest('.stagep').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'center'});try{const w=rf.contentDocument.querySelector('#welcome');if(w)w.classList.remove('show');rf.contentDocument.querySelector('.pitch [data-demo="'+s.dataset.demo+'"]').click()}catch(e){}});demos.appendChild(b)});
   return true}catch(e){return false}}
+document.getElementById('pform').addEventListener('submit',e=>{e.preventDefault();const f=e.target,v=n=>f.elements[n].value.trim();
+  const body=`Hi AppyCo,\n\nI'd like a free app preview.\n\nName: ${v('name')}\nBusiness: ${v('business')}\nWebsite or Instagram: ${v('site')}\nEmail: ${v('email')}\n`;
+  location.href='mailto:hello@appystudio.co?subject='+encodeURIComponent('Free app preview: '+v('business'))+'&body='+encodeURIComponent(body)});
 rf.addEventListener('load',()=>{let n=0;const t=setInterval(()=>{hook();if(++n>40)clearInterval(t)},250)});
 </script>
 </body>
