@@ -6,7 +6,7 @@
 <title>AppyCo: apps for UK retail brands</title>
 <meta name="description" content="AppyCo builds iOS and Android apps for UK retail brands on Shopify. We start by building a clickable mockup of your own app.">
 <meta name="theme-color" content="#0f2624">
-<link rel="icon" href="assets/appyco-logo.png">
+<link rel="icon" type="image/svg+xml" href="assets/appyco-mark.svg"><link rel="icon" type="image/png" href="assets/appyco-mark.png"><link rel="apple-touch-icon" href="assets/appyco-mark.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -60,6 +60,9 @@ h1{font-size:clamp(46px,6.2vw,92px);font-weight:300;letter-spacing:-.045em;line-
 .iph .s1{top:130px;height:32px}.iph .s2{top:190px;height:62px}.iph .s3{top:265px;height:62px}
 .shadow{position:absolute;left:-10%;right:0;bottom:-30px;height:60px;background:radial-gradient(50% 50% at 50% 50%,rgba(0,0,0,.5),transparent 70%);filter:blur(10px);transform:rotate(-14deg)}
 @keyframes float{from{translate:0 0}to{translate:0 -14px}}
+.scene{position:absolute;z-index:3;right:2%;top:9%;width:min(40vw,600px);height:auto;perspective:none}
+.scene .ph3d{position:relative;width:100%;height:auto;-webkit-mask-image:linear-gradient(180deg,#000 70%,transparent 98%);mask-image:linear-gradient(180deg,#000 70%,transparent 98%);animation:float 9s ease-in-out infinite alternate}
+.scene .halo{position:absolute;left:10%;top:-5%;width:80%;height:70%;border-radius:50%;background:radial-gradient(50% 50% at 50% 50%,rgba(170,215,235,.35),rgba(170,215,235,0) 70%)}
 /* stats */
 .shead{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:40px}
 .stats{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 28px 20px;margin:0 -28px;scrollbar-width:none}
@@ -137,11 +140,11 @@ footer li a:hover{color:#fff}
 .hero .rv{transition-duration:1.3s}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}.rv{opacity:1;transform:none;transition:none}}
 /* responsive */
-@media (max-width:1180px){.scene{right:2%;transform:scale(.88);transform-origin:top right}}
+@media (max-width:1180px){.scene{right:1%;width:42vw}}
 @media (max-width:980px){nav ul{display:none}.live{grid-template-columns:1fr}.steps,.built{grid-template-columns:1fr}.step{min-height:0}.step h3{margin-top:0}.bc{height:380px}footer{grid-template-columns:1fr 1fr}
- .hero{height:auto;min-height:0;padding:110px 0 0;display:flex;flex-direction:column}.hcopy{position:relative;left:auto;bottom:auto;padding:0 32px;order:1}.scene{position:relative;right:auto;top:auto;order:2;margin:30px auto -150px;transform:scale(.82);transform-origin:top center}}
+ .hero{height:auto;min-height:0;padding:110px 0 0;display:flex;flex-direction:column}.hcopy{position:relative;left:auto;bottom:auto;padding:0 32px;order:1}.scene{position:relative;right:auto;top:auto;order:2;margin:30px auto -120px;width:min(80vw,520px)}}
 @media (max-width:600px){.wrap{padding:0 16px}.top{padding-top:10px}.hero{border-radius:28px;padding-top:96px}nav{padding:20px 20px}nav .logo img{height:20px}nav .btn{height:38px;padding:0 14px;font-size:13px}
- .hcopy{padding:0 22px}.hsub{font-size:15px}.scene{transform:scale(.64);margin:10px auto -260px;width:360px}
+ .hcopy{padding:0 22px}.hsub{font-size:15px}.scene{margin:10px auto -90px;width:96%}
  section{padding-top:90px}.stats{margin:0 -16px;padding:4px 16px 20px}.stat{flex-basis:78%}.arrows{display:none}
  .panel{padding:28px 22px}.demos{grid-template-columns:1fr}.stagep{padding:30px 10px 50px}.lphone{width:300px;height:627px;border-radius:52px}.lphone .bezel{border-radius:48px;padding:9px}.lphone .scr{border-radius:40px}.lphone iframe{transform:scale(.7059)}
  .cta{margin-top:90px;padding:64px 22px;border-radius:28px}footer{grid-template-columns:1fr 1fr}footer>div:first-child{grid-column:1/-1}}
@@ -151,7 +154,7 @@ footer li a:hover{color:#fff}
 <div class="wrap top">
 <header class="hero" id="top">
   <nav>
-    <a class="logo" href="#top" aria-label="AppyCo home"><img src="assets/appyco-logo-white.png" alt="AppyCo" width="720" height="148"></a>
+    <a class="logo" href="#top" aria-label="AppyCo home"><img src="assets/appyco-logo-white.svg" alt="AppyCo" width="1854" height="343"></a>
     <ul><li><a href="#stats">Why an app</a></li><li><a href="#live">Live demo</a></li><li><a href="#process">Process</a></li><li><a href="#built">Who it’s for</a></li></ul>
     <a class="btn btn-l" href="mailto:hello@appystudio.co?subject=My%20app%20mockup">Get your mockup</a>
   </nav>
@@ -160,12 +163,7 @@ footer li a:hover{color:#fff}
     <p class="hsub rv">We build iOS and Android apps for UK retail brands to scale them to the next level.</p>
     <div class="hcta rv"><a class="btn btn-l" href="mailto:hello@appystudio.co?subject=My%20app%20mockup">Get your free mockup</a><a class="btn btn-g" href="#live">Try the live demo</a></div>
   </div>
-  <div class="scene rv" aria-hidden="true">
-    <div class="shadow"></div>
-    <div class="iph"><span class="side s1"></span><span class="side s2"></span><span class="side s3"></span>
-      <div class="bezel"><div class="scr"><span class="isl"></span><div class="sb"><span>9:41</span><i><s></s><b></b></i></div><img src="assets/land/raith-hero.webp" alt="" width="780" height="1688"><span class="glare"></span></div></div>
-    </div>
-  </div>
+  <div class="scene rv" aria-hidden="true"><div class="halo"></div><img class="ph3d" src="assets/land/phone-hero.webp" alt="" width="1541" height="2079"></div>
 </header>
 </div>
 
@@ -223,7 +221,7 @@ footer li a:hover{color:#fff}
     <div class="row"><a class="btn btn-l" href="mailto:hello@appystudio.co?subject=My%20app%20mockup">Get your free mockup</a><a class="btn btn-g" href="mailto:hello@appystudio.co">hello@appystudio.co</a></div></div>
 
   <footer>
-    <div><a class="logo" href="#top" aria-label="AppyCo home"><img src="assets/appyco-logo-white.png" alt="AppyCo" width="720" height="148"></a><p class="tag">iOS and Android apps for UK retail brands on Shopify.</p></div>
+    <div><a class="logo" href="#top" aria-label="AppyCo home"><img src="assets/appyco-logo-white.svg" alt="AppyCo" width="1854" height="343"></a><p class="tag">iOS and Android apps for UK retail brands on Shopify.</p></div>
     <div><h4>Explore</h4><ul><li><a href="#stats">Why an app</a></li><li><a href="#live">Live demo</a></li><li><a href="#process">Process</a></li></ul></div>
     <div><h4>Mockups</h4><ul><li><a href="raith/">Raith</a></li><li><a href="hera/">HERA</a></li><li><a href="finisterre/">Finisterre</a></li></ul></div>
     <div><h4>Contact</h4><ul><li><a href="mailto:hello@appystudio.co">hello@appystudio.co</a></li><li><a href="mailto:hello@appystudio.co?subject=My%20app%20mockup">Request a mockup</a></li></ul></div>
