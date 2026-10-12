@@ -1146,6 +1146,9 @@ const Demo = {
     const r = (t.replies||[]).slice(-1)[0];
     showPush((r ? r.author.name : t.author.name)+' replied in '+(CM.title || 'Community'), '“'+t.title+'”: '+(r ? r.body : t.body), B.assets.favicon, () => { switchTab('community', 'forum'); push(Thread, t.id); });
   },
+  sale(){
+    showPush('Sale now on', '30% off everything, today only. Tap to shop.', B.assets.favicon, () => switchTab(roots.shop ? 'shop' : 'home'));
+  },
   welcome(){ showWelcome(); }
 };
 function showWelcome(){
@@ -1169,7 +1172,7 @@ function showWelcome(){
 let demoHTML = '';
 function buildChrome(){
   const pitch = B.pitch || {};
-  const demoBtns = [['bag','Abandoned bag','What’s still in the bag, plus '+DISC.code],['restock','Back in stock','In your saved size'],...(ALL.some(x => x.cp > x.p) ? [['price','Price drop on wishlist','A real reduced item, badged in-app']] : []),['drop','Drop is live', DR ? 'DROP '+DR.num+' / '+DR.name+', app early access' : 'New arrivals'],...(COMM ? [evSplit().up.length ? ['community','New event near you', evSplit().up[0].title] : ['community', 'Community reply', 'A reply in the '+(CM.title||'community')+' forum']] : []),['welcome','Show welcome message','The '+DISC.code+' offer shown on open']];
+  const demoBtns = [['bag','Abandoned bag','What’s still in the bag, plus '+DISC.code],['restock','Back in stock','In your saved size'],...(ALL.some(x => x.cp > x.p) ? [['price','Price drop on wishlist','A real reduced item, badged in-app']] : []),['drop','Drop is live', DR ? 'DROP '+DR.num+' / '+DR.name+', app early access' : 'New arrivals'],...(COMM ? [evSplit().up.length ? ['community','New event near you', evSplit().up[0].title] : ['community', 'Community reply', 'A reply in the '+(CM.title||'community')+' forum']] : []),['sale','Sale now on','30% off everything, today only'],['welcome','Show welcome message','The '+DISC.code+' offer shown on open']];
   demoHTML = demoBtns.map(d=>'<button class="demo-btn" data-demo="'+d[0]+'"><span><b>'+esc(d[1])+'</b><small>'+esc(d[2])+'</small></span>'+I.bell+'</button>').join('');
   // desktop "Why an app" stats (defaults in _template/config.json, overridable per brand; "stats": false hides them)
   const ST = B.stats && Array.isArray(B.stats.items) ? B.stats.items.filter(x => x && x.num) : [];
