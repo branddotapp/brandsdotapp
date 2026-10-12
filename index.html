@@ -164,6 +164,7 @@ h1 b{font-weight:600;letter-spacing:-.05em}h1 i{font-style:italic;font-weight:30
 .pform label span{display:block;font-size:13px;color:#c3cfcb;margin:0 0 6px 4px}
 .pform input{width:100%;height:48px;border-radius:14px;border:1px solid rgba(255,255,255,.16);background:rgba(10,25,24,.35);color:#fff;font:inherit;font-size:16px;padding:0 16px;transition:border-color .3s}
 .pform input::placeholder{color:#7f918d}.pform input:focus{border-color:var(--glow)}
+.pstatus{grid-column:1/-1;min-height:20px;text-align:center;font-size:14px;color:#c3cfcb}.pstatus.ok{color:#bfe6d2}.pstatus.err{color:#f2b8a8}.pstatus a{color:inherit;text-decoration:underline}.pform button:disabled{opacity:.6;cursor:default}
 .pform button{grid-column:1/-1;height:52px;margin-top:6px;border:0;cursor:pointer;font:inherit;font-size:15px;font-weight:500}
 .pnote{font-size:14px!important;margin:18px auto 0!important}.pnote a{text-decoration:underline;color:#eef3f1;display:inline-block;padding:12px 0}
 .cta .row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
@@ -262,14 +263,16 @@ footer li a:hover{color:#fff}
   </section>
 
   <div class="cta rv" id="preview"><span class="kick">Get started</span><h2>See your brand as an app</h2><p>Shop, café or gym, send us your website or Instagram and we’ll build you a free app preview.</p>
-    <form class="pform" id="pform" action="mailto:hello@appystudio.co" method="post" enctype="text/plain">
+    <form class="pform" id="pform" novalidate>
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <label><span>Your name</span><input name="name" autocomplete="name" required></label>
       <label><span>Business name</span><input name="business" autocomplete="organization" required></label>
-      <label><span>Website or Instagram</span><input name="site" placeholder="yourbrand.co.uk or @yourbrand" required></label>
+      <label><span>Website</span><input name="website" placeholder="yourbrand.com" required></label>
       <label><span>Email</span><input name="email" type="email" autocomplete="email" required></label>
       <button class="btn btn-l" type="submit">Get your free app preview</button>
+      <p class="pstatus" id="pstatus" role="status" aria-live="polite"></p>
     </form>
-    <p class="pnote">Opens your email app with your details filled in. Or email us at <a href="mailto:hello@appystudio.co">hello@appystudio.co</a></p></div>
+    <p class="pnote">Or email us at <a href="mailto:hello@appystudio.co">hello@appystudio.co</a></p></div>
 
   <footer>
     <div><a class="logo" href="#top" aria-label="AppyCo home"><img src="assets/appyco-logo-white.svg" alt="AppyCo" width="1854" height="343"></a><p class="tag">iOS and Android apps for UK retail brands, cafés and fitness businesses.</p></div>
@@ -294,9 +297,16 @@ function hook(){try{const d=rf.contentDocument;if(!d||!d.head)return false;
     b.innerHTML='<span><b></b><small></small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></svg>';b.querySelector('b').textContent=t?t.textContent:s.dataset.demo;b.querySelector('small').textContent=m?m.textContent:'';
     b.addEventListener('click',()=>{if(innerWidth<981)rf.closest('.stagep').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'center'});try{const cd=rf.contentDocument;if(s.dataset.demo==='welcome')cd.documentElement.classList.remove('appyhide');else{const w=cd.querySelector('#welcome');if(w)w.classList.remove('show')}rf.contentDocument.querySelector('.pitch [data-demo="'+s.dataset.demo+'"]').click()}catch(e){}});demos.appendChild(b)});
   return true}catch(e){return false}}
-document.getElementById('pform').addEventListener('submit',e=>{e.preventDefault();const f=e.target,v=n=>f.elements[n].value.trim();
-  const body=`Hi AppyCo,\n\nI'd like a free app preview.\n\nName: ${v('name')}\nBusiness: ${v('business')}\nWebsite or Instagram: ${v('site')}\nEmail: ${v('email')}\n`;
-  location.href='mailto:hello@appystudio.co?subject='+encodeURIComponent('Free app preview: '+v('business'))+'&body='+encodeURIComponent(body)});
+document.getElementById('pform').addEventListener('submit',async e=>{e.preventDefault();const f=e.target,st=document.getElementById('pstatus'),btn=f.querySelector('button[type=submit]'),v=n=>f.elements[n].value.trim();
+  st.className='pstatus';
+  if(!f.checkValidity()||!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v('email'))){const bad=[...f.querySelectorAll('input[required]')].find(i=>!i.checkValidity())||f.elements.email;st.textContent=bad.name==='email'&&v('email')?'Please enter a valid email address.':'Please fill in all fields.';st.classList.add('err');bad.focus();return}
+  if(v('_honey'))return;
+  const label=btn.textContent;btn.disabled=true;btn.textContent='Sending…';st.textContent='';
+  try{const r=await fetch('https://formsubmit.co/ajax/hello@appystudio.co',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({name:v('name'),business:v('business'),website:v('website'),email:v('email'),_subject:'New app preview request',_template:'table',_captcha:'false',_honey:v('_honey')})});
+    const j=await r.json().catch(()=>({}));if(!r.ok||String(j.success)==='false')throw 0;
+    f.reset();st.textContent='Thanks, we’ll be in touch within 24 hours.';st.classList.add('ok')}
+  catch(_){st.innerHTML='Something went wrong. Please email us at <a href="mailto:hello@appystudio.co">hello@appystudio.co</a>.';st.classList.add('err')}
+  finally{btn.disabled=false;btn.textContent=label}});
 new IntersectionObserver((es,o)=>{if(es.some(e=>e.isIntersecting)){rf.src=rf.dataset.src;o.disconnect()}},{rootMargin:'300px 0px'}).observe(rf);
 rf.addEventListener('load',()=>{let n=0;const t=setInterval(()=>{hook();if(++n>40)clearInterval(t)},250)});
 </script>
