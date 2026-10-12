@@ -1,0 +1,405 @@
+{
+  "_instagram": "Collected in a browser from the brand's Instagram profile on 2026-10-12 (no pinned posts; profile/collaborator-path URLs normalised to /p/<code>/ or /reel/<code>/). Thumbnails: assets/ig/N.jpg, square-cropped, max 600px.",
+  "instagram": {
+    "handle": "saintandsofia",
+    "url": "https://www.instagram.com/saintandsofia/",
+    "followers": "379K",
+    "bio": "Modern style classics, from London",
+    "collected": "2026-10-12",
+    "posts": [
+      {
+        "url": "https://www.instagram.com/reel/DeXCNNaikz4/",
+        "type": "reel",
+        "image": "assets/ig/1.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeUJHG6DJAP/",
+        "type": "carousel",
+        "image": "assets/ig/2.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeRy2IZgtb2/",
+        "type": "carousel",
+        "image": "assets/ig/3.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DePAQDJCAEn/",
+        "type": "reel",
+        "image": "assets/ig/4.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeMzOkOgg0B/",
+        "type": "carousel",
+        "image": "assets/ig/5.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeBy7JDFpXb/",
+        "type": "carousel",
+        "image": "assets/ig/6.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeHe1ljDFMs/",
+        "type": "carousel",
+        "image": "assets/ig/7.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DeFOEn4EaC-/",
+        "type": "reel",
+        "image": "assets/ig/8.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DeFS7wVotEx/",
+        "type": "reel",
+        "image": "assets/ig/9.jpg"
+      }
+    ]
+  },
+  "scrape": {
+    "_colours": "Titles end in ' – Colour' with an en dash ('Argent Pleated Midi Skirt – Black'), which the generator's ' - ' split misses; these are every en-dash colour suffix on the site (12 Oct 2026).",
+    "colours": [
+      "Burgundy Mini Houndstooth",
+      "Brown Mini Houndstooth",
+      "Bordeaux Cream Stripe",
+      "Chocolate Blue Stripe",
+      "Navy Mini Houndstooth",
+      "Burgundy Houndstooth",
+      "Black/Burgundy/Gold",
+      "Burgundy/Pink Check",
+      "Brown/Black Stripe",
+      "Brown/Berry Stripe",
+      "Cream Black Stripe",
+      "Monochrome Chevron",
+      "Blue/Brown Stripe",
+      "Navy Houndstooth",
+      "Burgundy Boucle",
+      "Pink Champagne",
+      "Saxon Jacquard",
+      "Navy Pale Blue",
+      "Black Textured",
+      "Wine Burgundy",
+      "Navy/Burgundy",
+      "Burgundy Lace",
+      "Navy Textured",
+      "Black Leather",
+      "Burgundy/Navy",
+      "Khaki Leather",
+      "Brown Chevron",
+      "Metallic Gold",
+      "Plum Paisley",
+      "Khaki Boucle",
+      "Brown/Orange",
+      "Black Boucle",
+      "Black Stripe",
+      "Black Coated",
+      "Brown Stripe",
+      "Cream Stripe",
+      "Burnt Orange",
+      "Navy Chevron",
+      "Leopard/Star",
+      "Brown Check",
+      "Navy Boucle",
+      "Khaki Crepe",
+      "Indigo Blue",
+      "White/Black",
+      "Black/Cream",
+      "Camel Suede",
+      "Black Wash",
+      "Pink Check",
+      "Dusty Pink",
+      "Black Lace",
+      "Cream Lace",
+      "Light Blue",
+      "Tan Stripe",
+      "Lilac Pink",
+      "Black/Navy",
+      "Black Cord",
+      "Chocolate",
+      "Jet Black",
+      "Navy/Blue",
+      "Pale Blue",
+      "Pale Pink",
+      "Brown/Tan",
+      "Burgundy",
+      "Red/Navy",
+      "Bordeaux",
+      "Mid Blue",
+      "Wine Red",
+      "Rust Red",
+      "Ice Blue",
+      "Oatmeal",
+      "Caramel",
+      "Leopard",
+      "Maroon",
+      "Cognac",
+      "Silver",
+      "Indigo",
+      "Stripe",
+      "Yellow",
+      "Black",
+      "White",
+      "Cream",
+      "Khaki",
+      "Saxon",
+      "Camel",
+      "Brown",
+      "Beige",
+      "Olive",
+      "Taupe",
+      "Navy",
+      "Gold",
+      "Plum",
+      "Rust",
+      "Grey",
+      "Blue",
+      "Mint",
+      "Pink",
+      "Red"
+    ]
+  },
+  "_note": "Hand-tuned layer on top of the scraped brand.json. UK store is uk.saintandsofia.com (GBP); saintandsofia.com is the USD store. Run: python3 tools/build_brand.py --rebuild saintandsofia. Hero = the site's mobile homepage image ('New Style Classics'): the only homepage video is a letterboxed Covent Garden store film, not a hero. assets/brand/ images are the site's own Autumn '26 homepage images.",
+  "name": "Saint + Sofia",
+  "short": "SAINT + SOFIA",
+  "_theme": "uk.saintandsofia.com: white page, black type, Arial for UI, Chronicle Display (self-hosted on the Shopify CDN, ACAO *) for editorial headings (uppercase 'OCTOBER COLLECTION', light italic 'editor's note'), white hero titles over imagery with a thin white rule under them, square 1px black outline buttons with 13px bold uppercase Arial ('SHOP NEW IN'), light grey product backgrounds, black footer.",
+  "theme": {
+    "ink": "#000000",
+    "bg": "#ffffff",
+    "bgRgb": "255,255,255",
+    "text": "#000000",
+    "muted": "#5f5f5f",
+    "line": "#d9d9d9",
+    "stone": "#5f5f5f",
+    "sand": "#f2f2f2",
+    "sand2": "#f7f7f7",
+    "sale": "#a3201d",
+    "stageA": "#ffffff",
+    "stageB": "#f4f4f4",
+    "stageC": "#e8e8e8",
+    "font": "Arial",
+    "fontHref": null
+  },
+  "pitch": {
+    "title": "Modern style classics,<br>from London",
+    "copy": "A concept for the Saint + Sofia app: the October Collection with app-only early access, every colourway of a jumper or wide-leg pant in one swipe, your saved size, and Shopify checkout with PayPal. Tap around, everything works.",
+    "list": [
+      "New collections with app-only early access",
+      "Saved size and back-in-size alerts",
+      "Free returns label, 365-day exchanges"
+    ]
+  },
+  "home": {
+    "newCol": "new-arrivals",
+    "newSub": "The October Collection",
+    "bestCol": "best-sellers",
+    "bestSub": "The Saint + Sofia pieces on repeat",
+    "hero": {
+      "poster": "assets/brand/hero.jpg",
+      "eyebrow": "Handmade for the perfect fit & feel",
+      "title": "New Style Classics",
+      "cta": "Shop New In",
+      "col": "new-arrivals",
+      "video": null,
+      "videoWebm": null,
+      "videoW": null,
+      "videoH": null
+    },
+    "tiles": [
+      [
+        "womens-trousers-pants",
+        "Trousers"
+      ],
+      [
+        "womens-knitwear",
+        "Knitwear"
+      ],
+      [
+        "womens-shoes",
+        "Shoes"
+      ],
+      [
+        "womens-jeans",
+        "Denim"
+      ],
+      [
+        "womens-bags",
+        "Bags"
+      ],
+      [
+        "womens-dresses",
+        "Dresses"
+      ]
+    ],
+    "editorial": {
+      "col": "womens-knitwear",
+      "img": "assets/brand/knitwear.jpg",
+      "eyebrow": "Autumn '26",
+      "title": "The Knitwear Edit"
+    },
+    "feature": {
+      "col": "leather-goods",
+      "img": "assets/brand/leather-wide.jpg",
+      "title": "The Leather Edit",
+      "cta": "Shop now"
+    }
+  },
+  "collectionTitles": {
+    "womens-trousers-pants": "Trousers",
+    "womens-dresses": "Dresses",
+    "leather-goods": "The Leather Edit",
+    "womens-bags": "Bags"
+  },
+  "shop": {
+    "kicker": "SAINT + SOFIA",
+    "cats": [
+      "womens-knitwear",
+      "womens-jackets-coats",
+      "womens-trousers-pants",
+      "womens-jeans",
+      "womens-dresses",
+      "womens-skirts",
+      "womens-sweaters-jumpers",
+      "womens-blouses-shirts",
+      "womens-tshirts-tanks",
+      "womens-blazers",
+      "tailoring",
+      "womens-shoes",
+      "womens-bags",
+      "womens-accessories",
+      "womens-jewellery"
+    ],
+    "edits": [
+      "new-arrivals",
+      "best-sellers",
+      "leather-goods",
+      "occasion-wear",
+      "perfect-gifts",
+      "resort",
+      "the-linen-collection",
+      "sale"
+    ],
+    "featureCats": {
+      "col": "womens-dresses",
+      "title": "New Dresses",
+      "cta": "Shop now",
+      "idx": 0,
+      "img": "assets/brand/dresses-wide.jpg"
+    },
+    "featureEdits": {
+      "col": "womens-jeans",
+      "title": "Denim & Jeans",
+      "cta": "Shop now",
+      "idx": 0,
+      "img": "assets/brand/denim-wide.jpg"
+    }
+  },
+  "search": {
+    "trending": [
+      "Wide Leg Pant",
+      "Shearling",
+      "Roll Neck",
+      "Cashmere",
+      "Suede",
+      "Midi Skirt",
+      "Barrel Leg Jeans",
+      "Boucle"
+    ],
+    "popular": [
+      "new-arrivals",
+      "best-sellers",
+      "womens-knitwear",
+      "leather-goods"
+    ]
+  },
+  "perks": [
+    "The October Collection",
+    "Free UK delivery over £100",
+    "Free returns label on all orders",
+    "365-day exchanges"
+  ],
+  "payments": [
+    "paypal",
+    "visa",
+    "master",
+    "american_express",
+    "maestro"
+  ],
+  "shipping": {
+    "region": "UK",
+    "freeOver": 100,
+    "options": [
+      {
+        "id": "standard",
+        "name": "Standard Delivery",
+        "desc": "3–4 days, tracked",
+        "price": 4.95,
+        "short": "Standard"
+      },
+      {
+        "id": "express",
+        "name": "Express Delivery",
+        "desc": "Next business day, tracked",
+        "price": 6.95,
+        "short": "Express"
+      }
+    ],
+    "notes": [
+      "Order before 1pm Monday to Friday for next day delivery.",
+      "All orders dispatched from Dartford, Kent, via Royal Mail or DPD."
+    ]
+  },
+  "returns": {
+    "summary": "Return any item within 28 days of receipt for a full refund (tell us within 14 days, then send it back within another 14), or up to 365 days for an exchange or store credit. Items must be unused, in a sellable condition. Free returns label for exchanges and store credit.",
+    "short": "28-day refunds, 365-day exchanges"
+  },
+  "rewards": {
+    "enabled": true,
+    "name": "Saint + Sofia Rewards",
+    "real": false,
+    "stockists": false
+  },
+  "discount": {
+    "code": "APP10",
+    "pct": 10
+  },
+  "drop": {
+    "num": "01",
+    "name": "OCTOBER COLLECTION",
+    "title": "October Collection",
+    "col": "new-arrivals",
+    "image": "assets/brand/october.jpg",
+    "products": [
+      "hoxton-wide-leg-pant-bordeaux-cream-stripe",
+      "argent-pleated-skirt-black",
+      "austen-boat-neck-long-sleeve-tee-burgundy",
+      "quentin-shirt-white",
+      "runway-pant-bordeaux-cream-stripe",
+      "piper-panelled-jersey-skirt-burgundy-boucle"
+    ],
+    "weekday": 4,
+    "hour": 19,
+    "earlyHours": 24,
+    "previous": {
+      "col": "best-sellers",
+      "title": "BEST SELLERS"
+    }
+  },
+  "copy": {
+    "emptyBag": "Nothing in here yet. Start with the October Collection.",
+    "heroNotif": "The October Collection is here: new style classics.",
+    "about": "Saint and Sofia is an award-winning brand based in London, England, dedicated to creating ready-to-wear clothing and accessories that are both fair and sustainable. Every piece begins in our London studios, where our team carefully designs each style, before being brought to life in Europe by trusted, family-owned factories that share our values of craftsmanship."
+  },
+  "pdpPerks": [
+    "Free UK delivery over £100",
+    "Free returns label",
+    "365-day exchanges"
+  ],
+  "report": {
+    "missing": [
+      "Hero is an image: the only homepage video is a letterboxed Covent Garden store film, not a hero",
+      "No site-wide review score, so no reviews block",
+      "No loyalty programme: the Account rewards card is an illustrative concept",
+      "No sign-up discount percentage is published: APP10 is a placeholder app code",
+      "No release date is announced: the Drops tab demos early access with the October Collection (new arrivals); drop date/time is the rolling placeholder",
+      "No contact or stockists page found"
+    ]
+  }
+}
