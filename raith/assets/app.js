@@ -1147,7 +1147,7 @@ const Demo = {
     showPush((r ? r.author.name : t.author.name)+' replied in '+(CM.title || 'Community'), '“'+t.title+'”: '+(r ? r.body : t.body), B.assets.favicon, () => { switchTab('community', 'forum'); push(Thread, t.id); });
   },
   sale(){
-    showPush('Sale now on', '30% off everything, today only. Tap to shop.', B.assets.favicon, () => switchTab(roots.shop ? 'shop' : 'home'));
+    showPush('Sale now on', '30% off everything, today only. Tap to shop.', (()=>{const p=ALL.find(x=>x.cp>x.p)||prods(H.newCol)[0]||ALL[0];return p?img(p.im[0],120):B.assets.favicon})(), () => switchTab(roots.shop ? 'shop' : 'home'));
   },
   welcome(){ showWelcome(); }
 };
