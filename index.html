@@ -180,6 +180,7 @@ footer li a:hover{color:#fff}
 .rv.in{opacity:1;transform:none}
 .hero .rv{transition-duration:1.3s}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}.rv{opacity:1;transform:none;transition:none}}
+@media (min-width:981px){nav{padding:26px 96px}.hcopy{left:96px}.stores{right:96px}.hphone{right:calc(8% + clamp(70px,8vw,120px))}}
 /* responsive */
 @media (max-width:1180px){.scene{right:1%;width:42vw}}
 @media (max-width:980px){nav ul{display:none}.live{grid-template-columns:1fr}.stagep{order:-1}.steps,.built{grid-template-columns:1fr}.step{min-height:0}.step h3{margin-top:0}.bc{height:380px}footer{grid-template-columns:1fr 1fr}
@@ -288,7 +289,7 @@ document.querySelectorAll('.arrows button').forEach(b=>b.addEventListener('click
 // live Raith demo: hide the welcome offer, mirror the preview's own push-demo buttons and fire them inside the iframe
 const rf=document.getElementById('rf'),demos=document.getElementById('demos');
 function hook(){try{const d=rf.contentDocument;if(!d||!d.head)return false;
-  if(!d.getElementById('appyhide')){const st=d.createElement('style');st.id='appyhide';st.textContent='html.appyhide #welcome{display:none!important}.demo-fab{display:none!important}:root{--sat:44px!important}.statusbar{display:flex!important}.home-indicator{display:block!important}';d.head.appendChild(st);d.documentElement.classList.add('appyhide')}
+  if(!d.getElementById('appyhide')){const st=d.createElement('style');st.id='appyhide';st.textContent='html.appyhide #welcome{display:none!important}.demo-fab{display:none!important}:root{--sat:44px!important}.statusbar{display:flex!important}.home-indicator{display:block!important}.push{top:52px!important}';d.head.appendChild(st);d.documentElement.classList.add('appyhide')}
   const src=d.querySelectorAll('.pitch [data-demo]');if(!src.length)return false;
   if(!demos.children.length)src.forEach(s=>{const b=document.createElement('button');b.type='button';if(s.dataset.demo==='welcome')b.className='wide';const t=s.querySelector('b'),m=s.querySelector('small');
     b.innerHTML='<span><b></b><small></small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></svg>';b.querySelector('b').textContent=t?t.textContent:s.dataset.demo;b.querySelector('small').textContent=m?m.textContent:'';
