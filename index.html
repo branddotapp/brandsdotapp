@@ -88,15 +88,19 @@ h1 b{font-weight:600;letter-spacing:-.05em}h1 i{font-style:italic;font-weight:30
 .scene .halo{position:absolute;left:10%;top:-5%;width:80%;height:70%;border-radius:50%;background:radial-gradient(50% 50% at 50% 50%,rgba(170,215,235,.35),rgba(170,215,235,0) 70%)}
 /* stats */
 .shead{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:40px}
-.stats{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 28px 20px;margin:0 -28px;scrollbar-width:none}
+.stats{--pad:max(28px,calc(50vw - 592px));--fade:min(var(--pad),90px);display:flex;gap:16px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-inline:var(--pad);padding:14px var(--pad) 26px;margin:0 calc(50% - 50vw);scrollbar-width:none;
+ -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 var(--fade),#000 calc(100% - var(--fade)),transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 var(--fade),#000 calc(100% - var(--fade)),transparent 100%)}
 .stats::-webkit-scrollbar{display:none}
-.stat{flex:0 0 300px;scroll-snap-align:start;border-radius:26px;padding:28px;min-height:300px;display:flex;flex-direction:column;background:linear-gradient(180deg,#18342f,#132a27);border:1px solid var(--line);position:relative;overflow:hidden;transition:transform .5s var(--ease),border-color .4s}
-.stat::before{content:"";position:absolute;top:-40%;left:-20%;width:140%;height:80%;background:radial-gradient(50% 50% at 50% 50%,rgba(156,200,224,.14),transparent 70%);pointer-events:none}
-.stat:hover{transform:translateY(-6px);border-color:rgba(156,200,224,.3)}
-.stat .n{font-size:58px;font-weight:300;letter-spacing:-.045em;line-height:1}
-.stat .l{margin-top:14px;font-size:16px;font-weight:500}
-.stat p{margin-top:10px;color:var(--mut);font-size:15px;line-height:1.55;flex:1}
-.stat a{margin-top:18px;font-size:13px;color:#cfe3ec;display:flex;align-items:center;gap:6px;min-height:44px;border-top:1px solid var(--line);padding-top:6px}
+.stat{--gx:50%;flex:0 0 320px;scroll-snap-align:start;border-radius:28px;padding:30px 28px 22px;min-height:400px;display:flex;flex-direction:column;position:relative;overflow:hidden;isolation:isolate;
+ background:radial-gradient(70% 45% at var(--gx) -8%,rgba(190,225,240,.55),rgba(120,175,200,.2) 50%,transparent 80%),linear-gradient(180deg,#24485a 0%,#183c41 34%,#12302d 62%,#1b322a 82%,#3a4827 100%);
+ box-shadow:inset 0 0 0 1px rgba(255,255,255,.08),inset 0 1px 0 rgba(255,255,255,.16),0 24px 50px rgba(0,0,0,.28);transition:transform .5s var(--ease),box-shadow .4s}
+.stat:nth-child(2){--gx:22%}.stat:nth-child(3){--gx:78%}.stat:nth-child(4){--gx:35%}.stat:nth-child(5){--gx:65%}.stat:nth-child(6){--gx:15%}
+.stat::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(120% 50% at 50% 118%,rgba(160,180,90,.3),transparent 60%);pointer-events:none}
+.stat:hover{transform:translateY(-6px);box-shadow:inset 0 0 0 1px rgba(156,200,224,.3),inset 0 1px 0 rgba(255,255,255,.2),0 30px 60px rgba(0,0,0,.35)}
+.stat .n{font-size:64px;font-weight:300;letter-spacing:-.045em;line-height:1;color:#fff;text-shadow:0 0 28px rgba(190,225,240,.45)}
+.stat .l{margin-top:16px;font-size:17px;font-weight:500;color:#fff}
+.stat p{margin-top:10px;color:#c3d0cc;font-size:15px;line-height:1.55;flex:1}
+.stat a{margin-top:18px;font-size:13px;color:#e3eef2;display:flex;align-items:center;gap:6px;min-height:44px;border-top:1px solid rgba(255,255,255,.12);padding-top:6px}
 .stat a:hover{color:#fff;text-decoration:underline}
 .arrows{display:flex;gap:8px}
 .shint{display:none;align-items:center;gap:12px;margin-top:6px;font-size:13px;color:var(--mut)}
@@ -122,11 +126,12 @@ h1 b{font-weight:600;letter-spacing:-.05em}h1 i{font-style:italic;font-weight:30
 .demos small{display:block;font-size:14px;color:var(--mut);margin-top:3px;line-height:1.4}
 .demos svg{position:absolute;top:16px;right:16px;width:21px;height:21px;color:#dfe9e6}
 .stagep{position:relative;border-radius:32px;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:48px 20px;background:radial-gradient(60% 50% at 50% 0%,rgba(156,200,224,.35),transparent 70%),linear-gradient(180deg,#1b3b44,#13302c 60%,#2f3b22)}
-.lphone{position:relative;width:330px;height:690px;border-radius:58px;padding:5px;background:linear-gradient(135deg,#d9d6cf,#8d8a84 25%,#c9c6be 50%,#6d6a65 75%,#bdb9b1);box-shadow:0 50px 90px rgba(0,0,0,.5)}
-.lphone .bezel{width:100%;height:100%;border-radius:53px;background:#050606;padding:10px}
-.lphone .scr{position:relative;width:100%;height:100%;border-radius:44px;overflow:hidden;background:#fff}
-.lphone iframe{position:absolute;top:0;left:0;width:390px;height:844px;border:0;transform:scale(.7795);transform-origin:0 0}
-.lphone .isl{position:absolute;z-index:3;top:21px;left:50%;width:92px;height:27px;margin-left:-46px;border-radius:20px;background:#000;pointer-events:none}
+.lphone{--k:.78;position:relative;width:calc(414px*var(--k));height:calc(868px*var(--k));flex:none}
+.lphone .device{position:absolute;top:0;left:0;width:414px;height:868px;border-radius:66px;background:#1b1b1b;padding:12px;transform:scale(var(--k));transform-origin:0 0;box-shadow:0 0 0 2px #3a3a3a,0 0 0 4px #0c0c0c,0 50px 90px -20px rgba(0,0,0,.6),0 30px 50px -30px rgba(0,0,0,.5)}
+.lphone .device-btn{position:absolute;width:4px;background:#2a2a2a;border-radius:2px}
+.lphone .b1{left:-6px;top:130px;height:30px}.lphone .b2{left:-6px;top:190px;height:60px}.lphone .b3{left:-6px;top:262px;height:60px}.lphone .b4{right:-6px;top:210px;height:96px}
+.lphone .screen{position:relative;width:390px;height:844px;border-radius:54px;overflow:hidden;overflow:clip;clip-path:inset(0 round 54px);background:#f3f3f3;isolation:isolate}
+.lphone iframe{display:block;width:390px;height:844px;border:0}
 .openf{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);font-size:13px;padding:14px 16px;color:#cfe3ec;white-space:nowrap}
 .openf:hover{text-decoration:underline}
 /* steps */
@@ -182,8 +187,8 @@ footer li a:hover{color:#fff}
 @media (max-width:600px){.wrap{padding:0 16px}.top{padding-top:10px}.hero{border-radius:28px;padding-top:96px}nav{padding:20px 20px}nav .logo img{height:20px}nav .btn{height:44px;padding:0 14px;font-size:13px}
  .hcopy{padding:0 22px}.stores{margin-top:16px;padding:0 22px}.hphone{--crop:110px;width:70%;margin:28px auto -110px}.stores img,.stores a{height:44px}.stores img{width:44px}.stores a{border-radius:6px}h1 b{font-weight:600;letter-spacing:-.05em}h1 i{font-style:italic;font-weight:300;padding-right:.05em}
 .hsub{font-size:15px}.scene{margin:10px auto -90px;width:96%}
- section{padding-top:90px}.demos button{padding:14px 38px 14px 14px}.demos svg{top:14px;right:12px}.pform{grid-template-columns:1fr}.stats{margin:0 -16px;padding:4px 16px 20px}.stat{flex-basis:78%}.arrows{display:none}.shint{display:flex}.panel ul{display:none}
- .panel{padding:28px 22px}.stagep{padding:30px 10px 50px}.lphone{width:300px;height:627px;border-radius:52px}.lphone .bezel{border-radius:48px;padding:9px}.lphone .scr{border-radius:40px}.lphone iframe{transform:scale(.7059)}
+ section{padding-top:90px}.demos button{padding:14px 38px 14px 14px}.demos svg{top:14px;right:12px}.pform{grid-template-columns:1fr}.stats{--pad:16px}.stat{min-height:380px;flex-basis:80%}.arrows{display:none}.shint{display:flex}.panel ul{display:none}
+ .panel{padding:28px 22px}.stagep{padding:30px 10px 50px}.lphone{--k:.72}
  .cta{margin-top:90px;padding:64px 22px;border-radius:28px}footer{grid-template-columns:1fr 1fr}footer>div:first-child{grid-column:1/-1}}
 </style>
 </head>
@@ -233,7 +238,7 @@ footer li a:hover{color:#fff}
         <div class="demos" id="demos"></div>
       </div>
       <div class="stagep rv">
-        <div class="lphone"><div class="bezel"><div class="scr"><iframe id="rf" data-src="raith/" title="Raith app preview, interactive" loading="lazy"></iframe></div></div></div>
+        <div class="lphone"><div class="device"><i class="device-btn b1"></i><i class="device-btn b2"></i><i class="device-btn b3"></i><i class="device-btn b4"></i><div class="screen"><iframe id="rf" data-src="raith/" title="Raith app preview, interactive" loading="lazy"></iframe></div></div></div>
       </div>
     </div>
   </section>
@@ -279,11 +284,11 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.targ
 document.querySelectorAll('.rv').forEach(el=>{const s=[...el.parentElement.children].filter(c=>c.classList.contains('rv'));if(s.length>1)el.style.transitionDelay=Math.min(s.indexOf(el),5)*90+'ms';io.observe(el)});
 const row=document.getElementById('statsRow');
 const sbar=document.getElementById('sbar');function sb(){const m=row.scrollWidth-row.clientWidth;const w=row.clientWidth/row.scrollWidth*100;sbar.style.width=w+'%';sbar.style.left=(m>0?row.scrollLeft/m*(100-w):0)+'%'}row.addEventListener('scroll',sb,{passive:true});addEventListener('resize',sb);sb();
-document.querySelectorAll('.arrows button').forEach(b=>b.addEventListener('click',()=>row.scrollBy({left:+b.dataset.dir*316,behavior:'smooth'})));
+document.querySelectorAll('.arrows button').forEach(b=>b.addEventListener('click',()=>row.scrollBy({left:+b.dataset.dir*336,behavior:'smooth'})));
 // live Raith demo: hide the welcome offer, mirror the preview's own push-demo buttons and fire them inside the iframe
 const rf=document.getElementById('rf'),demos=document.getElementById('demos');
 function hook(){try{const d=rf.contentDocument;if(!d||!d.head)return false;
-  if(!d.getElementById('appyhide')){const st=d.createElement('style');st.id='appyhide';st.textContent='html.appyhide #welcome{display:none!important}.demo-fab{display:none!important}';d.head.appendChild(st);d.documentElement.classList.add('appyhide')}
+  if(!d.getElementById('appyhide')){const st=d.createElement('style');st.id='appyhide';st.textContent='html.appyhide #welcome{display:none!important}.demo-fab{display:none!important}:root{--sat:44px!important}.statusbar{display:flex!important}.home-indicator{display:block!important}';d.head.appendChild(st);d.documentElement.classList.add('appyhide')}
   const src=d.querySelectorAll('.pitch [data-demo]');if(!src.length)return false;
   if(!demos.children.length)src.forEach(s=>{const b=document.createElement('button');b.type='button';if(s.dataset.demo==='welcome')b.className='wide';const t=s.querySelector('b'),m=s.querySelector('small');
     b.innerHTML='<span><b></b><small></small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></svg>';b.querySelector('b').textContent=t?t.textContent:s.dataset.demo;b.querySelector('small').textContent=m?m.textContent:'';
