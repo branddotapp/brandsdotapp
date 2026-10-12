@@ -4,83 +4,110 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <!-- ===== CONFIG: BRAND NAME =====
-     Name lives in ONE spot: the --brand CSS variable below (rendered via .brand::after).
-     Also update <title> for SEO/tab text. Candidates: Hem & Tap, Tap Atelier, Tap & Thread. -->
-<title>brandsdotapp — custom shopping apps for fashion brands</title>
+     Name lives in ONE spot: the --brand CSS variable in :root (rendered via .brand::after; logo adds the orange dot).
+     Also update <title>. Candidates: Hem & Tap, Tap Atelier, Tap & Thread. -->
+<title>brandsdotapp — custom shopping apps for UK fashion brands</title>
 <meta name="description" content="Custom iOS and Android shopping apps for UK fashion brands on Shopify.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
   --brand:"brandsdotapp"; /* <-- CONFIG: swap brand name here */
-  --ink:#0d0d0d;--paper:#faf8f4;--muted:#6b6862;--line:#e4e0d8;--white:#fff;
-  --serif:"Fraunces",Georgia,serif;--sans:"Inter",system-ui,sans-serif;
+  --bg:#f2f2f2;--card:#fafafa;--ink:#111;--muted:#6e6e6e;--line:#e1e1e1;--accent:#ff5a1f;
+  --font:"Urbanist",system-ui,sans-serif;
 }
 .brand::after{content:var(--brand)}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font:400 16px/1.6 var(--sans);color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
+body{font:500 17px/1.55 var(--font);color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased}
 a{color:inherit}
-.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
-header{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
-.logo{font:500 20px var(--serif);letter-spacing:-.01em;text-decoration:none}
-.btn{display:inline-block;background:var(--ink);color:var(--paper);text-decoration:none;padding:14px 26px;border-radius:999px;font-weight:500;font-size:15px;transition:transform .2s,opacity .2s}
-.btn:hover{transform:translateY(-1px);opacity:.88}
-.btn.sm{padding:9px 18px;font-size:14px}
-h1,h2{font-family:var(--serif);font-weight:400;letter-spacing:-.02em;line-height:1.05}
-.hero{padding:72px 0 88px}
-.hero h1{font-size:clamp(44px,9vw,104px);max-width:11ch}
-.hero p{font-size:clamp(17px,2.2vw,20px);color:var(--muted);max-width:34em;margin:24px 0 34px}
-section{padding:80px 0;border-top:1px solid var(--line)}
-.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
-h2{font-size:clamp(32px,5vw,52px);margin-bottom:40px}
-.stats{list-style:none;display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}
-.stat{background:var(--paper);padding:30px 26px}
-.num{font:400 clamp(48px,6vw,64px)/1 var(--serif);display:block;margin-bottom:14px}
-.stat h3{font-size:15px;font-weight:600;margin-bottom:6px}
-.stat p{color:var(--muted);font-size:14.5px;margin-bottom:14px}
-.stat a{font-size:13px;color:var(--muted);text-underline-offset:3px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+/* header */
+header{position:relative;display:flex;align-items:center;justify-content:space-between;padding:58px 0 20px}
+.notch{position:absolute;top:0;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font-size:12.5px;font-weight:600;padding:9px 20px 10px;border-radius:0 0 18px 18px;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.notch::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px rgba(255,90,31,.25);animation:pulse 2.4s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 6px rgba(255,90,31,0)}}
+.logo{color:var(--accent);font-weight:800;font-size:24px;letter-spacing:-.03em;text-decoration:none}
+.logo::before{content:none}.logo .dot{color:var(--accent)}
+nav{display:none;gap:34px;font-size:15px;font-weight:600}
+nav a{text-decoration:none;opacity:.8}nav a:hover{opacity:1;color:var(--accent)}
+.pill{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:#fff;text-decoration:none;font-weight:600;border-radius:999px;padding:12px 22px;font-size:15px;box-shadow:0 8px 20px -10px rgba(0,0,0,.5);transition:transform .2s,background .2s}
+.pill:hover{transform:translateY(-2px);background:#000}
+.pill.sm{padding:9px 18px;font-size:14px}
+.pill i{font-style:normal;display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--accent);margin-right:-10px;transition:transform .2s}
+.pill:hover i{transform:translateX(3px)}
+/* hero */
+.hero{text-align:center;padding:70px 0 100px}
+h1{font-weight:800;font-size:clamp(30px,9.6vw,104px);line-height:1.04;letter-spacing:-.035em}
+h1 .l{display:block;white-space:nowrap}
+.o{color:var(--accent)}
+.s{color:transparent;-webkit-text-stroke:1.5px #8a8a8a;font-weight:700}
+.chip{display:inline-block;width:1.05em;height:.78em;border-radius:.39em;vertical-align:-.04em;background:center/cover no-repeat var(--accent);box-shadow:0 4px 14px -6px rgba(0,0,0,.4);margin:0 .04em}
+.hero p{max-width:30em;margin:30px auto 36px;color:var(--muted);font-size:clamp(16px,2vw,19px)}
+/* sections */
+section{padding:90px 0}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 14px;margin-bottom:18px}
+.eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent)}
+h2{font-weight:800;font-size:clamp(32px,5vw,58px);letter-spacing:-.03em;line-height:1.05;margin-bottom:44px}
+.stats{list-style:none;display:grid;gap:16px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:30px 28px;transition:transform .3s,box-shadow .3s}
+.stat:hover{transform:translateY(-4px);box-shadow:0 20px 40px -24px rgba(0,0,0,.3)}
+.num{display:block;font-weight:800;font-size:clamp(52px,6vw,68px);line-height:1;letter-spacing:-.04em;color:var(--accent);margin-bottom:18px}
+.stat h3{font-size:19px;font-weight:700;margin-bottom:6px}
+.stat p{color:var(--muted);font-size:15px;margin-bottom:18px}
+.stat a{display:inline-block;font-size:13px;font-weight:600;text-decoration:none;border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 12px}
+.stat a:hover{border-color:var(--accent);color:var(--accent)}
 .work{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-.work a{display:block;text-decoration:none}
-.work img{width:100%;height:auto;display:block;border-radius:18px;background:var(--white);border:1px solid var(--line);transition:transform .35s ease,box-shadow .35s ease}
-.work a:hover img{transform:translateY(-4px);box-shadow:0 18px 40px -20px rgba(0,0,0,.35)}
-.work span{display:block;font-size:14px;margin-top:10px;font-weight:500}
-.note{font-size:13px;color:var(--muted);margin-top:28px;max-width:44em}
-.steps{list-style:none;display:grid;gap:34px;counter-reset:s}
-.steps li{counter-increment:s;border-top:1px solid var(--ink);padding-top:20px}
-.steps li::before{content:"0" counter(s);font:400 15px var(--serif);color:var(--muted)}
-.steps h3{font:400 26px/1.2 var(--serif);margin:8px 0}
+.work a{display:block;text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:28px;padding:14px 14px 16px;transition:transform .3s,box-shadow .3s}
+.work a:hover{transform:translateY(-5px);box-shadow:0 24px 44px -26px rgba(0,0,0,.35)}
+.phone{background:#111;border-radius:22px;padding:5px;box-shadow:0 10px 24px -14px rgba(0,0,0,.5)}
+.phone img{display:block;width:100%;height:auto;border-radius:18px}
+.cap{display:flex;justify-content:space-between;align-items:center;gap:6px;font-weight:700;font-size:14.5px;margin-top:14px;padding:0 4px}
+.cap i{font-style:normal;color:var(--accent);transition:transform .2s}.work a:hover .cap i{transform:translateX(3px)}
+.note{font-size:13.5px;color:var(--muted);margin-top:28px;max-width:46em}
+.steps{list-style:none;display:grid;gap:16px;counter-reset:s}
+.steps li{counter-increment:s;background:var(--card);border:1px solid var(--line);border-radius:28px;padding:30px 28px}
+.steps li::before{content:"0" counter(s);display:inline-grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--ink);color:#fff;font-weight:700;font-size:15px;margin-bottom:22px}
+.steps li:first-child::before{background:var(--accent)}
+.steps h3{font-size:24px;font-weight:800;letter-spacing:-.02em;margin-bottom:8px}
 .steps p{color:var(--muted)}
-.cta{text-align:center;background:var(--ink);color:var(--paper);border:0}
-.cta h2{margin-bottom:28px}.cta .btn{background:var(--paper);color:var(--ink)}
-footer{padding:36px 0;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
-@media(min-width:720px){.stats{grid-template-columns:repeat(2,1fr)}.work{grid-template-columns:repeat(4,1fr);gap:24px}.steps{grid-template-columns:repeat(3,1fr)}.hero{padding:110px 0 130px}}
-@media(min-width:1024px){.stats{grid-template-columns:repeat(4,1fr)}}
-.reveal{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}
+.cta{background:var(--ink);color:#fff;border-radius:36px;text-align:center;padding:80px 24px;margin:0 0 30px}
+.cta h2{margin-bottom:30px}.cta .pill{background:#fff;color:var(--ink)}
+footer{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;padding:20px 0 40px;font-weight:600;font-size:15px;color:var(--muted)}
+footer .logo{font-size:20px}
+footer a:not(.logo){text-decoration:none}footer a:hover{color:var(--accent)}
+@media(min-width:760px){nav{display:flex;position:absolute;left:50%;transform:translateX(-50%)}.stats{grid-template-columns:repeat(2,1fr)}.work{grid-template-columns:repeat(4,1fr);gap:20px}.steps{grid-template-columns:repeat(3,1fr)}.hero{padding:100px 0 140px}.s{-webkit-text-stroke-width:2px}}
+@media(min-width:1080px){.stats{grid-template-columns:repeat(4,1fr)}}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
 .reveal.in{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){*,*::before{transition:none!important;animation:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
 </style>
 </head>
 <body>
-<!-- TODO(email): replace hello@example.com (placeholder) with the real address — 3 mailto links + footer text. Search "hello@example.com". -->
+<!-- TODO(email): replace hello@example.com (placeholder) with the real address — search "hello@example.com" (4 places). -->
 <div class="wrap">
-<header><a class="logo brand" href="#" aria-label="Home"></a><a class="btn sm" href="mailto:hello@example.com">Get in touch</a></header>
+<header>
+<div class="notch">Taking on new brands</div>
+<a class="logo" href="#" aria-label="Home"><span class="brand"></span>.</a>
+<nav aria-label="Main"><a href="#work">Work</a><a href="#how">How it works</a><a href="#why">Why an app</a></nav>
+<a class="pill sm" href="mailto:hello@example.com">Contact</a>
+</header>
 <div class="hero">
-<h1 class="reveal">Your brand, in their pocket.</h1>
-<p class="reveal">We build custom iOS and Android shopping apps for UK fashion brands already selling on Shopify.</p>
-<a class="btn reveal" href="mailto:hello@example.com?subject=Concept%20app">Request your free concept</a>
+<h1 class="reveal"><span class="l">Custom <span class="chip" style="background-image:url(assets/work/raith.webp);background-position:50% 30%" aria-hidden="true"></span> <span class="o">Apps</span></span><span class="l"><span class="s">for</span> <span class="chip" style="background-image:url(assets/work/yelir.webp);background-position:50% 25%" aria-hidden="true"></span> UK Fashion</span><span class="l"><span class="s">on</span> Shopify <span class="chip" style="background-image:url(assets/work/waxlondon.webp);background-position:50% 25%" aria-hidden="true"></span> <span class="s">brands</span></span></h1>
+<p class="reveal">We turn your Shopify store into a custom iOS and Android shopping app, built around your brand.</p>
+<a class="pill reveal" href="mailto:hello@example.com?subject=Free%20concept">Get a free concept <i aria-hidden="true">→</i></a>
 </div>
 </div>
-<section><div class="wrap"><p class="eyebrow">Why an app</p><h2>The numbers behind apps</h2><ul class="stats"><li class="stat reveal"><span class="num">1.8×</span><h3>Higher conversion</h3><p>App sessions convert at a median 1.8x the brand’s mobile site (21 retailers, like-for-like).</p><a href="https://poqcommerce.com/resources/the-mobile-app-revenue-case/" target="_blank" rel="noopener">Source: Poq ↗</a></li><li class="stat reveal"><span class="num">+24%</span><h3>Total revenue</h3><p>Fashion brands’ average revenue lift after launching an app, across $31.5B of Shopify orders.</p><a href="https://www.tapcart.com/blog/mobile-incrementality-data-story" target="_blank" rel="noopener">Source: Tapcart ↗</a></li><li class="stat reveal"><span class="num">+9%</span><h3>Higher order value</h3><p>80% of retailers saw higher average order values in-app, with a median uplift of 9% (21 retailers, app vs mobile web).</p><a href="https://poqcommerce.com/resources/the-mobile-app-revenue-case/" target="_blank" rel="noopener">Source: Poq ↗</a></li><li class="stat reveal"><span class="num">74%</span><h3>Push opt-in</h3><p>UK brand AYBL got 74% of app users to opt in to push, which drives 10%+ of its revenue.</p><a href="https://www.vennapps.com/case-studies/aybl" target="_blank" rel="noopener">Source: AYBL case study, Venn Apps ↗</a></li></ul></div></section>
-<section><div class="wrap"><p class="eyebrow">Example work</p><h2>Live concept apps</h2><ul class="work"><li class="reveal"><a href="https://branddotapp.github.io/brandsdotapp/raith/" target="_blank" rel="noopener"><img src="assets/work/raith.webp" width="400" height="866" loading="lazy" alt="Concept app screen for Raith"><span>Concept for Raith</span></a></li><li class="reveal"><a href="https://branddotapp.github.io/brandsdotapp/yelir/" target="_blank" rel="noopener"><img src="assets/work/yelir.webp" width="400" height="866" loading="lazy" alt="Concept app screen for Yelir"><span>Concept for Yelir</span></a></li><li class="reveal"><a href="https://branddotapp.github.io/brandsdotapp/sculpt/" target="_blank" rel="noopener"><img src="assets/work/sculpt.webp" width="400" height="866" loading="lazy" alt="Concept app screen for Sculpt"><span>Concept for Sculpt</span></a></li><li class="reveal"><a href="https://branddotapp.github.io/brandsdotapp/percival/" target="_blank" rel="noopener"><img src="assets/work/percival.webp" width="400" height="866" loading="lazy" alt="Concept app screen for Percival"><span>Concept for Percival</span></a></li><li class="reveal"><a href="https://branddotapp.github.io/brandsdotapp/weekendoffender/" target="_blank" rel="noopener"><img src="assets/work/weekendoffender.webp" width="400" height="866" loading="lazy" alt="Concept app screen for Weekend Offender"><span>Concept for Weekend Offender</span></a></li><li class="reveal"><a href="https://branddotapp.github.io/brandsdotapp/waxlondon/" target="_blank" rel="noopener"><img src="assets/work/waxlondon.webp" width="400" height="866" loading="lazy" alt="Concept app screen for Wax London"><span>Concept for Wax London</span></a></li><li class="reveal"><a href="https://branddotapp.github.io/brandsdotapp/closurelondon/" target="_blank" rel="noopener"><img src="assets/work/closurelondon.webp" width="400" height="866" loading="lazy" alt="Concept app screen for Closure London"><span>Concept for Closure London</span></a></li><li class="reveal"><a href="https://branddotapp.github.io/brandsdotapp/gymking/" target="_blank" rel="noopener"><img src="assets/work/gymking.webp" width="400" height="866" loading="lazy" alt="Concept app screen for Gym King"><span>Concept for Gym King</span></a></li></ul>
+<section id="why"><div class="wrap"><span class="eyebrow">Why an app</span><h2>The numbers behind apps</h2><ul class="stats"><li class="stat reveal"><span class="num">1.8×</span><h3>Higher conversion</h3><p>App sessions convert at a median 1.8x the brand’s mobile site (21 retailers, like-for-like).</p><a href="https://poqcommerce.com/resources/the-mobile-app-revenue-case/" target="_blank" rel="noopener">Source: Poq <span aria-hidden="true">↗</span></a></li><li class="stat reveal"><span class="num">+24%</span><h3>Total revenue</h3><p>Fashion brands’ average revenue lift after launching an app, across $31.5B of Shopify orders.</p><a href="https://www.tapcart.com/blog/mobile-incrementality-data-story" target="_blank" rel="noopener">Source: Tapcart <span aria-hidden="true">↗</span></a></li><li class="stat reveal"><span class="num">+9%</span><h3>Higher order value</h3><p>80% of retailers saw higher average order values in-app, with a median uplift of 9% (21 retailers, app vs mobile web).</p><a href="https://poqcommerce.com/resources/the-mobile-app-revenue-case/" target="_blank" rel="noopener">Source: Poq <span aria-hidden="true">↗</span></a></li><li class="stat reveal"><span class="num">74%</span><h3>Push opt-in</h3><p>UK brand AYBL got 74% of app users to opt in to push, which drives 10%+ of its revenue.</p><a href="https://www.vennapps.com/case-studies/aybl" target="_blank" rel="noopener">Source: AYBL case study, Venn Apps <span aria-hidden="true">↗</span></a></li></ul></div></section>
+<section id="work"><div class="wrap"><span class="eyebrow">Example work</span><h2>Live concept <span class="o">apps</span></h2><ul class="work"><li class="reveal"><a href="https://branddotapp.github.io/brandsdotapp/raith/" target="_blank" rel="noopener"><div class="phone"><img src="assets/work/raith.webp" width="400" height="866" loading="lazy" alt="Concept app screen for Raith"></div><span class="cap">Concept for Raith <i aria-hidden="true">→</i></span></a></li><li class="reveal"><a href="https://branddotapp.github.io/brandsdotapp/yelir/" target="_blank" rel="noopener"><div class="phone"><img src="assets/work/yelir.webp" width="400" height="866" loading="lazy" alt="Concept app screen for Yelir"></div><span class="cap">Concept for Yelir <i aria-hidden="true">→</i></span></a></li><li class="reveal"><a href="https://branddotapp.github.io/brandsdotapp/sculpt/" target="_blank" rel="noopener"><div class="phone"><img src="assets/work/sculpt.webp" width="400" height="866" loading="lazy" alt="Concept app screen for Sculpt"></div><span class="cap">Concept for Sculpt <i aria-hidden="true">→</i></span></a></li><li class="reveal"><a href="https://branddotapp.github.io/brandsdotapp/percival/" target="_blank" rel="noopener"><div class="phone"><img src="assets/work/percival.webp" width="400" height="866" loading="lazy" alt="Concept app screen for Percival"></div><span class="cap">Concept for Percival <i aria-hidden="true">→</i></span></a></li><li class="reveal"><a href="https://branddotapp.github.io/brandsdotapp/weekendoffender/" target="_blank" rel="noopener"><div class="phone"><img src="assets/work/weekendoffender.webp" width="400" height="866" loading="lazy" alt="Concept app screen for Weekend Offender"></div><span class="cap">Concept for Weekend Offender <i aria-hidden="true">→</i></span></a></li><li class="reveal"><a href="https://branddotapp.github.io/brandsdotapp/waxlondon/" target="_blank" rel="noopener"><div class="phone"><img src="assets/work/waxlondon.webp" width="400" height="866" loading="lazy" alt="Concept app screen for Wax London"></div><span class="cap">Concept for Wax London <i aria-hidden="true">→</i></span></a></li><li class="reveal"><a href="https://branddotapp.github.io/brandsdotapp/closurelondon/" target="_blank" rel="noopener"><div class="phone"><img src="assets/work/closurelondon.webp" width="400" height="866" loading="lazy" alt="Concept app screen for Closure London"></div><span class="cap">Concept for Closure London <i aria-hidden="true">→</i></span></a></li><li class="reveal"><a href="https://branddotapp.github.io/brandsdotapp/gymking/" target="_blank" rel="noopener"><div class="phone"><img src="assets/work/gymking.webp" width="400" height="866" loading="lazy" alt="Concept app screen for Gym King"></div><span class="cap">Concept for Gym King <i aria-hidden="true">→</i></span></a></li></ul>
 <p class="note">These are unofficial concepts built to demonstrate the format. They are not affiliated with, endorsed by, or commissioned by the brands shown.</p></div></section>
-<section><div class="wrap"><p class="eyebrow">How it works</p><h2>Three simple steps</h2><ol class="steps">
+<section id="how"><div class="wrap"><span class="eyebrow">How it works</span><h2>Three simple steps</h2><ol class="steps">
 <li class="reveal"><h3>We build a free concept</h3><p>A working concept of your app, built around your brand and products.</p></li>
 <li class="reveal"><h3>You try it</h3><p>Open it on your phone and see how your store feels as an app.</p></li>
 <li class="reveal"><h3>We launch it</h3><p>We take it live on the App Store and Google Play.</p></li>
 </ol></div></section>
-<section class="cta"><div class="wrap"><h2>See your brand as an app.</h2><a class="btn" href="mailto:hello@example.com?subject=Concept%20app">Request your free concept</a></div></section>
-<div class="wrap"><footer><span>© <span class="brand"></span></span><a href="mailto:hello@example.com">hello@example.com</a></footer></div>
+<div class="wrap"><div class="cta"><h2>See your brand <span class="o">as an app.</span></h2><a class="pill" href="mailto:hello@example.com?subject=Free%20concept">Get a free concept <i aria-hidden="true">→</i></a></div>
+<footer><a class="logo" href="#"><span class="brand"></span>.</a><span>© <span class="brand"></span></span><a href="mailto:hello@example.com">hello@example.com</a></footer></div>
 <script>
 if('IntersectionObserver' in window&&!matchMedia('(prefers-reduced-motion: reduce)').matches){const o=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');o.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'});document.querySelectorAll('.reveal').forEach(el=>o.observe(el))}else document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
 </script>
