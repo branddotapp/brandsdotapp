@@ -1,0 +1,478 @@
+{
+  "scrape": {
+    "_collections": "The header menu lists the men's sub-collections first, so the nav parse filled the cap with menswear. Keep New Arrivals from the menu and list a balanced set (collabs, men's and women's categories, accessories, bestsellers, Last Chance) via extraCollections, with perCollection so each gets a share of the 400-product cap.",
+    "skipCollections": [
+      "mens",
+      "womens",
+      "accessories",
+      "last-chance",
+      "mens-outerwear-jackets",
+      "mens-trousers-and-jeans",
+      "mens-swimwear-shorts",
+      "womens-outerwear",
+      "womens-trousers",
+      "womens-swimwear",
+      "bags",
+      "socks",
+      "beanies-and-hats",
+      "eco-friendly-outdoor-accessories",
+      "mens-view-all",
+      "mens-new-arrivals",
+      "mens-bestsellers",
+      "repairs-lived-loved",
+      "finisterre-wetsuit-rental",
+      "mens-outerwear-waterproof-jackets",
+      "mens-outerwear-insulated-jackets",
+      "mens-fleece",
+      "mens-gilets",
+      "mens-casual-jackets",
+      "mens-knitwear",
+      "mens-t-shirts",
+      "mens-shirts-polos",
+      "mens-sweats-and-hoodies",
+      "mens-merino-wool-base-layers",
+      "mens-shorts",
+      "mens-swim-surf-shorts",
+      "mens-underwear",
+      "mens-yulex-wetsuits",
+      "changing-robes",
+      "womens-view-all",
+      "womens-new-arrivals",
+      "womens-bestsellers",
+      "womens-outerwear-waterproof-jackets",
+      "womens-outerwear-insulated-jackets",
+      "womens-fleece",
+      "womens-gilets",
+      "womens-casual-jackets",
+      "womens-tees-tops",
+      "womens-knitwear",
+      "womens-dungarees-overalls",
+      "womens-sweats-hoodies",
+      "womens-merino-wool-base-layers",
+      "womens-shorts",
+      "womens-dresses-skirts",
+      "womens-yulex-wetsuits",
+      "womens-recycled-swimsuits-bikinis",
+      "backpacks",
+      "dry-bags",
+      "tote-bags",
+      "small-bags",
+      "duffle-bags",
+      "packing-accessories",
+      "thick-socks",
+      "lightweight-socks",
+      "cotton-socks",
+      "plain-socks",
+      "fishermans-beanies-and-hats",
+      "caps",
+      "scarves-bandanas",
+      "accessories-view-all",
+      "footwear",
+      "cold-water-accessories",
+      "reusable-water-bottles",
+      "belts",
+      "collaborations",
+      "shop-amy-powney-finisterre"
+    ],
+    "extraCollections": [
+      "blundstone-finisterre-1",
+      "shop-amy-powney-finisterre",
+      "mens-outerwear-jackets",
+      "womens-outerwear",
+      "mens-knitwear",
+      "womens-knitwear",
+      "mens-t-shirts",
+      "womens-tees-tops",
+      "mens-sweats-and-hoodies",
+      "womens-sweats-hoodies",
+      "mens-fleece",
+      "womens-fleece",
+      "mens-trousers-and-jeans",
+      "womens-trousers",
+      "womens-dresses-skirts",
+      "mens-yulex-wetsuits",
+      "womens-yulex-wetsuits",
+      "womens-recycled-swimsuits-bikinis",
+      "bags",
+      "beanies-and-hats",
+      "socks",
+      "mens-bestsellers",
+      "womens-bestsellers",
+      "last-chance"
+    ],
+    "perCollection": 18
+  },
+  "_note": "Hand-tuned layer on top of the scraped brand.json (finisterre.com, Shopify, GBP). Run: python3 tools/build_brand.py --rebuild finisterre. No homepage video: hero = the site's mobile 'Blundstone + Finisterre' banner. assets/brand/ images are the site's own homepage / campaign images.",
+  "name": "Finisterre",
+  "short": "FINISTERRE",
+  "_theme": "finisterre.com: light grey #f6f6f6 page, near-black #010b13 type, Helvetica Neue 55 Roman throughout with ~1px tracking (headlines 46–50px regular, sentence case: 'Made For Life Where Land Ends'), sand #e7ddbb announcement bar and square filled buttons ('Shop Now', 'Discover The Collaboration'), navy #384972 underlined text links ('Men's'), white logo on a black box. The site's Helvetica Neue is a licensed Monotype web font, so the app uses the Helvetica Neue / Helvetica system stack rather than hotlinking it.",
+  "theme": {
+    "ink": "#010b13",
+    "bg": "#f6f6f6",
+    "bgRgb": "246,246,246",
+    "text": "#010b13",
+    "muted": "#5b6066",
+    "line": "#e2e2e2",
+    "stone": "#384972",
+    "sand": "#e7ddbb",
+    "sand2": "#f1ecd9",
+    "sale": "#b3261e",
+    "stageA": "#fafafa",
+    "stageB": "#f0f0f0",
+    "stageC": "#e4e4e4",
+    "font": "Helvetica Neue",
+    "fontHref": null
+  },
+  "pitch": {
+    "title": "Made for life<br>where land ends.",
+    "copy": "A concept for the Finisterre app: collabs like Blundstone + Finisterre with app-only early access, every colourway of a Stormbird jacket in one swipe, your saved size, and Shopify checkout with Apple Pay, PayPal and Klarna. Tap around, everything works.",
+    "list": [
+      "Collab drops with app-only early access",
+      "Saved size and back-in-size alerts",
+      "Shopify checkout with Apple Pay, PayPal and Klarna"
+    ]
+  },
+  "home": {
+    "newCol": "new-arrivals",
+    "newSub": "Latest gear",
+    "bestCol": "mens-bestsellers",
+    "bestSub": "Built for adventure",
+    "hero": {
+      "poster": "assets/brand/hero.jpg",
+      "eyebrow": "New collaboration",
+      "title": "Blundstone + Finisterre",
+      "cta": "Shop Now",
+      "col": "blundstone-finisterre-1"
+    },
+    "tiles": [
+      [
+        "mens-outerwear-jackets",
+        "Men's Jackets"
+      ],
+      [
+        "womens-outerwear",
+        "Women's Jackets"
+      ],
+      [
+        "mens-knitwear",
+        "Men's Knitwear"
+      ],
+      [
+        "womens-knitwear",
+        "Women's Knitwear"
+      ],
+      [
+        "womens-yulex-wetsuits",
+        "Wetsuits"
+      ],
+      [
+        "bags",
+        "Bags"
+      ]
+    ],
+    "editorial": {
+      "col": "shop-amy-powney-finisterre",
+      "img": "assets/brand/amy-powney.jpg",
+      "eyebrow": "Collaboration",
+      "title": "Amy Powney + Finisterre"
+    },
+    "feature": {
+      "col": "womens-yulex-wetsuits",
+      "img": "assets/brand/surf-wide.jpg",
+      "title": "Yulex® Wetsuits",
+      "cta": "Shop wetsuits"
+    }
+  },
+  "collectionTitles": {
+    "new-arrivals": "New Arrivals",
+    "tops": "Tops & Knitwear",
+    "legwear": "Legwear",
+    "mens-outerwear-jackets": "Men's Jackets",
+    "womens-outerwear": "Women's Jackets",
+    "mens-knitwear": "Men's Knitwear",
+    "womens-knitwear": "Women's Knitwear",
+    "mens-t-shirts": "Men's T-shirts",
+    "womens-tees-tops": "Women's Tops & Shirts",
+    "mens-sweats-and-hoodies": "Men's Sweats & Hoodies",
+    "womens-sweats-hoodies": "Women's Sweats & Hoodies",
+    "mens-fleece": "Men's Fleece",
+    "womens-fleece": "Women's Fleece",
+    "mens-trousers-and-jeans": "Men's Legwear",
+    "womens-trousers": "Women's Legwear",
+    "mens-yulex-wetsuits": "Men's Wetsuits",
+    "womens-yulex-wetsuits": "Women's Wetsuits",
+    "womens-recycled-swimsuits-bikinis": "Women's Swimwear",
+    "bags": "Bags",
+    "beanies-and-hats": "Hats & Beanies"
+  },
+  "shop": {
+    "kicker": "FINISTERRE",
+    "cats": [
+      "mens-outerwear-jackets",
+      "womens-outerwear",
+      "mens-knitwear",
+      "womens-knitwear",
+      "tops",
+      "mens-t-shirts",
+      "womens-tees-tops",
+      "mens-sweats-and-hoodies",
+      "womens-sweats-hoodies",
+      "mens-fleece",
+      "womens-fleece",
+      "legwear",
+      "mens-trousers-and-jeans",
+      "womens-trousers",
+      "mens-yulex-wetsuits",
+      "womens-yulex-wetsuits",
+      "womens-recycled-swimsuits-bikinis",
+      "bags",
+      "beanies-and-hats",
+      "socks"
+    ],
+    "edits": [
+      "new-arrivals",
+      "blundstone-finisterre-1",
+      "shop-amy-powney-finisterre",
+      "mens-bestsellers",
+      "womens-bestsellers",
+      "last-chance"
+    ],
+    "featureCats": {
+      "col": "mens-outerwear-jackets",
+      "title": "Built for adventure",
+      "cta": "Shop jackets",
+      "idx": 0,
+      "img": "assets/brand/outerwear-wide.jpg"
+    },
+    "featureEdits": {
+      "col": "new-arrivals",
+      "title": "Latest Gear",
+      "cta": "Shop now",
+      "idx": 0,
+      "img": "assets/brand/new-wide.jpg"
+    }
+  },
+  "search": {
+    "trending": [
+      "Stormbird",
+      "Fleece",
+      "Barents",
+      "Wetsuit",
+      "Beanie",
+      "Insulated",
+      "Blundstone",
+      "Merino"
+    ],
+    "popular": [
+      "new-arrivals",
+      "mens-outerwear-jackets",
+      "womens-outerwear",
+      "last-chance"
+    ]
+  },
+  "perks": [
+    "Free UK delivery over £100",
+    "Easy UK returns",
+    "Blundstone + Finisterre: new collaboration",
+    "Pay later with Klarna"
+  ],
+  "shipping": {
+    "region": "UK",
+    "freeOver": 100,
+    "options": [
+      {
+        "id": "standard",
+        "name": "Standard Shipping (Royal Mail)",
+        "desc": "3–5 working days",
+        "price": 3.95,
+        "short": "Standard"
+      },
+      {
+        "id": "next-day",
+        "name": "Next Day Delivery (Royal Mail)",
+        "desc": "Order before 5:30pm Mon–Fri",
+        "price": 5.95,
+        "short": "Next day"
+      }
+    ],
+    "notes": [
+      "Free standard shipping on UK orders over £100.",
+      "Next day delivery exclusions apply and isn't guaranteed."
+    ]
+  },
+  "returns": {
+    "summary": "Refunds on unworn items with tags intact within 28 days of delivery, with proof of purchase. UK online returns cost £1.95 (QR code, drop off at any Royal Mail location, nothing to print); returns to any UK Finisterre store are free.",
+    "short": "28-day returns"
+  },
+  "rewards": {
+    "enabled": true,
+    "name": "Finisterre Rewards",
+    "real": false,
+    "stockists": false
+  },
+  "discount": {
+    "code": "APP10",
+    "pct": 10
+  },
+  "_discount": "The site's newsletter sign-up offers 10% off a first order (code emailed). The app pop-up mirrors 10% with the placeholder code APP10.",
+  "drop": {
+    "num": "01",
+    "name": "BLUNDSTONE + FINISTERRE",
+    "title": "Blundstone + Finisterre",
+    "col": "blundstone-finisterre-1",
+    "image": "assets/brand/blundstone-drop.jpg",
+    "products": [
+      "leather-blundstone-finisterre-chelsea-boot-grey",
+      "leather-blundstone-finisterre-lace-up-boot-dark-brown",
+      "wool-blundstone-finisterre-beanie-brown-ecru"
+    ],
+    "weekday": 4,
+    "hour": 19,
+    "earlyHours": 24,
+    "previous": {
+      "col": "shop-amy-powney-finisterre",
+      "title": "AMY POWNEY + FINISTERRE"
+    }
+  },
+  "sizes": {
+    "groups": [
+      {
+        "key": "top",
+        "label": "Clothing size",
+        "opts": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL",
+          "XXL"
+        ]
+      },
+      {
+        "key": "uk",
+        "label": "Women's UK size",
+        "opts": [
+          "6",
+          "8",
+          "10",
+          "12",
+          "14",
+          "16",
+          "18"
+        ],
+        "prefix": "UK "
+      },
+      {
+        "key": "waist",
+        "label": "Waist (trousers)",
+        "opts": [
+          "28\"",
+          "30\"",
+          "32\"",
+          "34\"",
+          "36\""
+        ]
+      }
+    ]
+  },
+  "copy": {
+    "about": "Built from the needs of hardy British surfers, Finisterre makes enduring outdoor wear for an inspired life in and around the sea. It started in 2003 in a flat above a surf shop with an innovative fleece designed to keep out chill winds and warm up cold bodies. From our cliff top workshop in St. Agnes, we stay true to our original design ethos of functionality and sustainability.",
+    "emptyBag": "Nothing in here yet. Start with Latest Gear or Blundstone + Finisterre.",
+    "heroNotif": "Blundstone + Finisterre is here."
+  },
+  "pdpPerks": [
+    "Free UK delivery over £100",
+    "Free returns to UK stores",
+    "Pay later with Klarna"
+  ],
+  "report": {
+    "missing": [
+      "No homepage video: the hero is the site's 'Blundstone + Finisterre' banner",
+      "Font: the site's Helvetica Neue LT is a licensed Monotype web font; the app uses the Helvetica Neue system stack",
+      "No site-wide review score in the page, so no reviews block",
+      "No loyalty programme: the Account rewards card is an illustrative concept",
+      "The 10% sign-up code is emailed, not published: APP10 is a placeholder app code",
+      "No release date is announced: the Drops tab demos early access with Blundstone + Finisterre (3 products); drop date/time is the rolling placeholder"
+    ]
+  },
+  "_instagram": "Collected in a browser from the brand's Instagram profile on 2026-10-12 (no pinned posts; profile/collaborator-path URLs normalised to /p/<code>/ or /reel/<code>/). Thumbnails: assets/ig/N.jpg, square-cropped, max 600px.",
+  "instagram": {
+    "handle": "finisterre",
+    "url": "https://www.instagram.com/finisterre/",
+    "followers": "303K",
+    "bio": "Made for life where land ends.",
+    "collected": "2026-10-12",
+    "posts": [
+      {
+        "url": "https://www.instagram.com/p/DeWLhe0jHjN/",
+        "type": "carousel",
+        "image": "assets/ig/1.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DeUdsHjhhm-/",
+        "type": "reel",
+        "image": "assets/ig/2.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DeRY7hZAl3l/",
+        "type": "reel",
+        "image": "assets/ig/3.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DePOLJ-gYCe/",
+        "type": "reel",
+        "image": "assets/ig/4.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeMYzJVl9iq/",
+        "type": "photo",
+        "image": "assets/ig/5.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeJaha_F28A/",
+        "type": "carousel",
+        "image": "assets/ig/6.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DeHoLSMgGqB/",
+        "type": "reel",
+        "image": "assets/ig/7.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeEKBXRDAEY/",
+        "type": "carousel",
+        "image": "assets/ig/8.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DeCi70oEyVe/",
+        "type": "reel",
+        "image": "assets/ig/9.jpg"
+      }
+    ]
+  },
+  "frameable": false,
+  "pages": {
+    "legal": [
+      {
+        "t": "Privacy policy",
+        "url": "https://finisterre.com/pages/privacy",
+        "sum": "Privacy Policy\nFinisterre UK Limited (\"We\") respects your privacy and is committed to protecting your personal data.\nThis privacy policy applies to your use of our site https://finisterre.com/ (“our site”) and sets out the basis on which any personal data we collect from you or that you provide to us will be processed by us. Such personal data may be collected when you enquire about our products and sustainability initiatives, purchase our products or otherwise communicate with us.\nPlease read the following carefully to understand our views and practices regarding your personal data and how we will treat it. This privacy policy also tells you about your privacy rights and how the law protects you.\nThis site is not intended for use by children. If you are under the age of 18 and wish to order products from our site, your parent or guardian must submit your order, and provide your personal data, on your behalf."
+      },
+      {
+        "t": "Terms of service",
+        "url": "https://finisterre.com/pages/terms-conditions",
+        "sum": "Finisterre UK Limited (“Finisterre”). Registered in England and Wales No. 04444480 Registered Office Unit 6 Wheal Kitty Workshops, St Agnes, Cornwall TR5 0RD, UK VAT No. 846366890\nBy entering the Finisterre website you agree to abide by the Terms and Conditions of use. A placement of an order online indicates your acceptance of these Terms & Conditions.\nOrders shall be accepted at our sole discretion but will normally be accepted if the goods that you order are available and your credit card is authorised for the transaction. Your card will be charged automatically when you place your order. If for any reason we are unable to fulfill your order, a full refund will be given.\nThe contract between us (Finisterre) and you (the customer) becomes binding when we send you your order confirmation via email after you complete your purchase via out website. You will own the goods once they have been delivered to the address specified and when we have received cleared payment for the goods in full. Until that time then we will retain title to the goods. We will contact you if there are any problems."
+      },
+      {
+        "t": "Refund policy",
+        "url": "https://finisterre.com/policies/refund-policy",
+        "sum": "Refund policy\nReturns: We hope that you are happy with your purchase from us but understand if you need to return your items.\nAll returned items must be in an unworn, re-sellable conditions with the original tags intact and your original proof of purchase must be provided for us to process refunds for returned items.\nAny items received in a non-sellable condition will not be accepted. Non-sellable conditions include products that have been worn, washed, are missing their original tags or labels and products where the hygiene seal is broken or missing.\nPlease ensure that you return the goods to us folded and in their original packaging. Please note if you have purchased gift wrap as part of your purchase, that the charges for our gift wrapping service is non-refundable, and therefore you are not required to return any gift wrapping as part of your return.\nGifts: If you have received an item from Finisterre as a gift, you may return it directly to us in exchange for a gift card to the value of your return. This option is subject to our standard returns terms set out in this policy."
+      },
+      {
+        "t": "Cookie policy",
+        "url": "https://finisterre.com/pages/cookies",
+        "sum": "Cookies can be a bit confusing, so we’ll try and keep it simple. Cookies can be used as a kind of ID card for an online customer. Basically, they let our website know when someone comes back to us, and therefore allows us to display the most relevant information for that customer. They also make it easier and faster for users to interact with our website.\nWe use cookies to make it as easy as possible for you to move around the website, shop for the gear you need and add items to your basket, without you having to log in every time you click.\nYou can turn off your cookies any time using your browser’s settings but bear in mind that this means you won’t be able to shop on our website, as a lot of the functionality is supported by cookies."
+      }
+    ]
+  }
+}
