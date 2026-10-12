@@ -1,0 +1,492 @@
+{
+  "scrape": {
+    "_skipCollections": "The menu lists ~90 sub-collections (Fleece Cardigans, Bakers Jackets...); skip those so the 24-collection cap goes to the top-level style menu ('Shop by style') plus the current TAION collab.",
+    "skipCollections": [
+      "clothing",
+      "cardigans",
+      "fleece-cardigans",
+      "knit-cardigans",
+      "overcoats",
+      "parka-jackets",
+      "quilted-padded-jackets",
+      "reversible-jackets",
+      "fleece-gilets-waistcoats",
+      "fleece-jackets",
+      "wool-fleece",
+      "hoodies",
+      "sweatshirts-jumpers",
+      "bakers-jackets",
+      "bomber-jackets",
+      "chore-jackets",
+      "corduroy-jackets",
+      "denim-jackets",
+      "field-jackets",
+      "kimono-jackets",
+      "liner-jackets",
+      "suit-jackets",
+      "tweed-jackets",
+      "windcheater-jackets",
+      "2-way-zip-jackets",
+      "crew-neck-jumpers",
+      "knit-shirts",
+      "roll-neck-jumpers",
+      "pyjamas",
+      "long-sleeve-pyjama-sets",
+      "short-sleeve-pyjama-sets",
+      "check-overshirts",
+      "denim-overshirts",
+      "patterned-overshirts",
+      "short-sleeve-overshirts",
+      "checked-shirts",
+      "cuban-camp-shirts",
+      "long-sleeve-shirts",
+      "patterned-shirts",
+      "polo-shirts",
+      "short-sleeve-shirts",
+      "striped-shirts",
+      "shorts",
+      "pleated-track-short",
+      "autumn-winter-suits",
+      "corduroy-suits",
+      "smart-shirts",
+      "suit-accessories",
+      "suit-trousers",
+      "suit-waistcoats",
+      "summer-suits",
+      "three-button-suit-jacket",
+      "two-button-suit-jacket",
+      "tweed-suits",
+      "twill-suits",
+      "graphic-t-shirts",
+      "long-sleeve-t-shirts",
+      "plain-t-shirts",
+      "t-shirts",
+      "slim-leg-trousers",
+      "straight-leg-trousers",
+      "wide-leg-trousers",
+      "corduroy-trousers",
+      "denim-trousers",
+      "moleskin-trousers",
+      "tweed-trousers",
+      "drawstring-trousers",
+      "fatigue-pant",
+      "military-chino",
+      "pleated-trousers",
+      "casual-waistcoats",
+      "down-gilets",
+      "a-society-x-universal-works",
+      "master-piece-x-universal-works",
+      "novesta",
+      "paraboot-x-universal-works",
+      "topologie-x-universal-works",
+      "walsh-x-universal-works",
+      "zardus",
+      "cableami-hats",
+      "flower-mountain",
+      "f-ce",
+      "g-h-bass",
+      "hanami-jewelery",
+      "mikia-jewellery",
+      "ordinary-fits",
+      "organic-handloom",
+      "paraboot",
+      "wander",
+      "brushed-moleskin",
+      "corduroy",
+      "cotton-twill",
+      "denim",
+      "future-denim",
+      "harris-tweed",
+      "micro-canvas",
+      "recycled-italian-tweed",
+      "robin-wool-mix",
+      "tweed",
+      "wool-herringbone",
+      "the-archive",
+      "footwear",
+      "formal-shoes",
+      "leather-suede-shoes",
+      "loafers",
+      "sandals",
+      "sneakers",
+      "accessories",
+      "bags",
+      "belts",
+      "eyewear",
+      "hats",
+      "beanie-hats",
+      "bucket-hats",
+      "caps",
+      "jewellery",
+      "neckerchiefs-pocket-squares",
+      "scarves",
+      "socks",
+      "ties",
+      "underwear",
+      "twill-jackets",
+      "twill-trousers",
+      "linen-shirts",
+      "linen-suits",
+      "linen",
+      "seersucker-shirts",
+      "seersucker-jackets",
+      "seersucker-trousers",
+      "seersucker-suits",
+      "seersucker"
+    ],
+    "colourPosition": "start",
+    "_colours": "Titles lead with the colour ('Fawn Wool Fleece Advance Cardigan') and there's no Colour option; these are every colour prefix on the site's titles (12 Oct 2026). Collab titles ('TAION x Universal Works ...') keep their full name, as on the site.",
+    "colours": [
+      "Dark Navy/Brown",
+      "Navy/Pale Grey",
+      "Black/Indigo",
+      "Brown/Indigo",
+      "Forest Green",
+      "Berry/Brown",
+      "Green/Black",
+      "Light Olive",
+      "Brown Marl",
+      "Slate Blue",
+      "Blue/Black",
+      "Brown/Navy",
+      "Navy/Olive",
+      "Sky/Claret",
+      "Navy/Brown",
+      "Sand/Brown",
+      "Olive Marl",
+      "Ecru/Green",
+      "Ecru/Brown",
+      "Grey/Blue",
+      "Ecru/Blue",
+      "Grey Marl",
+      "Black/Red",
+      "Dark Navy",
+      "Mid Grey",
+      "Blue/Red",
+      "Ecru/Sky",
+      "Ecru/Red",
+      "Sky/Navy",
+      "Sky Blue",
+      "Charcoal",
+      "Mustard",
+      "Scarlet",
+      "Yellow",
+      "Indigo",
+      "Orange",
+      "Taupe",
+      "Cacao",
+      "Brown",
+      "Cumin",
+      "Khaki",
+      "Black",
+      "Olive",
+      "White",
+      "Pink",
+      "Fawn",
+      "Navy",
+      "Ecru",
+      "Grey",
+      "Sand",
+      "Blue",
+      "Red"
+    ]
+  },
+  "_instagram": "Collected in a browser from the brand's Instagram profile on 2026-10-12 (no pinned posts; profile/collaborator-path URLs normalised to /p/<code>/ or /reel/<code>/). Thumbnails: assets/ig/N.jpg, square-cropped, max 600px.",
+  "instagram": {
+    "handle": "universal_works",
+    "url": "https://www.instagram.com/universal_works/",
+    "followers": "223K",
+    "bio": "Contemporary Clothing.",
+    "collected": "2026-10-12",
+    "posts": [
+      {
+        "url": "https://www.instagram.com/p/DeWXoXKiLKR/",
+        "type": "carousel",
+        "image": "assets/ig/1.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeTxHALiP-A/",
+        "type": "carousel",
+        "image": "assets/ig/2.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeSDXaViC3Z/",
+        "type": "carousel",
+        "image": "assets/ig/3.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DeM6ATnoLtL/",
+        "type": "reel",
+        "image": "assets/ig/4.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeKU3JEiCe3/",
+        "type": "carousel",
+        "image": "assets/ig/5.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeHwCzmiHRZ/",
+        "type": "carousel",
+        "image": "assets/ig/6.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeEUX52COqH/",
+        "type": "carousel",
+        "image": "assets/ig/7.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DeBvmV6I_w0/",
+        "type": "reel",
+        "image": "assets/ig/8.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/Dd9c1xOCD-a/",
+        "type": "carousel",
+        "image": "assets/ig/9.jpg"
+      }
+    ]
+  },
+  "_note": "Hand-tuned layer on top of the scraped brand.json (universalworks.com, Shopify; universalworks.co.uk redirects here and it is the UK/GBP store). Run: python3 tools/build_brand.py --rebuild universalworks. Hero = the homepage's own Wool Fleece film (vertical cut, generator transcode), poster a frame from it. assets/brand/ images are the site's own homepage images (the making of Wool Fleece, suiting, AW26 lookbook, TAION collab 2-up).",
+  "name": "Universal Works",
+  "short": "UNIVERSAL WORKS",
+  "_theme": "universalworks.com: white page, black type, Denim (self-hosted on the Shopify CDN, ACAO *) for everything at 400-600, sentence-case titles ending in a full stop and underlined ('Wool Fleece.', 'Shop all suiting.'), light grey #f2f2f2 product backgrounds, white pill outline buttons on imagery and black 6px-radius buttons.",
+  "theme": {
+    "ink": "#000000",
+    "bg": "#ffffff",
+    "bgRgb": "255,255,255",
+    "text": "#000000",
+    "muted": "#5c5c5c",
+    "line": "#e5e7eb",
+    "stone": "#5c5c5c",
+    "sand": "#f2f2f2",
+    "sand2": "#f7f7f7",
+    "sale": "#b3261e",
+    "stageA": "#ffffff",
+    "stageB": "#f4f4f4",
+    "stageC": "#e9e9e9",
+    "font": "Denim",
+    "fontHref": null
+  },
+  "pitch": {
+    "title": "Contemporary<br>Clothing.",
+    "copy": "A concept for the Universal Works app: new collabs like TAION x Universal Works with app-only early access, every colourway of a Wool Fleece cardigan in one swipe, your saved size and waist, and Shopify checkout with Apple Pay, PayPal and Klarna. Tap around, everything works.",
+    "list": [
+      "Collab drops with app-only early access",
+      "Saved size and back-in-size alerts",
+      "Shopify checkout with Apple Pay, PayPal and Klarna"
+    ]
+  },
+  "home": {
+    "newCol": "new-in",
+    "newSub": "New in & trending.",
+    "bestCol": null,
+    "hero": {
+      "video": "assets/hero.mp4",
+      "videoWebm": "assets/hero.webm",
+      "videoW": 680,
+      "videoH": 1080,
+      "poster": "assets/brand/hero-poster.jpg",
+      "eyebrow": "New in",
+      "title": "Wool Fleece.",
+      "cta": "Shop fleece",
+      "col": "fleece"
+    },
+    "tiles": [
+      [
+        "jackets",
+        "Jackets"
+      ],
+      [
+        "suiting",
+        "Suiting"
+      ],
+      [
+        "trousers",
+        "Trousers"
+      ],
+      [
+        "knitwear",
+        "Knitwear"
+      ],
+      [
+        "overshirts",
+        "Overshirts"
+      ],
+      [
+        "outerwear",
+        "Coats & Outerwear"
+      ]
+    ],
+    "editorial": {
+      "col": "fleece",
+      "img": "assets/brand/making-fleece.jpg",
+      "eyebrow": "Wool Fleece.",
+      "title": "The making of Wool Fleece."
+    },
+    "feature": {
+      "col": "suiting",
+      "img": "assets/brand/suiting-wide.jpg",
+      "title": "Shop all suiting.",
+      "cta": "Shop now"
+    }
+  },
+  "collectionTitles": {
+    "outerwear": "Coats & Outerwear",
+    "new-in": "New In & Trending"
+  },
+  "shop": {
+    "kicker": "Universal Works.",
+    "cats": [
+      "jackets",
+      "outerwear",
+      "fleece",
+      "suiting",
+      "trousers",
+      "knitwear",
+      "overshirts",
+      "shirts",
+      "tees",
+      "hoodies-sweatshirts",
+      "waistcoats"
+    ],
+    "edits": [
+      "new-in",
+      "taion-x-universal-works"
+    ],
+    "featureCats": {
+      "col": "jackets",
+      "title": "Jackets.",
+      "cta": "Shop now",
+      "idx": 0,
+      "img": "assets/brand/jackets-wide.jpg"
+    },
+    "featureEdits": {
+      "col": "new-in",
+      "title": "New in & trending.",
+      "cta": "Shop now",
+      "idx": 0,
+      "img": "assets/brand/new-in-wide.jpg"
+    }
+  },
+  "search": {
+    "trending": [
+      "Wool Fleece",
+      "Bakers Jacket",
+      "TAION",
+      "Chore Jacket",
+      "Fatigue Pant",
+      "Cardigan",
+      "Suit",
+      "Cord"
+    ],
+    "popular": [
+      "new-in",
+      "jackets",
+      "fleece",
+      "suiting"
+    ]
+  },
+  "perks": [
+    "TAION x Universal Works.",
+    "Free UK standard delivery over £50.",
+    "Free UK returns.",
+    "Pay later with Klarna."
+  ],
+  "payments": [
+    "apple_pay",
+    "shopify_pay",
+    "paypal",
+    "klarna",
+    "google_pay",
+    "american_express",
+    "visa",
+    "master"
+  ],
+  "shipping": {
+    "region": "UK",
+    "freeOver": 50,
+    "options": [
+      {
+        "id": "standard",
+        "name": "UK Standard Shipping",
+        "desc": "2–3 working days from dispatch",
+        "price": 3.95,
+        "short": "Standard"
+      },
+      {
+        "id": "dpd-pickup",
+        "name": "DPD Pickup: Collection",
+        "desc": "Collect from a nearby pickup point",
+        "price": 2.95,
+        "short": "DPD Pickup"
+      },
+      {
+        "id": "express",
+        "name": "UK Express Delivery",
+        "desc": "1–2 working days from dispatch",
+        "price": 10.0,
+        "short": "Express"
+      }
+    ],
+    "notes": [
+      "Free standard shipping and DPD Pickup on UK orders over £50.",
+      "Orders placed before 11am (Mon–Fri) usually ship the same day.",
+      "Express delivery is not available during sale periods."
+    ]
+  },
+  "returns": {
+    "summary": "Returns for refunds or exchanges are accepted within 30 days of delivery, unworn, in original packaging with all labels and tags. UK returns are free: create a label in the returns portal with your order number and email. Exchanges aren't accepted during sale periods.",
+    "short": "Free 30-day returns"
+  },
+  "rewards": {
+    "enabled": true,
+    "name": "Universal Works Rewards",
+    "real": false,
+    "stockists": false
+  },
+  "discount": {
+    "code": "APP10",
+    "pct": 10
+  },
+  "drop": {
+    "num": "01",
+    "name": "TAION X UNIVERSAL WORKS",
+    "title": "TAION x Universal Works",
+    "col": "taion-x-universal-works",
+    "image": "assets/brand/taion.jpg",
+    "products": [
+      "black-military-hard-shell-down-mod-parka",
+      "cloud-camo-military-hard-shell-down-mod-parka",
+      "dark-olive-military-hard-shell-down-mod-parka",
+      "dark-navy-military-hard-shell-down-mod-parka",
+      "coyote-military-hard-shell-down-mod-parka",
+      "black-cloud-camo-taion-twill-down-cr-raf-jacket"
+    ],
+    "weekday": 4,
+    "hour": 19,
+    "earlyHours": 24,
+    "previous": {
+      "col": "fleece",
+      "title": "WOOL FLEECE"
+    }
+  },
+  "copy": {
+    "about": "Universal Works produce contemporary clothing for all. The first collection launched in 2009, with co-founder David Keyte working from his kitchen table to make real, honest clothing based on fit and good design, though never over designed. We champion skilled, small-scale production, in the UK and overseas, with factories we trust.",
+    "emptyBag": "Nothing in here yet. Start with Wool Fleece or TAION x Universal Works.",
+    "heroNotif": "TAION x Universal Works is here."
+  },
+  "pdpPerks": [
+    "Free UK standard delivery over £50",
+    "Free UK returns within 30 days",
+    "Pay later with Klarna"
+  ],
+  "report": {
+    "missing": [
+      "No site-wide review score, so no reviews block",
+      "No loyalty programme: the Account rewards card is an illustrative concept",
+      "No sign-up discount percentage is published: APP10 is a placeholder app code",
+      "No release date is announced: the Drops tab demos early access with TAION x Universal Works; drop date/time is the rolling placeholder",
+      "No sustainability page found"
+    ]
+  }
+}
