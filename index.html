@@ -40,10 +40,15 @@ nav ul a:hover{background:rgba(255,255,255,.1)}
 .hcopy{position:absolute;z-index:4;left:56px;bottom:64px;max-width:640px}
 h1{font-size:clamp(46px,6.2vw,92px);font-weight:300;letter-spacing:-.045em;line-height:.98}
 .hsub{margin-top:22px;color:#b9c6c2;font-size:16px;line-height:1.55;max-width:400px}
-.stores{position:absolute;z-index:4;right:56px;bottom:62px;display:flex;gap:12px;align-items:center}
+.stores{display:flex;gap:12px;align-items:center;margin-top:18px}
 .stores a{display:block;height:48px;border-radius:7px;box-shadow:0 8px 22px rgba(0,0,0,.35),0 2px 6px rgba(0,0,0,.25);transition:transform .35s var(--ease),opacity .3s}
 .stores a:hover{transform:translateY(-2px)}
 .stores img{height:48px;width:48px;display:block}
+.hphone{position:absolute;z-index:3;right:6%;bottom:-170px;width:min(36vw,520px);pointer-events:none}
+.hphone img{position:relative;width:100%;height:auto;display:block;animation:rise 1.4s var(--ease) both}
+.hglow{position:absolute;left:5%;right:5%;top:0;height:70%;border-radius:50%;background:radial-gradient(50% 50% at 50% 50%,rgba(170,215,235,.42),rgba(170,215,235,0) 70%)}
+@media (prefers-reduced-motion:reduce){.hphone img{animation:none}}
+@keyframes rise{from{opacity:0;transform:translateY(60px)}to{opacity:1;transform:none}}
 .hcta{display:flex;gap:10px;margin-top:28px;flex-wrap:wrap}
 /* realistic phone */
 .scene{position:absolute;z-index:3;right:6%;top:9%;width:360px;height:760px;perspective:1800px}
@@ -148,9 +153,9 @@ footer li a:hover{color:#fff}
 /* responsive */
 @media (max-width:1180px){.scene{right:1%;width:42vw}}
 @media (max-width:980px){nav ul{display:none}.live{grid-template-columns:1fr}.steps,.built{grid-template-columns:1fr}.step{min-height:0}.step h3{margin-top:0}.bc{height:380px}footer{grid-template-columns:1fr 1fr}
- .hero{height:auto;min-height:0;padding:110px 0 0;display:flex;flex-direction:column}.hcopy{position:relative;left:auto;bottom:auto;padding:0 32px;order:1}.stores{position:relative;right:auto;bottom:auto;order:2;padding:0 32px;margin:18px 0 40px}.scene{position:relative;right:auto;top:auto;order:2;margin:30px auto -120px;width:min(80vw,520px)}}
+ .hero{height:auto;min-height:0;padding:110px 0 0;display:flex;flex-direction:column}.hcopy{position:relative;left:auto;bottom:auto;padding:0 32px;order:1}.hphone{position:relative;right:auto;bottom:auto;order:3;width:min(72vw,440px);margin:36px auto -150px}.scene{position:relative;right:auto;top:auto;order:2;margin:30px auto -120px;width:min(80vw,520px)}}
 @media (max-width:600px){.wrap{padding:0 16px}.top{padding-top:10px}.hero{border-radius:28px;padding-top:96px}nav{padding:20px 20px}nav .logo img{height:20px}nav .btn{height:38px;padding:0 14px;font-size:13px}
- .hcopy{padding:0 22px}.stores{padding:0 22px;margin:16px 0 30px}.stores img,.stores a{height:44px}.stores img{width:44px}.stores a{border-radius:6px}.hsub{font-size:15px}.scene{margin:10px auto -90px;width:96%}
+ .hcopy{padding:0 22px}.stores{margin-top:16px}.hphone{width:82%;margin:28px auto -120px}.stores img,.stores a{height:44px}.stores img{width:44px}.stores a{border-radius:6px}.hsub{font-size:15px}.scene{margin:10px auto -90px;width:96%}
  section{padding-top:90px}.stats{margin:0 -16px;padding:4px 16px 20px}.stat{flex-basis:78%}.arrows{display:none}
  .panel{padding:28px 22px}.demos{grid-template-columns:1fr}.stagep{padding:30px 10px 50px}.lphone{width:300px;height:627px;border-radius:52px}.lphone .bezel{border-radius:48px;padding:9px}.lphone .scr{border-radius:40px}.lphone iframe{transform:scale(.7059)}
  .cta{margin-top:90px;padding:64px 22px;border-radius:28px}footer{grid-template-columns:1fr 1fr}footer>div:first-child{grid-column:1/-1}}
@@ -168,9 +173,10 @@ footer li a:hover{color:#fff}
     <h1 class="rv">Your brand.<br>Their pocket.</h1>
     <p class="hsub rv">We build iOS and Android apps that drive sales, loyalty and repeat purchases.</p>
     <div class="hcta rv"><a class="btn btn-l" href="mailto:hello@appystudio.co?subject=My%20app%20mockup">Get your free app preview</a><a class="btn btn-g" href="#live">Try the live demo</a></div>
+    <div class="stores rv" aria-label="Available on iOS and Android"><a href="#live" aria-label="App Store (see the live demo)"><img src="assets/icon-app-store.png" alt="App Store" width="48" height="48"></a><a href="#live" aria-label="Google Play (see the live demo)"><img src="assets/icon-google-play.png" alt="Google Play" width="48" height="48"></a></div>
   </div>
-  <div class="stores rv" aria-label="Available on iOS and Android"><a href="#live" aria-label="App Store (see the live demo)"><img src="assets/icon-app-store.png" alt="App Store" width="48" height="48"></a><a href="#live" aria-label="Google Play (see the live demo)"><img src="assets/icon-google-play.png" alt="Google Play" width="48" height="48"></a></div>
-  <!-- hero phone removed for now -->
+
+  <div class="hphone" aria-hidden="true"><div class="hglow"></div><img src="assets/land/hero-phone.webp?v=1" alt="" width="636" height="900" fetchpriority="high"></div>
 </header>
 </div>
 
