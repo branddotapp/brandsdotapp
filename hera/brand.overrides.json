@@ -18,8 +18,58 @@
     "perCollection": 30
   },
   "instagram": {
-    "handle": "hera.women",
-    "url": "https://www.instagram.com/hera.women/"
+    "handle": "hera",
+    "url": "https://www.instagram.com/hera/",
+    "followers": "241K",
+    "bio": "BUILT FOR THE DRIVE.\nSHOP THE SALE 👇",
+    "collected": "2026-10-12",
+    "posts": [
+      {
+        "url": "https://www.instagram.com/p/DeWJ6NSjAWp/",
+        "type": "carousel",
+        "image": "assets/ig/1.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DeRzuKqsiOb/",
+        "type": "reel",
+        "image": "assets/ig/2.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DePS1fyMmdM/",
+        "type": "reel",
+        "image": "assets/ig/3.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeMtePhjJNL/",
+        "type": "carousel",
+        "image": "assets/ig/4.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/DeKG1EKjB8z/",
+        "type": "carousel",
+        "image": "assets/ig/5.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DeEjTUVs_de/",
+        "type": "reel",
+        "image": "assets/ig/6.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/Dd_1rjADGI0/",
+        "type": "carousel",
+        "image": "assets/ig/7.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/p/Dd9SDVvjFqd/",
+        "type": "carousel",
+        "image": "assets/ig/8.jpg"
+      },
+      {
+        "url": "https://www.instagram.com/reel/Dd6BBZMR2rS/",
+        "type": "reel",
+        "image": "assets/ig/9.jpg"
+      }
+    ]
   },
   "theme": {
     "ink": "#000000",
@@ -121,5 +171,6 @@
     "logoDark": "assets/brand/logo-black.png",
     "logoLight": "assets/brand/logo-white.png",
     "favicon": "assets/img/favicon.png"
-  }
+  },
+  "_instagram": "Collected in a browser from @hera (main account) on 2026-10-12. Profile-path URLs normalised to /p/<code>/ or /reel/<code>/ (the build rejects profile paths); post 9 is a collab originally at instagram.com/seb_nagy/reel/Dd6BBZMR2rS/. Thumbnails: assets/ig/N.jpg, square-cropped, max 600px, q80."
 }
