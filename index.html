@@ -3,270 +3,248 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AppyCo: shopping apps for UK fashion brands</title>
-<meta name="description" content="AppyCo builds iOS and Android shopping apps for UK fashion brands on Shopify. We start by building a clickable mockup of your own app.">
-<meta name="theme-color" content="#5d86b3">
+<title>AppyCo: apps for UK retail brands</title>
+<meta name="description" content="AppyCo builds iOS and Android apps for UK retail brands on Shopify. We start by building a clickable mockup of your own app.">
+<meta name="theme-color" content="#0f2624">
 <link rel="icon" href="assets/appyco-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#111214;--muted:#6e7076;--soft:#f6f6fb;--grey:#a9abb1;--ease:cubic-bezier(.22,.8,.24,1);--blue1:#4f7aab;--blue2:#9ab8d6}
+:root{--bg:#0f2624;--bg2:#132e2b;--card:#16302d;--line:rgba(255,255,255,.08);--txt:#eef3f1;--mut:#9aaaa6;--glow:#9cc8e0;--olive:#5d6b3a;--ease:cubic-bezier(.22,.8,.24,1)}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Inter Tight',system-ui,-apple-system,sans-serif;color:var(--ink);background:var(--soft);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{font-family:'Inter Tight',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--txt);-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
-.wrap{max-width:1200px;margin:0 auto;padding:0 32px}
-b{font-weight:600}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:46px;padding:0 24px;border-radius:12px;font-weight:500;font-size:15px;transition:transform .35s var(--ease),box-shadow .35s,background .3s;white-space:nowrap}
+.wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 20px;border-radius:999px;font-size:14px;font-weight:500;white-space:nowrap;transition:transform .35s var(--ease),background .3s,box-shadow .3s}
 .btn:hover{transform:translateY(-2px)}
-.btn-k{background:var(--ink);color:#fff;box-shadow:0 10px 30px rgba(17,18,20,.25),inset 0 1px 0 rgba(255,255,255,.12)}
-.btn-w{background:#fff;color:var(--ink);height:40px;padding:0 18px;font-size:14px;box-shadow:0 4px 18px rgba(0,0,0,.08)}
-.pill{display:inline-block;font-size:13px;color:#3a3b40;background:#fff;border:1px solid #e6e6ee;border-radius:999px;padding:7px 16px;box-shadow:0 2px 10px rgba(30,30,60,.05)}
-h2{font-size:clamp(36px,5vw,62px);line-height:1.08;letter-spacing:-.035em;font-weight:500;margin-top:20px}
-h2 .g{color:var(--grey)}
-.head{text-align:center;margin:0 auto 64px;max-width:780px}
-section,section.wrap{padding-top:130px}
+.btn-l{background:#eef3f1;color:#0f2624;box-shadow:0 8px 30px rgba(156,200,224,.18)}
+.btn-g{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#fff;backdrop-filter:blur(10px)}
+.kick{display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+h2{font-size:clamp(34px,4.4vw,56px);font-weight:300;letter-spacing:-.035em;line-height:1.06;margin-top:14px}
+.lead{color:var(--mut);font-size:16px;line-height:1.6;margin-top:16px;max-width:520px}
+section{padding-top:130px}
 /* hero */
-.hero{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--blue1) 0%,#6b93bf 38%,var(--blue2) 66%,#dfe7f1 84%,var(--soft) 100%);color:#fff;padding-bottom:70px}
-.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 45% at 50% 30%,rgba(255,255,255,.18),transparent 70%);pointer-events:none}
-nav{position:relative;z-index:5;display:flex;align-items:center;justify-content:space-between;height:92px}
-nav .logo img{height:26px;width:auto}
-nav ul{display:flex;gap:4px;list-style:none;background:rgba(17,18,20,.88);border-radius:12px;padding:5px;box-shadow:0 8px 24px rgba(0,0,0,.18)}
-nav ul a{display:block;font-size:13px;padding:8px 14px;border-radius:8px;color:#e8e9ec;transition:background .25s}
-nav ul a:hover{background:rgba(255,255,255,.12);color:#fff}
-.hero-copy{position:relative;z-index:2;text-align:center;padding-top:40px}
-h1{font-size:clamp(40px,6vw,78px);line-height:1.06;letter-spacing:-.04em;font-weight:300}
-h1 b{font-weight:600}
-.sub{margin:22px auto 0;max-width:540px;color:rgba(255,255,255,.86);font-size:17px;line-height:1.55}
-.hero .btn-k{margin-top:30px}
-.stage{position:relative;z-index:2;margin:64px auto 0;height:640px;max-width:1200px;perspective:1600px}
-.phone{position:relative;width:300px;height:630px;border-radius:50px;background:#121316;padding:10px;box-shadow:0 0 0 2px #3a3c42,0 50px 90px rgba(20,35,60,.45),inset 0 0 0 1px #4a4c52}
-.phone .screen{position:relative;width:100%;height:100%;border-radius:41px;overflow:hidden;background:#fff}
-.phone .screen img{width:100%;height:100%;object-fit:cover;object-position:top}
-.phone::after{content:"";position:absolute;top:20px;left:50%;width:84px;height:24px;margin-left:-42px;border-radius:20px;background:#0b0b0c;z-index:3;pointer-events:none}
-.hero .phone{position:absolute;left:50%;top:0;margin-left:-150px;z-index:4}
-.hero .phone iframe{position:absolute;top:0;left:0;width:390px;height:844px;border:0;transform:scale(.7179);transform-origin:0 0}
-.card3d{position:absolute;top:60px;border-radius:22px;overflow:hidden;box-shadow:0 30px 60px rgba(20,35,60,.3);transition:transform 1.2s var(--ease),opacity 1.2s var(--ease)}
-.card3d img{width:100%;height:100%;object-fit:cover}
-.card3d::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
-.k1{left:calc(50% - 600px);width:190px;height:330px;top:110px;transform:rotateY(28deg) rotateZ(-2deg)}
-.k2{left:calc(50% - 420px);width:240px;height:420px;top:70px;transform:rotateY(22deg)}
-.k3{right:calc(50% - 420px);width:240px;height:420px;top:70px;transform:rotateY(-22deg)}
-.k4{right:calc(50% - 600px);width:190px;height:330px;top:110px;transform:rotateY(-28deg) rotateZ(2deg)}
-.stage:not(.in) .k1,.stage:not(.in) .k2{transform:translateX(160px) rotateY(10deg);opacity:0}
-.stage:not(.in) .k3,.stage:not(.in) .k4{transform:translateX(-160px) rotateY(-10deg);opacity:0}
-.k2{transition-delay:.1s}.k3{transition-delay:.1s}.k1,.k4{transition-delay:.25s}
-.stage .tag{position:absolute;z-index:5;left:50%;bottom:-6px;transform:translateX(-50%);font-size:13px;color:#3a3b40;background:#fff;border-radius:999px;padding:8px 16px;box-shadow:0 8px 24px rgba(30,40,70,.12);white-space:nowrap}
-.stage .tag a{border-bottom:1px solid currentColor}
+.top{padding:22px 0 0}
+.hero{position:relative;border-radius:36px;overflow:hidden;height:min(860px,calc(100vh - 44px));min-height:620px;
+ background:radial-gradient(42% 55% at 52% -6%,rgba(190,225,240,.85),rgba(120,175,200,.35) 45%,transparent 75%),
+ linear-gradient(180deg,#24485a 0%,#173b40 30%,#11302d 58%,#18302a 76%,#3d4a28 92%,#6b7a40 100%);
+ box-shadow:0 40px 100px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,255,255,.06)}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 60% at 50% 120%,rgba(160,180,90,.35),transparent 60%);pointer-events:none}
+nav{position:absolute;z-index:6;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:26px 34px}
+nav .logo img{height:24px;width:auto}
+nav ul{display:flex;gap:4px;list-style:none;background:rgba(10,25,24,.35);border:1px solid rgba(255,255,255,.1);border-radius:999px;padding:4px;backdrop-filter:blur(12px)}
+nav ul a{display:block;font-size:13px;color:#d8e2df;padding:8px 14px;border-radius:999px;transition:background .25s}
+nav ul a:hover{background:rgba(255,255,255,.1)}
+.hcopy{position:absolute;z-index:4;left:56px;bottom:64px;max-width:640px}
+h1{font-size:clamp(46px,6.2vw,92px);font-weight:300;letter-spacing:-.045em;line-height:.98}
+.hsub{margin-top:22px;color:#b9c6c2;font-size:16px;line-height:1.55;max-width:400px}
+.hcta{display:flex;gap:10px;margin-top:28px;flex-wrap:wrap}
+/* realistic phone */
+.scene{position:absolute;z-index:3;right:6%;top:9%;width:360px;height:760px;perspective:1800px}
+.iph{position:relative;width:360px;height:740px;border-radius:62px;transform-style:preserve-3d;transform:rotateX(14deg) rotateY(-22deg) rotateZ(-14deg);animation:float 9s ease-in-out infinite alternate;
+ background:linear-gradient(135deg,#d9d6cf 0%,#8d8a84 18%,#c9c6be 34%,#6d6a65 55%,#bdb9b1 76%,#7c7974 100%);padding:5px;
+ box-shadow:-40px 60px 80px rgba(0,0,0,.55),-10px 20px 30px rgba(0,0,0,.35),inset 0 0 2px rgba(255,255,255,.7)}
+.iph .bezel{position:relative;width:100%;height:100%;border-radius:57px;background:#050606;padding:11px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+.iph .scr{position:relative;width:100%;height:100%;border-radius:47px;overflow:hidden;background:#000}
+.iph .scr{padding-top:46px}.iph .scr>img{width:100%;height:100%;object-fit:cover;object-position:top}
+.iph .isl{position:absolute;z-index:3;top:11px;left:50%;width:104px;height:31px;margin-left:-52px;border-radius:20px;background:#000}
+.iph .sb{position:absolute;z-index:2;top:16px;left:30px;right:26px;display:flex;justify-content:space-between;font-size:15px;font-weight:600;color:#fff}
+.iph .sb i{display:flex;gap:5px;align-items:center}
+.iph .sb i b{display:block;width:24px;height:11px;border-radius:3px;border:1.5px solid rgba(255,255,255,.8);position:relative}
+.iph .sb i b::after{content:"";position:absolute;inset:1.5px;width:70%;background:#fff;border-radius:1px}
+.iph .sb i s{display:block;width:16px;height:11px;background:linear-gradient(90deg,#fff 0 3px,transparent 3px 4px,#fff 4px 7px,transparent 7px 8px,#fff 8px 11px,transparent 11px 12px,#fff 12px);clip-path:polygon(0 100%,100% 0,100% 100%)}
+.iph .glare{position:absolute;inset:0;z-index:4;border-radius:47px;background:linear-gradient(115deg,rgba(255,255,255,.22) 0%,rgba(255,255,255,.04) 28%,transparent 42%,transparent 70%,rgba(255,255,255,.07) 100%);pointer-events:none}
+.iph .side{position:absolute;left:-3px;width:4px;border-radius:2px;background:linear-gradient(90deg,#6d6a65,#c9c6be)}
+.iph .s1{top:130px;height:32px}.iph .s2{top:190px;height:62px}.iph .s3{top:265px;height:62px}
+.shadow{position:absolute;left:-10%;right:0;bottom:-30px;height:60px;background:radial-gradient(50% 50% at 50% 50%,rgba(0,0,0,.5),transparent 70%);filter:blur(10px);transform:rotate(-14deg)}
+@keyframes float{from{translate:0 0}to{translate:0 -14px}}
+/* stats */
+.shead{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:40px}
+.stats{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 28px 20px;margin:0 -28px;scrollbar-width:none}
+.stats::-webkit-scrollbar{display:none}
+.stat{flex:0 0 300px;scroll-snap-align:start;border-radius:26px;padding:28px;min-height:300px;display:flex;flex-direction:column;background:linear-gradient(180deg,#18342f,#132a27);border:1px solid var(--line);position:relative;overflow:hidden;transition:transform .5s var(--ease),border-color .4s}
+.stat::before{content:"";position:absolute;top:-40%;left:-20%;width:140%;height:80%;background:radial-gradient(50% 50% at 50% 50%,rgba(156,200,224,.14),transparent 70%);pointer-events:none}
+.stat:hover{transform:translateY(-6px);border-color:rgba(156,200,224,.3)}
+.stat .n{font-size:58px;font-weight:300;letter-spacing:-.045em;line-height:1}
+.stat .l{margin-top:14px;font-size:16px;font-weight:500}
+.stat p{margin-top:10px;color:var(--mut);font-size:14px;line-height:1.55;flex:1}
+.stat a{margin-top:18px;font-size:12.5px;color:#cfe3ec;display:inline-flex;gap:6px;border-top:1px solid var(--line);padding-top:14px}
+.stat a:hover{color:#fff;text-decoration:underline}
+.arrows{display:flex;gap:8px}
+.arrows button{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);color:#fff;font-size:18px;cursor:pointer;transition:background .3s}
+.arrows button:hover{background:rgba(255,255,255,.12)}
+/* live */
+.live{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:stretch}
+.panel{border-radius:32px;padding:44px;background:linear-gradient(180deg,#18342f,#122826);border:1px solid var(--line)}
+.panel .blogo{height:22px;width:auto;margin-bottom:26px;opacity:.95}
+.panel h3{font-size:clamp(30px,3vw,42px);font-weight:300;letter-spacing:-.035em;line-height:1.08}
+.panel>p{margin-top:16px;color:var(--mut);font-size:15px;line-height:1.6}
+.panel ul{list-style:none;margin-top:20px}
+.panel li{position:relative;padding:10px 0 10px 26px;font-size:14.5px;border-top:1px solid var(--line)}
+.panel li::before{content:"";position:absolute;left:2px;top:16px;width:9px;height:9px;border-radius:50%;background:var(--glow);box-shadow:0 0 12px var(--glow)}
+.demo-h{margin:28px 0 12px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.demos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.demos button{display:flex;justify-content:space-between;align-items:center;gap:10px;text-align:left;font:inherit;color:var(--txt);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:13px 14px;cursor:pointer;transition:background .3s,border-color .3s,transform .3s var(--ease)}
+.demos button:hover{background:rgba(156,200,224,.1);border-color:rgba(156,200,224,.35);transform:translateY(-2px)}
+.demos b{display:block;font-size:14px;font-weight:500}
+.demos small{display:block;font-size:12px;color:var(--mut);margin-top:3px}
+.demos i{font-style:normal;flex:0 0 28px;height:28px;border-radius:50%;background:rgba(156,200,224,.16);display:flex;align-items:center;justify-content:center;font-size:13px}
+.stagep{position:relative;border-radius:32px;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:48px 20px;background:radial-gradient(60% 50% at 50% 0%,rgba(156,200,224,.35),transparent 70%),linear-gradient(180deg,#1b3b44,#13302c 60%,#2f3b22)}
+.lphone{position:relative;width:330px;height:690px;border-radius:58px;padding:5px;background:linear-gradient(135deg,#d9d6cf,#8d8a84 25%,#c9c6be 50%,#6d6a65 75%,#bdb9b1);box-shadow:0 50px 90px rgba(0,0,0,.5)}
+.lphone .bezel{width:100%;height:100%;border-radius:53px;background:#050606;padding:10px}
+.lphone .scr{position:relative;width:100%;height:100%;border-radius:44px;overflow:hidden;background:#fff}
+.lphone iframe{position:absolute;top:0;left:0;width:390px;height:844px;border:0;transform:scale(.7795);transform-origin:0 0}
+.lphone .isl{position:absolute;z-index:3;top:21px;left:50%;width:92px;height:27px;margin-left:-46px;border-radius:20px;background:#000;pointer-events:none}
+.openf{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);font-size:12.5px;color:#cfe3ec;white-space:nowrap}
+.openf:hover{text-decoration:underline}
 /* steps */
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.step{border-radius:22px;padding:22px 26px 30px;transition:transform .5s var(--ease),box-shadow .5s}
-.step:hover{transform:translateY(-6px);box-shadow:0 24px 50px rgba(40,40,80,.08)}
-.step:nth-child(1){background:#efe4fb}.step:nth-child(2){background:#fdf6dc}.step:nth-child(3){background:#e1ebfb}
-.num{display:inline-flex;width:34px;height:34px;border-radius:50%;background:#fff;align-items:center;justify-content:center;font-size:12px;font-weight:500;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.ico{width:76px;height:76px;margin:46px auto 64px;border-radius:18px;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(40,40,80,.08)}
-.ico svg{width:30px;height:30px}
-.step h3{font-size:20px;font-weight:500;letter-spacing:-.02em}
-.step p{margin-top:10px;color:var(--muted);font-size:14.5px;line-height:1.55;max-width:300px}
-.step code{font-family:ui-monospace,Menlo,monospace;font-size:13px;background:rgba(255,255,255,.75);padding:2px 6px;border-radius:6px;color:var(--ink)}
-/* features */
-.feat{display:grid;grid-template-columns:1fr 1fr;background:#fff;border-radius:28px;overflow:hidden;margin-bottom:22px;min-height:400px;box-shadow:0 1px 0 rgba(0,0,0,.02)}
-.feat .media{position:relative;overflow:hidden;border-radius:28px;min-height:400px}
-.feat .media>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.08);transition:transform 1.6s var(--ease)}
-.feat.in .media>img{transform:scale(1)}
-.feat .media .phone{position:absolute;left:50%;top:44px;width:250px;height:525px;margin-left:-125px;border-radius:42px;padding:8px;transform:translateY(70px);transition:transform 1.3s var(--ease) .15s}
-.feat.in .media .phone{transform:none}
-.feat .media .phone .screen{border-radius:35px}
-.feat .media .phone::after{top:16px;width:70px;height:20px;margin-left:-35px}
-.feat .txt{display:flex;flex-direction:column;justify-content:center;padding:48px 64px 48px 72px}
-.feat h3{font-size:clamp(26px,2.6vw,34px);line-height:1.15;letter-spacing:-.03em;font-weight:500;max-width:400px}
-.feat p{margin-top:14px;color:var(--muted);font-size:15px;line-height:1.6;max-width:420px}
-.feat .src{margin-top:18px;font-size:13px;color:var(--muted)}
-.feat .src a{color:var(--ink);border-bottom:1px solid #c9cad0}
-.feat .more{margin-top:22px;font-size:14px;font-weight:500;display:inline-flex;gap:6px;align-items:center}
-.feat .more:hover{text-decoration:underline}
-.feat.rev .media{order:2}
-/* culture */
-.culture{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:center}
-.cc{position:relative;border-radius:24px;overflow:hidden;height:420px;display:block;isolation:isolate}
-.cc:nth-child(2){height:480px}
-.cc>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
-.cc:hover>img{transform:scale(1.05)}
-.cc .box{position:absolute;left:12px;right:12px;bottom:12px;background:#fff;border-radius:16px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;box-shadow:0 10px 30px rgba(0,0,0,.12)}
-.cc .box i{flex:0 0 38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:15px}
-.cc .box b{display:block;font-size:15px;font-weight:500}
-.cc .box span{display:block;font-size:12.5px;color:var(--muted);margin-top:3px;line-height:1.45}
-/* work */
-.work{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
-.tile{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:400/865;background:#ddd;isolation:isolate;box-shadow:0 14px 40px rgba(40,40,80,.08)}
-.tile img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease)}
-.tile:hover img{transform:scale(1.05)}
-.tile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 60%,rgba(0,0,0,.6))}
-.tile span{position:absolute;left:14px;right:14px;bottom:14px;z-index:1;color:#fff;font-weight:500;font-size:15px;display:flex;justify-content:space-between;align-items:center}
-.tile span i{font-style:normal;width:28px;height:28px;border-radius:50%;background:#fff;color:var(--ink);display:flex;align-items:center;justify-content:center;font-size:13px;transition:transform .4s var(--ease)}
-.tile:hover span i{transform:rotate(-45deg)}
-/* hello */
-.hello{background:#fff;margin-top:130px;padding:110px 0}
-.hello .wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:center}
-.hello h2{font-size:clamp(56px,7vw,92px);font-style:italic;font-weight:500;margin:0;letter-spacing:-.04em}
-.hello p{margin-top:28px;font-size:18px;line-height:1.6;color:#4b4d53;max-width:520px}
-.hello .sig{margin-top:26px;font-size:18px;font-weight:500}
-.frame{position:relative;justify-self:center;width:min(100%,400px);aspect-ratio:1;border-radius:34px;background:linear-gradient(160deg,#eef3fb,#dfe8f5);display:flex;align-items:center;justify-content:center;transform:rotate(4deg);box-shadow:0 30px 60px rgba(40,50,90,.14),0 0 0 10px #fff,0 0 0 11px #eceef3;transition:transform .8s var(--ease)}
-.frame:hover{transform:rotate(1deg)}
-.frame img{width:62%}
-.frame::before{content:"";position:absolute;top:-14px;left:50%;width:28px;height:28px;margin-left:-14px;border-radius:50%;background:var(--ink);box-shadow:0 0 0 6px #fff}
-.frame .name{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%) rotate(-4deg);background:var(--ink);color:#fff;font-size:15px;border-radius:14px;padding:10px 18px;box-shadow:0 0 0 4px #fff;white-space:nowrap}
-/* cta */
-.cta{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--blue1),#8fb0d2);color:#fff}
-.cta .wrap{display:grid;grid-template-columns:1fr 1fr;align-items:end;min-height:500px;gap:40px}
-.cta .copy{align-self:center;padding:60px 0}
-.cta h2{margin:0;font-weight:300;font-size:clamp(38px,4.6vw,60px)}
-.cta h2 b{font-weight:600}
-.cta p{margin-top:16px;color:rgba(255,255,255,.85);font-size:16px;line-height:1.6;max-width:400px}
-.cta .row{display:flex;gap:10px;margin-top:28px;flex-wrap:wrap}
-.cta .row .btn-w{height:44px}
-.cta .gh{background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.35);height:44px;font-size:14px;backdrop-filter:blur(8px)}
-.cta .ph{position:relative;height:500px}
-.cta .phone{position:absolute;right:70px;top:56px;width:290px;height:610px}
-.glass{position:absolute;z-index:5;background:rgba(255,255,255,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:var(--ink);border:1px solid rgba(255,255,255,.7);border-radius:16px;padding:12px 16px;font-size:13px;box-shadow:0 18px 40px rgba(20,35,60,.18);animation:bob 7s ease-in-out infinite alternate;white-space:nowrap}
-.glass small{display:block;color:var(--muted);font-size:11.5px;margin-top:2px}
-.glass code{font-family:ui-monospace,Menlo,monospace;font-size:12.5px}
-.g1{right:300px;top:210px}.g2{right:250px;top:330px;animation-delay:-3s}.g3{right:6px;top:120px;animation-delay:-5s}
-@keyframes bob{to{translate:0 -10px}}
-/* footer */
-footer{padding:70px 0 40px}
-.fgrid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1.1fr;gap:32px}
-footer .logo img{height:26px;width:auto}
-footer .tagline{margin-top:16px;color:var(--muted);font-size:14px;line-height:1.55;max-width:280px}
-.mail{margin-top:20px;display:flex;align-items:center;justify-content:space-between;gap:10px;max-width:290px;background:#fff;border:1px solid #e6e6ee;border-radius:999px;padding:6px 6px 6px 18px;font-size:14px;color:#4b4d53;transition:box-shadow .3s}
-.mail:hover{box-shadow:0 8px 24px rgba(40,40,80,.1)}
-.mail i{flex:0 0 36px;height:36px;border-radius:50%;background:var(--blue1);color:#fff;display:flex;align-items:center;justify-content:center;font-style:normal}
-footer h4{font-size:15px;font-weight:500;margin-bottom:16px}
-footer li{list-style:none;font-size:14px;color:var(--muted);margin-bottom:12px}
-footer li a:hover{color:var(--ink)}
-.fbot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:56px;padding-top:24px;border-top:1px solid #e6e6ee;font-size:13px;color:var(--muted)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.step{border-radius:28px;padding:32px;min-height:320px;display:flex;flex-direction:column;background:linear-gradient(180deg,#18342f,#132a27);border:1px solid var(--line);position:relative;overflow:hidden;transition:transform .5s var(--ease)}
+.step:hover{transform:translateY(-6px)}
+.step:nth-child(3){background:linear-gradient(180deg,#1d3a3a,#3a4726)}
+.step .num{font-size:13px;color:var(--mut);letter-spacing:.1em}
+.step h3{margin-top:auto;font-size:26px;font-weight:400;letter-spacing:-.03em;line-height:1.15}
+.step p{margin-top:12px;color:var(--mut);font-size:14.5px;line-height:1.6}
+.step code{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;color:#cfe3ec;background:rgba(156,200,224,.12);padding:2px 6px;border-radius:6px}
+.ring{width:56px;height:56px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;margin-top:22px;margin-bottom:40px}
+.ring svg{width:24px;height:24px}
+/* built for */
+.built{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.bc{position:relative;display:block;border-radius:28px;overflow:hidden;height:460px;isolation:isolate}
+.bc>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.1s var(--ease)}
+.bc:hover>img{transform:scale(1.05)}
+.bc::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,38,36,0) 40%,rgba(15,38,36,.92))}
+.bc .t{position:absolute;z-index:1;left:24px;right:24px;bottom:24px}
+.bc b{display:block;font-size:22px;font-weight:400;letter-spacing:-.02em}
+.bc span{display:block;margin-top:8px;color:#c3cfcb;font-size:14px;line-height:1.5}
+/* cta/footer */
+.cta{margin-top:130px;border-radius:36px;padding:90px 40px;text-align:center;position:relative;overflow:hidden;background:radial-gradient(50% 70% at 50% 0%,rgba(190,225,240,.6),transparent 70%),linear-gradient(180deg,#1f4450,#14322f 55%,#4a5a2e)}
+.cta h2{margin:0 auto;max-width:700px}
+.cta p{color:#c3cfcb;margin:18px auto 30px;max-width:460px;line-height:1.6}
+.cta .row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+footer{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:30px;padding:70px 0 30px}
+footer .logo img{height:24px;width:auto}
+footer .tag{margin-top:14px;color:var(--mut);font-size:14px;max-width:260px;line-height:1.55}
+footer h4{font-size:14px;font-weight:500;margin-bottom:14px}
+footer li{list-style:none;color:var(--mut);font-size:14px;margin-bottom:10px}
+footer li a:hover{color:#fff}
+.fbot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;border-top:1px solid var(--line);padding:22px 0 36px;color:var(--mut);font-size:13px}
 /* motion */
-.rv{opacity:0;transform:translateY(28px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.rv{opacity:0;transform:translateY(26px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
 .rv.in{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){*{animation:none!important}.rv,.feat .media>img,.feat .media .phone,.card3d{transition:none!important}.rv{opacity:1;transform:none}.stage .card3d{opacity:1!important}html{scroll-behavior:auto}}
+.hero .rv{transition-duration:1.3s}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}.rv{opacity:1;transform:none;transition:none}}
 /* responsive */
-@media (max-width:1240px){.k1{left:calc(50% - 540px)}.k4{right:calc(50% - 540px)}}
-@media (max-width:1100px){.k1,.k4{display:none}.work{grid-template-columns:repeat(3,1fr)}.fgrid{grid-template-columns:1fr 1fr 1fr}.fgrid>div:first-child{grid-column:1/-1}.g1{right:270px}}
-@media (max-width:900px){nav ul{display:none}.k2{left:calc(50% - 330px);width:200px;height:350px}.k3{right:calc(50% - 330px);width:200px;height:350px}
- .feat,.feat.rev{grid-template-columns:1fr}.feat.rev .media{order:0}.feat .txt{padding:36px 32px 40px}
- .steps,.culture{grid-template-columns:1fr}.cc,.cc:nth-child(2){height:420px}.ico{margin:30px auto 40px}
- .hello .wrap{grid-template-columns:1fr}.cta .wrap{grid-template-columns:1fr;min-height:0;gap:0}.cta .copy{padding:70px 0 10px}.cta .ph{height:460px}.cta .phone{right:auto;left:50%;margin-left:-145px;top:40px}.g1{right:auto;left:0;top:150px}.g2{right:0;top:250px}.g3{display:none}}
-@media (max-width:600px){.wrap{padding:0 18px}nav{height:72px}nav .logo img{height:22px}.hero-copy{padding-top:20px}.sub{font-size:16px}
- .k2,.k3{display:none}.stage{height:580px;margin-top:44px}.hero .phone{width:270px;height:568px;margin-left:-135px;border-radius:46px;padding:9px}.hero .phone .screen{border-radius:38px}.hero .phone iframe{transform:scale(.6462)}
- section,section.wrap{padding-top:90px}.head{margin-bottom:40px}.work{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -18px;padding:0 18px 8px;scrollbar-width:none}.work .tile{flex:0 0 46%;scroll-snap-align:start}
- .feat .media{min-height:360px}.feat .media .phone{width:220px;height:462px;margin-left:-110px;top:36px}.feat .txt{padding:30px 24px 34px}
- .hello{margin-top:90px;padding:80px 0}.frame{width:86%}.cta .ph{height:420px}.cta .phone{width:260px;height:548px;margin-left:-130px}.glass{font-size:12px;padding:10px 12px}.g1{top:130px}.g2{top:240px}
- .fgrid{grid-template-columns:1fr 1fr}}
+@media (max-width:1180px){.scene{right:2%;transform:scale(.88);transform-origin:top right}}
+@media (max-width:980px){nav ul{display:none}.live{grid-template-columns:1fr}.steps,.built{grid-template-columns:1fr}.step{min-height:0}.step h3{margin-top:0}.bc{height:380px}footer{grid-template-columns:1fr 1fr}
+ .hero{height:auto;min-height:0;padding:110px 0 0;display:flex;flex-direction:column}.hcopy{position:relative;left:auto;bottom:auto;padding:0 32px;order:1}.scene{position:relative;right:auto;top:auto;order:2;margin:30px auto -150px;transform:scale(.82);transform-origin:top center}}
+@media (max-width:600px){.wrap{padding:0 16px}.top{padding-top:10px}.hero{border-radius:28px;padding-top:96px}nav{padding:20px 20px}nav .logo img{height:20px}nav .btn{height:38px;padding:0 14px;font-size:13px}
+ .hcopy{padding:0 22px}.hsub{font-size:15px}.scene{transform:scale(.64);margin:10px auto -260px;width:360px}
+ section{padding-top:90px}.stats{margin:0 -16px;padding:4px 16px 20px}.stat{flex-basis:78%}.arrows{display:none}
+ .panel{padding:28px 22px}.demos{grid-template-columns:1fr}.stagep{padding:30px 10px 50px}.lphone{width:300px;height:627px;border-radius:52px}.lphone .bezel{border-radius:48px;padding:9px}.lphone .scr{border-radius:40px}.lphone iframe{transform:scale(.7059)}
+ .cta{margin-top:90px;padding:64px 22px;border-radius:28px}footer{grid-template-columns:1fr 1fr}footer>div:first-child{grid-column:1/-1}}
 </style>
 </head>
 <body>
-<header class="hero">
-  <div class="wrap">
-    <nav>
-      <a class="logo" href="#" aria-label="AppyCo home"><img src="assets/appyco-logo-white.png" alt="AppyCo" width="720" height="148"></a>
-      <ul><li><a href="#">Home</a></li><li><a href="#how">How it works</a></li><li><a href="#features">Features</a></li><li><a href="#work">Mockups</a></li><li><a href="#hello">About</a></li></ul>
-      <a class="btn btn-w" href="mailto:hello@appystudio.co?subject=My%20app%20mockup">Get your mockup</a>
-    </nav>
-    <div class="hero-copy">
-      <h1 class="rv">Your Fashion <b>Brand.</b><br><b>Now</b> in the <b>App Store.</b></h1>
-      <p class="sub rv">We build iOS and Android shopping apps for UK fashion brands on Shopify. First, we send you a clickable mockup of your own app.</p>
-      <a class="btn btn-k rv" href="mailto:hello@appystudio.co?subject=My%20app%20mockup">Get your free mockup</a>
-    </div>
+<div class="wrap top">
+<header class="hero" id="top">
+  <nav>
+    <a class="logo" href="#top" aria-label="AppyCo home"><img src="assets/appyco-logo-white.png" alt="AppyCo" width="720" height="148"></a>
+    <ul><li><a href="#stats">Why an app</a></li><li><a href="#live">Live demo</a></li><li><a href="#process">Process</a></li><li><a href="#built">Who it’s for</a></li></ul>
+    <a class="btn btn-l" href="mailto:hello@appystudio.co?subject=My%20app%20mockup">Get your mockup</a>
+  </nav>
+  <div class="hcopy">
+    <h1 class="rv">Where your brand<br>comes to life</h1>
+    <p class="hsub rv">We build iOS and Android apps for UK retail brands to scale them to the next level.</p>
+    <div class="hcta rv"><a class="btn btn-l" href="mailto:hello@appystudio.co?subject=My%20app%20mockup">Get your free mockup</a><a class="btn btn-g" href="#live">Try the live demo</a></div>
   </div>
-  <div class="stage rv">
-    <a class="card3d k1" href="maharishi/"><img src="assets/land/h1.webp" alt="Maharishi on Instagram"></a>
-    <a class="card3d k2" href="raith/"><img src="assets/land/h2.webp" alt="Raith on Instagram"></a>
-    <div class="phone"><div class="screen"><iframe id="rf" src="raith/" title="Raith app mockup, interactive preview" loading="eager"></iframe></div></div>
-    <a class="card3d k3" href="finisterre/"><img src="assets/land/h3.webp" alt="Finisterre on Instagram"></a>
-    <a class="card3d k4" href="nicce/"><img src="assets/land/h4.webp" alt="NICCE on Instagram"></a>
-    <span class="tag">Live Raith mockup: tap around · <a href="raith/" target="_blank" rel="noopener">open full screen ↗</a></span>
+  <div class="scene rv" aria-hidden="true">
+    <div class="shadow"></div>
+    <div class="iph"><span class="side s1"></span><span class="side s2"></span><span class="side s3"></span>
+      <div class="bezel"><div class="scr"><span class="isl"></span><div class="sb"><span>9:41</span><i><s></s><b></b></i></div><img src="assets/land/raith-hero.webp" alt="" width="780" height="1688"><span class="glare"></span></div></div>
+    </div>
   </div>
 </header>
+</div>
 
-<main>
-  <section id="how" class="wrap">
-    <div class="head rv"><span class="pill">How it works</span><h2><span class="g">From Your Website</span><br>to Your Own App</h2></div>
+<main class="wrap">
+  <section id="stats">
+    <div class="shead"><div class="rv"><span class="kick">Why an app</span><h2>The numbers behind apps</h2><p class="lead">Published research and case studies. Every figure links to its source.</p></div>
+      <div class="arrows rv"><button type="button" aria-label="Previous" data-dir="-1">←</button><button type="button" aria-label="Next" data-dir="1">→</button></div></div>
+    <div class="stats" id="statsRow">
+      <article class="stat rv"><div class="n">1.8×</div><div class="l">Higher conversion in-app</div><p>Median app conversion vs the same brand’s mobile site across 21 retailers. A UK fashion DTC brand converted at 4.22% in-app vs 2.36% on mobile web.</p><a href="https://poqcommerce.com/resources/the-mobile-app-revenue-case/" target="_blank" rel="noopener">Poq, The Revenue Case for Mobile Apps ↗</a></article>
+      <article class="stat rv"><div class="n">+37%</div><div class="l">Spend from app adopters</div><p>After a retailer launched its app, adopters bought 33% more often and spent 37% more than non-adopters, online and in store.</p><a href="https://pubsonline.informs.org/doi/10.1287/mksc.2019.1169" target="_blank" rel="noopener">Narang &amp; Shankar, Marketing Science 2019 ↗</a></article>
+      <article class="stat rv"><div class="n">40%</div><div class="l">Of Oh Polly’s revenue</div><p>UK fashion brand Oh Polly drives 40% of total revenue through its app, with an 18.5% higher average order value than its website.</p><a href="https://www.tapcart.com/case-studies/oh-polly" target="_blank" rel="noopener">Tapcart, Oh Polly case study ↗</a></article>
+      <article class="stat rv"><div class="n">+24%</div><div class="l">Revenue lift for fashion</div><p>Average total revenue lift for Fashion &amp; Apparel brands after adding an app (+23.97%), across $31.5B of measured revenue.</p><a href="https://www.tapcart.com/blog/mobile-incrementality-data-story" target="_blank" rel="noopener">Tapcart Incrementality Index ↗</a></article>
+      <article class="stat rv"><div class="n">+9%</div><div class="l">Higher order value</div><p>80% of brands saw higher average order values in-app, with a median uplift of 9% (app vs mobile web, same brand, same period).</p><a href="https://poqcommerce.com/resources/the-mobile-app-revenue-case/" target="_blank" rel="noopener">Poq, The Revenue Case for Mobile Apps ↗</a></article>
+      <article class="stat rv"><div class="n">74%</div><div class="l">Push opt-in</div><p>UK activewear brand AYBL got 74% of app users to opt in to push notifications, a direct channel to its customers.</p><a href="https://www.vennapps.com/case-studies/aybl" target="_blank" rel="noopener">Venn Apps, AYBL case study ↗</a></article>
+    </div>
+  </section>
+
+  <section id="live">
+    <div class="live">
+      <div class="panel rv">
+        <img class="blogo" src="raith/assets/img/logo-white.png" alt="Raith">
+        <span class="kick">Raith app, concept</span>
+        <h3 style="margin-top:12px">Timeless menswear,<br>one tap away.</h3>
+        <p>A concept for the Raith app: drops with app-only early access, a saved size that follows you round the store, and Shopify checkout with Apple Pay, Shop Pay and Klarna. Tap around, everything works.</p>
+        <ul><li>Drops 24 hours early for app users</li><li>Saved size and back-in-size alerts</li><li>Shopify checkout with Apple Pay, Shop Pay and Klarna</li></ul>
+        <p class="demo-h">Try it: send a push to the phone</p>
+        <div class="demos" id="demos"></div>
+      </div>
+      <div class="stagep rv">
+        <div class="lphone"><div class="bezel"><div class="scr"><iframe id="rf" src="raith/" title="Raith app mockup, interactive preview" loading="lazy"></iframe></div></div></div>
+        <a class="openf" href="raith/" target="_blank" rel="noopener">Open the Raith mockup full screen ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="process">
+    <div class="shead"><div class="rv"><span class="kick">Process</span><h2>From your website<br>to your own app</h2></div><p class="lead rv">No briefs and no guesswork. We start with your real products, imagery and style.</p></div>
     <div class="steps">
-      <div class="step rv"><span class="num">01</span><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 18h4"/></svg></div><h3>We Build Your Mockup</h3><p>Made from your own site: your logo, products, prices, sizes and imagery, styled to match your brand.</p></div>
-      <div class="step rv"><span class="num">02</span><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg></div><h3>You Try It on Your Phone</h3><p>We send you a link like <code>appystudio.co/your-brand/</code>. Tap around, add to bag and check out. Nothing to install.</p></div>
-      <div class="step rv"><span class="num">03</span><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15c-1 2-1 4-1 5 1 0 3 0 5-1"/><path d="M9 15l-3-3c2-6 7-9 14-9 0 7-3 12-9 14z"/><circle cx="15" cy="9" r="1.5"/></svg></div><h3>We Launch Your App</h3><p>Like it? We build it for real, connected to your Shopify store, and launch it on iOS and Android.</p></div>
+      <div class="step rv"><span class="num">01</span><div class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="#cfe3ec" stroke-width="1.6" stroke-linecap="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 18h4"/></svg></div><h3>We build your mockup</h3><p>Made from your own site: your logo, products, prices, sizes and imagery, styled to match your brand.</p></div>
+      <div class="step rv"><span class="num">02</span><div class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="#cfe3ec" stroke-width="1.6" stroke-linecap="round"><path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg></div><h3>You try it on your phone</h3><p>We send you a link like <code>appystudio.co/your-brand/</code>. Tap around, add to bag and check out. Nothing to install.</p></div>
+      <div class="step rv"><span class="num">03</span><div class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="#cfe3ec" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15c-1 2-1 4-1 5 1 0 3 0 5-1"/><path d="M9 15l-3-3c2-6 7-9 14-9 0 7-3 12-9 14z"/></svg></div><h3>We launch your app</h3><p>Like it? We build it for real, connected to your Shopify store, and launch it on iOS and Android.</p></div>
     </div>
   </section>
 
-  <section id="features" class="wrap">
-    <div class="head rv"><span class="pill">What you get</span><h2><span class="g">Built for</span><br>UK Fashion Brands</h2></div>
-    <div class="feat rv"><div class="media"><img src="assets/land/f1.webp" alt=""><div class="phone"><div class="screen"><img src="assets/work/finisterre.webp" alt="Finisterre app mockup"></div></div></div>
-      <div class="txt"><h3>Your Brand, Not a Reskin</h3><p>Every mockup is made from your real catalogue, collections and imagery, in your fonts, palette and tone of voice.</p><a class="more" href="finisterre/">Open the Finisterre mockup ↗</a></div></div>
-    <div class="feat rev rv"><div class="media"><img src="assets/land/f3.webp" alt=""><div class="phone"><div class="screen"><img src="assets/work/nicce.webp" alt="NICCE app mockup"></div></div></div>
-      <div class="txt"><h3>Made for Drops and New Season</h3><p>New in, drops, wishlists and push notifications put your latest stock straight on your customers’ home screens.</p><a class="more" href="nicce/">Open the NICCE mockup ↗</a></div></div>
-    <div class="feat rv"><div class="media"><img src="assets/land/f4.webp" alt=""><div class="phone"><div class="screen"><img src="assets/work/maharishi.webp" alt="Maharishi app mockup"></div></div></div>
-      <div class="txt"><h3>Shopify Checkout, Built In</h3><p>Connected to your Shopify store, with Apple Pay, Shop Pay and PayPal at checkout.</p><p class="src">App sessions convert at a median 1.8× the brand’s mobile site across 21 retailers. <a href="https://poqcommerce.com/resources/the-mobile-app-revenue-case/" target="_blank" rel="noopener">Source: Poq</a></p></div></div>
-    <div class="feat rev rv"><div class="media"><img src="assets/land/f2.webp" alt=""><div class="phone"><div class="screen"><img src="assets/work/hera.webp" alt="HERA app mockup"></div></div></div>
-      <div class="txt"><h3>See It Before You Commit</h3><p>No briefs and no guesswork. You get a working mockup of your own app first, so you know exactly what you’d be launching.</p><a class="more" href="hera/">Open the HERA mockup ↗</a></div></div>
-  </section>
-
-  <section class="wrap">
-    <div class="head rv"><span class="pill">Who it’s for</span><h2><span class="g">Made for Brands</span><br>With a Shopify Store</h2></div>
-    <div class="culture">
-      <a class="cc rv" href="universalworks/"><img src="assets/land/c1.webp" alt="Universal Works on Instagram"><div class="box"><i style="background:#efe4fb">✦</i><div><b>Menswear Labels</b><span>Universal Works, Percival, Wax London and more, each in its own style.</span></div></div></a>
-      <a class="cc rv" href="raith/"><img src="assets/land/c2.webp" alt="Raith on Instagram"><div class="box"><i style="background:#fdf6dc">↗</i><div><b>Independent UK Brands</b><span>A website that sells, but no app yet. That’s who we build for.</span></div></div></a>
-      <a class="cc rv" href="finisterre/"><img src="assets/land/c3.webp" alt="Finisterre on Instagram"><div class="box"><i style="background:#e1ebfb">◎</i><div><b>Outdoor and Activewear</b><span>Finisterre, Gym King and Sculpt, built from their own sites.</span></div></div></a>
+  <section id="built">
+    <div class="shead"><div class="rv"><span class="kick">Who it’s for</span><h2>Built for UK<br>retail brands</h2></div><p class="lead rv">Brands with a Shopify store that sells, but no app yet.</p></div>
+    <div class="built">
+      <a class="bc rv" href="universalworks/"><img src="assets/land/c1.webp" alt="Universal Works on Instagram"><div class="t"><b>Menswear labels</b><span>Universal Works, Percival, Wax London and more, each in its own style.</span></div></a>
+      <a class="bc rv" href="raith/"><img src="assets/land/c2.webp" alt="Raith on Instagram"><div class="t"><b>Independent UK brands</b><span>A website that sells, but no app yet. That’s who we build for.</span></div></a>
+      <a class="bc rv" href="finisterre/"><img src="assets/land/c3.webp" alt="Finisterre on Instagram"><div class="t"><b>Outdoor and activewear</b><span>Finisterre, Gym King and Sculpt, built from their own sites.</span></div></a>
     </div>
   </section>
 
-  <section id="work" class="wrap">
-    <div class="head rv"><span class="pill">Live mockups</span><h2><span class="g">Try a Few</span><br>We’ve Built</h2></div>
-    <div class="work">
-      <a class="tile rv" href="raith/"><img src="assets/work/raith.webp" alt="Raith app mockup"><span>Raith<i>↗</i></span></a>
-      <a class="tile rv" href="hera/"><img src="assets/work/hera.webp" alt="HERA app mockup"><span>HERA<i>↗</i></span></a>
-      <a class="tile rv" href="finisterre/"><img src="assets/work/finisterre.webp" alt="Finisterre app mockup"><span>Finisterre<i>↗</i></span></a>
-      <a class="tile rv" href="nicce/"><img src="assets/work/nicce.webp" alt="NICCE app mockup"><span>NICCE<i>↗</i></span></a>
-      <a class="tile rv" href="maharishi/"><img src="assets/work/maharishi.webp" alt="Maharishi app mockup"><span>Maharishi<i>↗</i></span></a>
-      <a class="tile rv" href="sculpt/"><img src="assets/work/sculpt.webp" alt="Sculpt app mockup"><span>Sculpt<i>↗</i></span></a>
-    </div>
-  </section>
-</main>
+  <div class="cta rv"><span class="kick">Get started</span><h2>See your brand as an app</h2><p>Have a Shopify store but no app? We’ll build a clickable mockup of yours.</p>
+    <div class="row"><a class="btn btn-l" href="mailto:hello@appystudio.co?subject=My%20app%20mockup">Get your free mockup</a><a class="btn btn-g" href="mailto:hello@appystudio.co">hello@appystudio.co</a></div></div>
 
-<section class="hello" id="hello">
-  <div class="wrap">
-    <div class="rv"><h2>Hello,</h2><p>We’re AppyCo. We build apps for UK fashion brands that have a great Shopify site but no app. Rather than pitch you, we build a clickable mockup of your own app and send it over, so you can try it on your phone and decide for yourself.</p><div class="sig">The AppyCo team</div></div>
-    <div class="frame rv"><img src="assets/appyco-logo.png" alt="AppyCo" width="720" height="148"><span class="name">hello@appystudio.co</span></div>
-  </div>
-</section>
-
-<section class="cta" style="padding:0;margin-top:0">
-  <div class="wrap">
-    <div class="copy rv"><h2>See Your <b>Brand</b><br><b>as an App</b> Today</h2><p>Have a Shopify store but no app? We’ll build a clickable mockup of yours.</p>
-      <div class="row"><a class="btn btn-w" href="mailto:hello@appystudio.co?subject=My%20app%20mockup">Get your free mockup</a><a class="btn gh" href="#work">See live mockups</a></div></div>
-    <div class="ph rv">
-      <div class="glass g1"><code>appystudio.co/your-brand/</code><small>Your mockup link</small></div>
-      <div class="glass g2"><b>iOS + Android</b><small>Native apps for both stores</small></div>
-      <div class="glass g3"><b>Shopify checkout</b><small>Apple Pay, Shop Pay, PayPal</small></div>
-      <div class="phone"><div class="screen"><img src="assets/work/raith.webp" alt="Raith app mockup"></div></div>
-    </div>
-  </div>
-</section>
-
-<footer class="wrap">
-  <div class="fgrid">
-    <div><a class="logo" href="#" aria-label="AppyCo home"><img src="assets/appyco-logo.png" alt="AppyCo" width="720" height="148"></a><p class="tagline">Shopping apps for UK fashion brands on Shopify.</p><a class="mail" href="mailto:hello@appystudio.co">hello@appystudio.co<i>→</i></a></div>
-    <div><h4>Explore</h4><ul><li><a href="#how">How it works</a></li><li><a href="#features">Features</a></li><li><a href="#work">Mockups</a></li><li><a href="#hello">About</a></li></ul></div>
-    <div><h4>Mockups</h4><ul><li><a href="raith/">Raith</a></li><li><a href="hera/">HERA</a></li><li><a href="finisterre/">Finisterre</a></li><li><a href="nicce/">NICCE</a></li></ul></div>
-    <div><h4>More</h4><ul><li><a href="maharishi/">Maharishi</a></li><li><a href="sculpt/">Sculpt</a></li><li><a href="percival/">Percival</a></li><li><a href="universalworks/">Universal Works</a></li></ul></div>
+  <footer>
+    <div><a class="logo" href="#top" aria-label="AppyCo home"><img src="assets/appyco-logo-white.png" alt="AppyCo" width="720" height="148"></a><p class="tag">iOS and Android apps for UK retail brands on Shopify.</p></div>
+    <div><h4>Explore</h4><ul><li><a href="#stats">Why an app</a></li><li><a href="#live">Live demo</a></li><li><a href="#process">Process</a></li></ul></div>
+    <div><h4>Mockups</h4><ul><li><a href="raith/">Raith</a></li><li><a href="hera/">HERA</a></li><li><a href="finisterre/">Finisterre</a></li></ul></div>
     <div><h4>Contact</h4><ul><li><a href="mailto:hello@appystudio.co">hello@appystudio.co</a></li><li><a href="mailto:hello@appystudio.co?subject=My%20app%20mockup">Request a mockup</a></li></ul></div>
-  </div>
-  <div class="fbot"><span>Apps for UK fashion brands</span><span>© 2026 AppyCo. All rights reserved.</span></div>
-</footer>
+  </footer>
+  <div class="fbot"><span>© 2026 AppyCo</span><span>Apps for UK retail brands</span></div>
+</main>
 <script>
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12,rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.rv').forEach(el=>{const sib=[...el.parentElement.children].filter(c=>c.classList.contains('rv'));if(sib.length>1&&!el.classList.contains('feat'))el.style.transitionDelay=sib.indexOf(el)*90+'ms';io.observe(el)});
-const rf=document.getElementById("rf");function hideW(){try{const d=rf.contentDocument;if(d&&d.head&&!d.getElementById("appyhide")){const st=d.createElement("style");st.id="appyhide";st.textContent="#welcome{display:none!important}";d.head.appendChild(st)}}catch(e){}}rf.addEventListener("load",hideW);hideW();let hw=0;const hwT=setInterval(()=>{hideW();if(++hw>40)clearInterval(hwT)},250);
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.1,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.rv').forEach(el=>{const s=[...el.parentElement.children].filter(c=>c.classList.contains('rv'));if(s.length>1)el.style.transitionDelay=Math.min(s.indexOf(el),5)*90+'ms';io.observe(el)});
+const row=document.getElementById('statsRow');
+document.querySelectorAll('.arrows button').forEach(b=>b.addEventListener('click',()=>row.scrollBy({left:+b.dataset.dir*316,behavior:'smooth'})));
+// live Raith demo: hide the welcome offer, mirror the mockup's own push-demo buttons and fire them inside the iframe
+const rf=document.getElementById('rf'),demos=document.getElementById('demos');
+function hook(){try{const d=rf.contentDocument;if(!d||!d.head)return false;
+  if(!d.getElementById('appyhide')){const st=d.createElement('style');st.id='appyhide';st.textContent='#welcome{display:none!important}.demo-fab{display:none!important}';d.head.appendChild(st)}
+  const src=d.querySelectorAll('.pitch [data-demo]');if(!src.length)return false;
+  if(!demos.children.length)src.forEach(s=>{if(s.dataset.demo==='welcome')return;const b=document.createElement('button');b.type='button';const t=s.querySelector('b'),m=s.querySelector('small');
+    b.innerHTML='<span><b></b><small></small></span><i>🔔</i>';b.querySelector('b').textContent=t?t.textContent:s.dataset.demo;b.querySelector('small').textContent=m?m.textContent:'';
+    b.addEventListener('click',()=>{if(innerWidth<981)rf.closest('.stagep').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'center'});try{const w=rf.contentDocument.querySelector('#welcome');if(w)w.classList.remove('show');rf.contentDocument.querySelector('.pitch [data-demo="'+s.dataset.demo+'"]').click()}catch(e){}});demos.appendChild(b)});
+  return true}catch(e){return false}}
+rf.addEventListener('load',()=>{let n=0;const t=setInterval(()=>{hook();if(++n>40)clearInterval(t)},250)});
 </script>
 </body>
 </html>
