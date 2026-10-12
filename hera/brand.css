@@ -1,0 +1,20 @@
+/* HERA: brand layer over app.css. Matches heraclothing.com: white page, pure black type, the condensed uppercase
+   BebasKai display face (site's own font) for headings, Roboto for body, square solid-black 'SHOP NOW' buttons,
+   oat #cbc4b9 accent, black announcement bar. */
+@font-face{font-family:'BebasKai';src:url('https://heraclothing.com/cdn/shop/t/836/assets/BebasKai.woff2?v=38529523403234221931791563413') format('woff2');font-weight:400 900;font-style:normal;font-display:swap}
+:root{font-family:'Roboto',Helvetica,Arial,sans-serif}
+body{background:radial-gradient(1200px 700px at 70% 30%,#ffffff 0%,#f4f2ef 55%,#e6e1d9 100%)}
+.pcard .pimg,.cat-tile,.cat-row img,.bag-item img{background:#f2f2f2}
+.hero-title,.sec-head h2,.large-title,.tb-title,.dc-title,.wl-body h2,.auth h2,.empty h3,.feature-card b,.cat-tile span,.cat-row b,.pdp-info h1,.pitch-title,.stat-num{font-family:'BebasKai','Roboto',sans-serif;font-weight:400;letter-spacing:.02em;text-transform:uppercase}
+.hero-title{font-size:44px;line-height:.95}
+.editorial .hero-title{font-size:36px}
+.sec-head h2{font-size:28px;line-height:1}
+.feature-card b{font-size:32px;line-height:1}
+.cat-tile span{font-size:18px}
+.pdp-info h1{font-size:30px;line-height:1.05}
+.pitch-title{line-height:.95}
+.eyebrow{font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;opacity:1}
+.pcard .pname{font-size:13px;font-weight:400}
+.btn{border-radius:0;font-family:'Roboto',Helvetica,Arial,sans-serif;font-size:13px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;height:44px;padding:0 24px}
+.btn-dark{background:#000;color:#fff}
+.hero::after{background:linear-gradient(180deg,rgba(0,0,0,.4) 0%,rgba(0,0,0,0) 28%,rgba(0,0,0,0) 50%,rgba(0,0,0,.55) 100%)}

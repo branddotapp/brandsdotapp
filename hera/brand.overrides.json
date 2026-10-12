@@ -1,0 +1,125 @@
+{
+  "scrape": {
+    "_why": "The header menu parse only picked up menswear; Hera is men's + women's (@hera.women), so add the women's collections and the 365 Appliqué drop.",
+    "extraCollections": [
+      "womens-new-arrivals",
+      "womens-trending-items",
+      "womesnwear-365-applique",
+      "womens-the-studio-collection",
+      "womens-hoodies-sweatshirts",
+      "womens-sweatpants",
+      "womens-jeans",
+      "womens-tops",
+      "womens-leggings",
+      "womens-jackets",
+      "sweat-sets-womenswear",
+      "club-15-womenswear"
+    ],
+    "perCollection": 30
+  },
+  "instagram": {
+    "handle": "hera.women",
+    "url": "https://www.instagram.com/hera.women/"
+  },
+  "theme": {
+    "ink": "#000000",
+    "bg": "#ffffff",
+    "bgRgb": "255,255,255",
+    "text": "#000000",
+    "muted": "#6b6b6b",
+    "line": "#e3e3e3",
+    "stone": "#cbc4b9",
+    "sand": "#f4f2ef",
+    "sand2": "#f4f2ef",
+    "sale": "#c31322",
+    "stageA": "#ffffff",
+    "stageB": "#f4f2ef",
+    "stageC": "#e6e1d9",
+    "font": "Roboto",
+    "fontHref": "https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+  },
+  "home": {
+    "newCol": "womens-new-arrivals",
+    "newSub": "Just landed: Studio, EveryMove and Essentials",
+    "bestCol": "womens-trending-items",
+    "bestSub": "The HERA pieces on repeat",
+    "hero": {
+      "poster": "assets/img/hero-poster.jpg",
+      "eyebrow": "Hardware Collection",
+      "title": "The Rebuild Division",
+      "cta": "Shop now",
+      "col": "menswear-hardware-collection-the-rebuild-division"
+    },
+    "tiles": [
+      [
+        "womens-new-arrivals",
+        "Women's New In"
+      ],
+      [
+        "mens-new-arrivals",
+        "Men's New In"
+      ],
+      [
+        "womens-hoodies-sweatshirts",
+        "Hoodies & Sweats"
+      ],
+      [
+        "womens-jeans",
+        "Denim"
+      ],
+      [
+        "sweat-sets-womenswear",
+        "Matching Sets"
+      ],
+      [
+        "mens-t-shirts",
+        "Men's T-Shirts"
+      ]
+    ],
+    "editorial": {
+      "col": "mens-outerwear",
+      "img": "assets/img/campaign-wide.jpg",
+      "eyebrow": "Shop the edit",
+      "title": "Coats & Jackets"
+    },
+    "feature": {
+      "col": "womens-the-studio-collection",
+      "title": "The Studio Collection",
+      "cta": "Shop now"
+    }
+  },
+  "drop": {
+    "num": "01",
+    "name": "365 APPLIQUÉ",
+    "title": "Both sides of her: 365 Appliqué",
+    "col": "womesnwear-365-applique",
+    "products": [
+      "womens-365-applique-bomber-coco-bean",
+      "womens-365-applique-quarter-zip-sweatshirt-graphite",
+      "womens-365-applique-hoodie-black",
+      "womens-365-applique-hoodie-coco-bean",
+      "womens-collective-wide-leg-sweatpant-coco-bean",
+      "womens-collective-wide-leg-sweatpant-graphite"
+    ]
+  },
+  "copy": {
+    "about": "HERA Clothing: men's and women's clothing designed in the UK since 2015. Sweats, denim, sets and everyday essentials.",
+    "emptyBag": "Nothing in here yet. Start with New Arrivals or 365 Appliqué.",
+    "heroNotif": "Hardware Collection: The Rebuild Division is live."
+  },
+  "pitch": {
+    "title": "HERA,<br>one tap away.",
+    "copy": "A concept for the HERA app: drops like 365 Appliqué and The Rebuild Division with app-only early access, your saved size across men's and women's, HERA Rewards in your pocket, and Shopify checkout with Apple Pay, Shop Pay and PayPal. Tap around, everything works.",
+    "list": [
+      "Drops with app-only early access",
+      "Saved size and back-in-size alerts",
+      "HERA Rewards and Shopify checkout in one place"
+    ]
+  },
+  "_logo": "Site header logo is an inline SVG that the scraper rasterised badly; assets/brand/logo-*.png are rendered from that exact SVG (HERA wordmark).",
+  "assets": {
+    "logoDark": "assets/brand/logo-black.png",
+    "logoLight": "assets/brand/logo-white.png",
+    "favicon": "assets/img/favicon.png"
+  }
+}
