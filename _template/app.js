@@ -30,8 +30,31 @@ const SHOP_RE = /cdn\.shopify\.com|\/cdn\/shop\//;
 const srcs = (u, w=600, sz) => { if (!u) return 'src=""'; if (!SHOP_RE.test(u)) return 'src="'+esc(u)+'"';
   const c = [Math.round(w/2), w, Math.round(w*1.25)]; return 'src="'+img(u,w)+'" srcset="'+c.map(x=>img(u,x)+' '+x+'w').join(', ')+'" sizes="'+(sz||Math.round(w/2.2))+'px"'; };
 const money = n => CUR + (Math.round(n*100)/100).toFixed(2);
-const prods = h => ((colBy(h) || {}).p || []).map(x => P[x]).filter(Boolean);
-const ALL = Object.values(P);
+// ---------- departments (opt-in per brand: brand.json -> departments.items; default off) ----------
+// Each item: {id, label, img, tag | notTag (product tag filter), home:{...}, shop:{...}, virtual:[{h, t, from, kw:[...]}]}
+// The chosen department filters every product list and swaps the Home/Shop config. Remembered in localStorage.
+const DEPTS = (B.departments && Array.isArray(B.departments.items) && B.departments.items.length > 1) ? B.departments : null;
+const BASE_H = JSON.parse(JSON.stringify(H)), BASE_SH = JSON.parse(JSON.stringify(SH));
+let dept = null, deptOk = () => true;
+if (DEPTS) DEPTS.items.forEach(d => (d.virtual || []).forEach(v => {
+  // virtual collections: real products of a real collection grouped by title keywords (e.g. Dresses)
+  if (COLS.some(c => c.h === v.h)) return;
+  const src = (COLS.find(c => c.h === v.from) || {}).p || [], re = new RegExp('\\b(' + v.kw.join('|') + ')', 'i');
+  COLS.push({ h: v.h, t: v.t, p: src.filter(x => P[x] && re.test(P[x].t)) });
+}));
+function applyDept(id){
+  const d = DEPTS && DEPTS.items.find(x => x.id === id); if (!d) return;
+  dept = d;
+  deptOk = p => (!d.tag || (p.tg || []).includes(d.tag)) && (!d.notTag || !(p.tg || []).includes(d.notTag));
+  Object.keys(H).forEach(k => delete H[k]); Object.assign(H, JSON.parse(JSON.stringify(BASE_H)), d.home || {});
+  Object.keys(SH).forEach(k => delete SH[k]); Object.assign(SH, JSON.parse(JSON.stringify(BASE_SH)), d.shop || {});
+  ALL = Object.values(P).filter(deptOk);
+  // per-department size groups (e.g. womenswear has no waist sizes); restored to the brand's own when the department has none
+  if (!applyDept.baseSizes) applyDept.baseSizes = SIZE_GROUPS.slice();
+  SIZE_GROUPS.splice(0, SIZE_GROUPS.length, ...((d.sizes && d.sizes.groups) || applyDept.baseSizes));
+}
+const prods = h => ((colBy(h) || {}).p || []).map(x => P[x]).filter(p => p && (h === '__drop' || deptOk(p)));   // the drop is brand-wide
+let ALL = Object.values(P);
 const FREE_SHIP = SHIP.freeOver || 0;
 const IG = B.socials && B.socials.instagram;
 // Community (opt-in per brand: brand.json -> community). Events are real (scraped from the brand's site); the forum is demo content.
@@ -461,7 +484,7 @@ function Home(el){
     const tiles = (H.tiles || []).filter(t => prods(t[0]).length);
     const fc = H.feature && prods(H.feature.col)[0];
     el.innerHTML =
-      '<div class="home-head"><div class="home-band">'+topbar({ logo:true, left:'<button class="icon-btn" data-act="tab" data-v="account" aria-label="Account">'+I.user+'</button>', right:'<div class="tb-r">'+searchBtn()+wishBtn()+bagBtn()+'</div>' }) + '</div></div>'+
+      '<div class="home-head"><div class="home-band">'+topbar({ logo:true, left:'<button class="icon-btn" data-act="tab" data-v="account" aria-label="Account">'+I.user+'</button>', right:'<div class="tb-r">'+searchBtn()+wishBtn()+bagBtn()+'</div>' }) + deptToggle() + '</div></div>'+
       '<div class="hero-slot"></div>'+
       (newIn.length ? '<section class="section"><div class="sec-head"><div><h2>New In</h2><p>'+esc(H.newSub||'The latest arrivals')+'</p></div><button class="link" data-act="col" data-v="'+esc(H.newCol)+'">View all</button></div><div class="hscroll">'+newIn.map(p=>pcard(p,{w:400})).join('')+'</div></section>' : '')+
       (tiles.length ? '<section class="section"><div class="sec-head"><div><h2>Shop by Category</h2></div><button class="link" data-act="tab" data-v="shop">All</button></div><div class="cat-grid">'+tiles.map(t=>'<div class="cat-tile" data-act="col" data-v="'+esc(t[0])+'"><img loading="lazy" decoding="async" fetchpriority="high" data-prio '+cover(t[0])+' alt=""><span>'+esc(t[1])+'</span></div>').join('')+'</div></section>' : '')+
@@ -474,6 +497,7 @@ function Home(el){
       (!ALL.length ? '<div class="empty"><div class="eic">'+I.bag+'</div><h3>Catalogue not found</h3><p>The product feed for '+esc(NAME)+' couldn’t be read, so there’s nothing to show here yet.</p></div>' : '')+
       '<div class="about"><img src="'+LOGO+'" alt="'+esc(NAME)+'"><p>'+esc(B.copy && B.copy.about || '')+'</p></div>'+credit();
     $('.hero-slot', el).replaceWith(heroNode);
+    const dseg = $('.dept-seg', el); if (dseg) segmented(dseg, id => setTimeout(() => chooseDept(id), 240));
     if (heroNode._sync) heroNode._sync();
     enableDrag(el);
   };
@@ -485,6 +509,29 @@ function Home(el){
   el.addEventListener('scroll', () => { const d = el.scrollTop > 480; if (d === deep) return; deep = d; const h = $('.home-head', el); if (h) h.classList.toggle('deep', d); if (lightBand && el.classList.contains('top')) setStatus(!d); }, {passive:true});
   el._refresh = () => { const st = el.scrollTop; render(); el.scrollTop = st; deep = null; el.dispatchEvent(new Event('scroll')); };
   return lightBand ? { light:true, lightUntil:481 } : { light:true };
+}
+
+function deptToggle(){
+  if (!DEPTS || !dept) return '';
+  return '<div class="dept-row"><div class="seg dept-seg" aria-label="Department">'+DEPTS.items.map(d => '<button class="'+(d===dept?'on':'')+'" data-seg="'+esc(d.id)+'">'+esc(d.label)+'</button>').join('')+'</div></div>';
+}
+// switch department: rebuild Home (new hero) and drop any pushed views
+function chooseDept(id){
+  if (!DEPTS || (dept && dept.id === id && $('.view.top'))) { store.set('dept', id); return; }
+  applyDept(id); store.set('dept', id);
+  const heroOld = $('.hero'); if (heroOld && heroOld._stop) heroOld._stop();
+  currentTab = null; switchTab('home');
+}
+function showDeptChooser(after){
+  let m = $('#deptPick');
+  if (!m){ m = document.createElement('div'); m.id = 'deptPick'; m.className = 'dept-pick'; $('#welcome').parentNode.appendChild(m); }
+  m.innerHTML = '<div class="dp-head"><img src="'+LOGO+'" alt="'+esc(NAME)+'"><p>'+esc(DEPTS.prompt || 'What are you shopping for?')+'</p></div>'+
+    '<div class="dp-tiles">'+DEPTS.items.map(d => '<button class="dp-tile" data-dept="'+esc(d.id)+'"><img src="'+esc(d.img||'')+'" alt=""><span>'+esc(d.label)+'</span></button>').join('')+'</div>'+
+    '<small class="dp-note">'+esc(DEPTS.note || 'You can switch any time from Home.')+'</small>';
+  m.classList.add('show');
+  $$('.dp-tile', m).forEach(b => b.addEventListener('click', () => {
+    chooseDept(b.dataset.dept); m.classList.remove('show'); if (after) setTimeout(after, 350);
+  }));
 }
 
 // ---------- SHOP ----------
@@ -790,7 +837,7 @@ function Drops(el){
       '</div></div>'+
       '<div class="drop-times"><div><small>App early access</small><b>'+fmtDay(t.app)+'</b></div><div><small>Website</small><b>'+fmtDay(t.web)+'</b></div></div>'+
       (items.length ? '<section class="section"><div class="sec-head"><div><h2>First Look</h2><p>'+items.length+' pieces from '+esc(DR.title||DR.name)+'</p></div>'+(dropLive?'<button class="link" data-act="col" data-v="__drop">View all</button>':'')+'</div><div class="grid">'+items.map(p=>pcard(p,{dropGrid:true})).join('')+'</div></section>' : '')+
-      (prev ? '<section class="section"><div class="sec-head"><div><h2>Latest drop</h2><p>Out now</p></div></div><div class="feature-card" data-act="col" data-v="'+esc(prev.col)+'"><img loading="lazy" src="'+img((prods(prev.col)[0]||{im:['']}).im[0],700)+'" alt=""><div><b>'+esc(prev.title)+'</b><span class="btn btn-light btn-sm">Shop now</span></div></div></section>' : '')+
+      (prev && prods(prev.col).length ? '<section class="section"><div class="sec-head"><div><h2>Latest drop</h2><p>Out now</p></div></div><div class="feature-card" data-act="col" data-v="'+esc(prev.col)+'"><img loading="lazy" src="'+img((prods(prev.col)[0]||{im:['']}).im[0],700)+'" alt=""><div><b>'+esc(prev.title)+'</b><span class="btn btn-light btn-sm">Shop now</span></div></div></section>' : '')+
       '<div class="drop-banner"><div class="db-ic">'+I.bell+'</div><div class="db-t"><b>Early access alerts</b><p>Get a push the moment app early access opens.</p></div><button class="switch '+(prefs.early?'on':'')+'" id="earlySw" aria-label="Early access alerts"></button></div>'+credit();
     const nb = $('#notifyBtn', el);
     if (nb) nb.addEventListener('click', () => { dropNotify = !dropNotify; store.set('dropNotify', dropNotify); if (dropNotify){ prefs.early = true; savePrefs(); } render(); toast(dropNotify ? 'We’ll notify you when DROP '+DR.num+' opens' : 'Notification cancelled', I.bell); });
@@ -1344,6 +1391,12 @@ function fit(){
 }
 
 // ---------- boot ----------
+let deptPending = false;
+if (DEPTS){
+  const qd = new URLSearchParams(location.search).get('dept'), sd = store.get('dept', null);
+  const pick = [qd, sd, window.__deptDefault ? DEPTS.items[0].id : null].find(x => x && DEPTS.items.some(d => d.id === x));   // __deptDefault: test hook (tools/*), skips the chooser
+  if (pick){ store.set('dept', pick); applyDept(pick); } else { applyDept(DEPTS.items[0].id); deptPending = true; }
+}
 buildChrome();
 window.addEventListener('resize', fit); fit();
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
@@ -1358,8 +1411,9 @@ setTimeout(() => {
   const deep = params.get('p'); if (deep && P[deep]) push(PDP, deep);
   const tab = params.get('tab'); if (tab && roots[tab]) switchTab(tab);
   // welcome offer on every page load, shortly after the splash (?nowelcome turns it off)
-  if (!params.has('nowelcome')) setTimeout(showWelcome, skip ? 400 : 900);
+  if (deptPending) showDeptChooser(params.has('nowelcome') ? null : showWelcome);
+  else if (!params.has('nowelcome')) setTimeout(showWelcome, skip ? 400 : 900);
   else if (!skip && !params.has('nopush') && prefs.drops) setTimeout(()=>Demo.newin(), 2600);
 }, skip ? 0 : 2100);
-window.__app = { Demo, switchTab, push, openBrowser, showWelcome, back, igHTML, evSplit };
+window.__app = { all: () => ALL, chooseDept, showDeptChooser, Demo, switchTab, push, openBrowser, showWelcome, back, igHTML, evSplit };
 })();

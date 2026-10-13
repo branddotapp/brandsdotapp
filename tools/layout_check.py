@@ -147,6 +147,7 @@ def run(pw, w, h):
     m = w < 600; tag = '%dx%d' % (w, h)
     br = pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox', '--autoplay-policy=no-user-gesture-required'])
     ctx = br.new_context(viewport={'width': w, 'height': h}, device_scale_factor=2 if m else 1, is_mobile=m, has_touch=m)
+    ctx.add_init_script("window.__deptDefault = true")   # department brands: skip the first-launch chooser (checked in check_departments)
     p = ctx.new_page()
     p.on('console', lambda x: x.type == 'error' and problems.append('[%s] console: %s' % (tag, x.text)))
     p.on('pageerror', lambda e: problems.append('[%s] pageerror: %s' % (tag, e)))

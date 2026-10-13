@@ -104,6 +104,7 @@ def run(pw, w, h, tag):
     # real desktop Chrome autoplay policy (no --autoplay-policy override): muted autoplay must work on its own
     br = pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
     ctx = br.new_context(viewport={'width': w, 'height': h}, device_scale_factor=2 if w < 600 else 1, has_touch=w < 600, is_mobile=w < 600)
+    ctx.add_init_script("window.__deptDefault = true")   # department brands: skip the first-launch chooser (checked in check_departments)
     ctx.grant_permissions(['clipboard-read', 'clipboard-write'], origin=a.base)
     p = ctx.new_page()
     p.on('console', lambda m: m.type == 'error' and bad('[%s] console: %s' % (tag, m.text)))
@@ -162,7 +163,7 @@ def run(pw, w, h, tag):
                               else '[%s] %s: hero not playing/visible: playing=%s visible=%s pixels-changing=%s %s' % (tag, label, playing, visible, moving, vi))
 
     p.goto(URL + '?nosplash', wait_until='networkidle'); p.wait_for_timeout(1200)
-    BR = p.evaluate("(() => { const B = window.BRAND; return {video: !!(B.home && B.home.hero && B.home.hero.video), reviews: !!(B.reviews && B.reviews.score), about: !!(B.pages && B.pages.about && B.pages.about.length), sale: Object.values(B.products).some(p => p.cp > p.p), comm: !!(window.__app.evSplit && B.community && (((B.community.events||{}).items||[]).length || ((B.community.forum||{}).threads||[]).length)), events: ((B.community||{}).events||{items:[]}).items.length, up: window.__app.evSplit ? window.__app.evSplit().up.length : 0, threads: (((B.community||{}).forum||{}).threads||[]).length, topics: (((B.community||{}).forum||{}).topics||[])}; })()")
+    BR = p.evaluate("(() => { const B = window.BRAND; return {video: !!(B.home && B.home.hero && B.home.hero.video), reviews: !!(B.reviews && B.reviews.score), about: !!(B.pages && B.pages.about && B.pages.about.length), sale: (window.__app.all ? window.__app.all() : Object.values(B.products)).some(p => p.cp > p.p), comm: !!(window.__app.evSplit && B.community && (((B.community.events||{}).items||[]).length || ((B.community.forum||{}).threads||[]).length)), events: ((B.community||{}).events||{items:[]}).items.length, up: window.__app.evSplit ? window.__app.evSplit().up.length : 0, threads: (((B.community||{}).forum||{}).threads||[]).length, topics: (((B.community||{}).forum||{}).topics||[])}; })()")
     if not BR['video']:
         # still-image hero: the poster must be loaded and visible instead
         def assert_hero_playing(label):
@@ -582,7 +583,7 @@ def run(pw, w, h, tag):
     p.click('#payNow'); p.wait_for_timeout(1800); shot('17-order'); p.keyboard.press('Escape')
     p.evaluate("document.querySelector('#sheetBackdrop').click()"); p.wait_for_timeout(400)
     # 6 search, wishlist
-    tab('home'); p.click('.view.top [data-act="search"]'); p.wait_for_timeout(400); q = p.evaluate("(() => { const B = window.BRAND, all = Object.values(B.products || {}); if (all.some(x => /polo/i.test(x.t))) return 'polo'; return ((B.search || {}).trending || [])[0] || (all[0] ? all[0].n.split(' ')[0] : 'a'); })()")   # a term this catalogue has (not every brand sells polos)
+    tab('home'); p.click('.view.top [data-act="search"]'); p.wait_for_timeout(400); q = p.evaluate("(() => { const B = window.BRAND, all = window.__app.all ? window.__app.all() : Object.values(B.products || {}); if (all.some(x => /polo/i.test(x.t))) return 'polo'; return ((B.search || {}).trending || [])[0] || (all[0] ? all[0].n.split(' ')[0] : 'a'); })()")   # a term this catalogue has (not every brand sells polos)
     p.fill('#sq', q); p.wait_for_timeout(600)
     ok('search: ' + p.inner_text('.view.top .count')); shot('18-search'); p.click('.view.top [data-act="back"]'); p.wait_for_timeout(300)
     # 7 demo pushes
@@ -734,11 +735,60 @@ def check_community(p, tag, w, BR, shot, tab, broken_imgs):
     (ok if hv else bad)('Wishlist opens from the header heart' if hv else '[%s] wishlist from header heart' % tag)
     p.click('.view.top [data-act="back"]'); p.wait_for_timeout(500)
 
+def check_departments(pw, w, h, tag):
+    """Brands with departments (brand.json -> departments): first-launch chooser, choice remembered, Home toggle, lists filtered."""
+    br = pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
+    m = w < 600
+    ctx = br.new_context(viewport={'width': w, 'height': h}, device_scale_factor=2 if m else 1, has_touch=m, is_mobile=m)
+    p = ctx.new_page()
+    p.on('pageerror', lambda e: bad('[%s] pageerror: %s' % (tag, e)))
+    p.on('console', lambda x: x.type == 'error' and bad('[%s] console: %s' % (tag, x.text)))
+    shot = lambda n: p.screenshot(path=os.path.join(SH, '%s-%s.png' % (tag, n)))
+    p.goto(URL + '?nosplash&nopush', wait_until='networkidle'); p.wait_for_timeout(900)
+    D = p.evaluate("(window.BRAND.departments && window.BRAND.departments.items || []).map(d => ({id: d.id, label: d.label, tag: d.tag || null, notTag: d.notTag || null, hero: (d.home && d.home.hero || {}).title}))")
+    print('== %s %dx%d' % (tag, w, h))
+    if len(D) < 2:
+        (ok if not p.locator('#deptPick.show, .dept-seg').count() else bad)('no departments configured: no chooser or toggle' if not p.locator('#deptPick.show, .dept-seg').count() else '[%s] department UI shown without config' % tag)
+        br.close(); return
+    tiles = p.locator('#deptPick.show .dp-tile')
+    imgs = p.evaluate("[...document.querySelectorAll('#deptPick .dp-tile img')].every(i => i.complete && i.naturalWidth > 0)")
+    (ok if tiles.count() == len(D) and imgs else bad)('chooser on first launch: %s' % ' / '.join(d['label'] for d in D) if tiles.count() == len(D) and imgs else '[%s] chooser: %d tiles, images ok=%s' % (tag, tiles.count(), imgs))
+    (ok if not p.locator('#welcome.show').count() else bad)('welcome waits for the chooser' if not p.locator('#welcome.show').count() else '[%s] welcome shown over the chooser' % tag)
+    shot('dept-00-chooser')
+    def state():
+        return p.evaluate("""(D) => { const B = window.BRAND, hs = [...document.querySelectorAll('.view.top [data-act=pdp]')].map(e => e.dataset.v).filter(Boolean);
+            const t = h => (B.products[h] || {}).tg || [];
+            return {hero: (document.querySelector('.view.top .hero-title') || {}).textContent, on: (document.querySelector('.view.top .dept-seg button.on') || {}).dataset?.seg, n: hs.length,
+                    wrong: hs.filter(h => D.tag ? !t(h).includes(D.tag) : D.notTag ? t(h).includes(D.notTag) : false).length}; }""", cur)
+    for i, d in enumerate(D):
+        cur = d
+        if i == 0: tiles.nth(0).click(); p.wait_for_timeout(1200)
+        else: p.click('.view.top .dept-seg button[data-seg="%s"]' % d['id']); p.wait_for_timeout(1200)
+        if i == 0 and p.locator('#welcome.show').count(): ok('welcome follows the chooser'); p.click('#wlSkip'); p.wait_for_timeout(400)
+        st = state()
+        good = st['on'] == d['id'] and st['hero'] == d['hero'] and st['n'] > 0 and st['wrong'] == 0
+        (ok if good else bad)('%s: hero "%s", toggle on, %d products on Home all in department' % (d['label'], st['hero'], st['n']) if good else '[%s] %s home: %s' % (tag, d['label'], st))
+        shot('dept-%02d-%s-home' % (i + 1, d['id']))
+        p.evaluate("document.querySelector('.view.top').scrollTo(0, 900)"); p.wait_for_timeout(700); shot('dept-%02d-%s-home-scrolled' % (i + 1, d['id']))
+        p.click('#tabbar button[data-tab="shop"]'); p.wait_for_timeout(700)
+        rows = p.locator('.view.top .cat-row').count()
+        (ok if rows else bad)('%s: Shop lists %d collections' % (d['label'], rows) if rows else '[%s] %s: empty Shop' % (tag, d['label']))
+        shot('dept-%02d-%s-shop' % (i + 1, d['id']))
+        p.locator('.view.top .cat-row').first.click(); p.wait_for_timeout(900)
+        st = state()
+        (ok if st['n'] and not st['wrong'] else bad)('%s: collection list filtered (%d products)' % (d['label'], st['n']) if st['n'] and not st['wrong'] else '[%s] %s collection: %s' % (tag, d['label'], st))
+        p.click('#tabbar button[data-tab="home"]'); p.wait_for_timeout(700)
+    p.reload(wait_until='networkidle'); p.wait_for_timeout(900)
+    rem = not p.locator('#deptPick.show').count() and p.evaluate("(document.querySelector('.view.top .dept-seg button.on') || {}).dataset?.seg") == D[-1]['id']
+    (ok if rem else bad)('choice remembered on reload (%s, no chooser)' % D[-1]['label'] if rem else '[%s] department not remembered on reload' % tag)
+    br.close()
+
 def reduced_motion(pw):
     """prefers-reduced-motion: segmented control, tabs and sheets still work but switch instantly; marquee and shimmer stop."""
     # real desktop Chrome autoplay policy (no --autoplay-policy override): muted autoplay must work on its own
     br = pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
     ctx = br.new_context(viewport={'width': 390, 'height': 844}, device_scale_factor=2, has_touch=True, is_mobile=True, reduced_motion='reduce')
+    ctx.add_init_script("window.__deptDefault = true")   # department brands: skip the first-launch chooser (checked in check_departments)
     p = ctx.new_page(); tag = 'reduced-motion'
     p.on('pageerror', lambda e: bad('[%s] pageerror: %s' % (tag, e)))
     print('== %s 390x844' % tag)
@@ -762,6 +812,7 @@ def autoplay_refused(pw, w, h):
     br = pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
     m = w < 600
     ctx = br.new_context(viewport={'width': w, 'height': h}, device_scale_factor=2 if m else 1, has_touch=m, is_mobile=m)
+    ctx.add_init_script("window.__deptDefault = true")   # department brands: skip the first-launch chooser (checked in check_departments)
     # strip autoplay from the hero markup and make play() reject until there has been a user gesture
     ctx.add_init_script("""(() => {
       const d = Object.getOwnPropertyDescriptor(Element.prototype, 'innerHTML');
@@ -794,6 +845,8 @@ def autoplay_refused(pw, w, h):
     br.close()
 
 with sync_playwright() as pw:
+    check_departments(pw, 390, 844, 'mobile')
+    check_departments(pw, 1440, 800, 'desktop')
     run(pw, 390, 844, 'mobile')
     run(pw, 1280, 720, 'desktop-1280')
     run(pw, 1440, 800, 'desktop')

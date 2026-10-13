@@ -1,11 +1,293 @@
-{"scrape":{"_why":"Feature the SS26 womenswear collection (not in header menu parse).","extraCollections":["womens-wear-spring-summer-26"],"perCollection":40},
- "name":"Bélier",
- "_hero":"Hero/editorial images are real product images from the SS26 womenswear collection (Isla Crochet Maxi Dress, Esme Crochet Mini Dress).",
- "home":{"newCol":"womens-wear-spring-summer-26","newSub":"Spring Summer 26: crochet, linen and knit",
-  "hero":{"poster":"assets/img/hero-womens.jpg","eyebrow":"Spring Summer 26","title":"WOMENSWEAR","cta":"Shop Womenswear","col":"womens-wear-spring-summer-26"},
-  "tiles":[["womens-wear-spring-summer-26","Womenswear SS26"],["new-arrivals","New Arrivals"],["best-sellers-1","Best Sellers"],["polos","Polos"],["mens-smart-shirt","Shirts"],["footwear","Footwear"]],
-  "editorial":{"col":"womens-wear-spring-summer-26","img":"assets/img/womens-wide.jpg","eyebrow":"Spring Summer 26","title":"WOMENSWEAR"},
-  "feature":{"col":"new-arrivals","title":"NEW ARRIVALS","cta":"Shop now"}},
- "copy":{"heroNotif":"Bélier Womenswear Spring Summer 26 is live."},
- "pitch":{"title":"Bélier,<br>one tap away.","copy":"A concept for the Bélier app: the Spring Summer 26 womenswear collection front and centre, drop alerts with app-only early access, saved sizes and Shopify checkout with Apple Pay, Shop Pay and Klarna. Tap around, everything works."}
+{
+  "scrape": {
+    "_why": "SS26 womenswear + real menswear SS26 collections for the Women/Men department switch.",
+    "extraCollections": [
+      "womens-wear-spring-summer-26",
+      "womenswear-t-shirts",
+      "spring-summer-26",
+      "spring-summer-installment-two"
+    ],
+    "perCollection": 40
+  },
+  "name": "Bélier",
+  "_hero": "Women hero/editorial images are real product images from the SS26 womenswear collection; men's are Bélier's homepage hero and campaign images.",
+  "home": {
+    "newCol": "new-arrivals",
+    "newSub": "The latest menswear arrivals",
+    "bestCol": "best-sellers-1",
+    "bestSub": "The Bélier pieces on repeat",
+    "hero": {
+      "poster": "assets/img/hero-poster.jpg",
+      "eyebrow": "Spring Summer 26",
+      "title": "MENSWEAR",
+      "cta": "Shop Spring Summer 26",
+      "col": "spring-summer-26"
+    },
+    "tiles": [
+      [
+        "t-shirts",
+        "T-Shirts"
+      ],
+      [
+        "polos",
+        "Polos"
+      ],
+      [
+        "mens-smart-shirt",
+        "Shirts"
+      ],
+      [
+        "shorts",
+        "Shorts"
+      ],
+      [
+        "swimwear",
+        "Swimshorts"
+      ],
+      [
+        "footwear",
+        "Footwear"
+      ]
+    ],
+    "editorial": {
+      "col": "spring-summer-installment-two",
+      "img": "assets/img/campaign-wide.jpg",
+      "eyebrow": "Spring Summer 26",
+      "title": "CHAPTER TWO"
+    },
+    "feature": {
+      "col": "new-arrivals",
+      "title": "NEW ARRIVALS",
+      "cta": "Shop now"
+    }
+  },
+  "copy": {
+    "heroNotif": "Bélier Spring Summer 26 is live."
+  },
+  "pitch": {
+    "title": "Bélier,<br>one tap away.",
+    "copy": "A concept for the Bélier app: choose Women or Men on first open and the whole app follows, with the Spring Summer 26 collections front and centre, drop alerts with app-only early access, saved sizes and Shopify checkout with Apple Pay, Shop Pay and Klarna. Tap around, everything works."
+  },
+  "departments": {
+    "_why": "Lewis: ask Women or Men on first open. Filter = Bélier's own product tag TargetGroup:Women (all 35 SS26 womenswear items carry it; no menswear does).",
+    "prompt": "What are you shopping for?",
+    "note": "You can switch any time from Home.",
+    "items": [
+      {
+        "id": "women",
+        "label": "Women",
+        "img": "assets/img/hero-womens.jpg",
+        "tag": "TargetGroup:Women",
+        "home": {
+          "newCol": "womens-wear-spring-summer-26",
+          "newSub": "Spring Summer 26: crochet, linen and knit",
+          "hero": {
+            "poster": "assets/img/hero-womens.jpg",
+            "eyebrow": "Spring Summer 26",
+            "title": "WOMENSWEAR",
+            "cta": "Shop Womenswear",
+            "col": "womens-wear-spring-summer-26"
+          },
+          "tiles": [
+            [
+              "w-dresses",
+              "Dresses"
+            ],
+            [
+              "womenswear-t-shirts",
+              "Tops & Tees"
+            ],
+            [
+              "w-trousers",
+              "Trousers & Shorts"
+            ],
+            [
+              "w-skirts",
+              "Skirts"
+            ],
+            [
+              "w-crochet",
+              "Crochet"
+            ],
+            [
+              "w-linen",
+              "Linen"
+            ]
+          ],
+          "editorial": {
+            "col": "womens-wear-spring-summer-26",
+            "img": "assets/img/womens-wide.jpg",
+            "eyebrow": "Spring Summer 26",
+            "title": "WOMENSWEAR"
+          },
+          "feature": {
+            "col": "w-crochet",
+            "title": "THE CROCHET EDIT",
+            "cta": "Shop now"
+          },
+          "bestCol": "womenswear-t-shirts",
+          "bestSub": "Tops and tees from the Womenswear Edit"
+        },
+        "virtual": [
+          {
+            "h": "w-dresses",
+            "t": "Dresses",
+            "from": "womens-wear-spring-summer-26",
+            "kw": [
+              "Dress"
+            ]
+          },
+          {
+            "h": "w-trousers",
+            "t": "Trousers & Shorts",
+            "from": "womens-wear-spring-summer-26",
+            "kw": [
+              "Trouser",
+              "Short"
+            ]
+          },
+          {
+            "h": "w-skirts",
+            "t": "Skirts",
+            "from": "womens-wear-spring-summer-26",
+            "kw": [
+              "Skirt"
+            ]
+          },
+          {
+            "h": "w-crochet",
+            "t": "Crochet",
+            "from": "womens-wear-spring-summer-26",
+            "kw": [
+              "Crochet"
+            ]
+          },
+          {
+            "h": "w-linen",
+            "t": "Linen",
+            "from": "womens-wear-spring-summer-26",
+            "kw": [
+              "Linen"
+            ]
+          }
+        ],
+        "shop": {
+          "kicker": "BÉLIER WOMEN",
+          "cats": [
+            "w-dresses",
+            "womenswear-t-shirts",
+            "w-trousers",
+            "w-skirts",
+            "w-crochet",
+            "w-linen"
+          ],
+          "edits": [
+            "womens-wear-spring-summer-26"
+          ],
+          "featureCats": {
+            "col": "womens-wear-spring-summer-26",
+            "title": "SPRING SUMMER 26",
+            "cta": "Shop womenswear",
+            "idx": 4
+          },
+          "featureEdits": {
+            "col": "womens-wear-spring-summer-26",
+            "title": "THE WOMENSWEAR EDIT",
+            "cta": "Shop now",
+            "idx": 18
+          }
+        },
+        "sizes": {
+          "_why": "sizes stocked across the real SS26 womenswear variants",
+          "groups": [
+            {
+              "key": "top",
+              "label": "Clothing size",
+              "opts": [
+                "XS",
+                "S",
+                "M",
+                "L",
+                "XL"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "men",
+        "label": "Men",
+        "img": "assets/img/hero-poster.jpg",
+        "notTag": "TargetGroup:Women",
+        "home": {
+          "newCol": "new-arrivals",
+          "newSub": "The latest menswear arrivals",
+          "bestCol": "best-sellers-1",
+          "bestSub": "The Bélier pieces on repeat",
+          "hero": {
+            "poster": "assets/img/hero-poster.jpg",
+            "eyebrow": "Spring Summer 26",
+            "title": "MENSWEAR",
+            "cta": "Shop Spring Summer 26",
+            "col": "spring-summer-26"
+          },
+          "tiles": [
+            [
+              "t-shirts",
+              "T-Shirts"
+            ],
+            [
+              "polos",
+              "Polos"
+            ],
+            [
+              "mens-smart-shirt",
+              "Shirts"
+            ],
+            [
+              "shorts",
+              "Shorts"
+            ],
+            [
+              "swimwear",
+              "Swimshorts"
+            ],
+            [
+              "footwear",
+              "Footwear"
+            ]
+          ],
+          "editorial": {
+            "col": "spring-summer-installment-two",
+            "img": "assets/img/campaign-wide.jpg",
+            "eyebrow": "Spring Summer 26",
+            "title": "CHAPTER TWO"
+          },
+          "feature": {
+            "col": "new-arrivals",
+            "title": "NEW ARRIVALS",
+            "cta": "Shop now"
+          }
+        },
+        "shop": {
+          "kicker": "BÉLIER MEN",
+          "edits": [
+            "spring-summer-26",
+            "spring-summer-installment-two",
+            "new-arrivals",
+            "best-sellers-1",
+            "outlet",
+            "t-shirt-outlet",
+            "shirts-outlet",
+            "polo-shirts-outlet",
+            "shorts-outlet",
+            "swimshorts-outlet",
+            "trousers-outlet",
+            "footwear-outlet",
+            "gift-cards"
+          ]
+        }
+      }
+    ]
+  }
 }

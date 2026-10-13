@@ -138,6 +138,26 @@ block, and the desktop demo panel gets a community push.
   header pen) are stored in localStorage only, nothing is sent. `replies` is the real list, so reply counts always match.
 - Event images go in `<slug>/assets/community/`.
 
+## Departments (Women / Men)
+
+Opt-in per brand (default off; belier has one): a `departments` block in `<slug>/brand.overrides.json`. On first open a full-screen
+chooser shows one large image tile per department (welcome offer follows it); the choice is stored in localStorage (`<slug>_dept`),
+`?dept=<id>` forces one, and a compact segmented toggle under the Home header switches any time. The chosen department filters every
+product list (Home rails, tiles, Shop rows, collections, search; the Drop stays brand-wide) by a real product tag and swaps in its own
+`home`, `shop` and optional `sizes` config.
+
+```json
+"departments": {"prompt": "What are you shopping for?", "note": "You can switch any time from Home.",
+  "items": [{"id": "women", "label": "Women", "img": "assets/img/hero-womens.jpg", "tag": "TargetGroup:Women",
+             "home": {...}, "shop": {...}, "sizes": {"groups": [...]},
+             "virtual": [{"h": "w-dresses", "t": "Dresses", "from": "womens-wear-spring-summer-26", "kw": ["Dress"]}]},
+            {"id": "men", "label": "Men", "img": "assets/img/hero-poster.jpg", "notTag": "TargetGroup:Women", "home": {...}, "shop": {...}}]}
+```
+
+`virtual` collections group a real collection's products by title keywords (for departments the site doesn't split into categories).
+Tests: `smoke_test.py` checks the chooser, both departments (hero, filtered Home/Shop/collection), and that the choice survives a
+reload (`dept-*` screenshots); every other pass sets `window.__deptDefault` so it starts in the first department without the chooser.
+
 ## Desktop layout
 
 On desktop (over 1000px wide) the page is three columns with the phone centred in the window: on the left the brand pitch

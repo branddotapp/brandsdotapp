@@ -3,7 +3,7 @@
  "site": "https://belier.com",
  "domain": "belier.com",
  "generator": "brandsdotapp/tools/build_brand.py",
- "generatedAt": "2026-10-13T14:45:03",
+ "generatedAt": "2026-10-13T15:05:22",
  "discount": {
   "code": "APP10",
   "pct": 10
@@ -1159,7 +1159,7 @@
     ],
     [
      "M",
-     0
+     1
     ],
     [
      "L",
@@ -1413,7 +1413,7 @@
     ],
     [
      "L",
-     0
+     1
     ],
     [
      "XL",
@@ -2070,7 +2070,7 @@
    "sz": [
     [
      "XS",
-     0
+     1
     ],
     [
      "S",
@@ -2715,7 +2715,7 @@
    "sz": [
     [
      "XS",
-     0
+     1
     ],
     [
      "S",
@@ -3058,7 +3058,7 @@
    "sz": [
     [
      "XS",
-     0
+     1
     ],
     [
      "S",
@@ -5307,7 +5307,7 @@
    "sz": [
     [
      "XS",
-     0
+     1
     ],
     [
      "S",
@@ -9193,7 +9193,7 @@
     ],
     [
      "M",
-     0
+     1
     ],
     [
      "L",
@@ -10083,7 +10083,7 @@
     ],
     [
      "S",
-     0
+     1
     ],
     [
      "M",
@@ -10338,7 +10338,7 @@
     ],
     [
      "M",
-     0
+     1
     ],
     [
      "L",
@@ -14610,6 +14610,111 @@
     "black-icon-cap-1",
     "atelier-cap-red"
    ]
+  },
+  {
+   "h": "womenswear-t-shirts",
+   "t": "Womenswear T-Shirts",
+   "p": [
+    "ivy-cropped-mock-neck-top-brown",
+    "mantra-slogan-t-shirt-white",
+    "clara-knitted-bardot-top-off-white",
+    "monte-carlo-ringer-t-shirt-white-navy",
+    "cecilia-lace-vest-top-ecru",
+    "beach-club-graphic-cropped-boxy-t-shirt-white",
+    "clara-knit-open-back-top-off-white"
+   ]
+  },
+  {
+   "h": "spring-summer-26",
+   "t": "Spring Summer 26",
+   "p": [
+    "white-embroidered-badge-t-shirt",
+    "yellow-pocket-t-shirt",
+    "white-navy-slub-texture-ringer-t-shirt",
+    "mint-striped-crop-shirt",
+    "white-yellow-short-sleeve-stripe-shirt",
+    "white-yellow-stripe-short",
+    "malik-two-tone-polo-navy",
+    "enzo-chevron-knit-polo-sky-blue",
+    "elliot-two-tone-polo-sky-blue",
+    "black-oversized-stripe-t-shirt",
+    "jordan-oversized-stripe-t-shirt-ecru",
+    "beige-3d-stripe-knit-jumper",
+    "brown-premium-linen-shirt",
+    "premium-linen-shirt-sky-blue",
+    "brown-premium-linen-short",
+    "brown-premium-linen-trouser",
+    "premium-linen-shirt-white",
+    "white-premium-linen-trouser",
+    "oatmeal-premium-linen-shirt",
+    "casey-premium-linen-trouser-oatmeal",
+    "oatmeal-premium-linen-short",
+    "grey-faded-stripe-shirt",
+    "white-premium-linen-short",
+    "casey-premium-linen-shirt-pink",
+    "casey-premium-linen-shirt-yellow",
+    "white-taupe-striped-oversized-t-shirt",
+    "brown-mixed-knit-polo",
+    "white-sicilian-view-t-shirt",
+    "green-emblem-print-swimshort",
+    "navy-emblem-print-swimshort",
+    "brown-chain-print-swimshort",
+    "brown-knit-polo",
+    "archer-navy-swimshort",
+    "gaston-black-relaxed-fit-short",
+    "black-taped-side-adjuster-swimshort",
+    "olive-linen-l-s-shirt-1",
+    "elroy-linen-trouser-olive",
+    "oatmeal-linen-l-s-shirt",
+    "emblem-print-swimshort-mocha",
+    "leon-crochet-t-shirt-sky"
+   ]
+  },
+  {
+   "h": "spring-summer-installment-two",
+   "t": "Spring Summer 26 – Chapter Two",
+   "p": [
+    "khaki-long-sleeve-shirt-double-cotton-gauze",
+    "khaki-drawstring-trouser-double-cotton-gauze",
+    "white-sicilian-view-t-shirt",
+    "sand-long-sleeve-shirt-double-cotton-gauze",
+    "sand-drawstring-trouser-double-cotton-gauze",
+    "white-taupe-striped-oversized-t-shirt",
+    "brown-mixed-knit-polo",
+    "brown-knit-polo",
+    "cannes-shirt-black",
+    "cannes-trouser-black",
+    "s-s-striped-shirt-blue",
+    "old-fashioned-t-shirt-off-white",
+    "off-white-gentlemans-lounge-t-shirt-1",
+    "elroy-linen-short-oatmeal",
+    "elroy-linen-short-olive",
+    "olive-ecru-st-tropez-crochet-polo",
+    "white-coast-view-t-shirt",
+    "blue-denim-jort",
+    "white-st-tropez-arch-t-shirt",
+    "stone-denim-jort",
+    "white-brown-crochet-tennis-shirt",
+    "white-brown-crochet-tennis-short",
+    "black-nylon-swimshort",
+    "white-casa-belier-t-shirt",
+    "gaston-beige-relaxed-fit-short",
+    "gaston-black-relaxed-fit-short",
+    "off-white-monte-carlo-t-shirt",
+    "white-cafe-t-shirt",
+    "off-white-tequila-t-shirt",
+    "off-white-mojito-t-shirt",
+    "white-window-view-t-shirt",
+    "leon-crochet-t-shirt-sky",
+    "sky-blue-crochet-short",
+    "chocolate-ocean-crochet-shirt",
+    "chocolate-ocean-crochet-short",
+    "white-yacht-club-t-shirt-1",
+    "black-santorini-view-t-shirt",
+    "archer-black-swimshort",
+    "white-como-arch-t-shirt",
+    "archer-rolex-green-swimshort"
+   ]
   }
  ],
  "theme": {
@@ -14761,28 +14866,20 @@
   "stockists": false
  },
  "home": {
-  "newCol": "womens-wear-spring-summer-26",
+  "newCol": "new-arrivals",
   "bestCol": "best-sellers-1",
-  "newSub": "Spring Summer 26: crochet, linen and knit",
+  "newSub": "The latest menswear arrivals",
   "hero": {
-   "poster": "assets/img/hero-womens.jpg",
+   "poster": "assets/img/hero-poster.jpg",
    "eyebrow": "Spring Summer 26",
-   "title": "WOMENSWEAR",
-   "cta": "Shop Womenswear",
-   "col": "womens-wear-spring-summer-26"
+   "title": "MENSWEAR",
+   "cta": "Shop Spring Summer 26",
+   "col": "spring-summer-26"
   },
   "tiles": [
    [
-    "womens-wear-spring-summer-26",
-    "Womenswear SS26"
-   ],
-   [
-    "new-arrivals",
-    "New Arrivals"
-   ],
-   [
-    "best-sellers-1",
-    "Best Sellers"
+    "t-shirts",
+    "T-Shirts"
    ],
    [
     "polos",
@@ -14793,21 +14890,30 @@
     "Shirts"
    ],
    [
+    "shorts",
+    "Shorts"
+   ],
+   [
+    "swimwear",
+    "Swimshorts"
+   ],
+   [
     "footwear",
     "Footwear"
    ]
   ],
   "editorial": {
-   "col": "womens-wear-spring-summer-26",
-   "img": "assets/img/womens-wide.jpg",
+   "col": "spring-summer-installment-two",
+   "img": "assets/img/campaign-wide.jpg",
    "eyebrow": "Spring Summer 26",
-   "title": "WOMENSWEAR"
+   "title": "CHAPTER TWO"
   },
   "feature": {
    "col": "new-arrivals",
    "title": "NEW ARRIVALS",
    "cta": "Shop now"
-  }
+  },
+  "bestSub": "The Bélier pieces on repeat"
  },
  "shop": {
   "kicker": "BELIER",
@@ -14823,7 +14929,8 @@
    "jackets",
    "tracksuits",
    "accessories",
-   "headwear"
+   "headwear",
+   "womenswear-t-shirts"
   ],
   "edits": [
    "outlet",
@@ -14837,11 +14944,13 @@
    "womens-wear-spring-summer-26",
    "new-arrivals",
    "best-sellers-1",
-   "gift-cards"
+   "gift-cards",
+   "spring-summer-26",
+   "spring-summer-installment-two"
   ],
   "featureCats": {
-   "col": "new-arrivals",
-   "title": "NEW ARRIVALS",
+   "col": "spring-summer-26",
+   "title": "SPRING SUMMER 26",
    "cta": "Shop now",
    "idx": 1
   },
@@ -14913,24 +15022,24 @@
    "black-nylon-swimshort",
    "dimitri-rib-knit-short-taupe",
    "dimitri-rib-knit-shirt-taupe",
-   "beige-3d-stripe-knit-jumper"
+   "capri-sandal-brown"
   ],
   "weekday": 4,
   "hour": 19,
   "earlyHours": 24,
   "previous": {
-   "col": "new-arrivals",
-   "title": "NEW ARRIVALS"
+   "col": "spring-summer-26",
+   "title": "SPRING SUMMER 26"
   }
  },
  "copy": {
   "about": "Our philosophy is to bridge the gap between men's smart wear and casual wear. Shop smart wear for men at Bélier today. Express delivery option. Buy now pay later.",
-  "emptyBag": "Start with the latest New Arrivals pieces.",
-  "heroNotif": "Bélier Womenswear Spring Summer 26 is live."
+  "emptyBag": "Start with the latest Spring Summer 26 pieces.",
+  "heroNotif": "Bélier Spring Summer 26 is live."
  },
  "pitch": {
   "title": "Bélier,<br>one tap away.",
-  "copy": "A concept for the Bélier app: the Spring Summer 26 womenswear collection front and centre, drop alerts with app-only early access, saved sizes and Shopify checkout with Apple Pay, Shop Pay and Klarna. Tap around, everything works.",
+  "copy": "A concept for the Bélier app: choose Women or Men on first open and the whole app follows, with the Spring Summer 26 collections front and centre, drop alerts with app-only early access, saved sizes and Shopify checkout with Apple Pay, Shop Pay and Klarna. Tap around, everything works.",
   "list": [
    "Drops with app-only early access",
    "Saved size and back-in-size alerts",
@@ -14947,7 +15056,10 @@
    "Name: Belier (site calls itself “BELIER”)",
    "Shopify store detected (/products.json is public)",
    "298 products in /products.json, 85 collections in /collections.json",
-   "24 menu collections → 285 products in the app",
+   "Extra collection (from overrides): womenswear-t-shirts, 7 products",
+   "Extra collection (from overrides): spring-summer-26, 40 products",
+   "Extra collection (from overrides): spring-summer-installment-two, 40 products",
+   "27 menu collections → 285 products in the app",
    "Theme colours from site CSS: bg #f3f3f3, text #000000, accent #b8a68c",
    "Font: Montserrat (Google Fonts)",
    "Logo from site header (dark, monochrome → dark + light versions)",
@@ -14983,10 +15095,235 @@
   ]
  },
  "scrape": {
-  "_why": "Feature the SS26 womenswear collection.",
+  "_why": "SS26 womenswear + real menswear SS26 collections for the Women/Men department switch.",
   "extraCollections": [
-   "womens-wear-spring-summer-26"
+   "womens-wear-spring-summer-26",
+   "womenswear-t-shirts",
+   "spring-summer-26",
+   "spring-summer-installment-two"
   ],
   "perCollection": 40
+ },
+ "departments": {
+  "_why": "Lewis: ask Women or Men on first open. Filter = Bélier's own product tag TargetGroup:Women (all 35 SS26 womenswear items carry it; no menswear does).",
+  "prompt": "What are you shopping for?",
+  "note": "You can switch any time from Home.",
+  "items": [
+   {
+    "id": "women",
+    "label": "Women",
+    "img": "assets/img/hero-womens.jpg",
+    "tag": "TargetGroup:Women",
+    "home": {
+     "newCol": "womens-wear-spring-summer-26",
+     "newSub": "Spring Summer 26: crochet, linen and knit",
+     "hero": {
+      "poster": "assets/img/hero-womens.jpg",
+      "eyebrow": "Spring Summer 26",
+      "title": "WOMENSWEAR",
+      "cta": "Shop Womenswear",
+      "col": "womens-wear-spring-summer-26"
+     },
+     "tiles": [
+      [
+       "w-dresses",
+       "Dresses"
+      ],
+      [
+       "womenswear-t-shirts",
+       "Tops & Tees"
+      ],
+      [
+       "w-trousers",
+       "Trousers & Shorts"
+      ],
+      [
+       "w-skirts",
+       "Skirts"
+      ],
+      [
+       "w-crochet",
+       "Crochet"
+      ],
+      [
+       "w-linen",
+       "Linen"
+      ]
+     ],
+     "editorial": {
+      "col": "womens-wear-spring-summer-26",
+      "img": "assets/img/womens-wide.jpg",
+      "eyebrow": "Spring Summer 26",
+      "title": "WOMENSWEAR"
+     },
+     "feature": {
+      "col": "w-crochet",
+      "title": "THE CROCHET EDIT",
+      "cta": "Shop now"
+     },
+     "bestCol": "womenswear-t-shirts",
+     "bestSub": "Tops and tees from the Womenswear Edit"
+    },
+    "virtual": [
+     {
+      "h": "w-dresses",
+      "t": "Dresses",
+      "from": "womens-wear-spring-summer-26",
+      "kw": [
+       "Dress"
+      ]
+     },
+     {
+      "h": "w-trousers",
+      "t": "Trousers & Shorts",
+      "from": "womens-wear-spring-summer-26",
+      "kw": [
+       "Trouser",
+       "Short"
+      ]
+     },
+     {
+      "h": "w-skirts",
+      "t": "Skirts",
+      "from": "womens-wear-spring-summer-26",
+      "kw": [
+       "Skirt"
+      ]
+     },
+     {
+      "h": "w-crochet",
+      "t": "Crochet",
+      "from": "womens-wear-spring-summer-26",
+      "kw": [
+       "Crochet"
+      ]
+     },
+     {
+      "h": "w-linen",
+      "t": "Linen",
+      "from": "womens-wear-spring-summer-26",
+      "kw": [
+       "Linen"
+      ]
+     }
+    ],
+    "shop": {
+     "kicker": "BÉLIER WOMEN",
+     "cats": [
+      "w-dresses",
+      "womenswear-t-shirts",
+      "w-trousers",
+      "w-skirts",
+      "w-crochet",
+      "w-linen"
+     ],
+     "edits": [
+      "womens-wear-spring-summer-26"
+     ],
+     "featureCats": {
+      "col": "womens-wear-spring-summer-26",
+      "title": "SPRING SUMMER 26",
+      "cta": "Shop womenswear",
+      "idx": 4
+     },
+     "featureEdits": {
+      "col": "womens-wear-spring-summer-26",
+      "title": "THE WOMENSWEAR EDIT",
+      "cta": "Shop now",
+      "idx": 18
+     }
+    },
+    "sizes": {
+     "_why": "sizes stocked across the real SS26 womenswear variants",
+     "groups": [
+      {
+       "key": "top",
+       "label": "Clothing size",
+       "opts": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+       ]
+      }
+     ]
+    }
+   },
+   {
+    "id": "men",
+    "label": "Men",
+    "img": "assets/img/hero-poster.jpg",
+    "notTag": "TargetGroup:Women",
+    "home": {
+     "newCol": "new-arrivals",
+     "newSub": "The latest menswear arrivals",
+     "bestCol": "best-sellers-1",
+     "bestSub": "The Bélier pieces on repeat",
+     "hero": {
+      "poster": "assets/img/hero-poster.jpg",
+      "eyebrow": "Spring Summer 26",
+      "title": "MENSWEAR",
+      "cta": "Shop Spring Summer 26",
+      "col": "spring-summer-26"
+     },
+     "tiles": [
+      [
+       "t-shirts",
+       "T-Shirts"
+      ],
+      [
+       "polos",
+       "Polos"
+      ],
+      [
+       "mens-smart-shirt",
+       "Shirts"
+      ],
+      [
+       "shorts",
+       "Shorts"
+      ],
+      [
+       "swimwear",
+       "Swimshorts"
+      ],
+      [
+       "footwear",
+       "Footwear"
+      ]
+     ],
+     "editorial": {
+      "col": "spring-summer-installment-two",
+      "img": "assets/img/campaign-wide.jpg",
+      "eyebrow": "Spring Summer 26",
+      "title": "CHAPTER TWO"
+     },
+     "feature": {
+      "col": "new-arrivals",
+      "title": "NEW ARRIVALS",
+      "cta": "Shop now"
+     }
+    },
+    "shop": {
+     "kicker": "BÉLIER MEN",
+     "edits": [
+      "spring-summer-26",
+      "spring-summer-installment-two",
+      "new-arrivals",
+      "best-sellers-1",
+      "outlet",
+      "t-shirt-outlet",
+      "shirts-outlet",
+      "polo-shirts-outlet",
+      "shorts-outlet",
+      "swimshorts-outlet",
+      "trousers-outlet",
+      "footwear-outlet",
+      "gift-cards"
+     ]
+    }
+   }
+  ]
  }
 }
