@@ -484,8 +484,8 @@ function Home(el){
     const tiles = (H.tiles || []).filter(t => prods(t[0]).length);
     const fc = H.feature && prods(H.feature.col)[0];
     el.innerHTML =
-      '<div class="home-head"><div class="home-band">'+topbar({ logo:true, left:'<button class="icon-btn" data-act="tab" data-v="account" aria-label="Account">'+I.user+'</button>', right:'<div class="tb-r">'+searchBtn()+wishBtn()+bagBtn()+'</div>' }) + deptToggle() + '</div></div>'+
-      '<div class="hero-slot"></div>'+
+      '<div class="home-head"><div class="home-band">'+topbar({ logo:true, left:'<button class="icon-btn" data-act="tab" data-v="account" aria-label="Account">'+I.user+'</button>', right:'<div class="tb-r">'+searchBtn()+wishBtn()+bagBtn()+'</div>' }) + '</div></div>'+
+      '<div class="hero-slot"></div>'+deptToggle()+
       (newIn.length ? '<section class="section"><div class="sec-head"><div><h2>New In</h2><p>'+esc(H.newSub||'The latest arrivals')+'</p></div><button class="link" data-act="col" data-v="'+esc(H.newCol)+'">View all</button></div><div class="hscroll">'+newIn.map(p=>pcard(p,{w:400})).join('')+'</div></section>' : '')+
       (tiles.length ? '<section class="section"><div class="sec-head"><div><h2>Shop by Category</h2></div><button class="link" data-act="tab" data-v="shop">All</button></div><div class="cat-grid">'+tiles.map(t=>'<div class="cat-tile" data-act="col" data-v="'+esc(t[0])+'"><img loading="lazy" decoding="async" fetchpriority="high" data-prio '+cover(t[0])+' alt=""><span>'+esc(t[1])+'</span></div>').join('')+'</div></section>' : '')+
       (H.editorial && H.editorial.img && colBy(H.editorial.col) ? '<div class="editorial" data-act="col" data-v="'+esc(H.editorial.col)+'"><img loading="lazy" src="'+esc(H.editorial.img)+'" alt=""><div class="hero-copy"><div class="eyebrow">'+esc(H.editorial.eyebrow||'')+'</div><div class="hero-title">'+esc(H.editorial.title||'')+'</div><span class="btn btn-light">Shop now</span></div></div>' : '')+

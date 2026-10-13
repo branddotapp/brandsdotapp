@@ -987,11 +987,13 @@ img.img-err{visibility:hidden}
 @media (prefers-reduced-motion:reduce){.pimg img,.gtrack img,.cat-tile img,.cat-row img,.ig-tile img,.bag-item img,.s-row img,.editorial img,.feature-card img,.drop-card>img,.swatch img,.added img{opacity:1;transition:none}}
 
 /* ---------- departments (opt-in: brand.json -> departments) ---------- */
-.dept-row{display:flex;justify-content:center;padding:0 0 8px}
-.home-head .dept-seg{margin:0;width:176px;background:rgba(0,0,0,.62);border-radius:999px;padding:3px}
-.home-head .dept-seg button{height:26px;font-size:10px;letter-spacing:.18em;color:rgba(255,255,255,.88);border-radius:999px}
-.home-head .dept-seg button.on{color:#111;background:#fff;transition:color .28s var(--seg-ease),background 0s .28s}
-.home-head .dept-seg .seg-ind{border-radius:999px;background:#fff}
+.dept-row{display:flex;justify-content:flex-start;padding:26px 18px 0;margin-bottom:-14px}
+.dept-row .dept-seg{margin:0;padding:0;background:none;border-radius:0;display:flex;gap:24px;width:auto}
+.dept-row .dept-seg .seg-ind{display:none}
+.dept-row .dept-seg button{flex:none;height:24px;padding:0;font-family:var(--font),sans-serif;font-size:11px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--ink);opacity:.6;border-radius:0;background:none;position:relative;transition:opacity .25s ease}
+.dept-row .dept-seg button::after{content:'';position:absolute;left:0;right:.24em;bottom:2px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .28s var(--seg-ease)}
+.dept-row .dept-seg button.on{opacity:1;color:var(--ink)}
+.dept-row .dept-seg button.on::after{transform:scaleX(1)}
 .dept-pick{position:absolute;inset:0;z-index:90;background:var(--bg);display:flex;flex-direction:column;padding:calc(var(--sat) + 26px) 18px calc(var(--sab, 0px) + 20px);opacity:0;pointer-events:none;transition:opacity .35s ease}
 .dept-pick.show{opacity:1;pointer-events:auto}
 .dp-head{text-align:center;margin-bottom:18px}
