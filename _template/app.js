@@ -4,7 +4,7 @@
 const B = window.BRAND;
 const P = B.products || {};
 const COLS = (B.collections || []).slice();
-const H = B.home || {}, SH = B.shop || {}, DR = B.drop || null, SHIP = B.shipping || {}, PAGES = B.pages || {};
+const H = B.home || {}, SH = B.shop || {}, DR = B.drop || null, SRCH = B.search || {}, SHIP = B.shipping || {}, PAGES = B.pages || {};
 const CUR = (B.currency && B.currency.symbol) || '£';
 const DISC = B.discount || { code:'APP10', pct:10 };
 const NAME = B.name, SITE = B.site;
@@ -34,7 +34,7 @@ const money = n => CUR + (Math.round(n*100)/100).toFixed(2);
 // Each item: {id, label, img, tag | notTag (product tag filter), home:{...}, shop:{...}, virtual:[{h, t, from, kw:[...]}]}
 // The chosen department filters every product list and swaps the Home/Shop config. Remembered in localStorage.
 const DEPTS = (B.departments && Array.isArray(B.departments.items) && B.departments.items.length > 1) ? B.departments : null;
-const BASE_H = JSON.parse(JSON.stringify(H)), BASE_SH = JSON.parse(JSON.stringify(SH));
+const BASE_H = JSON.parse(JSON.stringify(H)), BASE_SH = JSON.parse(JSON.stringify(SH)), BASE_DR = DR && JSON.parse(JSON.stringify(DR)), BASE_SRCH = JSON.parse(JSON.stringify(SRCH));
 let dept = null, deptOk = () => true;
 if (DEPTS) DEPTS.items.forEach(d => (d.virtual || []).forEach(v => {
   // virtual collections: real products of a real collection grouped by title keywords (e.g. Dresses)
@@ -49,11 +49,16 @@ function applyDept(id){
   Object.keys(H).forEach(k => delete H[k]); Object.assign(H, JSON.parse(JSON.stringify(BASE_H)), d.home || {});
   Object.keys(SH).forEach(k => delete SH[k]); Object.assign(SH, JSON.parse(JSON.stringify(BASE_SH)), d.shop || {});
   ALL = Object.values(P).filter(deptOk);
+  // drop + search follow the department too (d.drop merges over the brand's drop; d.search replaces trending/popular)
+  if (DR){ Object.keys(DR).forEach(k => delete DR[k]); Object.assign(DR, JSON.parse(JSON.stringify(BASE_DR)), d.drop || {});
+    const dc = COLS.find(c => c.h === '__drop'); if (dc){ dc.t = DR.title || DR.name; dc.p = (DR.products || []).filter(h => P[h]); } }
+  Object.keys(SRCH).forEach(k => delete SRCH[k]); Object.assign(SRCH, JSON.parse(JSON.stringify(BASE_SRCH)), d.search || {});
+  $$('[data-demo="drop"] small').forEach(e => { e.textContent = DR ? 'DROP '+DR.num+' / '+DR.name+', app early access' : 'New arrivals'; });
   // per-department size groups (e.g. womenswear has no waist sizes); restored to the brand's own when the department has none
   if (!applyDept.baseSizes) applyDept.baseSizes = SIZE_GROUPS.slice();
   SIZE_GROUPS.splice(0, SIZE_GROUPS.length, ...((d.sizes && d.sizes.groups) || applyDept.baseSizes));
 }
-const prods = h => ((colBy(h) || {}).p || []).map(x => P[x]).filter(p => p && (h === '__drop' || deptOk(p)));   // the drop is brand-wide
+const prods = h => ((colBy(h) || {}).p || []).map(x => P[x]).filter(p => p && deptOk(p));
 let ALL = Object.values(P);
 const FREE_SHIP = SHIP.freeOver || 0;
 const IG = B.socials && B.socials.instagram;
@@ -66,7 +71,7 @@ const COMM = !!(EV || FM);
 const RM = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches:false };
 const EASE = 'cubic-bezier(.32,.72,0,1)';
 const anim = (el, kf, o) => (!el || RM.matches || !el.animate) ? null : el.animate(kf, Object.assign({ duration:280, easing:EASE, fill:'none' }, o||{}));
-if (DR && DR.products && DR.products.length) COLS.push({ h:'__drop', t:DR.title || DR.name, p:DR.products.filter(h=>P[h]) });
+if (DR && DR.products && DR.products.length && !COLS.some(c => c.h === '__drop')) COLS.push({ h:'__drop', t:DR.title || DR.name, p:DR.products.filter(h=>P[h]) });
 
 // ---------- icons ----------
 const I = {
@@ -489,7 +494,7 @@ function Home(el){
       (newIn.length ? '<section class="section"><div class="sec-head"><div><h2>New In</h2><p>'+esc(H.newSub||'The latest arrivals')+'</p></div><button class="link" data-act="col" data-v="'+esc(H.newCol)+'">View all</button></div><div class="hscroll">'+newIn.map(p=>pcard(p,{w:400})).join('')+'</div></section>' : '')+
       (tiles.length ? '<section class="section"><div class="sec-head"><div><h2>Shop by Category</h2></div><button class="link" data-act="tab" data-v="shop">All</button></div><div class="cat-grid">'+tiles.map(t=>'<div class="cat-tile" data-act="col" data-v="'+esc(t[0])+'"><img loading="lazy" decoding="async" fetchpriority="high" data-prio '+cover(t[0])+' alt=""><span>'+esc(t[1])+'</span></div>').join('')+'</div></section>' : '')+
       (H.editorial && H.editorial.img && colBy(H.editorial.col) ? '<div class="editorial" data-act="col" data-v="'+esc(H.editorial.col)+'"><img loading="lazy" src="'+esc(H.editorial.img)+'" alt=""><div class="hero-copy"><div class="eyebrow">'+esc(H.editorial.eyebrow||'')+'</div><div class="hero-title">'+esc(H.editorial.title||'')+'</div><span class="btn btn-light">Shop now</span></div></div>' : '')+
-      (best.length ? '<section class="section"><div class="sec-head"><div><h2>Best Sellers</h2><p>'+esc(H.bestSub||'The pieces everyone’s wearing')+'</p></div><button class="link" data-act="col" data-v="'+esc(H.bestCol)+'">View all</button></div><div class="hscroll">'+best.map(p=>pcard(p,{w:400})).join('')+'</div></section>' : '')+
+      (best.length ? '<section class="section"><div class="sec-head"><div><h2>'+esc(H.bestTitle||'Best Sellers')+'</h2><p>'+esc(H.bestSub||'The pieces everyone’s wearing')+'</p></div><button class="link" data-act="col" data-v="'+esc(H.bestCol)+'">View all</button></div><div class="hscroll">'+best.map(p=>pcard(p,{w:400})).join('')+'</div></section>' : '')+
       (fc ? '<div class="feature-card" style="margin-top:28px" data-act="col" data-v="'+esc(H.feature.col)+'"><img loading="lazy" src="'+(H.feature.img ? esc(H.feature.img) : img(fc.im[1]||fc.im[0],700))+'" alt=""><div><b>'+esc(H.feature.title)+'</b><span class="btn btn-light btn-sm">'+esc(H.feature.cta||'Shop now')+'</span></div></div>' : '')+
       proofHTML()+
       igHTML()+
@@ -603,7 +608,7 @@ function PDP(el, h){
   const coming = isComing(h);
   const sibs = ALL.filter(x => x.n === p.n);
   const generic = [H.newCol, H.bestCol, H.hero && H.hero.col, '__drop'].concat(SH.edits||[]);
-  const related = ((COLS.find(c => !generic.includes(c.h) && c.p.includes(h)) || colBy(H.newCol) || {p:[]}).p).filter(x=>x!==h && P[x]).slice(0,10).map(x=>P[x]);
+  const related = ((COLS.find(c => !generic.includes(c.h) && c.p.includes(h)) || colBy(H.newCol) || {p:[]}).p).filter(x=>x!==h && P[x] && deptOk(P[x])).slice(0,10).map(x=>P[x]);
   const long = p.sz.some(s => s[0].length > 4);
   const sale = p.cp > p.p, pd = priceDrop && priceDrop.h === h;
   const soldOut = p.sz.every(s=>!s[1]);
@@ -709,7 +714,7 @@ function Bag(el){
   const render = () => {
     if (!bag.length){
       el.innerHTML = topbar({}) + '<div class="large-title"><small>Your bag</small>Bag</div><div class="empty" style="padding-top:40px"><div class="eic">'+I.bag+'</div><h3>Your bag is empty</h3><p>'+esc(B.copy && B.copy.emptyBag || 'Start with the latest arrivals.')+'</p>'+(colBy(H.newCol)?'<button class="btn btn-dark" data-act="col" data-v="'+esc(H.newCol)+'">Shop New In</button>':'')+'</div>'+
-        (prods(H.bestCol).length ? '<section class="section"><div class="sec-head"><h2>Best Sellers</h2></div><div class="hscroll">'+prods(H.bestCol).slice(0,8).map(p=>pcard(p,{w:400})).join('')+'</div></section>' : '')+credit();
+        (prods(H.bestCol).length ? '<section class="section"><div class="sec-head"><h2>'+esc(H.bestTitle||'Best Sellers')+'</h2></div><div class="hscroll">'+prods(H.bestCol).slice(0,8).map(p=>pcard(p,{w:400})).join('')+'</div></section>' : '')+credit();
       enableDrag(el); return;
     }
     const T = bagTotals(), o = baseShip();
@@ -787,8 +792,8 @@ function Wishlist(el, mode){
 
 // ---------- SEARCH ----------
 function Search(el, q0){
-  const TR = (B.search && B.search.trending) || [];
-  const POP = ((B.search && B.search.popular) || []).filter(h => prods(h).length);
+  const TR = SRCH.trending || [];
+  const POP = (SRCH.popular || []).filter(h => prods(h).length);
   el.innerHTML = '<div class="searchbar"><button class="icon-btn" data-act="back" aria-label="Back">'+I.back+'</button><label class="sfield">'+I.search+'<input id="sq" type="search" placeholder="Search '+esc(NAME)+'" autocomplete="off" enterkeyhint="search"><button class="clear" id="sclear" aria-label="Clear">×</button></label></div><div id="sbody"></div>';
   const inp = $('#sq', el), body = $('#sbody', el), field = $('.sfield', el);
   const bindQ = () => $$('[data-q]', body).forEach(b => b.addEventListener('click', () => { inp.value = b.dataset.q; run(true); }));
@@ -1415,5 +1420,5 @@ setTimeout(() => {
   else if (!params.has('nowelcome')) setTimeout(showWelcome, skip ? 400 : 900);
   else if (!skip && !params.has('nopush') && prefs.drops) setTimeout(()=>Demo.newin(), 2600);
 }, skip ? 0 : 2100);
-window.__app = { all: () => ALL, chooseDept, showDeptChooser, Demo, switchTab, push, openBrowser, showWelcome, back, igHTML, evSplit };
+window.__app = { all: () => ALL, coming: h => isComing(h), chooseDept, showDeptChooser, Demo, switchTab, push, openBrowser, showWelcome, back, igHTML, evSplit };
 })();
