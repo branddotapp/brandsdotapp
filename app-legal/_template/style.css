@@ -1,0 +1,4 @@
+*{box-sizing:border-box}body{margin:0;font-family:"Inter Tight",system-ui,sans-serif;color:#111;background:#fafafa;line-height:1.55}
+main{max-width:680px;margin:0 auto;padding:48px 20px 80px}h1{font-size:28px;margin:0 0 8px}h2{font-size:18px;margin:32px 0 8px}
+.muted{color:#666;font-size:14px}.card{background:#fff;border:1px solid #e3e3e3;border-radius:12px;padding:20px;margin:20px 0}
+a{color:inherit}ol li,ul li{margin:6px 0}code{background:#eee;padding:1px 5px;border-radius:4px}
