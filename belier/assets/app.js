@@ -1,0 +1,1365 @@
+/* brandsdotapp shared app shell. All brand-specific content comes from window.BRAND (brand.json). */
+(function(){
+'use strict';
+const B = window.BRAND;
+const P = B.products || {};
+const COLS = (B.collections || []).slice();
+const H = B.home || {}, SH = B.shop || {}, DR = B.drop || null, SHIP = B.shipping || {}, PAGES = B.pages || {};
+const CUR = (B.currency && B.currency.symbol) || '£';
+const DISC = B.discount || { code:'APP10', pct:10 };
+const NAME = B.name, SITE = B.site;
+// payment methods the brand's checkout shows (footer payment icons); unknown → the template's default set
+const PAY = Array.isArray(B.payments) && B.payments.length ? B.payments : null, pays = id => !PAY || PAY.includes(id);
+const LOGO = B.assets.logoDark, LOGO_L = B.assets.logoLight || B.assets.logoDark;
+// Push toast app icon: brand logo (light on dark tile when available) with letter fallback.
+function pushAppIconHTML(){
+  const light = B.assets && B.assets.logoLight, dark = B.assets && B.assets.logoDark;
+  if (light) return '<img src="'+light+'" alt="" class="push-icon dark">';
+  if (dark) return '<img src="'+dark+'" alt="" class="push-icon">';
+  const letter = esc(((B.short||NAME||'?')+'').charAt(0).toUpperCase());
+  return '<div class="push-icon letter" aria-hidden="true">'+letter+'</div>';
+}
+const colBy = h => COLS.find(c => c.h === h);
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const img = (u, w=600) => !u ? '' : (/cdn\.shopify\.com|\/cdn\/shop\//.test(u) ? u + (u.includes('?') ? '&' : '?') + 'width=' + w : u);
+// Sized Shopify image: src at w plus a w/2..1.25w srcset, so the browser fetches what the slot needs at its DPR.
+// Widths are shared across contexts (product card, category cover = 400) so the same file is reused from cache.
+const SHOP_RE = /cdn\.shopify\.com|\/cdn\/shop\//;
+const srcs = (u, w=600, sz) => { if (!u) return 'src=""'; if (!SHOP_RE.test(u)) return 'src="'+esc(u)+'"';
+  const c = [Math.round(w/2), w, Math.round(w*1.25)]; return 'src="'+img(u,w)+'" srcset="'+c.map(x=>img(u,x)+' '+x+'w').join(', ')+'" sizes="'+(sz||Math.round(w/2.2))+'px"'; };
+const money = n => CUR + (Math.round(n*100)/100).toFixed(2);
+const prods = h => ((colBy(h) || {}).p || []).map(x => P[x]).filter(Boolean);
+const ALL = Object.values(P);
+const FREE_SHIP = SHIP.freeOver || 0;
+const IG = B.socials && B.socials.instagram;
+// Community (opt-in per brand: brand.json -> community). Events are real (scraped from the brand's site); the forum is demo content.
+const CM = B.community && (B.community.events || B.community.forum) ? B.community : null;
+const EV = CM && CM.events && (CM.events.items || []).length ? CM.events : null;
+const FM = CM && CM.forum && (CM.forum.threads || []).length ? CM.forum : null;
+const COMM = !!(EV || FM);
+// motion: every JS-driven animation checks this; CSS handles the rest via @media (prefers-reduced-motion)
+const RM = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches:false };
+const EASE = 'cubic-bezier(.32,.72,0,1)';
+const anim = (el, kf, o) => (!el || RM.matches || !el.animate) ? null : el.animate(kf, Object.assign({ duration:280, easing:EASE, fill:'none' }, o||{}));
+if (DR && DR.products && DR.products.length) COLS.push({ h:'__drop', t:DR.title || DR.name, p:DR.products.filter(h=>P[h]) });
+
+// ---------- icons ----------
+const I = {
+  back:'<svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>',
+  bell:'<svg viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></svg>',
+  bag:'<svg viewBox="0 0 24 24"><path d="M5 8h14l-1 12.5H6z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>',
+  heart:'<svg viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.2a4.3 4.3 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20z"/></svg>',
+  share:'<svg viewBox="0 0 24 24"><path d="M12 3v12M7.5 7.5 12 3l4.5 4.5"/><path d="M5 12v7.5h14V12"/></svg>',
+  chev:'<svg class="chev" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>',
+  plus:'<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>',
+  check:'<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+  search:'<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>',
+  star:'<svg viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9l-5.3 2.7 1-5.8-4.2-4.1 5.9-.9z"/></svg>',
+  ruler:'<svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="8" rx="1"/><path d="M7 8v3M11 8v4M15 8v3M19 8v4"/></svg>',
+  truck:'<svg viewBox="0 0 24 24"><path d="M2.5 6.5h11v9h-11zM13.5 9.5h4l3 3v3h-7z"/><circle cx="6.5" cy="17.5" r="1.6"/><circle cx="17" cy="17.5" r="1.6"/></svg>',
+  ret:'<svg viewBox="0 0 24 24"><path d="M4 9h11a5 5 0 0 1 0 10H8"/><path d="M8 5 4 9l4 4"/></svg>',
+  card:'<svg viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="19" height="13" rx="2"/><path d="M2.5 10h19"/></svg>',
+  gift:'<svg viewBox="0 0 24 24"><rect x="3.5" y="9" width="17" height="11.5"/><path d="M2.5 9h19v-3h-19zM12 6v14.5M12 6S10.5 2.5 8 3.5 9 6 12 6zm0 0s1.5-3.5 4-2.5S15 6 12 6z"/></svg>',
+  bolt:'<svg viewBox="0 0 24 24"><path d="M13 2.5 5 13.5h6l-1 8 8-11h-6z"/></svg>',
+  pin:'<svg viewBox="0 0 24 24"><path d="M12 21s-6.5-6.2-6.5-11.2a6.5 6.5 0 0 1 13 0C18.5 14.8 12 21 12 21z"/><circle cx="12" cy="9.8" r="2.3"/></svg>',
+  user:'<svg viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="4"/><path d="M4.5 20.5c1-4 4-6 7.5-6s6.5 2 7.5 6"/></svg>',
+  drop:'<svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="7.5"/><path d="M12 9v4.2l2.6 1.6M9.5 2.5h5"/></svg>',
+  people:'<svg viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><path d="M15.5 5.2a3.4 3.4 0 0 1 0 6.6M17.5 14.8c2 .6 3.4 2.4 4 5.2"/></svg>',
+  chat:'<svg viewBox="0 0 24 24"><path d="M4 5.5h16v10.5H10l-4.5 3.5V16H4z"/></svg>',
+  pen:'<svg viewBox="0 0 24 24"><path d="M4 20l1-4.5L15.5 5a2.1 2.1 0 0 1 3 3L8 18.5z"/><path d="M13.5 7l3 3"/></svg>',
+  send:'<svg viewBox="0 0 24 24"><path d="M4 12 20 4l-5 16-3-7z"/><path d="M12 13l8-9"/></svg>',
+  cal:'<svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>',
+  clock:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>',
+  tag:'<svg viewBox="0 0 24 24"><path d="M3.5 12.5V4.5h8l9 9-8 8z"/><circle cx="8" cy="9" r="1.4"/></svg>',
+  copy:'<svg viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="11" height="11" rx="1.5"/><path d="M15.5 8.5V5a1.5 1.5 0 0 0-1.5-1.5H5A1.5 1.5 0 0 0 3.5 5v9A1.5 1.5 0 0 0 5 15.5h3.5"/></svg>',
+  ext:'<svg viewBox="0 0 24 24"><path d="M14 4.5h5.5V10M19.5 4.5 11 13M18 14v5.5H4.5V6H10"/></svg>',
+  lock:'<svg viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="1.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg>',
+  reel:'<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4.5"/><path d="M3 8.5h18M9.5 3l3 5.5M15.5 3l3 5.5"/><path d="M10.2 11.6v5.3l4.6-2.65z" fill="currentColor" stroke="none"/></svg>',
+  carousel:'<svg viewBox="0 0 24 24"><rect x="7.5" y="7.5" width="13" height="13" rx="2.5"/><path d="M16.5 4.5h-10a2.5 2.5 0 0 0-2.5 2.5v10"/></svg>',
+  ig:'<svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6"/></svg>',
+  apple:'<svg viewBox="0 0 24 24"><path d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9-.7 0-1.8-.8-3-.8-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.3 0 2.1-1.1 2.8-2.3.9-1.3 1.3-2.6 1.3-2.6s-2.5-1-2.5-3.8zM14.2 5.8c.6-.8 1.1-1.9 1-3-.9 0-2.1.6-2.7 1.4-.6.7-1.1 1.8-1 2.9 1 .1 2.1-.5 2.7-1.3z"/></svg>'
+};
+const TABS = [['home','Home','<path d="M3.5 10.5 12 4l8.5 6.5V20a1 1 0 0 1-1 1h-5v-6h-5v6h-5a1 1 0 0 1-1-1z"/>'],
+  ['shop','Shop','<rect x="3.5" y="3.5" width="7" height="7" rx="1"/><rect x="13.5" y="3.5" width="7" height="7" rx="1"/><rect x="3.5" y="13.5" width="7" height="7" rx="1"/><rect x="13.5" y="13.5" width="7" height="7" rx="1"/>'],
+  ['drops','Drops','<circle cx="12" cy="13" r="7.5"/><path d="M12 9v4.2l2.6 1.6M9.5 2.5h5"/>'],
+  ['wishlist','Wishlist','<path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.2a4.3 4.3 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20z"/>'],
+  ['bag','Bag','<path d="M5 8h14l-1 12.5H6z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/>'],
+  ['account','Account','<circle cx="12" cy="8.5" r="4"/><path d="M4.5 20.5c1-4 4-6 7.5-6s6.5 2 7.5 6"/>']].filter(t => t[0] !== 'drops' || DR)
+  // brands with a community: Community takes the Wishlist slot (six tabs max); Wishlist moves to a heart in the Home/Shop header
+  .map(t => t[0] === 'wishlist' && COMM ? ['community','Community','<circle cx="9" cy="8.5" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><path d="M15.5 5.2a3.4 3.4 0 0 1 0 6.6M17.5 14.8c2 .6 3.4 2.4 4 5.2"/>'] : t);
+const WISH_TAB = TABS.some(t => t[0] === 'wishlist');
+
+// ---------- persistent state ----------
+const store = {
+  get(k, d){ try { const v = JSON.parse(localStorage.getItem(B.slug+'_'+k)); return v == null ? d : v; } catch(e){ return d; } },
+  set(k, v){ try { localStorage.setItem(B.slug+'_'+k, JSON.stringify(v)); } catch(e){} }
+};
+let bag = store.get('bag', []).filter(i => P[i.h]);
+let wish = store.get('wish', []).filter(h => P[h]);
+let recent = store.get('recent', []);
+let prefs = Object.assign({ drops:true, early:true, restock:true, price:true, orders:true }, store.get('prefs', {}));
+let mySize = store.get('size', {});
+let promo = store.get('promo', false);
+let dropNotify = store.get('dropNotify', false);
+let priceDrop = store.get('priceDrop', null);   // {h}
+let dropLive = false;
+let signedIn = false; // demo only, never persisted
+const savePrefs = () => store.set('prefs', prefs);
+
+function saveBag(){ store.set('bag', bag); updateBadges(true); }
+function saveWish(){ store.set('wish', wish); updateBadges(); }
+const bagCount = () => bag.reduce((a,i)=>a+i.q,0);
+function updateBadges(popBag){
+  const n = bagCount();
+  const bb = $('#bagBadge'), wb = $('#wishBadge');
+  const pop = e => { e.classList.remove('pop'); void e.offsetWidth; e.classList.add('pop'); };
+  if (bb){ bb.textContent = n; bb.classList.toggle('show', n>0); if (popBag) pop(bb); }
+  $$('.hb-count').forEach(c => { c.textContent = n; c.classList.toggle('show', n>0); if (popBag && n>0) pop(c); });
+  if (wb){ wb.textContent = wish.length; wb.classList.toggle('show', wish.length>0); }
+  $$('.hw-count').forEach(c => { c.textContent = wish.length; c.classList.toggle('show', wish.length>0); });
+}
+const inWish = h => wish.includes(h);
+function toggleWish(h){
+  if (inWish(h)) { wish = wish.filter(x=>x!==h); toast('Removed from wishlist'); }
+  else { wish.unshift(h); toast('Saved to wishlist', I.heart); }
+  saveWish();
+  $$('[data-wish="'+CSS.escape(h)+'"]').forEach(b => { b.classList.toggle('on', inWish(h)); b.classList.remove('burst'); void b.offsetWidth; b.classList.add('burst'); b.setAttribute('aria-pressed', inWish(h)); });
+}
+
+// ---------- sizes ----------
+const SIZE_GROUPS = (B.sizes && B.sizes.groups) || [];
+const normSize = s => String(s).split(' - ')[0].trim().toUpperCase();
+const hasSize = () => SIZE_GROUPS.some(g => mySize[g.key]);
+const sizeLabel = () => SIZE_GROUPS.filter(g => mySize[g.key]).map(g => (g.prefix||'') + mySize[g.key]).join(' · ');
+const sizeMatch = label => { const n = normSize(label); return SIZE_GROUPS.some(g => mySize[g.key] && String(mySize[g.key]).toUpperCase() === n); };
+const inMySize = p => p.sz.some(s => s[1] && sizeMatch(s[0]));
+const tcase = s => s && s === String(s).toUpperCase() ? String(s).toLowerCase().replace(/(^|[\s/&-])([a-z])/g, (m, a, b) => a + b.toUpperCase()) : (s || '');   // 'POLO SHIRTS' → 'Polo Shirts'
+const prettySize = s => String(s).replace(' - ',' · ');
+function openSizeSheet(done){
+  let tmp = Object.assign({}, mySize);
+  openSheet('<h3>Your size</h3><p class="center sheet-sub">We’ll pre-select it on product pages and can hide anything that isn’t in stock in your size.</p>'+
+    SIZE_GROUPS.map(g=>'<div class="sz-group"><div class="label-row" style="margin-top:6px"><b>'+esc(g.label)+'</b></div><div class="sizes">'+g.opts.map(o=>'<button class="size'+(String(tmp[g.key])===String(o)?' on':'')+'" data-g="'+g.key+'" data-o="'+esc(o)+'">'+esc((g.prefix||'')+o)+'</button>').join('')+'</div></div>').join('')+
+    '<div class="btns" style="margin-top:20px"><button class="btn btn-dark btn-block" id="szSave">Save my size</button>'+(hasSize()?'<button class="btn btn-outline btn-block" id="szClear">Clear saved size</button>':'')+'</div>',
+    s => {
+      $$('.size', s).forEach(b => b.addEventListener('click', () => { const g=b.dataset.g; tmp[g] = tmp[g]===b.dataset.o ? null : b.dataset.o; $$('.size[data-g="'+g+'"]', s).forEach(x=>x.classList.toggle('on', x.dataset.o===tmp[g])); }));
+      $('#szSave', s).addEventListener('click', () => { mySize = tmp; store.set('size', mySize); closeSheet(); toast(hasSize() ? 'Saved size: '+sizeLabel() : 'Size cleared', I.ruler); done && done(); refreshAll(); });
+      const c = $('#szClear', s); if (c) c.addEventListener('click', () => { mySize = {}; store.set('size', mySize); closeSheet(); toast('Size cleared', I.ruler); done && done(); refreshAll(); });
+    });
+}
+
+// ---------- toast ----------
+let toastT;
+function toast(msg, icon){
+  const t = $('#toast');
+  t.innerHTML = (icon || I.check) + '<span>'+esc(msg)+'</span>';
+  t.classList.toggle('raise', !!$('.view.top .buybar.show'));
+  t.classList.add('show'); clearTimeout(toastT); $('#app').classList.add('toasting');
+  toastT = setTimeout(()=>{ t.classList.remove('show'); $('#app').classList.remove('toasting'); }, 2000);
+}
+
+// ---------- sheet ----------
+function openSheet(html, onMount){
+  const s = $('#sheet');
+  const swap = s.classList.contains('show');
+  s.innerHTML = '<div class="grab" aria-hidden="true"></div>' + html;
+  s.scrollTop = 0; s.style.transform = '';
+  $('#sheetBackdrop').classList.add('show'); s.classList.add('show');
+  if (swap) $$(':scope > :not(.grab)', s).forEach((c,i) => anim(c, [{opacity:0, transform:'translateY(8px)'},{opacity:1, transform:'none'}], { duration:320, delay:i*18, fill:'backwards' }));
+  onMount && onMount(s);
+}
+function closeSheet(){ const s = $('#sheet'); s.classList.remove('show'); s.style.transform = ''; $('#sheetBackdrop').classList.remove('show'); resumeHeroVideo(); }
+
+// ---------- navigation ----------
+let stackEl, stack = [], currentTab = 'home';
+const roots = { home: Home, shop: Shop, drops: Drops, search: Search, wishlist: Wishlist, bag: Bag, account: Account, community: Community };
+
+function makeView(fn, args){
+  const el = document.createElement('section');
+  el.className = 'view';
+  const opts = fn(el, args) || {};
+  // hairline under the pinned top block once content scrolls beneath it (all tabs)
+  el.addEventListener('scroll', () => { const s = el.scrollTop > 2; if (s !== el.classList.contains('scrolled')) el.classList.toggle('scrolled', s); }, {passive:true});
+  return { el, opts, fn, args };
+}
+function applyChrome(v){
+  $('#tabbar').classList.toggle('hidden', !!v.opts.hideTabs);
+  $('#app').classList.toggle('tabs-hidden', !!v.opts.hideTabs);
+  setStatus(v.opts.light && (v.el.scrollTop < (v.opts.lightUntil || 9999)));
+  stack.forEach(s => s.el.classList.remove('top')); v.el.classList.add('top');
+  resumeHeroVideo();
+}
+// iOS-style push/pop: the new view slides over, the one beneath drifts 28% the other way and dims under a shade
+// (an opacity-only layer, so nothing repaints mid-flight).
+function navShade(before, cls, ms){
+  const s = document.createElement('div'); s.className = 'nav-shade ' + cls;
+  stackEl.insertBefore(s, before); setTimeout(() => s.remove(), ms); return s;
+}
+function push(fn, args){
+  const prev = stack[stack.length-1];
+  const v = makeView(fn, args);
+  stackEl.appendChild(v.el); stack.push(v);
+  v.el.classList.add('enter');
+  if (prev){ navShade(v.el, 'in', 440); prev.el.classList.add('under'); setTimeout(()=>{ prev.el.classList.remove('under'); if (stack.includes(prev) && stack[stack.length-1] !== prev) prev.el.style.visibility='hidden'; }, 430); }
+  setTimeout(()=>v.el.classList.remove('enter'), 450);
+  applyChrome(v);
+}
+function back(){
+  if (stack.length < 2) return;
+  const v = stack.pop(), prev = stack[stack.length-1];
+  prev.el.style.visibility=''; prev.el.classList.add('reveal');
+  if (prev.el._refresh) prev.el._refresh();
+  v.el.classList.add('leave'); v.el.classList.remove('top');
+  navShade(v.el, 'out', 380);
+  setTimeout(()=>{ v.el.remove(); prev.el.classList.remove('reveal'); }, 380);
+  applyChrome(prev);
+}
+function switchTab(tab, args){
+  closeSheet(); closeBrowser();
+  if (tab === currentTab && stack.length === 1 && !args){ stack[0].el.scrollTo({top:0, behavior:'smooth'}); if (stack[0].el._refresh) stack[0].el._refresh(); return; }
+  currentTab = tab;
+  $$('#tabbar button').forEach(b => { const on = b.dataset.tab === tab; b.classList.toggle('active', on); if (on) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); });
+  const old = stack; stack = [];
+  old.forEach(s => { s.el.classList.remove('top', 'enter', 'under', 'reveal'); s.el.classList.add('tab-out'); setTimeout(() => s.el.remove(), 300); });
+  $$('.nav-shade', stackEl).forEach(s => s.remove());
+  const v = makeView(roots[tab], args);
+  v.el.classList.add('tab-in'); stackEl.appendChild(v.el); stack.push(v);
+  setTimeout(() => v.el.classList.remove('tab-in'), 320);
+  applyChrome(v);
+}
+function refreshAll(){ stack.forEach(s => s.el._refresh && s.el._refresh()); }
+function setStatus(light){ $('#statusbar').classList.toggle('light', !!light); }
+
+// ---------- components ----------
+const isComing = h => DR && !dropLive && (DR.products||[]).includes(h);
+function pcard(p, opts={}){
+  const sale = p.cp > p.p;
+  const out = p.sz.every(s=>!s[1]);
+  const isNew = H.newCol && (colBy(H.newCol)||{p:[]}).p.includes(p.h);
+  const pd = priceDrop && priceDrop.h === p.h;
+  const tag = (opts.dropGrid && isComing(p.h)) ? '<span class="tag soon">Coming soon</span>'
+    : pd ? '<span class="tag drop">Price drop</span>'
+    : out ? '<span class="tag">Sold out</span>' : sale ? '<span class="tag sale">-'+Math.round((1-p.p/p.cp)*100)+'%</span>' : isNew ? '<span class="tag">New in</span>' : '';
+  return '<div class="pcard" data-act="pdp" data-v="'+esc(p.h)+'">'+
+    '<div class="pimg"><img loading="lazy" decoding="async" '+srcs(p.im[0], opts.w||500, opts.w===400?152:180)+' alt="'+esc(p.t)+'">'+tag+
+    '<button class="heart '+(inWish(p.h)?'on':'')+'" data-act="wish" data-v="'+esc(p.h)+'" data-wish="'+esc(p.h)+'" aria-label="Save">'+I.heart+'</button></div>'+
+    '<div class="pmeta"><div class="pname">'+esc(p.n)+'</div>'+(p.c?'<div class="pcol">'+esc(p.c)+'</div>':'')+priceHTML(p)+'</div></div>';
+}
+function priceHTML(p){
+  return p.cp > p.p ? '<div class="price sale"><b>'+money(p.p)+'</b><s>'+money(p.cp)+'</s></div>' : '<div class="price">'+money(p.p)+'</div>';
+}
+function topbar({title, logo, back:bk, right='', left='', clear}={}){
+  if (!title && !bk) logo = true;   // root tabs without a title carry the logo, same header row as Home
+  return '<header class="topbar'+(clear?' clear':'')+'">'+
+    (bk ? '<button class="icon-btn" data-act="back" aria-label="Back">'+I.back+'</button>' : (left || '<span style="width:40px"></span>'))+
+    (logo ? '<img class="tb-logo" src="'+LOGO+'" alt="'+esc(NAME)+'">' : '<div class="tb-title">'+esc(title||'')+'</div>')+
+    (right || '<span style="width:40px"></span>')+'</header>';
+}
+const hbCount = () => { const n = bagCount(); return '<i class="hb-count'+(n?' show':'')+'">'+n+'</i>'; };
+const bagBtn = () => '<button class="icon-btn" data-act="bagtab" aria-label="Bag">'+I.bag+hbCount()+'</button>';
+const searchBtn = () => '<button class="icon-btn" data-act="search" aria-label="Search">'+I.search+'</button>';
+// header heart (only when the Wishlist isn't a tab, i.e. Community took its slot)
+const wishBtn = () => WISH_TAB ? '' : '<button class="icon-btn hw-btn" data-act="wishlist" aria-label="Wishlist">'+I.heart+'<i class="hw-count'+(wish.length?' show':'')+'">'+wish.length+'</i></button>';
+const credit = () => '<p class="credit-inline">Concept app mockup for '+esc(NAME)+'</p>';
+const stars = n => '<span class="stars" style="--r:'+(n/5*100)+'%"><i>★★★★★</i><i>★★★★★</i></span>';
+function marquee(){
+  const items = (B.perks || []).concat(['App members, '+DISC.pct+'% off your first app order']);
+  if (B.reviews && B.reviews.score) items.push('Rated '+(B.reviews.label?B.reviews.label+', ':'')+B.reviews.score+'/5 on '+B.reviews.source);
+  const run = items.map(t=>'<span>'+esc(t)+'</span><i>✦</i>').join('');
+  return '<div class="marquee" aria-label="Perks"><div class="mq-track">'+run+run+'</div></div>';
+}
+function proofHTML(compact){
+  const R = B.reviews;
+  if (!R || !R.score) return '';
+  if (compact) return '<div class="proof-mini" data-act="reviews">'+stars(R.score)+'<span><b>'+R.score+'</b> '+esc(R.label||'')+' on '+esc(R.source)+' · '+Number(R.count).toLocaleString('en-GB')+' reviews</span></div>';
+  return '<div class="proof" data-act="reviews"><div class="pr-l"><small>'+esc(R.source)+'</small><b>'+esc(R.label||'Rated')+'</b></div><div class="pr-r">'+stars(R.score)+'<p><b>'+R.score+' out of 5</b> · based on '+Number(R.count).toLocaleString('en-GB')+' reviews</p></div></div>';
+}
+// Instagram feed (Home, below the review block). Data: B.instagram {handle, url, followers, bio, posts:[{url, type, image}]},
+// hand-collected in a browser into brand.overrides.json. Hidden when there are no posts.
+function igHTML(){
+  const G = B.instagram || {}, posts = (G.posts || []).filter(p => p && p.url && p.image).slice(0, 9);
+  const handle = G.handle || IG;
+  if (!posts.length || !handle) return '';
+  const prof = G.url || 'https://www.instagram.com/'+encodeURIComponent(handle)+'/';
+  const badge = t => t === 'reel' ? '<span class="ig-badge" aria-label="Reel">'+I.reel+'</span>' : t === 'carousel' ? '<span class="ig-badge" aria-label="Carousel">'+I.carousel+'</span>' : '';
+  return '<section class="section ig-feed"><div class="sec-head"><div><h2 class="ig-handle">'+I.ig+'@'+esc(handle)+'</h2>'+
+    (G.followers ? '<p><b>'+esc(G.followers)+'</b> followers</p>' : '')+(G.bio ? '<p class="ig-bio">'+esc(G.bio)+'</p>' : '')+'</div>'+
+    '<a class="btn btn-dark ig-follow" href="'+esc(prof)+'" target="_blank" rel="noopener">Follow</a></div>'+
+    '<div class="ig-grid">'+posts.map((p,i)=>'<a class="ig-tile" href="'+esc(p.url)+'" target="_blank" rel="noopener" aria-label="'+esc((p.type||'post')+' '+(i+1)+' on Instagram')+'"><img loading="lazy" decoding="async" fetchpriority="high" data-prio src="'+esc(p.image)+'" alt="">'+badge(p.type)+'</a>').join('')+'</div></section>';
+}
+
+// drag-to-scroll for desktop mice
+function enableDrag(root){
+  $$('.hscroll,.chips,.swatches', root).forEach(el => {
+    if (el._drag) return; el._drag = true;
+    let down=false, sx=0, sl=0, moved=false, lx=0, lt=0, vx=0;
+    el.addEventListener('pointerdown', e => { if (e.pointerType!=='mouse') return; down=true; moved=false; sx=lx=e.clientX; lt=performance.now(); vx=0; sl=el.scrollLeft; el.style.scrollSnapType='none'; el.style.scrollBehavior='auto'; });
+    window.addEventListener('pointermove', e => { if(!down) return; const dx=e.clientX-sx; if(Math.abs(dx)>5){ moved=true; el.classList.add('dragging'); } el.scrollLeft = sl - dx;
+      const t = performance.now(), dt = Math.max(1, t-lt); vx = .8*((e.clientX-lx)/dt) + .2*vx; lx = e.clientX; lt = t; });
+    // release: glide on with the drag velocity, then let scroll-snap settle on the nearest card
+    window.addEventListener('pointerup', () => { if(!down) return; down=false; el.style.scrollBehavior='';
+      const glide = (performance.now()-lt < 80) ? -vx*260 : 0;
+      el.style.scrollSnapType='';
+      if (moved && Math.abs(glide) > 8) el.scrollTo({ left: el.scrollLeft + glide, behavior: RM.matches ? 'auto' : 'smooth' });
+      setTimeout(()=>el.classList.remove('dragging'),0); });
+    el.addEventListener('click', e => { if (moved){ e.stopPropagation(); e.preventDefault(); moved=false; } }, true);
+  });
+}
+
+// Segmented control: a white pill slides (transform + width) under the active option; onChange(key, dir) swaps the
+// content, which slides in from the side the pill moved towards.
+function segmented(seg, onChange){
+  const ind = document.createElement('i'); ind.className = 'seg-ind'; ind.setAttribute('aria-hidden', 'true'); seg.prepend(ind);
+  const btns = $$('button', seg);
+  seg.setAttribute('role', 'tablist'); btns.forEach(b => b.setAttribute('role', 'tab'));
+  const place = (b, animate) => {
+    if (!b || !b.offsetWidth) return;
+    if (!animate) ind.style.transition = 'none';
+    ind.style.width = b.offsetWidth + 'px'; ind.style.transform = 'translateX(' + (b.offsetLeft - 3) + 'px)';
+    seg.classList.add('measured');
+    if (!animate){ void ind.offsetWidth; ind.style.transition = ''; }
+  };
+  const cur = () => btns.find(b => b.classList.contains('on')) || btns[0];
+  btns.forEach((b, i) => { b.style.setProperty('--i', i); b.setAttribute('aria-selected', b.classList.contains('on')); });
+  seg.style.setProperty('--n', btns.length); seg.style.setProperty('--i', btns.indexOf(cur()));
+  const settle = () => place(cur(), false);
+  requestAnimationFrame(settle);
+  if ('ResizeObserver' in window) new ResizeObserver(settle).observe(seg);
+  btns.forEach((b, i) => b.addEventListener('click', () => {
+    const was = cur(); if (b === was) return;
+    const dir = i > btns.indexOf(was) ? 1 : -1;
+    btns.forEach(x => { x.classList.toggle('on', x === b); x.setAttribute('aria-selected', x === b); });
+    seg.style.setProperty('--i', i);
+    place(b, true);
+    onChange(b.dataset.seg, dir);
+  }));
+}
+// slide-swap a container's content: out towards -dir, new content in from +dir
+function swapContent(box, html, dir, after){
+  const put = () => { box.innerHTML = html; after && after(); anim(box, [{opacity:0, transform:'translateX('+(dir*28)+'px)'},{opacity:1, transform:'none'}], { duration:300 }); };
+  const a = anim(box, [{opacity:1, transform:'none'},{opacity:0, transform:'translateX('+(-dir*28)+'px)'}], { duration:140, easing:'cubic-bezier(.4,0,1,1)', fill:'forwards' });
+  if (a){ box._swap && box._swap.cancel(); box._swap = a; a.onfinish = () => { if (box._swap !== a) return; put(); a.cancel(); }; } else put();
+}
+
+// ---------- drop timing ----------
+function dropTimes(){
+  const early = (DR && DR.earlyHours) || 24;
+  let web;
+  if (DR && DR.opensAt && new Date(DR.opensAt) - Date.now() > early*3600e3) web = new Date(DR.opensAt);
+  else {
+    const wd = DR && DR.weekday != null ? DR.weekday : 4, hr = DR && DR.hour != null ? DR.hour : 19;
+    web = new Date(); web.setHours(hr,0,0,0);
+    web.setDate(web.getDate() + (wd - web.getDay() + 7) % 7);
+    while (web - Date.now() < early*3600e3 + 3600e3) web.setDate(web.getDate()+7);
+  }
+  return { app: new Date(web - early*3600e3), web };
+}
+const fmtDay = d => d.toLocaleDateString('en-GB',{weekday:'short', day:'numeric', month:'short'}) + ', ' + d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+function cdParts(){ const ms = Math.max(0, dropTimes().app - Date.now()); return [Math.floor(ms/864e5), Math.floor(ms/36e5)%24, Math.floor(ms/6e4)%60, Math.floor(ms/1e3)%60]; }
+const pad = n => String(n).padStart(2,'0');
+function cdHTML(){ const c = cdParts(); return ['Days','Hrs','Min','Sec'].map((l,i)=>'<div><b data-cd="'+i+'">'+pad(c[i])+'</b><small>'+l+'</small></div>').join(''); }
+setInterval(() => { const els = $$('[data-cd]'); if (!els.length) return; const c = cdParts(); els.forEach(e => { const v = pad(c[+e.dataset.cd]); if (e.textContent !== v) e.textContent = v; }); }, 1000);
+const dropImg = () => DR && (DR.image || (P[DR.products[0]] && img(P[DR.products[0]].im[0], 700)));
+
+// ---------- hero video ----------
+// Built once per Home view and re-attached on every re-render, so refreshing Home (size saved, demo pushes, back
+// navigation) never recreates the <video> and restarts/re-buffers it.
+function heroEl(){
+  const hero = H.hero || {};
+  const d = document.createElement('div');
+  d.className = 'hero';
+  const v = hero.video ? '<video autoplay muted loop playsinline preload="metadata" disablepictureinpicture disableremoteplayback'+(hero.poster?' poster="'+esc(hero.poster)+'"':'')+(hero.videoW?' width="'+hero.videoW+'" height="'+hero.videoH+'"':'')+'>'+
+    '<source data-src="'+esc(hero.video)+'" type="video/mp4">'+(hero.videoWebm?'<source data-src="'+esc(hero.videoWebm)+'" type="video/webm">':'')+'</video>' : '';
+  d.innerHTML = '<img class="poster" src="'+esc(hero.poster||'')+'" alt="">'+v+
+    '<div class="hero-copy"><div class="eyebrow">'+esc(hero.eyebrow||'')+'</div><div class="hero-title">'+esc(hero.title||NAME)+'</div>'+(hero.col&&colBy(hero.col)?'<button class="btn btn-light" data-act="col" data-v="'+esc(hero.col)+'">'+esc(hero.cta||'Shop now')+'</button>':'')+'</div>'+
+    marquee();
+  const vid = $('video', d);
+  if (vid){
+    vid.muted = true; vid.defaultMuted = true;
+    vid.setAttribute('playsinline', '');
+    try { vid.playsInline = true; } catch (_) {}
+    vid.addEventListener('playing', () => { const pi = $('.poster', d); if (pi) pi.style.opacity = 0; });
+    // Don't let the ~1-2 MB hero video compete with the first images: the poster shows until window load (eager images
+    // done) and the browser is idle, then the sources are attached and the video buffers/plays as before.
+    let gateOpen = false;
+    const openGate = () => { if (gateOpen) return; gateOpen = true; window.__heroGate = true;
+      $$('source[data-src]', vid).forEach(s => { s.src = s.dataset.src; s.removeAttribute('data-src'); });
+      vid.preload = 'auto'; try { vid.load(); } catch (_) {} setTimeout(() => { try { sync(); } catch (_) {} }, 0); };
+    const whenIdle = f => ('requestIdleCallback' in window) ? requestIdleCallback(f, { timeout: 1500 }) : setTimeout(f, 200);
+    // ...and after the prioritised IG/category images (queued just after load) have arrived, or 5 s at most.
+    const afterPrio = () => { const t0 = Date.now(); const chk = () => { const pend = $$('.view.top img[data-prio]').some(i => !i.complete);
+      if (!pend || Date.now() - t0 > 5000) whenIdle(openGate); else setTimeout(chk, 250); }; setTimeout(chk, 400); };
+    if (window.__heroGate) openGate();   // page already past first load (later Home views): play straight away
+    else if (document.readyState === 'complete') afterPrio(); else window.addEventListener('load', afterPrio, { once: true });
+    // play only while the hero is on screen and the page is visible (saves decode work for the rest of the app).
+    // After push/back the Home view is briefly visibility:hidden, so IntersectionObserver leaves onScreen=false
+    // and does not always re-fire the moment Home is shown again — sync() re-checks .view.top and retries play().
+    let onScreen = true, retryT = 0, want = false, lastT = -1, stuck = 0, gone = 0;
+    const visibleNow = () => {
+      const top = d.closest('.view.top');
+      if (!top || !d.isConnected || document.hidden || top.style.visibility === 'hidden') return false;
+      const r = d.getBoundingClientRect();
+      return r.height > 0 && r.bottom > 0 && r.top < (window.innerHeight || 0);
+    };
+    const tryPlay = () => {
+      if (!gateOpen || !d.isConnected || document.hidden || !onScreen) return;
+      want = true;
+      vid.muted = true;
+      if (vid.readyState === 0 && vid.networkState === 3) { try { vid.load(); } catch (_) {} }   // NETWORK_NO_SOURCE: re-pick a source
+      const pr = vid.play();
+      if (pr && pr.catch) pr.catch(() => {
+        clearTimeout(retryT);
+        retryT = setTimeout(() => {
+          if (!d.isConnected || document.hidden || !onScreen) return;
+          vid.muted = true;
+          const p2 = vid.play();
+          if (p2 && p2.catch) p2.catch(()=>{});
+        }, 250);
+      });
+    };
+    const sync = () => {
+      if (visibleNow()) onScreen = true;
+      if (onScreen && !document.hidden && d.isConnected) tryPlay();
+      else if (d.isConnected) { want = false; vid.pause(); }
+    };
+    if ('IntersectionObserver' in window) new IntersectionObserver(es => { onScreen = es[es.length-1].isIntersecting; sync(); }, { threshold: 0.01 }).observe(d);
+    document.addEventListener('visibilitychange', sync);
+    // Never trust autoplay alone on desktop browsers: play as soon as there is data, after any pause we did not ask for
+    // (power saving, a stalled stream, a browser autoplay setting), and on the first tap/click/key if autoplay was refused.
+    ['loadeddata', 'canplay'].forEach(t => vid.addEventListener(t, () => { if (vid.paused && visibleNow()) tryPlay(); }));
+    vid.addEventListener('pause', () => { if (want && visibleNow()) setTimeout(() => { if (vid.paused && want && visibleNow()) tryPlay(); }, 300); });
+    const gesture = () => { if (d.isConnected && vid.paused && visibleNow()) { onScreen = true; tryPlay(); } };
+    ['pointerdown', 'keydown', 'touchend'].forEach(t => document.addEventListener(t, gesture, { capture: true, passive: true }));
+    // Watchdog: if the clock stops while Home is showing (frozen decoder, missed resume), kick it.
+    const dog = setInterval(() => {
+      if (!d.isConnected) { if (++gone >= 3) d._stop(); return; }   // its Home view was replaced: clean up
+      gone = 0;
+      if (!visibleNow()) { lastT = -1; stuck = 0; return; }
+      const t = vid.currentTime;
+      if (vid.paused || (vid.readyState >= 2 && t === lastT)) { if (++stuck >= 2) { stuck = 0; onScreen = true; tryPlay(); } } else stuck = 0;
+      lastT = t;
+    }, 1000);
+    d._stop = () => { clearInterval(dog); ['pointerdown', 'keydown', 'touchend'].forEach(t => document.removeEventListener(t, gesture, { capture: true })); document.removeEventListener('visibilitychange', sync); };
+    d._sync = sync;
+  }
+  return d;
+}
+function resumeHeroVideo(){
+  const hero = $('.view.top .hero');
+  if (hero && hero._sync) hero._sync();
+}
+
+// ---------- HOME ----------
+function Home(el){
+  const heroNode = heroEl();
+  const render = () => {
+    // drop pieces that aren't live yet ("Coming soon", not buyable) go to the end of the New In rail, so it opens on something you can buy
+    const newAll = prods(H.newCol), newIn = newAll.filter(p => !isComing(p.h)).concat(newAll.filter(p => isComing(p.h))).slice(0, 12);
+    const best = prods(H.bestCol).slice(0, 12);
+    const cover = h => { const p = prods(h)[0]; return p ? srcs(p.im[0], 400, 180) : 'src=""'; };
+    const tiles = (H.tiles || []).filter(t => prods(t[0]).length);
+    const fc = H.feature && prods(H.feature.col)[0];
+    el.innerHTML =
+      '<div class="home-head"><div class="home-band">'+topbar({ logo:true, left:'<button class="icon-btn" data-act="tab" data-v="account" aria-label="Account">'+I.user+'</button>', right:'<div class="tb-r">'+searchBtn()+wishBtn()+bagBtn()+'</div>' }) + '</div></div>'+
+      '<div class="hero-slot"></div>'+
+      (newIn.length ? '<section class="section"><div class="sec-head"><div><h2>New In</h2><p>'+esc(H.newSub||'The latest arrivals')+'</p></div><button class="link" data-act="col" data-v="'+esc(H.newCol)+'">View all</button></div><div class="hscroll">'+newIn.map(p=>pcard(p,{w:400})).join('')+'</div></section>' : '')+
+      (tiles.length ? '<section class="section"><div class="sec-head"><div><h2>Shop by Category</h2></div><button class="link" data-act="tab" data-v="shop">All</button></div><div class="cat-grid">'+tiles.map(t=>'<div class="cat-tile" data-act="col" data-v="'+esc(t[0])+'"><img loading="lazy" decoding="async" fetchpriority="high" data-prio '+cover(t[0])+' alt=""><span>'+esc(t[1])+'</span></div>').join('')+'</div></section>' : '')+
+      (H.editorial && H.editorial.img && colBy(H.editorial.col) ? '<div class="editorial" data-act="col" data-v="'+esc(H.editorial.col)+'"><img loading="lazy" src="'+esc(H.editorial.img)+'" alt=""><div class="hero-copy"><div class="eyebrow">'+esc(H.editorial.eyebrow||'')+'</div><div class="hero-title">'+esc(H.editorial.title||'')+'</div><span class="btn btn-light">Shop now</span></div></div>' : '')+
+      (best.length ? '<section class="section"><div class="sec-head"><div><h2>Best Sellers</h2><p>'+esc(H.bestSub||'The pieces everyone’s wearing')+'</p></div><button class="link" data-act="col" data-v="'+esc(H.bestCol)+'">View all</button></div><div class="hscroll">'+best.map(p=>pcard(p,{w:400})).join('')+'</div></section>' : '')+
+      (fc ? '<div class="feature-card" style="margin-top:28px" data-act="col" data-v="'+esc(H.feature.col)+'"><img loading="lazy" src="'+(H.feature.img ? esc(H.feature.img) : img(fc.im[1]||fc.im[0],700))+'" alt=""><div><b>'+esc(H.feature.title)+'</b><span class="btn btn-light btn-sm">'+esc(H.feature.cta||'Shop now')+'</span></div></div>' : '')+
+      proofHTML()+
+      igHTML()+
+      commTeaser()+
+      (!ALL.length ? '<div class="empty"><div class="eic">'+I.bag+'</div><h3>Catalogue not found</h3><p>The product feed for '+esc(NAME)+' couldn’t be read, so there’s nothing to show here yet.</p></div>' : '')+
+      '<div class="about"><img src="'+LOGO+'" alt="'+esc(NAME)+'"><p>'+esc(B.copy && B.copy.about || '')+'</p></div>'+credit();
+    $('.hero-slot', el).replaceWith(heroNode);
+    if (heroNode._sync) heroNode._sync();
+    enableDrag(el);
+  };
+  render();
+  // past the hero the band turns solid so the clear menu/status stay readable over light content
+  let deep = null;
+  // brands whose solid band is light (brand.css: :root{--deep-band:light}) switch the status bar to dark text with it
+  const lightBand = getComputedStyle(document.documentElement).getPropertyValue('--deep-band').trim() === 'light';
+  el.addEventListener('scroll', () => { const d = el.scrollTop > 480; if (d === deep) return; deep = d; const h = $('.home-head', el); if (h) h.classList.toggle('deep', d); if (lightBand && el.classList.contains('top')) setStatus(!d); }, {passive:true});
+  el._refresh = () => { const st = el.scrollTop; render(); el.scrollTop = st; deep = null; el.dispatchEvent(new Event('scroll')); };
+  return lightBand ? { light:true, lightUntil:481 } : { light:true };
+}
+
+// ---------- SHOP ----------
+let shopSeg = 'cats';   // remembered while the app is open, so popping back to Shop keeps the chosen segment
+function Shop(el, seg){
+  if (seg === 'cats' || seg === 'edits') shopSeg = seg;
+  const row = h => { const c = colBy(h), n = prods(h).length, p = prods(h)[0]; if (!c || !p) return ''; return '<div class="cat-row" data-act="col" data-v="'+esc(h)+'"><img loading="lazy" decoding="async" '+srcs(p.im[0],200,56)+' alt=""><div><b>'+esc(c.t)+'</b><small>'+n+(n===1?' style':' styles')+'</small></div>'+I.chev+'</div>'; };
+  const body = s => {
+    const list = (s === 'cats' ? SH.cats : SH.edits) || [];
+    const f = s === 'cats' ? SH.featureCats : SH.featureEdits;
+    const fp = f && prods(f.col)[f.idx||0];
+    return (fp ? '<div class="feature-card" data-act="col" data-v="'+esc(f.col)+'"><img src="'+(f.img ? esc(f.img) : img(fp.im[0],700))+'" alt=""><div><b>'+esc(f.title)+'</b><span class="btn btn-light btn-sm">'+esc(f.cta||'Shop now')+'</span></div></div>' : '')+
+      '<div class="cat-list">'+list.map(row).join('')+'</div>'+(list.length?'':'<div class="empty"><h3>No collections found</h3></div>');
+  };
+  el.innerHTML = topbar({ title:'', right:'<div class="tb-r">'+searchBtn()+wishBtn()+bagBtn()+'</div>', left:'<span style="width:40px"></span>' }) +
+    '<div class="large-title"><small>'+esc(SH.kicker || NAME)+'</small>Shop</div>'+
+    '<div class="seg"><button class="'+(shopSeg==='cats'?'on':'')+'" data-seg="cats">Shop by Product</button><button class="'+(shopSeg==='edits'?'on':'')+'" data-seg="edits">Collections</button></div>'+
+    '<div class="seg-body">'+body(shopSeg)+'</div>'+credit();
+  segmented($('.seg', el), (s, dir) => { shopSeg = s; swapContent($('.seg-body', el), body(s), dir); });
+}
+
+// ---------- COLLECTION ----------
+function Collection(el, h){
+  const c = colBy(h);
+  if (!c){ el.innerHTML = topbar({back:true,title:'Not found'}) + '<div class="empty"><h3>Collection unavailable</h3><button class="btn btn-dark" data-act="back">Go back</button></div>'; return {}; }
+  let sort = 'featured', stockOnly = false, mineOnly = store.get('mineOnly', false) && hasSize();
+  const sizeFilterHTML = () => SIZE_GROUPS.length ? '<div class="size-filter"><div><b>Only show items in stock in my size</b><small>'+(hasSize()?'Your size: '+esc(sizeLabel())+' · <u data-sz>change</u>':'Set your size to use this filter')+'</small></div><span class="switch '+(mineOnly?'on':'')+'"></span></div>' : '';
+  const render = () => {
+    let list = prods(h);
+    if (stockOnly) list = list.filter(p => p.sz.some(s=>s[1]));
+    if (mineOnly) list = list.filter(inMySize);
+    if (sort === 'low') list = list.slice().sort((a,b)=>a.p-b.p);
+    if (sort === 'high') list = list.slice().sort((a,b)=>b.p-a.p);
+    if (sort === 'sale') list = list.filter(p=>p.cp>p.p);
+    $('.count', el).textContent = list.length + ' styles' + (mineOnly ? ' in stock in size '+sizeLabel() : '');
+    const sfw = $('.sf-wrap', el); if (sfw) sfw.innerHTML = sizeFilterHTML();
+    $('.grid', el).innerHTML = list.map(p=>pcard(p, {dropGrid: h==='__drop'})).join('');
+    const em = $('.grid-empty', el);
+    em.innerHTML = list.length ? '' : (mineOnly
+      ? '<div class="empty" style="padding-top:30px"><div class="eic">'+I.ruler+'</div><h3>Nothing in your size here</h3><p>None of the '+prods(h).length+' styles in '+esc(c.t)+' are in stock in size '+esc(sizeLabel())+' right now. Turn on back-in-size alerts and we’ll tell you the moment they’re back.</p><div class="btns col"><button class="btn btn-dark" id="emAlert">'+(prefs.restock?'Back-in-size alerts on ✓':'Get back-in-size alerts')+'</button><button class="btn btn-outline" id="emAll">Show all sizes</button><button class="link" id="emSize">Change my size</button></div></div>'
+      : '<div class="empty" style="padding-top:30px"><h3>No styles match</h3><p>Try a different filter.</p></div>');
+    if (!list.length && mineOnly){
+      $('#emAlert', el).addEventListener('click', e => { prefs.restock = true; savePrefs(); e.currentTarget.textContent = 'Back-in-size alerts on ✓'; toast('We’ll alert you when size '+sizeLabel()+' is back', I.bell); });
+      $('#emAll', el).addEventListener('click', () => { mineOnly = false; store.set('mineOnly', false); render(); });
+      $('#emSize', el).addEventListener('click', () => openSizeSheet());
+    }
+  };
+  const hasSale = prods(h).some(p=>p.cp>p.p);
+  el.innerHTML = topbar({ back:true, title:c.t, right:bagBtn() }) +
+    '<div class="large-title"><small>'+esc(h==='__drop' ? 'First look' : NAME)+'</small>'+esc(c.t)+'</div>'+
+    '<div class="chips">'+[['featured','Featured'],['low','Price: Low–High'],['high','Price: High–Low']].concat(hasSale?[['sale','On sale']]:[]).map(s=>'<button class="chip '+(s[0]===sort?'on':'')+'" data-sort="'+s[0]+'">'+s[1]+'</button>').join('')+'<button class="chip" data-stock>In stock</button></div>'+
+    '<div class="sf-wrap"></div><div class="count"></div><div class="grid"></div><div class="grid-empty"></div>'+credit();
+  $$('[data-sort]', el).forEach(b => b.addEventListener('click', () => { sort=b.dataset.sort; $$('[data-sort]',el).forEach(x=>x.classList.toggle('on',x===b)); render(); }));
+  $('[data-stock]', el).addEventListener('click', e => { stockOnly=!stockOnly; e.currentTarget.classList.toggle('on',stockOnly); render(); });
+  $('.sf-wrap', el).addEventListener('click', e => {
+    if (!e.target.closest('.size-filter')) return;
+    if (e.target.closest('[data-sz]') || !hasSize()) { openSizeSheet(() => { if (hasSize()){ mineOnly = true; store.set('mineOnly', true); } render(); }); return; }
+    mineOnly = !mineOnly; store.set('mineOnly', mineOnly); render();
+  });
+  render(); enableDrag(el);
+  el._refresh = () => { if (!hasSize()) mineOnly = false; render(); };
+}
+
+// ---------- PDP ----------
+function PDP(el, h){
+  const p = P[h];
+  if (!p){ el.innerHTML = topbar({back:true,title:'Not found'}) + '<div class="empty"><h3>Product unavailable</h3><button class="btn btn-dark" data-act="back">Go back</button></div>'; return {}; }
+  let size = null;
+  const coming = isComing(h);
+  const sibs = ALL.filter(x => x.n === p.n);
+  const generic = [H.newCol, H.bestCol, H.hero && H.hero.col, '__drop'].concat(SH.edits||[]);
+  const related = ((COLS.find(c => !generic.includes(c.h) && c.p.includes(h)) || colBy(H.newCol) || {p:[]}).p).filter(x=>x!==h && P[x]).slice(0,10).map(x=>P[x]);
+  const long = p.sz.some(s => s[0].length > 4);
+  const sale = p.cp > p.p, pd = priceDrop && priceDrop.h === h;
+  const soldOut = p.sz.every(s=>!s[1]);
+  const mineAvail = hasSize() ? p.sz.find(s => s[1] && sizeMatch(s[0])) : null;
+  const mineOut = hasSize() && !mineAvail && p.sz.some(s => sizeMatch(s[0]));
+  if (mineAvail) size = mineAvail[0];
+  const ship = (SHIP.options||[]);
+  el.classList.add('pdp');
+  el.innerHTML =
+    '<div class="pdp-bar" aria-hidden="true"><span>'+esc(p.n)+'</span></div>'+
+    '<div class="pdp-top"><button class="icon-btn glass" data-act="back" aria-label="Back">'+I.back+'</button><div class="r"><button class="icon-btn glass" id="shareBtn" aria-label="Share">'+I.share+'</button><button class="icon-btn glass" data-act="bagtab" aria-label="Bag">'+I.bag+hbCount()+'</button></div></div>'+
+    '<div class="pscroll"><div class="gallery"><div class="gtrack">'+p.im.map((u,i)=>'<img src="'+img(u,800)+'" '+(i>1?'loading="lazy"':'')+' alt="'+esc(p.t)+' image '+(i+1)+'" draggable="false">').join('')+'</div>'+
+      (coming?'<span class="g-badge">Coming soon · First look</span>':pd?'<span class="g-badge drop">Price drop</span>':'')+
+      '<div class="gdots">'+p.im.map((_,i)=>'<i class="'+(i?'':'on')+'"></i>').join('')+'</div><span class="gcount">1 / '+p.im.length+'</span></div>'+
+    '<div class="pdp-info">'+
+      '<div class="ptype">'+esc(p.ty || NAME)+'</div><h1>'+esc(p.n)+'</h1>'+(p.c?'<div class="pc">'+esc(p.c)+'</div>':'')+
+      (sale ? '<div class="price sale"><b>'+money(p.p)+'</b><s>'+money(p.cp)+'</s>'+(pd?'<span class="pd-badge">Price drop</span>':'')+'</div>' : '<div class="price">'+money(p.p)+'</div>')+
+      (pays('klarna') ? '<div class="klarna">Or 3 payments of '+money(p.p/3)+' with Klarna</div>' : '')+proofHTML(true)+
+      (coming ? '<div class="soon-note">'+I.drop+'<div><b>DROP '+esc(DR.num)+' / '+esc(DR.name)+'</b><span>App early access '+fmtDay(dropTimes().app)+'. Website 24 hours later.</span></div></div>' : '')+
+      (sibs.length > 1 ? '<div class="label-row"><b>Colour</b><span>'+esc(p.c)+'</span></div><div class="swatches">'+sibs.map(s=>'<button class="swatch '+(s.h===h?'on':'')+'" data-sib="'+esc(s.h)+'" aria-label="'+esc(s.c)+'"><img loading="lazy" decoding="async" '+srcs(s.im[0],150,44)+' alt=""></button>').join('')+'</div>' : '')+
+      '<div class="label-row"><b>Size</b><span id="sizeLbl">'+(mineAvail?'Your saved size: '+esc(prettySize(size)):mineOut?'Your size ('+esc(sizeLabel())+') is sold out':'Select a size')+'</span></div>'+
+      '<div class="sizes">'+p.sz.map(s=>'<button class="size '+(long?'sm ':'')+(s[1]?'':'out ')+(s[0]===size?'on ':'')+(hasSize()&&sizeMatch(s[0])?'mine':'')+'" data-size="'+esc(s[0])+'" data-in="'+s[1]+'">'+esc(prettySize(s[0]))+'</button>').join('')+'</div>'+
+      '<div class="size-hint">'+I.bell+'<span>'+(mineOut?'Tap your size for a back-in-size alert':'Tap a sold-out size for a back-in-stock alert')+'</span>'+(SIZE_GROUPS.length?'<button class="link sm" data-act="size">'+(hasSize()?'Change size':'Save my size')+'</button>':'')+'</div>'+
+      '<div class="perks">'+(B.pdpPerks||[]).slice(0,3).map((t,i)=>'<div>'+[I.truck,I.ret,I.star][i]+esc(t)+'</div>').join('')+'</div>'+
+      '<div class="acc">'+
+        '<details open><summary>Description'+I.plus+'</summary><div class="acc-body">'+esc(p.d || 'Designed by '+NAME+'.')+'</div></details>'+
+        (ship.length ? '<details><summary>Delivery'+I.plus+'</summary><div class="acc-body"><ul>'+ship.map(o=>'<li><b>'+esc(o.name)+'</b> — '+(o.price?money(o.price):'Free')+(o.freeOver?', free on orders over '+money(o.freeOver):'')+(o.desc?', '+esc(o.desc):'')+'</li>').join('')+(SHIP.notes||[]).map(n=>'<li>'+esc(n)+'</li>').join('')+'</ul></div></details>' : '')+
+        (B.returns && B.returns.summary ? '<details><summary>Returns'+I.plus+'</summary><div class="acc-body">'+esc(B.returns.summary)+'</div></details>' : '')+
+      '</div>'+
+    '</div>'+
+    (related.length ? '<section class="section"><div class="sec-head"><h2>You may also like</h2></div><div class="hscroll">'+related.map(r=>pcard(r,{w:400})).join('')+'</div></section>' : '')+credit()+'</div>'+
+    '<div class="buybar show"><button class="hbtn '+(inWish(h)?'on':'')+'" data-act="wish" data-v="'+esc(h)+'" data-wish="'+esc(h)+'" aria-label="Save">'+I.heart+'</button><button class="btn btn-dark" id="addBtn"><span class="ab-l">'+(coming?(dropNotify?'On the list ✓':'Notify me when it drops'):soldOut?'Notify me':'Add to bag — '+money(p.p))+'</span></button></div>';
+
+  // past the gallery a solid bar with the product name fades in behind the floating buttons
+  const ps = $('.pscroll', el);
+  ps.addEventListener('scroll', () => { const past = ps.scrollTop > $('.gallery', el).offsetHeight - 110; if (past !== el.classList.contains('past')) el.classList.toggle('past', past); }, {passive:true});
+  const track = $('.gtrack', el), dots = $$('.gdots i', el), cnt = $('.gcount', el);
+  const idx = () => Math.round(track.scrollLeft / track.clientWidth);
+  track.addEventListener('scroll', () => { const i = idx(); dots.forEach((d,j)=>d.classList.toggle('on', i===j)); cnt.textContent = (i+1)+' / '+p.im.length; }, {passive:true});
+  const go = i => track.scrollTo({ left: Math.max(0, Math.min(p.im.length-1, i)) * track.clientWidth, behavior:'smooth' });
+  dots.forEach((d,i)=>d.addEventListener('click',()=>go(i)));
+  let sx = null;
+  track.addEventListener('pointerdown', e => { if (e.pointerType==='mouse'){ sx = e.clientX; e.preventDefault(); } });
+  track.addEventListener('pointerup', e => { if (sx===null) return; const dx = e.clientX - sx; sx = null; if (Math.abs(dx) > 30) go(idx() + (dx<0?1:-1)); else go(idx()+1 >= p.im.length ? 0 : idx()+1); });
+  track.addEventListener('pointerleave', () => sx = null);
+
+  $$('[data-sib]', el).forEach(b => b.addEventListener('click', () => { if (b.dataset.sib !== h){ const v = stack.find(s => s.el === el); if (v) v.args = b.dataset.sib; const st = $('.pscroll', el).scrollTop, sl = $('.swatches', el).scrollLeft; el.innerHTML=''; PDP(el, b.dataset.sib); const ps = $('.pscroll', el), sw = $('.swatches', el); if (ps) ps.scrollTop = st; if (sw) sw.scrollLeft = sl; anim($('.gallery', el), [{opacity:.4},{opacity:1}], { duration:360, easing:'ease-out' }); } }));
+  $$('.size', el).forEach(b => b.addEventListener('click', () => {
+    if (b.dataset.in === '0'){ toast('We’ll alert you when '+prettySize(b.dataset.size)+' is back', I.bell); return; }
+    size = b.dataset.size; $$('.size', el).forEach(x=>x.classList.toggle('on', x===b));
+    const l = $('#sizeLbl', el); l.textContent = (sizeMatch(size)?'Your saved size: ':'Size ') + prettySize(size); l.style.color='';
+  }));
+  let addedT;
+  const ab = $('#addBtn', el), abLabel = ab.innerHTML;
+  $('#addBtn', el).addEventListener('click', e => {
+    if (coming) { dropNotify = true; store.set('dropNotify', true); $('.ab-l', ab).textContent = 'On the list ✓'; toast('We’ll notify you when DROP '+DR.num+' opens', I.bell); return; }
+    if (soldOut) { toast('We’ll alert you when it’s back in stock', I.bell); return; }
+    if (!size){ const sz = $('.sizes', el); sz.classList.remove('shake'); void sz.offsetWidth; sz.classList.add('shake'); const l=$('#sizeLbl', el); l.textContent = 'Please select a size'; l.style.color='var(--sale)'; sz.scrollIntoView({behavior:'smooth', block:'center'}); return; }
+    // confirmation: the button turns into "Added" with a drawn check, the bag badge bumps, then the summary sheet rises
+    clearTimeout(addedT);
+    ab.classList.remove('added'); void ab.offsetWidth;
+    ab.innerHTML = '<span class="ab-l ab-done">'+I.check+'Added</span>'; ab.classList.add('added');
+    addToBag(h, size, false, 560);
+    addedT = setTimeout(() => { ab.classList.remove('added'); ab.innerHTML = abLabel; anim($('.ab-l', ab), [{opacity:0, transform:'translateY(6px)'},{opacity:1, transform:'none'}], { duration:260 }); }, 2400);
+  });
+  $('#shareBtn', el).addEventListener('click', () => {
+    const url = SITE + '/products/' + h;
+    if (navigator.share) navigator.share({ title:p.t, url }).catch(()=>{});
+    else { navigator.clipboard && navigator.clipboard.writeText(url).catch(()=>{}); toast('Link copied', I.share); }
+  });
+  enableDrag(el);
+  el._refresh = () => $$('[data-wish]', el).forEach(b => b.classList.toggle('on', inWish(b.dataset.v)));
+  return { hideTabs:true };
+}
+function addToBag(h, size, silent, delay){
+  const p = P[h];
+  const ex = bag.find(i => i.h===h && i.s===size);
+  if (ex) ex.q++; else bag.push({ h, s:size, q:1 });
+  saveBag();
+  if (silent) return;
+  if (delay && !RM.matches) { new Image().src = img(p.im[0],200); setTimeout(() => addedSheet(p, size), delay); return; }
+  addedSheet(p, size);
+}
+function addedSheet(p, size){
+  const total = bag.reduce((a,i)=>a+P[i.h].p*i.q,0);
+  const left = FREE_SHIP - total;
+  openSheet('<h3>Added to bag</h3><div class="added"><img src="'+img(p.im[0],200)+'" alt=""><div><b>'+esc(p.t)+'</b><small>Size '+esc(prettySize(size))+' · '+money(p.p)+'</small></div></div>'+
+    (FREE_SHIP ? '<div class="ship-prog" style="margin:0 0 16px"><p>'+(left>0?'You’re <b>'+money(left)+'</b> away from free '+esc(SHIP.region||'')+' delivery':'<b>You’ve unlocked free '+esc(SHIP.region||'')+' delivery</b>')+'</p><div class="bar"><i style="width:'+Math.min(100,total/FREE_SHIP*100)+'%"></i></div></div>' : '')+
+    '<div class="btns"><button class="btn btn-dark btn-block" id="goBag">View bag & checkout</button><button class="btn btn-outline btn-block" data-act="close">Continue shopping</button></div>',
+    s => $('#goBag', s).addEventListener('click', () => { closeSheet(); switchTab('bag'); }));
+}
+
+// ---------- BAG ----------
+const baseShip = () => (SHIP.options||[])[0] || { name:'Standard delivery', price:0 };
+function bagTotals(){
+  const sub = bag.reduce((a,i)=>a+P[i.h].p*i.q,0);
+  const disc = promo ? Math.round(sub*DISC.pct)/100 : 0;
+  const o = baseShip();
+  const ship = (o.freeOver && sub >= o.freeOver) ? 0 : (o.price||0);
+  return { sub, disc, ship, total: sub - disc + ship, cnt: bag.reduce((a,i)=>a+i.q,0) };
+}
+function Bag(el){
+  const render = () => {
+    if (!bag.length){
+      el.innerHTML = topbar({}) + '<div class="large-title"><small>Your bag</small>Bag</div><div class="empty" style="padding-top:40px"><div class="eic">'+I.bag+'</div><h3>Your bag is empty</h3><p>'+esc(B.copy && B.copy.emptyBag || 'Start with the latest arrivals.')+'</p>'+(colBy(H.newCol)?'<button class="btn btn-dark" data-act="col" data-v="'+esc(H.newCol)+'">Shop New In</button>':'')+'</div>'+
+        (prods(H.bestCol).length ? '<section class="section"><div class="sec-head"><h2>Best Sellers</h2></div><div class="hscroll">'+prods(H.bestCol).slice(0,8).map(p=>pcard(p,{w:400})).join('')+'</div></section>' : '')+credit();
+      enableDrag(el); return;
+    }
+    const T = bagTotals(), o = baseShip();
+    const saved = bag.reduce((a,i)=>a+(P[i.h].cp>P[i.h].p?(P[i.h].cp-P[i.h].p)*i.q:0),0);
+    el.innerHTML = topbar({}) + '<div class="large-title"><small>'+T.cnt+(T.cnt===1?' item':' items')+'</small>Bag</div>' +
+      (FREE_SHIP ? '<div class="ship-prog"><p>'+(T.sub<FREE_SHIP?'Spend <b>'+money(FREE_SHIP-T.sub)+'</b> more for free '+esc(SHIP.region||'')+' delivery':'<b>Free '+esc(SHIP.region||'')+' delivery unlocked</b> — '+esc(o.name))+'</p><div class="bar"><i style="width:'+Math.min(100,T.sub/FREE_SHIP*100)+'%"></i></div></div>' : '')+
+      bag.map((it,ix)=>{ const p=P[it.h]; return '<div class="bag-item" data-ix="'+ix+'"><img src="'+img(p.im[0],250)+'" alt="" data-act="pdp" data-v="'+esc(p.h)+'"><div class="bi-info"><b data-act="pdp" data-v="'+esc(p.h)+'">'+esc(p.n)+'</b><small>'+esc(p.c)+(p.c?' · ':'')+'Size '+esc(prettySize(it.s))+'</small>'+priceHTML(p)+
+        '<div class="bi-bottom"><div class="qty"><button data-q="-1" aria-label="Decrease">−</button><span>'+it.q+'</span><button data-q="1" aria-label="Increase">+</button></div><button class="remove" data-rm>Remove</button></div></div></div>'; }).join('')+
+      (promo ? '<div class="promo on">'+I.tag+'<div><b>'+esc(DISC.code)+' applied</b><small>'+DISC.pct+'% off your first app order</small></div><button class="remove" id="promoRm">Remove</button></div>'
+             : '<button class="promo" id="promoAdd">'+I.gift+'<div><b>First app order?</b><small>Tap to apply '+esc(DISC.code)+' for '+DISC.pct+'% off</small></div><span class="promo-cta">Apply</span></button>')+
+      '<div class="summary"><div class="row"><span>Subtotal</span><span>'+money(T.sub)+'</span></div>'+(saved?'<div class="row" style="color:var(--sale)"><span>You’re saving</span><span>−'+money(saved)+'</span></div>':'')+
+        (promo?'<div class="row disc"><span>'+esc(DISC.code)+' ('+DISC.pct+'% off)</span><span>−'+money(T.disc)+'</span></div>':'')+
+        '<div class="row"><span>Delivery ('+esc(o.short||o.name)+')</span><span>'+(T.ship?money(T.ship):'Free')+'</span></div><div class="row total"><span>Total</span><span id="bagTotal">'+money(T.total)+'</span></div>'+
+        (B.rewards && B.rewards.enabled ? '<div class="pts">'+I.star+'<span>Members earn '+esc(B.rewards.name)+' points on this order</span></div>' : '')+'</div>'+
+      '<div class="pay-row"><button class="btn btn-dark btn-block" id="checkout" style="height:52px">Checkout — '+money(T.total)+'</button><button class="apple-pay" id="applePay">'+I.apple+'Pay</button><div class="pay-icons">'+[['klarna','Klarna'],['paypal','PayPal'],['shopify_pay','Shop Pay'],['google_pay','Google Pay']].filter(x=>pays(x[0])).map(x=>'<span>'+x[1]+'</span>').join('·')+'</div></div>'+credit();
+    $$('.bag-item', el).forEach(row => {
+      const ix = +row.dataset.ix;
+      $$('[data-q]', row).forEach(b => b.addEventListener('click', () => { bag[ix].q += +b.dataset.q; if (bag[ix].q < 1){ bag[ix].q = 1; removeAt(row, ix); return; } saveBag(); const st = el.scrollTop; render(); el.scrollTop = st; const q = $('.bag-item[data-ix="'+ix+'"] .qty span', el); if (q) anim(q, [{transform:'translateY('+(+b.dataset.q>0?6:-6)+'px)', opacity:0},{transform:'none', opacity:1}], { duration:240 }); }));
+      $('[data-rm]', row).addEventListener('click', () => removeAt(row, ix));
+    });
+    const pa = $('#promoAdd', el); if (pa) pa.addEventListener('click', () => { promo = true; store.set('promo', true); const st = el.scrollTop; render(); el.scrollTop = st; toast(DISC.code+' applied, '+DISC.pct+'% off', I.tag); });
+    const pr = $('#promoRm', el); if (pr) pr.addEventListener('click', () => { promo = false; store.set('promo', false); const st = el.scrollTop; render(); el.scrollTop = st; toast(DISC.code+' removed'); });
+    $('#checkout', el).addEventListener('click', () => checkout());
+    $('#applePay', el).addEventListener('click', () => checkout(true));
+  };
+  const removeAt = (row, ix) => { if (row.classList.contains('removing')) return; row.classList.add('removing'); setTimeout(()=>{ bag.splice(ix,1); saveBag(); const st = el.scrollTop; render(); el.scrollTop = st; toast('Removed from bag'); }, 320); };
+  render();
+  el._refresh = render;
+}
+function checkout(quick){
+  const T = bagTotals();
+  const opts = (SHIP.options && SHIP.options.length ? SHIP.options : [{id:'std',name:'Standard delivery',desc:'',price:0}]).slice(0,4).map(o => [o.id, o.name, o.desc||'', (o.freeOver && T.sub >= o.freeOver) ? 0 : (o.price||0)]);
+  let sel = opts[0][0];
+  const totalFor = () => T.sub - T.disc + opts.find(o=>o[0]===sel)[3];
+  openSheet('<h3 style="margin-bottom:4px">Checkout</h3><p class="co-sub">'+I.lock+'Shopify checkout, inside the app</p>'+
+    '<div class="express">'+(pays('apple_pay')?'<button class="xp apple" data-pay="Apple Pay">'+I.apple+'Pay</button>':'')+(pays('shopify_pay')?'<button class="xp shop" data-pay="Shop Pay"><b>shop</b><span>Pay</span></button>':'')+
+      (pays('klarna') ? '<button class="xp klarna" data-pay="Klarna"><b>Klarna.</b><span id="klarna3">3 payments of '+money(totalFor()/3)+'</span></button>'
+       : pays('paypal') ? '<button class="xp paypal" data-pay="PayPal"><b>Pay<i>Pal</i></b></button>' : '')+'</div>'+
+    '<div class="or"><span>or pay by card</span></div>'+
+    '<div class="co-row"><div>Deliver to<small>Your saved address</small></div><button class="co-change" data-change="address">Change</button></div>'+
+    opts.map(o=>'<div class="ship-opt '+(o[0]===sel?'on':'')+'" data-o="'+esc(o[0])+'"><i class="radio"></i><div>'+esc(o[1])+'<small>'+esc(o[2])+'</small></div><span>'+(o[3]?money(o[3]):'Free')+'</span></div>').join('')+
+    (promo?'<div class="co-row"><div>Discount<small>'+esc(DISC.code)+', '+DISC.pct+'% off first app order</small></div><span style="color:var(--sale)">−'+money(T.disc)+'</span></div>':'')+
+    '<div class="co-row" style="margin-top:8px"><div>Pay with<small>'+(quick?'Apple Pay':'Card ending ···· 4242')+'</small></div><button class="co-change" data-change="payment">Change</button></div>'+
+    '<div class="co-row"><div><b>Total</b></div><span id="coTotal" style="font-size:15px;font-weight:600">'+money(totalFor())+'</span></div>'+
+    '<div class="btns" style="margin-top:12px"><button class="'+(quick?'apple-pay':'btn btn-dark btn-block')+'" id="payNow">'+(quick?I.apple+'Pay':'Place order')+'</button></div>'+
+    '<p class="center" style="font-size:10.5px;margin:12px 0 0">Concept demo — no order is placed and no payment is taken.</p>',
+    s => {
+      $$('.co-change', s).forEach(b => b.addEventListener('click', () => toast(b.dataset.change === 'address' ? 'Demo: your saved addresses would open here' : 'Demo: your saved cards would open here', b.dataset.change === 'address' ? I.pin : I.card)));
+      $$('.ship-opt', s).forEach(o => o.addEventListener('click', () => { sel = o.dataset.o; $$('.ship-opt', s).forEach(x=>x.classList.toggle('on',x===o)); $('#coTotal', s).textContent = money(totalFor()); const k3 = $('#klarna3', s); if (k3) k3.textContent = '3 payments of '+money(totalFor()/3); }));
+      const done = (method) => {
+        const ref = (NAME[0]||'R').toUpperCase() + Math.floor(100000 + Math.random()*899999);
+        const paid = totalFor();
+        bag = []; saveBag(); if (promo){ promo = false; store.set('promo', false); }
+        openSheet('<div class="check-anim">'+I.check+'</div><h3>Order confirmed</h3><p class="center">Demo order #'+ref+' · '+money(paid)+' via '+esc(method)+'.<br>Nothing was charged and no real order was placed.<br>In the live app you’d get tracking updates on your lock screen.</p><div class="btns"><button class="btn btn-dark btn-block" id="contShop">Continue shopping</button>'+(B.rewards&&B.rewards.enabled?'<button class="btn btn-outline btn-block" id="seeRw">View '+esc(B.rewards.name)+'</button>':'')+'</div>',
+          s2 => { $('#contShop', s2).addEventListener('click', () => { closeSheet(); switchTab('home'); }); const rw = $('#seeRw', s2); if (rw) rw.addEventListener('click', () => { closeSheet(); push(Rewards); }); });
+        if (currentTab==='bag') stack[0].el._refresh();
+      };
+      $$('.xp', s).forEach(b => b.addEventListener('click', () => done(b.dataset.pay)));
+      $('#payNow', s).addEventListener('click', () => done(quick ? 'Apple Pay' : 'card'));
+    });
+}
+
+// ---------- WISHLIST ----------
+function Wishlist(el, mode){
+  const render = () => {
+    el.innerHTML = topbar(mode === 'pushed' ? { back:true, title:'', right:bagBtn() } : { right:bagBtn() }) + '<div class="large-title"><small>Saved for later</small>Wishlist</div>' +
+      (wish.length ? '<div class="count">'+wish.length+' saved '+(wish.length===1?'item':'items')+' · we’ll let you know if prices drop</div><div class="grid">'+wish.map(h=>pcard(P[h])).join('')+'</div>'
+                   : '<div class="empty" style="padding-top:40px"><div class="eic">'+I.heart+'</div><h3>Nothing saved yet</h3><p>Tap the heart on any piece to save it here — we’ll alert you if the price drops or your size is running low.</p>'+(H.hero&&colBy(H.hero.col)?'<button class="btn btn-dark" data-act="col" data-v="'+esc(H.hero.col)+'">'+esc(H.hero.cta||'Shop now')+'</button>':'')+'</div>') + credit();
+  };
+  render();
+  el._refresh = render;
+  // un-saving from the wishlist fades the card out before the grid reflows
+  el.addEventListener('click', e => { const w = e.target.closest('[data-act="wish"]'); if (!w) return; const c = w.closest('.pcard'); if (c && !inWish(c.dataset.v)) c.classList.add('leaving'); setTimeout(() => { const st = el.scrollTop; render(); el.scrollTop = st; }, 380); });
+}
+
+// ---------- SEARCH ----------
+function Search(el, q0){
+  const TR = (B.search && B.search.trending) || [];
+  const POP = ((B.search && B.search.popular) || []).filter(h => prods(h).length);
+  el.innerHTML = '<div class="searchbar"><button class="icon-btn" data-act="back" aria-label="Back">'+I.back+'</button><label class="sfield">'+I.search+'<input id="sq" type="search" placeholder="Search '+esc(NAME)+'" autocomplete="off" enterkeyhint="search"><button class="clear" id="sclear" aria-label="Clear">×</button></label></div><div id="sbody"></div>';
+  const inp = $('#sq', el), body = $('#sbody', el), field = $('.sfield', el);
+  const bindQ = () => $$('[data-q]', body).forEach(b => b.addEventListener('click', () => { inp.value = b.dataset.q; run(true); }));
+  const idle = () => {
+    body.innerHTML =
+      (recent.length ? '<div class="s-sec"><h4>Recent</h4><div class="chips">'+recent.map(r=>'<button class="chip" data-q="'+esc(r)+'">'+esc(r)+'</button>').join('')+'</div></div>' : '')+
+      (TR.length ? '<div class="s-sec"><h4>Trending</h4><div class="chips">'+TR.map(r=>'<button class="chip" data-q="'+esc(r)+'">'+esc(r)+'</button>').join('')+'</div></div>' : '')+
+      (POP.length ? '<div class="s-sec"><h4>Popular categories</h4></div><div class="cat-list">'+POP.map(h=>{const c=colBy(h),p=prods(h)[0];const n = prods(h).length; return '<div class="cat-row" data-act="col" data-v="'+esc(h)+'"><img loading="lazy" decoding="async" '+srcs(p.im[0],200,56)+' alt=""><div><b>'+esc(c.t)+'</b><small>'+n+(n===1?' style':' styles')+'</small></div>'+I.chev+'</div>';}).join('')+'</div>' : '')+credit();
+    bindQ();
+  };
+  const run = (commit) => {
+    const q = inp.value.trim().toLowerCase();
+    field.classList.toggle('has', !!q);
+    if (!q) return idle();
+    const terms = q.split(/\s+/);
+    const res = ALL.filter(p => { const hay = (p.t+' '+p.ty).toLowerCase(); return terms.every(t => hay.includes(t)); });
+    if (commit){ recent = [inp.value.trim(), ...recent.filter(r=>r.toLowerCase()!==q)].slice(0,5); store.set('recent', recent); }
+    const re = new RegExp('('+terms.map(t=>t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')','ig');
+    body.innerHTML = res.length
+      ? '<div class="count" style="padding-top:4px">'+res.length+(res.length===1?' result':' results')+' for “'+esc(inp.value.trim())+'”</div><div class="s-res">'+res.slice(0,40).map(p=>'<div class="s-row" data-act="pdp" data-v="'+esc(p.h)+'"><img loading="lazy" decoding="async" '+srcs(p.im[0],150,56)+' alt=""><div><b>'+esc(p.n).replace(re,'<mark>$1</mark>')+'</b><small>'+[p.c, tcase(p.ty)].filter(Boolean).map(esc).join(' · ').replace(re,'<mark>$1</mark>')+'</small></div>'+priceHTML(p)+'</div>').join('')+'</div>'
+      : '<div class="empty" style="padding-top:40px"><div class="eic">'+I.search+'</div><h3>No results</h3><p>Nothing matched “'+esc(inp.value.trim())+'”. Try a trending search instead.</p><div class="chips" style="justify-content:center;flex-wrap:wrap">'+TR.slice(0,4).map(r=>'<button class="chip" data-q="'+esc(r)+'">'+esc(r)+'</button>').join('')+'</div></div>';
+    bindQ();
+  };
+  inp.addEventListener('input', () => run(false));
+  inp.addEventListener('keydown', e => { if (e.key === 'Enter'){ run(true); inp.blur(); } });
+  $('#sclear', el).addEventListener('click', e => { e.preventDefault(); inp.value=''; run(); inp.focus(); });
+  if (q0){ inp.value = q0; run(true); } else idle();
+  if (window.matchMedia('(min-width:521px)').matches) setTimeout(()=>inp.focus({preventScroll:true}), 300);
+}
+
+// ---------- DROPS ----------
+function Drops(el){
+  const render = () => {
+    const t = dropTimes();
+    const items = (DR.products||[]).map(h=>P[h]).filter(Boolean);
+    const prev = DR.previous && colBy(DR.previous.col) ? DR.previous : null;
+    el.innerHTML = topbar({title:'', right:bagBtn()}) +
+      '<div class="large-title"><small>App early access</small>Drops</div>'+
+      '<div class="drop-card'+(dropLive?' live':'')+'"><img src="'+esc(dropImg()||'')+'" alt=""><div class="dc-in">'+
+        '<div class="dc-tag">'+(dropLive?'<span class="live-dot"></span>Live now for app users':'Next drop')+'</div>'+
+        '<div class="dc-title">DROP '+esc(DR.num)+' <span>/</span> '+esc(DR.name)+'</div>'+(DR.title&&DR.title!==DR.name?'<div class="dc-sub">'+esc(DR.title)+'</div>':'')+
+        (dropLive ? '<div class="cd"><div class="wide"><b>LIVE</b><small>Website opens '+t.web.toLocaleDateString('en-GB',{weekday:'long'})+'</small></div></div>' : '<div class="cd">'+cdHTML()+'</div>')+
+        '<p class="dc-early">'+I.bolt+'App users get in 24 hours before the website</p>'+
+        (dropLive ? '<button class="btn btn-light btn-block" data-act="col" data-v="__drop">Shop the drop</button>'
+                  : '<button class="btn btn-light btn-block" id="notifyBtn">'+(dropNotify?'You’re on the list ✓':'Notify me when it opens')+'</button>')+
+      '</div></div>'+
+      '<div class="drop-times"><div><small>App early access</small><b>'+fmtDay(t.app)+'</b></div><div><small>Website</small><b>'+fmtDay(t.web)+'</b></div></div>'+
+      (items.length ? '<section class="section"><div class="sec-head"><div><h2>First Look</h2><p>'+items.length+' pieces from '+esc(DR.title||DR.name)+'</p></div>'+(dropLive?'<button class="link" data-act="col" data-v="__drop">View all</button>':'')+'</div><div class="grid">'+items.map(p=>pcard(p,{dropGrid:true})).join('')+'</div></section>' : '')+
+      (prev ? '<section class="section"><div class="sec-head"><div><h2>Latest drop</h2><p>Out now</p></div></div><div class="feature-card" data-act="col" data-v="'+esc(prev.col)+'"><img loading="lazy" src="'+img((prods(prev.col)[0]||{im:['']}).im[0],700)+'" alt=""><div><b>'+esc(prev.title)+'</b><span class="btn btn-light btn-sm">Shop now</span></div></div></section>' : '')+
+      '<div class="drop-banner"><div class="db-ic">'+I.bell+'</div><div class="db-t"><b>Early access alerts</b><p>Get a push the moment app early access opens.</p></div><button class="switch '+(prefs.early?'on':'')+'" id="earlySw" aria-label="Early access alerts"></button></div>'+credit();
+    const nb = $('#notifyBtn', el);
+    if (nb) nb.addEventListener('click', () => { dropNotify = !dropNotify; store.set('dropNotify', dropNotify); if (dropNotify){ prefs.early = true; savePrefs(); } render(); toast(dropNotify ? 'We’ll notify you when DROP '+DR.num+' opens' : 'Notification cancelled', I.bell); });
+    $('#earlySw', el).addEventListener('click', e => { prefs.early = !prefs.early; savePrefs(); e.currentTarget.classList.toggle('on', prefs.early); toast(prefs.early?'Early access alerts on':'Early access alerts off', I.bell); });
+  };
+  render();
+  el._refresh = render;
+}
+
+// ---------- ACCOUNT ----------
+function Account(el){
+  const prefRows = [['drops','New drops','The moment a new collection lands'],['early','Early access','App-only access 24 hours before the website'],['restock','Back in stock','When your size comes back'],['price','Price drops','On items in your wishlist'],['orders','Order updates','Dispatch and live delivery tracking']];
+  const group = (key, title) => { const list = PAGES[key]; return list && list.length ? '<details class="acct-acc"><summary>'+esc(title)+I.plus+'</summary><div>'+list.map((pg,i)=>'<button class="link-row" data-page="'+key+':'+i+'">'+esc(pg.t)+I.chev+'</button>').join('')+'</div></details>' : ''; };
+  const render = () => {
+    el.innerHTML = topbar({title:'', right:bagBtn()}) +
+      '<div class="large-title"><small>'+esc(NAME)+'</small>Account</div>'+
+      (signedIn ? '<div class="acct-card"><div class="av">'+I.user+'</div><div><b>Signed in (demo)</b><small>Nothing was saved or sent</small></div><button class="link" id="signOut">Sign out</button></div>'
+                : '<div class="acct-card"><div class="av">'+I.user+'</div><div><b>Welcome</b><small>Log in for faster checkout, order tracking and early access.</small></div></div><div class="acct-btns"><button class="btn btn-dark" data-act="login">Log in</button><button class="btn btn-outline" data-act="signup">Sign up</button></div>')+
+      (B.rewards && B.rewards.enabled ? '<div class="rewards-mini" data-act="rewards"><div class="rm-left"><small>'+esc(B.rewards.name)+'</small><b>1,250 pts</b><div class="rm-bar"><i></i></div><p>Tap to show your card</p></div><div class="rm-right">'+I.card+'</div></div>' : '')+
+      (WISH_TAB ? '' : '<button class="acct-link" data-act="wishlist">'+I.heart+'<span><b>Wishlist</b><small>'+(wish.length ? wish.length+' saved '+(wish.length===1?'piece':'pieces') : 'Nothing saved yet')+'</small></span>'+I.chev+'</button>')+
+      (COMM ? '<button class="acct-link" data-act="tab" data-v="community">'+I.people+'<span><b>'+esc(CM.title||'Community')+'</b><small>'+esc([EV?'Events':'', FM?'the forum':''].filter(Boolean).join(' & '))+'</small></span>'+I.chev+'</button>' : '')+
+      '<div class="drop-banner" id="dropBanner"><div class="db-ic">'+I.bell+'</div><div class="db-t"><b>Drop alerts</b><p>Be first to know when new pieces land.</p></div><button class="switch '+(prefs.drops?'on':'')+'" id="dropSwitch" aria-label="Toggle drop alerts"></button></div>'+
+      (SIZE_GROUPS.length ? '<div class="s-sec acct-h"><h4>Your size</h4></div><div class="acct-size">'+SIZE_GROUPS.map(g=>'<div class="label-row" style="margin:4px 0 8px"><b>'+esc(g.label)+'</b>'+(mySize[g.key]?'<span>Saved: '+esc((g.prefix||'')+mySize[g.key])+'</span>':'<span>Not set</span>')+'</div><div class="sizes">'+g.opts.map(o=>'<button class="size'+(String(mySize[g.key])===String(o)?' on':'')+'" data-g="'+esc(g.key)+'" data-o="'+esc(o)+'">'+esc((g.prefix||'')+o)+'</button>').join('')+'</div>').join('')+'<p class="acct-note">'+I.ruler+'<span>Pre-selected on product pages, used for the “in my size” filter and back-in-size alerts.</span></p></div>' : '')+
+      '<div class="s-sec acct-h"><h4>Notifications</h4></div>'+
+      '<div class="pref-group">'+prefRows.map(x=>'<div class="pref" data-pref="'+x[0]+'" role="switch" aria-checked="'+!!prefs[x[0]]+'" tabindex="0"><div><b>'+x[1]+'</b><small>'+x[2]+'</small></div><span class="switch '+(prefs[x[0]]?'on':'')+'"></span></div>').join('')+'</div>'+
+      '<div class="s-sec acct-h"><h4>Information</h4></div><div class="acct-groups">'+group('help','Help')+group('about','About')+group('legal','Legal')+'</div>'+
+      '<div class="acct-foot">'+(IG?'<a class="ig" href="https://www.instagram.com/'+esc(IG)+'/" target="_blank" rel="noopener">'+I.ig+'@'+esc(IG)+'</a>':'')+'<img src="'+LOGO+'" alt="'+esc(NAME)+'"><p>Version 1.0, concept</p></div>'+credit();
+    $$('.acct-size .size', el).forEach(b => b.addEventListener('click', () => {
+      const g = b.dataset.g; mySize[g] = String(mySize[g])===b.dataset.o ? null : b.dataset.o; store.set('size', mySize);
+      toast(mySize[g] ? 'Saved size: '+sizeLabel() : 'Size cleared', I.ruler); const st = el.scrollTop; render(); el.scrollTop = st;
+    }));
+    const syncDropsUI = () => {
+      const sw = $('#dropSwitch', el); if (sw) sw.classList.toggle('on', !!prefs.drops);
+      const prefSw = el.querySelector('.pref[data-pref="drops"] .switch'); if (prefSw) prefSw.classList.toggle('on', !!prefs.drops);
+    };
+    $('#dropSwitch', el).addEventListener('click', () => {
+      prefs.drops = !prefs.drops; savePrefs(); syncDropsUI();
+      toast(prefs.drops ? 'Drop alerts on' : 'Drop alerts off', I.bell);
+      if (prefs.drops) setTimeout(()=>Demo.newin(), 1300);
+    });
+    $$('.pref', el).forEach(r => r.addEventListener('click', () => {
+      const k = r.dataset.pref; prefs[k] = !prefs[k]; savePrefs();
+      $('.switch',r).classList.toggle('on', prefs[k]); r.setAttribute('aria-checked', !!prefs[k]);
+      if (k === 'drops') syncDropsUI();
+      toast(r.querySelector('b').textContent+(prefs[k]?' on':' off'), I.bell);
+    }));
+    $$('[data-page]', el).forEach(b => b.addEventListener('click', () => { const [g,i] = b.dataset.page.split(':'); openBrowser(PAGES[g][+i]); }));
+    const so = $('#signOut', el); if (so) so.addEventListener('click', () => { signedIn = false; render(); toast('Signed out'); });
+  };
+  render();
+  el._refresh = () => { const st = el.scrollTop; render(); el.scrollTop = st; };
+}
+const demoNote = '<div class="demo-note">'+I.lock+'<span><b>Demo only.</b> This is a concept. Nothing you type is saved or sent anywhere.</span></div>';
+function AuthView(kind){
+  return function(el){
+    const cfg = {
+      login:{ title:'Log in', head:'Welcome back', sub:'Log in to your '+NAME+' account.', fields:[['email','Email'],['password','Password']], btn:'Log in' },
+      signup:{ title:'Sign up', head:'Create an account', sub:'Faster checkout, order tracking and app early access.', fields:[['text','First name'],['text','Last name'],['email','Email'],['password','Password']], btn:'Create account', opt:'Email me about new drops and offers' },
+      recover:{ title:'Recover password', head:'Reset your password', sub:'Enter the email on your account and we’ll send you a link to reset your password.', fields:[['email','Email']], btn:'Send reset link' }
+    }[kind];
+    el.innerHTML = topbar({back:true, title:cfg.title}) + '<form class="auth" novalidate><img src="'+LOGO+'" alt="'+esc(NAME)+'" class="auth-logo"><h2>'+esc(cfg.head)+'</h2><p>'+esc(cfg.sub)+'</p>'+demoNote+
+      cfg.fields.map(f=>'<label class="field"><span>'+f[1]+'</span><input type="'+f[0]+'" autocomplete="off" placeholder="'+f[1]+'"></label>').join('')+
+      (cfg.opt?'<label class="opt"><input type="checkbox"><span>'+esc(cfg.opt)+'</span></label>':'')+
+      (kind==='login'?'<button type="button" class="link sm forgot" data-act="recover">Forgot password?</button>':'')+
+      '<button class="btn btn-dark btn-block" type="submit">'+cfg.btn+'</button>'+
+      (kind==='login'?'<p class="auth-alt">New to '+esc(NAME)+'? <button type="button" class="link sm" data-act="signup">Create an account</button></p>':kind==='signup'?'<p class="auth-alt">Already have an account? <button type="button" class="link sm" data-act="login">Log in</button></p>':'<p class="auth-alt"><button type="button" class="link sm" data-act="back">Back to log in</button></p>')+
+      '</form>';
+    $('form', el).addEventListener('submit', e => {
+      e.preventDefault();
+      $$('input', el).forEach(i => { if (i.type !== 'checkbox') i.value = ''; });
+      if (kind !== 'recover') signedIn = true;
+      $('form', el).innerHTML = '<div class="check-anim">'+I.check+'</div><h2>'+(kind==='recover'?'Demo: no email sent':'Demo: you’d now be signed in')+'</h2><p>'+(kind==='recover'?'In the live app a reset link would be emailed to you. In this concept nothing was sent.':'In this concept nothing was saved or sent, and the form has been cleared.')+'</p><button type="button" class="btn btn-dark btn-block" id="authDone">Back to account</button>';
+      $('#authDone', el).addEventListener('click', () => switchTab('account', true));
+    });
+    return { hideTabs:true };
+  };
+}
+
+// ---------- in-app browser ----------
+function openBrowser(pg){
+  if (!pg) return;
+  const br = $('#browser');
+  let host = '', path = '';
+  try { const u = new URL(pg.url); host = u.host.replace(/^www\./,''); path = u.pathname; } catch(e){}
+  const fallback = '<div class="br-fallback"><small>'+esc(host+path)+'</small><h3>'+esc(pg.t)+'</h3>'+
+    '<p class="br-why">'+I.lock+'<span>'+esc(host)+' doesn’t allow its pages to be shown inside other apps, so here’s a short summary taken from the page.</span></p>'+
+    '<div class="br-sum">'+(pg.sum ? pg.sum.split(/\n+/).map(x=>'<p>'+esc(x)+'</p>').join('') : '<p>No summary could be extracted from this page.</p>')+'</div>'+
+    '<a class="btn btn-dark btn-block" href="'+esc(pg.url)+'" target="_blank" rel="noopener">Open on site'+I.ext+'</a></div>';
+  br.innerHTML = '<div class="br-bar"><button class="br-done" id="brDone">Done</button><div class="br-url">'+I.lock+'<span>'+esc(host)+'</span></div><a class="icon-btn" href="'+esc(pg.url)+'" target="_blank" rel="noopener" aria-label="Open on site">'+I.ext+'</a></div><div class="br-body">'+
+    (B.frameable ? '<iframe src="'+esc(pg.url)+'" title="'+esc(pg.t)+'" referrerpolicy="no-referrer"></iframe><button class="br-trouble" id="brTrouble">Page not loading? Show summary</button>' : fallback)+'</div>';
+  br.classList.add('show');
+  $('#brDone').addEventListener('click', closeBrowser);
+  const tr = $('#brTrouble'); if (tr) tr.addEventListener('click', () => { $('.br-body', br).innerHTML = fallback; });
+}
+function closeBrowser(){ const b = $('#browser'); if (b) b.classList.remove('show'); }
+
+
+// ---------- COMMUNITY: real events + demo forum (brand.json -> community) ----------
+// Events come from the brand's own events page (never invented): upcoming ones are cards with a date badge and the real
+// booking link; if nothing is upcoming an empty state shows and past events are listed as "Recent". The forum is demo
+// content in the brand's voice (generic first names + initials avatars); likes, replies and new posts stay on this device.
+const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const dayOf = d => { const x = new Date(d+'T00:00:00'); return isNaN(x) ? null : x; };
+const today0 = () => { const t = new Date(); t.setHours(0,0,0,0); return t; };
+function evSplit(){
+  const items = (EV && EV.items || []).filter(e => e && e.title);
+  const t = today0(), endOf = e => dayOf(e.end || e.start);
+  const up = items.filter(e => { const d = endOf(e); return d && d >= t; }).sort((a,b) => dayOf(a.start) - dayOf(b.start));
+  const past = items.filter(e => !up.includes(e)).sort((a,b) => (dayOf(b.start)||0) - (dayOf(a.start)||0));
+  return { up, past };
+}
+let evAlerts = store.get('evAlerts', false);
+let forumLikes = store.get('forumLikes', {});          // id -> true
+let forumMine = store.get('forumMine', []);            // threads you posted (demo)
+let forumReplies = store.get('forumReplies', {});      // id -> [your replies]
+let commSeg = 'events', forumTopic = 'All';
+const ME = { name:'You', initials:'ME', me:true };
+const threadsAll = () => forumMine.concat((FM && FM.threads) || []);
+const threadBy = id => threadsAll().find(t => t.id === id);
+const repliesOf = t => (t.replies || []).concat(forumReplies[t.id] || []);
+const avHTML = (a, cls) => { const k = a.me ? 'me' : ((a.name||'').split('').reduce((n,c)=>n+c.charCodeAt(0),0) % 5); return '<span class="av-i av-'+k+(cls?' '+cls:'')+'" aria-hidden="true">'+esc(a.initials || (a.name||'?').slice(0,2).toUpperCase())+'</span>'; };
+const likeN = t => (t.likes||0) + (forumLikes[t.id] ? 1 : 0);
+
+function evCard(e, past){
+  const d = dayOf(e.start), cta = e.ticket ? (e.cta || 'Book') : 'View on site';
+  return '<article class="ev-card'+(past?' past':'')+'" data-ev="'+esc(e.id)+'">'+
+    '<div class="ev-img">'+(e.image?'<img loading="lazy" src="'+esc(e.image)+'" alt="">':'')+
+      (d ? '<div class="ev-date"><b>'+d.getDate()+'</b><small>'+MON[d.getMonth()]+'</small></div>' : '')+(past?'<span class="ev-past">Past event</span>':'')+'</div>'+
+    '<div class="ev-body"><h3>'+esc(e.title)+'</h3>'+
+      '<p class="ev-meta">'+I.cal+'<span>'+esc(e.dateLabel || (d ? d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'}) : ''))+(e.time?' · '+esc(e.time):'')+'</span></p>'+
+      (e.location?'<p class="ev-meta">'+I.pin+'<span>'+esc(e.location)+'</span></p>':'')+
+      (e.desc?'<p class="ev-desc">'+esc(e.desc)+'</p>':'')+
+      '<button class="btn '+(past?'btn-outline':'btn-dark')+' btn-sm ev-cta" data-act="event" data-v="'+esc(e.id)+'">'+esc(cta)+I.ext+'</button></div></article>';
+}
+function eventsHTML(){
+  const { up, past } = evSplit();
+  const src = EV.source ? '<p class="ev-src">Events as listed on <button class="link sm" data-act="evsrc">'+esc((()=>{ try { return new URL(EV.source).host.replace(/^www\./,''); } catch(e){ return 'the website'; } })())+'</button>'+(EV.checked?', checked '+esc(EV.checked):'')+'</p>' : '';
+  return (up.length
+      ? '<section class="section ev-sec"><div class="sec-head"><div><h2>Upcoming</h2><p>'+up.length+(up.length===1?' event':' events')+' coming up</p></div></div><div class="ev-list">'+up.map(e=>evCard(e,false)).join('')+'</div></section>'
+      : '<div class="ev-empty"><div class="eic">'+I.cal+'</div><h3>No upcoming events</h3><p>'+esc(EV.emptyCopy || 'Nothing is booked in right now. Turn on event alerts and we’ll let you know the moment the next one is announced.')+'</p>'+
+        '<div class="ev-alert"><span>Event alerts</span><button class="switch '+(evAlerts?'on':'')+'" id="evAlerts" role="switch" aria-checked="'+evAlerts+'" aria-label="Event alerts"></button></div></div>')+
+    (past.length ? '<section class="section ev-sec"><div class="sec-head"><div><h2>Recent</h2><p>'+esc(EV.recentCopy || 'What the community got up to lately')+'</p></div></div><div class="ev-list">'+past.map(e=>evCard(e,true)).join('')+'</div></section>' : '')+src;
+}
+function threadCard(t){
+  const n = repliesOf(t).length, pr = t.product && P[t.product];
+  return '<article class="thread'+(t.mine?' mine':'')+'" data-thread="'+esc(t.id)+'">'+
+    '<div class="th-top">'+avHTML(t.author)+'<div class="th-who"><b>'+esc(t.author.name)+'</b><small>'+esc(t.ago||'Just now')+'</small></div><span class="th-topic">'+esc(t.topic)+'</span></div>'+
+    '<h3>'+esc(t.title)+'</h3>'+(t.body?'<p class="th-body">'+esc(t.body)+'</p>':'')+
+    (pr ? '<div class="th-prod" data-act="pdp" data-v="'+esc(pr.h)+'"><img loading="lazy" decoding="async" '+srcs(pr.im[0],150,56)+' alt=""><span><b>'+esc(pr.n)+'</b><small>'+esc([pr.c, money(pr.p)].filter(Boolean).join(' · '))+'</small></span>'+I.chev+'</div>' : '')+
+    '<div class="th-foot"><button class="th-like'+(forumLikes[t.id]?' on':'')+'" data-like="'+esc(t.id)+'" aria-pressed="'+!!forumLikes[t.id]+'" aria-label="Like">'+I.heart+'<span>'+likeN(t)+'</span></button>'+
+      '<span class="th-replies">'+I.chat+'<span>'+n+(n===1?' reply':' replies')+'</span></span></div></article>';
+}
+function forumHTML(){
+  const topics = ['All'].concat(FM.topics || []);
+  const list = threadsAll().filter(t => forumTopic === 'All' || t.topic === forumTopic);
+  return '<p class="fm-note">'+I.lock+'<span>'+esc(FM.note || 'Demo community: example posts in the brand’s voice. Anything you post stays on this device.')+'</span></p>'+
+    '<button class="fm-compose" data-act="compose">'+avHTML(ME)+'<span>'+esc(FM.prompt || 'Start a conversation…')+'</span>'+I.pen+'</button>'+
+    '<div class="chips fm-chips">'+topics.map(x=>'<button class="chip'+(x===forumTopic?' on':'')+'" data-topic="'+esc(x)+'">'+esc(x)+'</button>').join('')+'</div>'+
+    '<div class="fm-list">'+(list.length ? list.map(threadCard).join('') : '<div class="empty" style="padding-top:30px"><h3>No posts yet</h3><p>Be the first to post in '+esc(forumTopic)+'.</p></div>')+'</div>';
+}
+function bindLikes(root, after){
+  $$('[data-like]', root).forEach(b => b.addEventListener('click', e => {
+    e.stopPropagation();
+    const id = b.dataset.like; forumLikes[id] = !forumLikes[id]; if (!forumLikes[id]) delete forumLikes[id]; store.set('forumLikes', forumLikes);
+    const t = threadBy(id); b.classList.toggle('on', !!forumLikes[id]); b.setAttribute('aria-pressed', !!forumLikes[id]); $('span', b).textContent = likeN(t);
+    b.classList.remove('burst'); void b.offsetWidth; b.classList.add('burst');
+    after && after();
+  }));
+}
+function Community(el, seg){
+  if (seg === 'events' || seg === 'forum') commSeg = seg;
+  if (!EV) commSeg = 'forum'; if (!FM) commSeg = 'events';
+  const body = s => s === 'events' ? eventsHTML() : forumHTML();
+  const bind = () => {
+    const box = $('.seg-body', el);
+    const sw = $('#evAlerts', box); if (sw) sw.addEventListener('click', () => { evAlerts = !evAlerts; store.set('evAlerts', evAlerts); sw.classList.toggle('on', evAlerts); sw.setAttribute('aria-checked', evAlerts); toast(evAlerts ? 'We’ll let you know about new events' : 'Event alerts off', I.bell); });
+    $$('[data-topic]', box).forEach(c => c.addEventListener('click', () => {
+      if (c.dataset.topic === forumTopic) return;
+      forumTopic = c.dataset.topic;
+      $$('[data-topic]', box).forEach(x => x.classList.toggle('on', x === c));
+      const l = $('.fm-list', box), fresh = document.createElement('div'); fresh.innerHTML = forumHTML();
+      l.replaceWith($('.fm-list', fresh)); const nl = $('.fm-list', box);
+      bindLikes(nl); anim(nl, [{opacity:0, transform:'translateY(6px)'},{opacity:1, transform:'none'}], { duration:260 });
+    }));
+    bindLikes(box);
+    enableDrag(box);
+  };
+  const render = () => {
+    el.innerHTML = topbar({ title:'', right:'<div class="tb-r">'+(FM?'<button class="icon-btn" data-act="compose" aria-label="New post">'+I.pen+'</button>':'')+bagBtn()+'</div>' }) +
+      '<div class="large-title"><small>'+esc(CM.kicker || NAME)+'</small>'+esc(CM.title || 'Community')+'</div>'+
+      (CM.intro ? '<p class="comm-intro">'+esc(CM.intro)+'</p>' : '')+
+      (EV && FM ? '<div class="seg"><button class="'+(commSeg==='events'?'on':'')+'" data-seg="events">Events</button><button class="'+(commSeg==='forum'?'on':'')+'" data-seg="forum">Forum</button></div>' : '')+
+      '<div class="seg-body">'+body(commSeg)+'</div>'+credit();
+    const sg = $('.seg', el); if (sg) segmented(sg, (s, dir) => { commSeg = s; swapContent($('.seg-body', el), body(s), dir, bind); });
+    bind();
+  };
+  render();
+  el._refresh = () => { const st = el.scrollTop; render(); el.scrollTop = st; };
+}
+function Thread(el, id){
+  const t = threadBy(id);
+  if (!t){ el.innerHTML = topbar({back:true,title:'Not found'}) + '<div class="empty"><h3>Post unavailable</h3></div>'; return; }
+  const pr = t.product && P[t.product];
+  const reply = r => '<div class="reply'+(r.author.me?' mine':'')+'">'+avHTML(r.author,'sm')+'<div class="rp-b"><div class="rp-who"><b>'+esc(r.author.name)+'</b><small>'+esc(r.ago||'Just now')+'</small></div><p>'+esc(r.body)+'</p></div></div>';
+  const render = () => {
+    const rs = repliesOf(t);
+    el.innerHTML = '<div class="th-scroll">'+topbar({ back:true, title:t.topic }) +
+      '<div class="th-view"><article class="thread solo" data-thread="'+esc(t.id)+'">'+
+        '<div class="th-top">'+avHTML(t.author)+'<div class="th-who"><b>'+esc(t.author.name)+'</b><small>'+esc(t.ago||'Just now')+'</small></div><span class="th-topic">'+esc(t.topic)+'</span></div>'+
+        '<h1>'+esc(t.title)+'</h1>'+(t.body?'<p class="th-body full">'+esc(t.body)+'</p>':'')+
+        (pr ? '<div class="th-prod" data-act="pdp" data-v="'+esc(pr.h)+'"><img loading="lazy" decoding="async" '+srcs(pr.im[0],150,56)+' alt=""><span><b>'+esc(pr.n)+'</b><small>'+esc([pr.c, money(pr.p)].filter(Boolean).join(' · '))+'</small></span>'+I.chev+'</div>' : '')+
+        '<div class="th-foot"><button class="th-like'+(forumLikes[t.id]?' on':'')+'" data-like="'+esc(t.id)+'" aria-pressed="'+!!forumLikes[t.id]+'" aria-label="Like">'+I.heart+'<span>'+likeN(t)+'</span></button><span class="th-replies">'+I.chat+'<span>'+rs.length+(rs.length===1?' reply':' replies')+'</span></span></div></article>'+
+      '<div class="replies"><h4>'+(rs.length ? rs.length+(rs.length===1?' reply':' replies') : 'No replies yet')+'</h4>'+rs.map(reply).join('')+'</div>'+credit()+'</div></div>'+
+      '<form class="reply-bar" id="replyBar">'+avHTML(ME,'sm')+'<input id="replyIn" type="text" maxlength="280" placeholder="Write a reply…" autocomplete="off" aria-label="Write a reply"><button class="send" id="replySend" type="submit" aria-label="Send reply" disabled>'+I.send+'</button></form>';
+    bindLikes(el, () => refreshAll());
+    const inp = $('#replyIn', el), sb = $('#replySend', el);
+    inp.addEventListener('input', () => { sb.disabled = !inp.value.trim(); });
+    $('#replyBar', el).addEventListener('submit', e => {
+      e.preventDefault(); const v = inp.value.trim(); if (!v) return;
+      (forumReplies[t.id] = forumReplies[t.id] || []).push({ author:ME, ago:'Just now', body:v }); store.set('forumReplies', forumReplies);
+      render(); const sc = $('.th-scroll', el); sc.scrollTop = sc.scrollHeight; const last = $$('.reply', el).pop(); if (last){ anim(last, [{opacity:0, transform:'translateY(10px)'},{opacity:1, transform:'none'}], { duration:360, easing:'cubic-bezier(.2,.9,.3,1.2)' }); }
+      toast('Reply posted (demo, nothing sent)', I.check); refreshAll();
+    });
+  };
+  el.classList.add('thv');
+  render();
+  el._refresh = () => { const sc = $('.th-scroll', el), st = sc ? sc.scrollTop : 0; render(); $('.th-scroll', el).scrollTop = st; };
+  return { hideTabs:true };
+}
+function openCompose(){
+  if (!FM) return;
+  let topic = (FM.topics || [])[0] || 'General';
+  openSheet('<h3>New post</h3><p class="center sheet-sub">Demo only: your post stays on this device.</p>'+
+    '<div class="chips cp-chips">'+(FM.topics||[]).map(x=>'<button class="chip'+(x===topic?' on':'')+'" data-ct="'+esc(x)+'">'+esc(x)+'</button>').join('')+'</div>'+
+    '<label class="cp-field"><span>Title</span><input id="cpTitle" type="text" maxlength="90" placeholder="e.g. Anyone up for a Sunday walk?"></label>'+
+    '<label class="cp-field"><span>Message</span><textarea id="cpBody" rows="4" maxlength="600" placeholder="Say hi to the community…"></textarea></label>'+
+    '<div class="btns"><button class="btn btn-dark btn-block" id="cpPost">Post</button><button class="btn btn-outline btn-block" data-act="close">Cancel</button></div>', s => {
+      const ti = $('#cpTitle', s), bo = $('#cpBody', s), go = $('#cpPost', s);
+      ti.addEventListener('input', () => ti.classList.remove('need'));
+      $$('[data-ct]', s).forEach(c => c.addEventListener('click', () => { topic = c.dataset.ct; $$('[data-ct]', s).forEach(x => x.classList.toggle('on', x === c)); }));
+      go.addEventListener('click', () => {
+        if (!ti.value.trim()){ ti.classList.add('need'); ti.focus(); anim(ti, [{transform:'translateX(0)'},{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(0)'}], { duration:280 }); return; }
+        const th = { id:'mine-'+Date.now(), mine:true, topic, author:ME, ago:'Just now', title:ti.value.trim(), body:bo.value.trim(), likes:0, replies:[] };
+        forumMine.unshift(th); store.set('forumMine', forumMine);
+        closeSheet(); forumTopic = 'All'; commSeg = 'forum';
+        if (currentTab === 'community' && stack.length === 1) stack[0].el._refresh(); else switchTab('community', 'forum');
+        const c = $('.view.top .thread[data-thread="'+th.id+'"]'); if (c) anim(c, [{opacity:0, transform:'translateY(-10px) scale(.98)'},{opacity:1, transform:'none'}], { duration:420, easing:'cubic-bezier(.2,.9,.3,1.2)' });
+        toast('Posted to the community (demo, nothing sent)', I.check);
+      });
+    });
+}
+function commTeaser(){
+  if (!COMM) return '';
+  const { up, past } = evSplit(), e = up[0] || past[0];
+  const im = e && e.image || CM.image || '';
+  const sub = up.length ? 'Next: '+up[0].title : FM ? (FM.teaser || 'Events, run clubs and the community forum') : 'Events from the community';
+  return '<div class="comm-teaser" data-act="tab" data-v="community">'+(im?'<img loading="lazy" src="'+esc(im)+'" alt="">':'')+'<div><small>'+esc(CM.kicker || 'Community')+'</small><b>'+esc(CM.teaserTitle || 'Join the community')+'</b><span>'+esc(sub)+'</span></div>'+I.chev+'</div>';
+}
+
+// ---------- REWARDS ----------
+function Rewards(el){
+  const bars = Array.from({length:46},(_,i)=>'<i style="width:'+[1,2,3,1,2,1,3,2][(i*7)%8]+'px"></i>').join('');
+  const RN = B.rewards.name;
+  el.innerHTML = topbar({back:true, title:RN}) +
+    '<div class="rcard" id="rcard"><div class="rc-top"><img src="'+LOGO+'" alt="'+esc(NAME)+'"><span class="tier">Member</span></div><div class="rc-pts"><small>Points balance</small><b>1,250</b></div><div class="rc-bot"><span>'+esc(RN)+'</span><span>Since 2024</span></div></div>'+
+    '<div class="barcode"><div class="bars">'+bars+'</div><small>SCAN IN STORE · 2024 0917 1250</small></div>'+
+    '<div class="tiers"><h4>Your next reward</h4><div class="tbar"><i></i></div><div class="tline"><span>1,250 pts</span><span>750 pts to go</span></div></div>'+
+    '<div class="r-actions"><div>'+I.bag+'<b>Shop &amp; earn</b><small>Collect points on every order in the app.</small></div><div>'+I.gift+'<b>Birthday treat</b><small>A little something from us each year.</small></div><div>'+I.bolt+'<b>Early access</b><small>First look at new drops before they go live.</small></div><div>'+I.pin+'<b>'+(B.rewards.stockists?'Stockists':'In store')+'</b><small>'+(B.rewards.stockists?'Show your card at '+esc(NAME)+' stockists.':'Show your card at checkout.')+'</small></div></div>'+
+    (colBy(H.newCol)?'<div style="padding:18px 18px 0"><button class="btn btn-dark btn-block" data-act="col" data-v="'+esc(H.newCol)+'">Shop New In &amp; earn</button></div>':'')+
+    '<p class="fineprint">Concept preview — balance, benefits and card design are illustrative'+(B.rewards.real?' and would connect to '+esc(NAME)+'’s existing loyalty programme.':'.')+'</p>'+credit();
+  const card = $('#rcard', el);
+  card.addEventListener('pointermove', e => { const r = card.getBoundingClientRect(); const x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5; card.style.transform='perspective(800px) rotateY('+(x*10)+'deg) rotateX('+(-y*10)+'deg)'; });
+  card.addEventListener('pointerleave', () => card.style.transform='');
+}
+
+// ---------- push notification + demo triggers ----------
+let pushT, pushHideT, pushAction = null, pushSeq = 0;
+function hidePush(){
+  clearTimeout(pushT); clearTimeout(pushHideT);
+  pushSeq++; // cancel any pending swap-in
+  const el = $('#push');
+  if (!el) return;
+  if (el.classList.contains('show')){
+    el.classList.add('hiding'); el.classList.remove('show');
+    pushHideT = setTimeout(() => el.classList.remove('hiding'), 200);
+  } else {
+    el.classList.remove('show', 'hiding');
+  }
+}
+function showPush(title, text, thumb, action){
+  const el = $('#push');
+  clearTimeout(pushT); clearTimeout(pushHideT);
+  pushAction = action;
+  const seq = ++pushSeq;
+  const reveal = () => {
+    if (seq !== pushSeq) return;
+    $('#pushTitle').textContent = title;
+    $('#pushText').textContent = text;
+    $('#pushThumb').src = thumb || B.assets.favicon;
+    el.classList.remove('hiding');
+    el.classList.remove('show');
+    void el.offsetWidth; // restart entrance keyframes
+    el.classList.add('show');
+    pushT = setTimeout(() => { if (seq === pushSeq) hidePush(); }, 6000);
+  };
+  // If a toast is already visible, slide it out quickly then play a full entrance for the new one.
+  if (el.classList.contains('show')){
+    el.classList.add('hiding'); el.classList.remove('show');
+    pushHideT = setTimeout(reveal, 180);
+  } else if (el.classList.contains('hiding')){
+    pushHideT = setTimeout(reveal, 180);
+  } else {
+    reveal();
+  }
+}
+const firstSize = p => (p.sz.find(s => s[1] && sizeMatch(s[0])) || p.sz.find(s => s[1]) || p.sz[0] || ['One size'])[0];
+const Demo = {
+  bag(){
+    if (!bag.length){ const p = prods(H.bestCol).find(x => x.sz.some(s=>s[1])) || ALL.find(x => x.sz.some(s=>s[1])); if (!p){ toast('No products available'); return; } addToBag(p.h, firstSize(p), true); }
+    const p = P[bag[0].h];
+    showPush('You left something in your bag', p.n+(p.c?' in '+p.c:'')+' is still waiting, and sizes are going fast. Use '+DISC.code+' for '+DISC.pct+'% off.', img(p.im[0],120), () => switchTab('bag'));
+  },
+  restock(){
+    const pool = prods(H.newCol).concat(ALL);
+    const p = (hasSize() ? pool.find(inMySize) : null) || pool.find(x => x.sz.some(s=>s[1]));
+    if (!p){ toast('No products available'); return; }
+    showPush('Back in stock in your size', p.n+(p.c?' ('+p.c+')':'')+' is back in size '+prettySize(firstSize(p))+'. Tap to grab it before it goes again.', img(p.im[0],120), () => push(PDP, p.h));
+  },
+  price(){
+    let h = wish.find(x => P[x].cp > P[x].p);
+    if (!h){ const p = ALL.find(x => x.cp > x.p && x.sz.some(s=>s[1])); if (!p){ toast('No reduced items in the catalogue right now'); return; } h = p.h; wish.unshift(h); saveWish(); }
+    priceDrop = { h }; store.set('priceDrop', priceDrop);
+    const p = P[h];
+    showPush('Price drop on your wishlist', p.n+(p.c?' ('+p.c+')':'')+' is now '+money(p.p)+', was '+money(p.cp)+'.', img(p.im[0],120), () => push(PDP, h));
+    refreshAll();
+  },
+  drop(){
+    if (!DR){ const p = prods(H.newCol)[0]; if (p) showPush('New in', p.t+' has just landed.', img(p.im[0],120), () => push(PDP, p.h)); return; }
+    dropLive = true;
+    const p = P[DR.products[0]];
+    showPush('DROP '+DR.num+' / '+DR.name+' is live', 'App early access is open now, 24 hours before the website. Tap to shop first.', p ? img(p.im[0],120) : '', () => switchTab('drops', true));
+    refreshAll();
+  },
+  newin(){
+    const p = prods(H.newCol)[0] || ALL[0]; if (!p) return;
+    showPush('New in'+(H.hero && H.hero.title ? ': '+H.hero.title : ''), p.t+' has just landed. Tap to shop before it sells out.', img(p.im[0],120), () => push(PDP, p.h));
+  },
+  community(){
+    if (!COMM) return;
+    const { up } = evSplit();
+    if (up.length){ const e = up[0]; showPush('New event near you', e.title+(e.dateLabel?', '+e.dateLabel:'')+(e.location?' at '+e.location:'')+'. Tap to see details.', e.image || '', () => switchTab('community', 'events')); return; }
+    const t = (FM && FM.threads || []).find(x => (x.replies||[]).length) || threadsAll()[0]; if (!t) return;
+    const r = (t.replies||[]).slice(-1)[0];
+    showPush((r ? r.author.name : t.author.name)+' replied in '+(CM.title || 'Community'), '“'+t.title+'”: '+(r ? r.body : t.body), B.assets.favicon, () => { switchTab('community', 'forum'); push(Thread, t.id); });
+  },
+  welcome(){ showWelcome(); }
+};
+function showWelcome(){
+  const m = $('#welcome');
+  m.innerHTML = '<div class="wl-card"><div class="wl-top">'+(H.hero && H.hero.poster ? '<img src="'+esc(H.hero.poster)+'" alt="">' : '')+'<img src="'+LOGO_L+'" alt="'+esc(NAME)+'" class="wl-logo'+(B.assets.logoLight?'':' inv')+'"></div><div class="wl-body">'+
+    '<small>Welcome to the app</small><h2>'+DISC.pct+'% off your first order</h2>'+
+    '<button class="wl-code" id="wlCode"><span>'+esc(DISC.code)+'</span><em>'+I.copy+'Tap to copy</em></button>'+
+    '<button class="btn btn-dark btn-block" id="wlGo">Start shopping</button><button class="wl-skip" id="wlSkip">Maybe later</button></div></div>';
+  m.classList.add('show');
+  const close = () => m.classList.remove('show');   // not remembered: the offer shows again on the next page load
+  $('#wlCode').addEventListener('click', () => {
+    if (navigator.clipboard) navigator.clipboard.writeText(DISC.code).catch(()=>{});
+    $('#wlCode em').innerHTML = I.check+'Copied'; $('#wlCode').classList.add('done');
+    toast(DISC.code+' copied. Apply it in your bag', I.copy);
+  });
+  $('#wlGo').addEventListener('click', close); $('#wlSkip').addEventListener('click', close);
+  m.onclick = e => { if (e.target === m) close(); };
+}
+
+// ---------- build the page chrome from brand config ----------
+let demoHTML = '';
+function buildChrome(){
+  const pitch = B.pitch || {};
+  const demoBtns = [['bag','Abandoned bag','What’s still in the bag, plus '+DISC.code],['restock','Back in stock','In your saved size'],...(ALL.some(x => x.cp > x.p) ? [['price','Price drop on wishlist','A real reduced item, badged in-app']] : []),['drop','Drop is live', DR ? 'DROP '+DR.num+' / '+DR.name+', app early access' : 'New arrivals'],...(COMM ? [evSplit().up.length ? ['community','New event near you', evSplit().up[0].title] : ['community', 'Community reply', 'A reply in the '+(CM.title||'community')+' forum']] : []),['welcome','Show welcome message','The '+DISC.code+' offer shown on open']];
+  demoHTML = demoBtns.map(d=>'<button class="demo-btn" data-demo="'+d[0]+'"><span><b>'+esc(d[1])+'</b><small>'+esc(d[2])+'</small></span>'+I.bell+'</button>').join('');
+  // desktop "Why an app" stats (defaults in _template/config.json, overridable per brand; "stats": false hides them)
+  const ST = B.stats && Array.isArray(B.stats.items) ? B.stats.items.filter(x => x && x.num) : [];
+  const safeUrl = u => /^https?:\/\//i.test(u || '') ? u : '';
+  const whyHTML = ST.length ? '<aside class="why" aria-label="'+esc(B.stats.heading||'Why an app')+'"><p class="why-h">'+esc(B.stats.heading||'Why an app')+'</p><div class="why-list">'+
+    ST.map((x,i) => '<article class="stat" style="--i:'+i+'"'+(x.copy?' title="'+esc(x.copy)+'"':'')+'><p class="stat-num">'+esc(x.num)+'</p><p class="stat-label">'+esc(x.label||'')+'</p>'+
+      (x.copy?'<p class="stat-copy">'+esc(x.copy)+'</p>':'')+
+      (x.source ? (safeUrl(x.url) ? '<a class="stat-src" href="'+esc(x.url)+'" target="_blank" rel="noopener noreferrer">'+esc(x.source)+I.ext+'</a>' : '<span class="stat-src">'+esc(x.source)+'</span>') : '')+
+    '</article>').join('')+'</div></aside>' : '';
+  document.body.innerHTML =
+  '<div class="stage">'+
+    '<div class="col col-l"><aside class="pitch"><img class="pitch-logo" src="'+LOGO+'" alt="'+esc(NAME)+'">'+
+      '<p class="pitch-kicker">'+esc((B.short||NAME).toUpperCase())+' APP, CONCEPT</p><h1 class="pitch-title">'+(pitch.title||esc(NAME)+',<br>one tap away.')+'</h1>'+
+      '<p class="pitch-copy">'+esc(pitch.copy||'')+'</p>'+
+      (pitch.list && pitch.list.length ? '<ul class="pitch-list">'+pitch.list.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>' : '')+
+      '<div class="demo-panel"><p class="demo-h">Try it: send a push to the phone</p>'+demoHTML+'</div></aside></div>'+
+    '<div class="device" id="device"><div class="device-btn b1"></div><div class="device-btn b2"></div><div class="device-btn b3"></div><div class="device-btn b4"></div>'+
+      '<div class="screen" id="screen">'+
+        '<div class="statusbar" id="statusbar"><span class="sb-time" id="sbTime">9:41</span><span class="island"></span><span class="sb-icons">'+
+          '<svg width="18" height="12" viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg>'+
+          '<svg width="16" height="12" viewBox="0 0 16 12"><path d="M8 2.6c2.2 0 4.2.8 5.7 2.2l1.2-1.3C13 1.7 10.6.7 8 .7S3 1.7 1.1 3.5l1.2 1.3C3.8 3.4 5.8 2.6 8 2.6zm0 3.6c1.2 0 2.3.4 3.2 1.2l1.2-1.3C11.2 5 9.7 4.3 8 4.3S4.8 5 3.6 6.1l1.2 1.3C5.7 6.6 6.8 6.2 8 6.2zm0 3.4L6.2 7.9c.5-.4 1.1-.6 1.8-.6s1.3.2 1.8.6L8 9.6z"/></svg>'+
+          '<svg width="27" height="12" viewBox="0 0 27 12"><rect x=".5" y=".5" width="23" height="11" rx="3.2" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="24.5" y="4" width="1.6" height="4" rx=".8" opacity=".4"/></svg></span></div>'+
+        '<div class="push" id="push" role="button" tabindex="0">'+pushAppIconHTML()+'<div class="push-body"><div class="push-top"><b>'+esc((B.short||NAME).toUpperCase())+'</b><span>now</span></div><div class="push-title" id="pushTitle"></div><div class="push-text" id="pushText"></div></div><img class="push-thumb" id="pushThumb" src="'+B.assets.favicon+'" alt=""></div>'+
+        '<div class="splash" id="splash"><img src="'+LOGO_L+'" alt="'+esc(NAME)+'" class="splash-logo'+(B.assets.logoLight?'':' inv')+'"><div class="splash-line"><span></span></div></div>'+
+        '<main class="app" id="app"><div class="stack" id="stack"></div>'+
+          '<nav class="tabbar" id="tabbar">'+TABS.map(t=>'<button data-tab="'+t[0]+'"'+(t[0]==='home'?' class="active"':'')+'><svg viewBox="0 0 24 24">'+t[2]+'</svg><span>'+t[1]+'</span>'+(t[0]==='wishlist'?'<i class="badge" id="wishBadge"></i>':t[0]==='bag'?'<i class="badge" id="bagBadge"></i>':'')+'</button>').join('')+'</nav>'+
+          '<div class="toast" id="toast"></div><div class="sheet-backdrop" id="sheetBackdrop"></div><div class="sheet" id="sheet"></div>'+
+          '<div class="browser" id="browser"></div><div class="welcome" id="welcome"></div>'+
+          '<button class="demo-fab" id="demoFab" aria-label="Demo controls">'+I.bell+'Demo</button>'+
+        '</main><div class="home-indicator"></div></div></div>'+
+    '<div class="col col-r">'+whyHTML+'</div>'+
+    '<p class="credit">Concept app mockup for '+esc(NAME)+'</p>'+
+  '</div>';
+  stackEl = $('#stack');
+  sheetDrag(); imgFade();
+  $$('#tabbar button').forEach(b => b.addEventListener('click', () => switchTab(b.dataset.tab)));
+  $('#sheetBackdrop').addEventListener('click', closeSheet);
+  $$('.pitch [data-demo]').forEach(b => b.addEventListener('click', () => runDemo(b.dataset.demo)));
+  $('#demoFab').addEventListener('click', () => openSheet('<h3>Demo controls</h3><p class="center sheet-sub">Trigger the push notifications this app would send.</p><div class="demo-panel in-sheet">'+demoHTML+'</div>',
+    s => $$('[data-demo]', s).forEach(b => b.addEventListener('click', () => { closeSheet(); setTimeout(()=>runDemo(b.dataset.demo), 350); }))));
+  $('#push').addEventListener('click', () => { hidePush(); const a = pushAction; pushAction = null; if (a){ closeSheet(); closeBrowser(); $('#welcome').classList.remove('show'); a(); } });
+  let py=null; $('#push').addEventListener('touchstart', e=>py=e.touches[0].clientY,{passive:true});
+  $('#push').addEventListener('touchmove', e=>{ if(py!==null && e.touches[0].clientY-py < -20){ hidePush(); py=null; } },{passive:true});
+  let ex=null, ey=0;
+  stackEl.addEventListener('touchstart', e => { const r = stackEl.getBoundingClientRect(); const x = e.touches[0].clientX - r.left; if (x < 24 && stack.length>1){ ex = x; ey = e.touches[0].clientY; } }, {passive:true});
+  stackEl.addEventListener('touchend', e => { if (ex===null) return; const r = stackEl.getBoundingClientRect(); const dx = e.changedTouches[0].clientX - r.left - ex, dy = Math.abs(e.changedTouches[0].clientY - ey); ex=null; if (dx > 70 && dy < 60) back(); }, {passive:true});
+}
+// Bottom sheet: drag the handle strip down to dismiss (follows the finger, springs back if not far/fast enough).
+function sheetDrag(){
+  const s = $('#sheet'); let y0 = null, dy = 0, t0 = 0, live = false, suppress = false;
+  s.addEventListener('click', ev => { if (suppress){ ev.stopPropagation(); ev.preventDefault(); } }, true);
+  s.addEventListener('pointerdown', e => {
+    if (!s.classList.contains('show')) return;
+    const onGrab = e.clientY - s.getBoundingClientRect().top < 34 * (s.getBoundingClientRect().width / s.offsetWidth || 1);
+    if (!onGrab) return;
+    y0 = e.clientY; dy = 0; t0 = performance.now(); live = false;
+  });
+  window.addEventListener('pointermove', e => {
+    if (y0 === null) return;
+    const k = s.offsetWidth / (s.getBoundingClientRect().width || 1);
+    dy = (e.clientY - y0) * k;
+    if (!live && dy > 6){ live = true; s.classList.add('dragging'); try { s.setPointerCapture(e.pointerId); } catch(_){} }
+    if (live) s.style.transform = 'translateY(' + Math.max(0, dy < 0 ? dy / 4 : dy) + 'px)';
+  });
+  const end = () => {
+    if (y0 === null) return; y0 = null;
+    if (!live) return;
+    s.classList.remove('dragging');
+    const v = dy / Math.max(1, performance.now() - t0);
+    if (dy > 110 || (dy > 40 && v > .5)) closeSheet(); else s.style.transform = '';
+    suppress = true; live = false; setTimeout(() => { suppress = false; }, 0);
+  };
+  window.addEventListener('pointerup', end); window.addEventListener('pointercancel', end);
+}
+// Images fade in once decoded (product images sit on a shimmer placeholder until then).
+// Lazy images live inside the phone's own scroll container (.view), not the page: native loading=lazy measures against
+// the window there (and WebKit can wait until scrolling stops), so we also watch each lazy image against its scroller
+// with a generous rootMargin and switch it to eager in time. IG + category tiles (data-prio) are queued right after load.
+function imgFade(){
+  const show = i => { i.classList.add('in'); };
+  const mark = i => { if (i.complete && (i.naturalWidth || !i.getAttribute('src'))) show(i); else if (i.complete && i.getAttribute('src')) fail(i); else watch(i); };
+  const fail = i => {
+    // one retry without the srcset (a bad width variant / transient CDN error), then give up quietly: stop the shimmer
+    if (!i.dataset.retried && i.getAttribute('src')){ i.dataset.retried = 1; i.removeAttribute('srcset'); i.loading = 'eager'; const u = i.getAttribute('src'); i.src = u + (u.includes('?') ? '&' : '?') + 'retry=1'; return; }
+    i.classList.add('in', 'img-err');
+  };
+  document.addEventListener('load', e => { if (e.target.tagName === 'IMG') show(e.target); }, true);
+  document.addEventListener('error', e => { if (e.target.tagName === 'IMG') fail(e.target); }, true);
+  const ios = new Map();
+  const scroller = i => i.closest('.view,.pscroll,.th-scroll,.sheet,.br-body');
+  const watch = i => {
+    if (i.loading !== 'lazy' || !('IntersectionObserver' in window)) return;
+    const r = scroller(i) || null;
+    let io = ios.get(r);
+    if (!io){ io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ e.target.loading = 'eager'; io.unobserve(e.target); } }), { root: r, rootMargin: '900px 300px' }); ios.set(r, io); }
+    io.observe(i);
+  };
+  const scan = n => { if (n.tagName === 'IMG') mark(n); else n.querySelectorAll && n.querySelectorAll('img').forEach(mark); };
+  new MutationObserver(ms => { for (const m of ms) for (const n of m.addedNodes) if (n.nodeType === 1) scan(n); })
+    .observe(document.body, { childList:true, subtree:true });
+  $$('img').forEach(mark);
+  // after first paint/load: start the IG grid and category tiles even if the user hasn't scrolled there yet
+  const prio = () => $$('img[data-prio]').forEach(i => { if (i.loading === 'lazy') i.loading = 'eager'; });
+  const later = () => setTimeout(prio, 300);
+  if (document.readyState === 'complete') later(); else window.addEventListener('load', later, { once: true });
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape'){
+    if ($('#welcome.show')) $('#welcome').classList.remove('show');
+    else if ($('#browser.show')) closeBrowser();
+    else if ($('#sheet.show')) closeSheet();
+    else if (stack.length > 1 && !(e.target && /INPUT|TEXTAREA/.test(e.target.tagName))) back();
+  } else if ((e.key === 'Enter' || e.key === ' ') && e.target && e.target.matches && e.target.matches('[role=switch][tabindex]')) { e.preventDefault(); e.target.click(); }
+});
+function runDemo(k){ if (k === 'welcome') return Demo.welcome(); $('#welcome').classList.remove('show'); Demo[k](); }
+
+// global delegated actions
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-act]');
+  if (!t){ const th = e.target.closest('.thread[data-thread]:not(.solo)'); if (th && !e.target.closest('[data-like]')) push(Thread, th.dataset.thread); return; }
+  if (t.closest('.dragging')) return;
+  const a = t.dataset.act, v = t.dataset.v;
+  if (a === 'back') back();
+  else if (a === 'pdp') { e.stopPropagation(); closeSheet(); push(PDP, v); }
+  else if (a === 'col') { closeSheet(); push(Collection, v); }
+  else if (a === 'wish') { e.stopPropagation(); toggleWish(v); }
+  else if (a === 'tab') switchTab(v);
+  else if (a === 'wishlist') { if (WISH_TAB) switchTab('wishlist'); else push(Wishlist, 'pushed'); }
+  else if (a === 'rewards') { if (B.rewards && B.rewards.enabled) push(Rewards); }
+  else if (a === 'bagtab') switchTab('bag');
+  else if (a === 'search') push(Search);
+  else if (a === 'close') closeSheet();
+  else if (a === 'size') openSizeSheet();
+  else if (a === 'login') push(AuthView('login'));
+  else if (a === 'signup') push(AuthView('signup'));
+  else if (a === 'recover') push(AuthView('recover'));
+  else if (a === 'compose') openCompose();
+  else if (a === 'event') { const ev = EV && EV.items.find(x => x.id === v); if (ev) openBrowser({ t: ev.title, url: ev.ticket || ev.url || EV.source, sum: [ev.title, [ev.dateLabel, ev.time].filter(Boolean).join(' · '), ev.location, ev.desc].filter(Boolean).join('\n') }); }
+  else if (a === 'evsrc') { if (EV && EV.source) openBrowser({ t: 'Events', url: EV.source, sum: (EV.items||[]).map(x => [x.title, x.dateLabel, x.time, x.location].filter(Boolean).join(' · ')).join('\n') }); }
+  else if (a === 'reviews') { const R = B.reviews; if (R && R.url) openBrowser({ t: R.source+' reviews', url: R.url, sum: (R.label?R.label+'. ':'')+R.score+' out of 5, based on '+Number(R.count).toLocaleString('en-GB')+' reviews on '+R.source+(R.checked?' (as shown on '+B.domain+', checked '+R.checked+').':'.') }); }
+});
+
+// ---------- desktop fit ----------
+// Everything fits the viewport with no page scroll. Desktop is three columns (pitch | phone | why-an-app stats) with the
+// phone centred; below STATS_INLINE px wide the stats move under the pitch (two columns, compact 2x2). The phone is scaled to
+// the height left after the stage padding (16px top, 34px bottom strip for the credit line); each side column is then scaled
+// down (towards the phone) if it is still taller than that height or wider than the room beside the phone.
+const STAGE_PAD = { t:16, b:34, x:24 }, STATS_INLINE = 1100;
+function fit(){
+  const d = $('#device'), cl = $('.col-l'), cr = $('.col-r'), why = $('.why');
+  const cols = [cl, cr].filter(Boolean);
+  const reset = c => { c.style.transform = ''; c.style.margin = ''; };
+  if (window.innerWidth <= 520){ d.style.transform=''; d.style.margin=''; cols.forEach(reset); return; }
+  const narrow = window.innerWidth < STATS_INLINE;
+  if (why){ const home = narrow ? cl : cr; if (home && why.parentElement !== home) home.appendChild(why); }
+  document.body.classList.toggle('stats-inline', narrow);
+  const availH = window.innerHeight - STAGE_PAD.t - STAGE_PAD.b;
+  const s = Math.min(1, availH / 868, (window.innerWidth - STAGE_PAD.x*2) / 414);
+  d.style.transform = s < 1 ? 'scale('+s+')' : '';
+  d.style.margin = s < 1 ? (-(868*(1-s))/2)+'px '+(-(414*(1-s))/2)+'px' : '';
+  const gap = parseFloat(getComputedStyle($('.stage')).columnGap) || 0;
+  const room = narrow ? window.innerWidth - STAGE_PAD.x*2 - 414*s - gap : (window.innerWidth - STAGE_PAD.x*2 - 414*s - gap*2) / 2;
+  cols.forEach(c => {
+    reset(c);
+    if (getComputedStyle(c).display === 'none' || !c.children.length) return;
+    const w = c.offsetWidth, h = c.offsetHeight, k = Math.min(1, availH / h, room / w);
+    if (k >= 1) return;
+    c.style.transform = 'scale('+k+')';
+    const dx = -(w*(1-k))+'px', dy = -(h*(1-k))/2+'px';
+    c.style.margin = c === cl ? dy+' 0 '+dy+' '+dx : dy+' '+dx+' '+dy+' 0';   // shrink towards the phone
+  });
+}
+
+// ---------- boot ----------
+buildChrome();
+window.addEventListener('resize', fit); fit();
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+{ const pl = $('.pitch-logo'); if (pl && !pl.complete) pl.addEventListener('load', fit); }
+updateBadges();
+const params = new URLSearchParams(location.search);
+switchTab('home');
+setStatus(true);
+const skip = params.has('nosplash');
+setTimeout(() => {
+  $('#splash').classList.add('hide');
+  const deep = params.get('p'); if (deep && P[deep]) push(PDP, deep);
+  const tab = params.get('tab'); if (tab && roots[tab]) switchTab(tab);
+  // welcome offer on every page load, shortly after the splash (?nowelcome turns it off)
+  if (!params.has('nowelcome')) setTimeout(showWelcome, skip ? 400 : 900);
+  else if (!skip && !params.has('nopush') && prefs.drops) setTimeout(()=>Demo.newin(), 2600);
+}, skip ? 0 : 2100);
+window.__app = { Demo, switchTab, push, openBrowser, showWelcome, back, igHTML, evSplit };
+})();

@@ -1,0 +1,11 @@
+{"scrape":{"_why":"Feature the SS26 womenswear collection (not in header menu parse).","extraCollections":["womens-wear-spring-summer-26"],"perCollection":40},
+ "name":"Bélier",
+ "_hero":"Hero/editorial images are real product images from the SS26 womenswear collection (Isla Crochet Maxi Dress, Esme Crochet Mini Dress).",
+ "home":{"newCol":"womens-wear-spring-summer-26","newSub":"Spring Summer 26: crochet, linen and knit",
+  "hero":{"poster":"assets/img/hero-womens.jpg","eyebrow":"Spring Summer 26","title":"WOMENSWEAR","cta":"Shop Womenswear","col":"womens-wear-spring-summer-26"},
+  "tiles":[["womens-wear-spring-summer-26","Womenswear SS26"],["new-arrivals","New Arrivals"],["best-sellers-1","Best Sellers"],["polos","Polos"],["mens-smart-shirt","Shirts"],["footwear","Footwear"]],
+  "editorial":{"col":"womens-wear-spring-summer-26","img":"assets/img/womens-wide.jpg","eyebrow":"Spring Summer 26","title":"WOMENSWEAR"},
+  "feature":{"col":"new-arrivals","title":"NEW ARRIVALS","cta":"Shop now"}},
+ "copy":{"heroNotif":"Bélier Womenswear Spring Summer 26 is live."},
+ "pitch":{"title":"Bélier,<br>one tap away.","copy":"A concept for the Bélier app: the Spring Summer 26 womenswear collection front and centre, drop alerts with app-only early access, saved sizes and Shopify checkout with Apple Pay, Shop Pay and Klarna. Tap around, everything works."}
+}
