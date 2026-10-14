@@ -663,7 +663,7 @@ svg{display:block}
 .browser{position:absolute;inset:0;z-index:97;background:var(--bg);transform:translateY(100%);transition:transform .45s var(--ease);display:flex;flex-direction:column}
 .browser.show{transform:none}
 .br-bar{padding:calc(var(--sat) + 4px) 10px 8px;display:flex;align-items:center;gap:8px;background:rgba(var(--bg-rgb),.95);border-bottom:1px solid var(--line)}
-.br-done{font-size:15px;font-weight:600;color:#0a64d8;padding:8px 8px;font-family:-apple-system,system-ui,sans-serif}
+.br-done{font-size:15px;font-weight:600;color:#0959c4;padding:8px 8px;font-family:-apple-system,system-ui,sans-serif}
 .br-url{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;height:34px;border-radius:10px;background:#e6e3de;font-size:13px;color:var(--ink);font-family:-apple-system,system-ui,sans-serif}
 .br-url svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2}
 .br-bar .icon-btn{color:#0a64d8}
@@ -1007,3 +1007,18 @@ img.img-err{visibility:hidden}
 .dp-tile span{position:absolute;left:20px;bottom:18px;z-index:1;color:#fff;font-size:26px;font-weight:500;letter-spacing:.18em;text-transform:uppercase}
 .dp-note{text-align:center;margin-top:14px;font-size:11px;color:var(--muted)}
 @media (prefers-reduced-motion: reduce){.dept-pick{transition:none}}
+
+/* hero carousel (home.heroSlides) */
+.hero-car .hc-track{position:absolute;inset:0;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.hero-car .hc-track::-webkit-scrollbar{display:none}
+.hc-slide{position:relative;flex:0 0 100%;height:100%;scroll-snap-align:start;overflow:hidden}
+.hc-slide::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35) 0%,rgba(0,0,0,0) 26%,rgba(0,0,0,0) 50%,rgba(0,0,0,.55) 100%);pointer-events:none}
+.hero-car::after{display:none}
+.hc-slide .hero-copy{z-index:2}
+.hc-slide .hero-copy.hc-bottom{bottom:64px}
+.hc-slide .hero-copy.hc-none{bottom:64px}
+.hc-slide .hero-copy.hc-top{bottom:auto;top:calc(var(--sat) + 72px)}
+.hc-dots{position:absolute;left:0;right:0;bottom:44px;z-index:3;display:flex;justify-content:center;gap:7px}
+.hc-dot{width:6px;height:6px;border-radius:3px;padding:0;border:0;background:rgba(255,255,255,.5);transition:width .3s var(--ease-out),background-color .3s}
+.hc-dot.on{width:18px;background:#fff}
+@media (prefers-reduced-motion:reduce){.hero-car .hc-track{scroll-behavior:auto}}

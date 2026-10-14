@@ -28896,7 +28896,36 @@
    "col": "jewellery-gift-sets",
    "title": "JEWELLERY SETS",
    "cta": "Shop now"
-  }
+  },
+  "heroSlides": [
+   {
+    "img": "assets/slides/1.jpg",
+    "eyebrow": "New In",
+    "title": "MAKE IT PERSONAL",
+    "cta": "Shop now",
+    "col": "new-in",
+    "pos": "bottom",
+    "focus": "center"
+   },
+   {
+    "img": "assets/slides/2.jpg",
+    "eyebrow": "For someone special",
+    "title": "TIMELESS GIFTS",
+    "cta": "Shop now",
+    "col": "jewellery-gift-sets",
+    "pos": "bottom",
+    "focus": "center top"
+   },
+   {
+    "img": "assets/slides/3.jpg",
+    "eyebrow": "Handcrafted With Love",
+    "title": "THE WEDDING SHOP",
+    "cta": "Shop now",
+    "col": "wedding",
+    "pos": "bottom",
+    "focus": "center top"
+   }
+  ]
  },
  "shop": {
   "kicker": "LILY & ROO",

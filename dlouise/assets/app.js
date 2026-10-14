@@ -393,7 +393,29 @@ const dropImg = () => DR && (DR.image || (P[DR.products[0]] && img(P[DR.products
 // ---------- hero video ----------
 // Built once per Home view and re-attached on every re-render, so refreshing Home (size saved, demo pushes, back
 // navigation) never recreates the <video> and restarts/re-buffers it.
+// ---------- hero carousel ----------
+// Opt-in: home.heroSlides = [{img, eyebrow, title, cta, col, pos:'bottom'|'top'|'none', focus:'50% 30%'}], the brand's real
+// homepage slides. Swipe (scroll-snap), auto-advance every 5 s (off with reduced motion, paused while touched), dots.
+// pos keeps copy off faces: 'top' sits under the header + safe area, 'none' = text already in the image (button only).
+function heroCarousel(slides){
+  const d = document.createElement('div'); d.className = 'hero hero-car';
+  d.innerHTML = '<div class="hc-track">'+slides.map((s,i)=>'<div class="hc-slide" data-i="'+i+'"><img class="poster" '+(i?'loading="lazy" ':'')+'src="'+esc(s.img)+'" alt="" style="object-position:'+esc(s.focus||'center')+'">'+
+    '<div class="hero-copy hc-'+esc(s.pos||'bottom')+'">'+(s.pos==='none'?'':'<div class="eyebrow">'+esc(s.eyebrow||'')+'</div>'+(s.title?'<div class="hero-title">'+esc(s.title)+'</div>':''))+
+    (s.col&&colBy(s.col)?'<button class="btn btn-light" data-act="col" data-v="'+esc(s.col)+'">'+esc(s.cta||'Shop now')+'</button>':'')+'</div></div>').join('')+'</div>'+
+    '<div class="hc-dots">'+slides.map((_,i)=>'<button class="hc-dot'+(i?'':' on')+'" data-i="'+i+'" aria-label="Slide '+(i+1)+'"></button>').join('')+'</div>'+marquee();
+  const tr = $('.hc-track', d), dots = $$('.hc-dot', d); let cur = 0, held = false;
+  const go = i => { cur = (i + slides.length) % slides.length; tr.scrollTo({ left: cur * tr.clientWidth, behavior: 'smooth' }); };
+  tr.addEventListener('scroll', () => { const i = Math.round(tr.scrollLeft / Math.max(1, tr.clientWidth)); if (i !== cur) cur = i; dots.forEach((b,j)=>b.classList.toggle('on', j===i)); }, { passive: true });
+  dots.forEach(b => b.addEventListener('click', e => { e.stopPropagation(); go(+b.dataset.i); }));
+  ['touchstart','pointerdown'].forEach(ev => tr.addEventListener(ev, () => { held = true; }, { passive: true }));
+  ['touchend','pointerup'].forEach(ev => tr.addEventListener(ev, () => { setTimeout(() => { held = false; }, 4000); }, { passive: true }));
+  if (!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches))
+    setInterval(() => { if (held || document.hidden || !d.isConnected || !d.closest('.view.top')) return; go(cur + 1); }, 5000);
+  d._sync = () => {};
+  return d;
+}
 function heroEl(){
+  if (H.heroSlides && H.heroSlides.length > 1) return heroCarousel(H.heroSlides);
   const hero = H.hero || {};
   const d = document.createElement('div');
   d.className = 'hero';
@@ -615,6 +637,7 @@ function PDP(el, h){
   const mineAvail = hasSize() ? p.sz.find(s => s[1] && sizeMatch(s[0])) : null;
   const mineOut = hasSize() && !mineAvail && p.sz.some(s => sizeMatch(s[0]));
   if (mineAvail) size = mineAvail[0];
+  if (!size && p.sz.length === 1 && p.sz[0][1]) size = p.sz[0][0];   // single variant (One size): pre-selected, no 'Please select a size'
   const ship = (SHIP.options||[]);
   el.classList.add('pdp');
   el.innerHTML =

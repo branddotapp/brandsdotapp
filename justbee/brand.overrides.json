@@ -26,7 +26,7 @@
     "previous": null
   },
   "theme": {
-    "muted": "#5c5845"
+    "sand2": "#efefe9"
   },
-  "_theme": "muted text darkened to pass WCAG AA"
+  "_theme": "colours adjusted for WCAG AA contrast"
 }

@@ -23,7 +23,7 @@ CHECK = r"""(name) => {
   const vis = el => { const r = el.getBoundingClientRect(); if (r.width < 1 || r.height < 1) return false; const cs = getComputedStyle(el); if (cs.visibility === 'hidden' || cs.display === 'none') return false;
     let e = el; while (e && e !== document.body) { const c = getComputedStyle(e); if (+c.opacity < 0.05) return false; e = e.parentElement; } return true; };
   const inScreen = r => r.bottom > sr.top + 1 && r.top < sr.bottom - 1;
-  const hscroller = el => el.closest('.hscroll,.chips,.swatches,.gtrack,.marquee,.mq-track,.express');
+  const hscroller = el => el.closest('.hscroll,.chips,.swatches,.gtrack,.marquee,.mq-track,.express,.hc-track');
   const parse = c => { const m = c.match(/rgba?\(([\d.]+),\s*([\d.]+),\s*([\d.]+)(?:,\s*([\d.]+))?/); return m ? [+m[1], +m[2], +m[3], m[4] == null ? 1 : +m[4]] : null; };
   const lin = v => { v /= 255; return v <= .03928 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); };
   const L = c => .2126 * lin(c[0]) + .7152 * lin(c[1]) + .0722 * lin(c[2]);
@@ -178,15 +178,17 @@ def run(pw, w, h):
     p.click('.view.top .seg button[data-seg="cats"]'); p.wait_for_timeout(400)
     top('.cat-row').click(); check('collection')
     top('[data-sort="low"]').click(); check('collection-sorted')
-    top('.size-filter').click(); check('size-sheet')
-    p.locator('#sheet .size').first.click(); p.click('#szSave'); check('collection-my-size')
+    if p.evaluate("() => !!(window.BRAND.sizes && window.BRAND.sizes.groups && window.BRAND.sizes.groups.length)"):  # brands without sizes have no size filter
+        top('.size-filter').click(); check('size-sheet')
+        p.locator('#sheet .size').nth(min(2, p.locator('#sheet .size').count() - 1)).click(); p.click('#szSave'); check('collection-my-size')
     # a buyable piece (department brands can have drop pieces marked Coming soon in the list)
     i = p.evaluate("[...document.querySelectorAll('.view.top .pcard')].findIndex(c => { const h = c.dataset.v; return !(window.__app.coming && window.__app.coming(h)); })")
     p.locator('.view.top .pcard').nth(max(i, 0)).click(); check('pdp')
     p.evaluate("document.querySelector('.view.top .pscroll').scrollTop = 600"); check('pdp-scrolled')
     sold = p.locator('.view.top .size.out')
     if sold.count(): sold.first.click(); check('pdp-sold-out-size', 300)
-    p.locator('.view.top .size:not(.out)').first.click(); p.click('#addBtn'); check('added-sheet', 1200)
+    if p.locator('.view.top .size:not(.out)').count(): p.locator('.view.top .size:not(.out)').first.click()
+    p.click('#addBtn'); check('added-sheet', 1200)
     p.click('#goBag'); check('bag')
     p.click('#promoAdd'); check('bag-app10')
     p.click('#checkout'); check('checkout')
@@ -200,7 +202,7 @@ def run(pw, w, h):
     p.fill('#sq', 'jacket'); check('search-results')
     p.fill('#sq', 'zzzz'); check('search-none')
     top('[data-act="back"]').click()
-    tab('drops'); check('drops')
+    if p.locator('#tabbar button[data-tab="drops"]').count(): tab('drops'); check('drops')
     if p.locator('#tabbar button[data-tab="community"]').count():
         tab('community'); p.wait_for_timeout(300)
         if p.locator('.view.top .ev-card').count():

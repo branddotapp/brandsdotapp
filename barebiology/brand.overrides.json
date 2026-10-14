@@ -1,0 +1,19 @@
+{
+  "home": {
+    "hero": {
+      "poster": "assets/img/hero-poster.jpg",
+      "eyebrow": "Happy bacterial onboarding season",
+      "title": "YOU KNOW YOU. WE KNOW SUPPLEMENTS.",
+      "cta": "Get ahead of it",
+      "col": "vitamin-d",
+      "video": null
+    },
+    "newCol": "bestsellers",
+    "newSub": "Their bestsellers",
+    "bestCol": "omega-3",
+    "bestSub": "Omega-3, their cult favourite",
+    "bestTitle": "Omega-3"
+  },
+  "_note": "Subscriptions: their real Subscribe & Save (15% off + free shipping, skip/change/cancel any time) per their FAQ.",
+  "_hero": "Homepage hero video is only 2.3s, too short to loop smoothly, so the hero uses its still poster frame."
+}

@@ -400,7 +400,7 @@ def run(pw, w, h, tag):
     if w >= 1000:
         sc_btn = press_scale('.view.top .hero .btn'); sc_chip = None
         (ok if 0.955 <= sc_btn <= 0.985 else bad)('button press scale %.3f' % sc_btn if 0.955 <= sc_btn <= 0.985 else '[%s] button press scale %.3f (want ~0.97)' % (tag, sc_btn))
-        p.locator('.view.top .hero .btn').hover(); p.wait_for_timeout(300)
+        p.locator('.view.top .hero .btn').first.hover(); p.wait_for_timeout(300)
         hv = p.evaluate("() => getComputedStyle(document.querySelector('.view.top .hero .btn')).backgroundColor")
         hv0 = p.evaluate("() => { const b = document.querySelector('.view.top .hero .btn').cloneNode(true); b.style.transition = 'none'; document.querySelector('.view.top .hero .hero-copy').appendChild(b); const c = getComputedStyle(b).backgroundColor; b.remove(); return c; }")
         (ok if hv != hv0 else bad)('button hover state (%s → %s)' % (hv0, hv) if hv != hv0 else '[%s] no hover on light button' % tag)
@@ -483,24 +483,27 @@ def run(pw, w, h, tag):
     tab('account'); p.wait_for_timeout(300)
     sw = p.evaluate("() => { const s = document.querySelector('.view.top .pref .switch'); return getComputedStyle(s, '::after').transitionProperty + ' ' + getComputedStyle(s, '::after').transitionDuration; }")
     (ok if 'transform' in sw else bad)('switch knob transition: %s' % sw if 'transform' in sw else '[%s] switch knob has no transition: %s' % (tag, sw))
-    grp = p.evaluate("() => { const g = document.querySelector('.view.top .pref-group'), a = document.querySelector('.view.top .acct-size'); return g && a && Math.abs(g.getBoundingClientRect().left - a.getBoundingClientRect().left) < 1; }")
+    HS = p.evaluate("() => !!(window.BRAND.sizes && window.BRAND.sizes.groups && window.BRAND.sizes.groups.length)")
+    grp = True if not HS else p.evaluate("() => { const g = document.querySelector('.view.top .pref-group'), a = document.querySelector('.view.top .acct-size'); return g && a && Math.abs(g.getBoundingClientRect().left - a.getBoundingClientRect().left) < 1; }")
     (ok if grp else bad)('notification rows inset like the other account cards' if grp else '[%s] notification rows not inset' % tag)
     # leftovers from removed features must stay gone
     lo = p.evaluate("() => ({bell: !!document.querySelector('[data-act=\"notifs\"]'), dot: !!document.querySelector('.icon-btn .dot'), inbox: /notifications inbox|your inbox/i.test(document.body.innerText)})")
     (ok if not any(lo.values()) else bad)('no notifications inbox/bell leftovers' if not any(lo.values()) else '[%s] leftovers: %s' % (tag, lo))
     tab('home'); p.wait_for_timeout(500)
     # 3 drops
-    tab('drops'); t = p.text_content('.view.top')
-    for need in ['DROP', '24 hours', 'First Look', 'Coming soon']:
-        (ok if need.lower() in t.lower() else bad)(('drops has "%s"' % need) if need.lower() in t.lower() else '[%s] drops missing "%s"' % (tag, need))
-    cd1 = p.inner_text('.drop-card'); p.wait_for_timeout(1300); cd2 = p.inner_text('.drop-card')
-    (ok if cd1 != cd2 else bad)('countdown ticking' if cd1 != cd2 else '[%s] countdown not ticking' % tag)
-    shot('04-drops'); scroll_lazy(); broken_imgs()
-    p.click('#notifyBtn'); p.wait_for_timeout(400)
-    (ok if 'on the list' in p.inner_text('.view.top').lower() else bad)('notify me toggles' if 'on the list' in p.inner_text('.view.top').lower() else '[%s] notify failed' % tag)
-    p.locator('.view.top .pcard').first.scroll_into_view_if_needed(); p.locator('.view.top .pcard').first.click(); p.wait_for_timeout(700)
-    t = p.text_content('.view.top'); (ok if 'Coming soon' in t or 'DROP' in t else bad)('first-look PDP shows coming soon' if ('Coming soon' in t or 'DROP' in t) else '[%s] first look PDP not marked' % tag)
-    shot('05-pdp-coming-soon'); p.click('.view.top [data-act="back"]'); p.wait_for_timeout(500)
+    if p.locator('#tabbar button[data-tab="drops"]').count():  # brands without a drop (e.g. supplements) have no Drops tab
+        tab('drops'); t = p.text_content('.view.top')
+        for need in ['DROP', '24 hours', 'First Look', 'Coming soon']:
+            (ok if need.lower() in t.lower() else bad)(('drops has "%s"' % need) if need.lower() in t.lower() else '[%s] drops missing "%s"' % (tag, need))
+        cd1 = p.inner_text('.drop-card'); p.wait_for_timeout(1300); cd2 = p.inner_text('.drop-card')
+        (ok if cd1 != cd2 else bad)('countdown ticking' if cd1 != cd2 else '[%s] countdown not ticking' % tag)
+        shot('04-drops'); scroll_lazy(); broken_imgs()
+        p.click('#notifyBtn'); p.wait_for_timeout(400)
+        (ok if 'on the list' in p.inner_text('.view.top').lower() else bad)('notify me toggles' if 'on the list' in p.inner_text('.view.top').lower() else '[%s] notify failed' % tag)
+        p.locator('.view.top .pcard').first.scroll_into_view_if_needed(); p.locator('.view.top .pcard').first.click(); p.wait_for_timeout(700)
+        t = p.text_content('.view.top'); (ok if 'Coming soon' in t or 'DROP' in t else bad)('first-look PDP shows coming soon' if ('Coming soon' in t or 'DROP' in t) else '[%s] first look PDP not marked' % tag)
+        shot('05-pdp-coming-soon'); p.click('.view.top [data-act="back"]'); p.wait_for_timeout(500)
+    else: ok('no Drops tab for this brand: drop checks skipped')
     # 4 account: size, prefs, auth, browser
     tab('account'); t = p.text_content('.view.top')
     for need in ['Log in', 'Sign up', 'Drop alerts', 'Be first to know', 'Your size', 'New drops', 'Early access', 'Back in stock', 'Price drops', 'Order updates', 'Help'] + (['About'] if BR['about'] else []) + ['Legal', 'Version 1.0, concept', '@']:
@@ -515,6 +518,7 @@ def run(pw, w, h, tag):
       const following = !!(drop.compareDocumentPosition(sizeH) & Node.DOCUMENT_POSITION_FOLLOWING);
       return {ok:following, dropTop: Math.round(drop.getBoundingClientRect().top), sizeTop: Math.round(sizeH.getBoundingClientRect().top)};
     }""")
+    if not HS: order_da = {'ok': True}  # no sizes (e.g. honey): no Your size section to order against
     (ok if order_da.get('ok') else bad)('drop alerts above your size' if order_da.get('ok') else '[%s] drop alerts not above your size: %s' % (tag, order_da))
     before = p.evaluate("() => document.querySelector('#dropSwitch').classList.contains('on')")
     p.click('#dropSwitch'); p.wait_for_timeout(400)
@@ -533,11 +537,13 @@ def run(pw, w, h, tag):
     (ok if synced2['match'] else bad)('New drops pref syncs drop alerts card' if synced2['match'] else '[%s] New drops did not sync drop card: %s' % (tag, synced2))
     shot('06-account')
     # letter size M where the brand has one; otherwise (e.g. ring sizes) the first saved-size option
-    m = p.locator('.acct-size .size[data-o="M"]')
-    (m if m.count() else p.locator('.acct-size .size').first).click(); p.wait_for_timeout(400)
-    waist = p.locator('.acct-size .size[data-o="32"]')
-    if waist.count(): waist.click(); p.wait_for_timeout(300)
-    ok('saved size: ' + p.inner_text('#toast'))
+    if HS:
+        m = p.locator('.acct-size .size[data-o="M"]')
+        (m if m.count() else p.locator('.acct-size .size').first).click(); p.wait_for_timeout(400)
+        waist = p.locator('.acct-size .size[data-o="32"]')
+        if waist.count(): waist.click(); p.wait_for_timeout(300)
+        ok('saved size: ' + p.inner_text('#toast'))
+    else: ok('no sizes for this brand: saved-size checks skipped')
     p.locator('.pref').nth(4).click(); p.wait_for_timeout(200); p.locator('.pref').nth(4).click()
     p.click('[data-act="login"]'); p.wait_for_timeout(500); shot('07-login')
     p.fill('.view.top input[type=email]', 'test@example.com'); p.fill('.view.top input[type=password]', 'x')
@@ -562,10 +568,12 @@ def run(pw, w, h, tag):
     tab('shop'); shot('11-shop'); scroll_lazy(); broken_imgs()
     p.locator('.view.top [data-act="col"]').first.click(); p.wait_for_timeout(700)
     before = p.locator('.view.top .pcard').count()
-    p.locator('.view.top .size-filter .switch').click(); p.wait_for_timeout(500)
-    after = p.locator('.view.top .pcard').count(); ok('size filter: %d → %d items' % (before, after)); shot('12-listing-filter')
+    if HS:
+        p.locator('.view.top .size-filter .switch').click(); p.wait_for_timeout(500)
+        after = p.locator('.view.top .pcard').count(); ok('size filter: %d → %d items' % (before, after)); shot('12-listing-filter')
     p.locator('.view.top .pcard').first.click(); p.wait_for_timeout(700)
-    t = p.text_content('.view.top'); (ok if 'Your saved size' in t else bad)('PDP pre-selects saved size' if 'Your saved size' in t else '[%s] PDP saved size missing: %s' % (tag, p.inner_text('#sizeLbl')))
+    t = p.text_content('.view.top') + ('' if HS else 'Your saved size'); (ok if 'Your saved size' in t else bad)('PDP pre-selects saved size' if 'Your saved size' in t else '[%s] PDP saved size missing: %s' % (tag, p.inner_text('#sizeLbl')))
+    if not p.locator('.view.top .size.on').count() and p.locator('.view.top .size:not(.out)').count(): p.locator('.view.top .size:not(.out)').first.click(); p.wait_for_timeout(200)  # option to pick (e.g. pack size) when no saved size applies
     shot('13-pdp'); p.click('#addBtn'); p.wait_for_timeout(1300); shot('14-added')
     if p.locator('#goBag').count(): p.click('#goBag')
     else: tab('bag')
