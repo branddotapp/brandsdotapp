@@ -12,15 +12,21 @@
     "newSub": "Their bestsellers",
     "bestCol": "omega-3",
     "bestSub": "Omega-3, their cult favourite",
-    "bestTitle": "Omega-3"
+    "bestTitle": "Omega-3",
+    "editorial": {
+      "col": "skin",
+      "img": "assets/img/campaign-wide.jpg",
+      "eyebrow": "Shop the edit",
+      "title": "SKIN HEALTH",
+      "fit": "natural"
+    }
   },
   "_note": "Subscriptions: their real Subscribe & Save (15% off + free shipping, skip/change/cancel any time) per their FAQ.",
   "_hero": "Homepage hero video is only 2.3s, too short to loop smoothly, so the hero uses its still poster frame.",
   "perks": [
-    "Free Delivery On All Orders",
-    "Sign Up For 10% Off",
-    "Not for you? We'll refund you.",
-    "30-day returns"
+    "Free delivery on all orders",
+    "Sign up for 10% off",
+    "Not for you? We'll refund you"
   ],
   "_perks": "dropped a CSS fragment the scraper picked up from their announcement bar",
   "pitch": {
@@ -31,5 +37,68 @@
       "Subscribe & Save, managed in the app",
       "Shopify checkout with Apple Pay, Shop Pay and PayPal"
     ]
-  }
+  },
+  "vertical": "supplements",
+  "sizes": {
+    "groups": []
+  },
+  "assets": {
+    "logoDark": "assets/img/logo-official-dark.png",
+    "logoLight": "assets/img/logo-official-light.png"
+  },
+  "_assets": "Real wordmark: the inline SVG from barebiology.com header, rasterised (dark = their #555 grey, light = white).",
+  "pages": {
+    "help": [
+      {
+        "t": "FAQs",
+        "url": "https://www.barebiology.com/pages/frequently-asked-questions",
+        "sum": "Discount + Offers\nHow Can I Pay?\nWhere's My Order\nCancelling, Changing, or Returning My Order\nWhere can I buy?\nFlourish Loyalty\nBecome a stockist\nFAQ Quick Search\nEnter a keyword into the search bar to start filtering results - for example \"Delivery\".\nDiscount And Offers\nDo you offer bundle deals?\nOh yes. You get 25% off when you buy 6 of the same product.\nWhy won't my discount code work?\nUsually it's because discount codes can't be used with another offer. Your discount code won't work if you're using it alongside 6 packs or subscription purchases, unless that code is a reward from redeemed loyalty points.\nDiscount codes can't be used at the same time as loyalty points either.\nAny questions, our customer service team is on hand to help anytime. Contact us via live chat, or, email info@barebiology.com anytime.\nWhat credit and debit cards do you accept?\nAny major debit or credit card, including American Express."
+      },
+      {
+        "t": "Contact",
+        "url": "https://www.barebiology.com/pages/contact-us",
+        "sum": "Have a question or comment?\nUse the form below or send us a message at info@barebiology.com.\nTo find out about opportunities within the BB team, email community@barebiology.com.\nFor information on becoming a stockist message at wholesale@barebiology.com.\nFor information about your order, shipping and returns, or more, see FAQs.\nIf you are returning or exchanging a product, please read our returns policy.\nPress\nIf you have a press, or influencer partnership enquiry, please contact our press office at aish@twentytwocommunications.com\nSome of our most frequently asked questions\nWhich product should I choose?\nIt can be tricky to work out which product is best for your needs, our quiz can help you choose. We're all very different, so please get in touch via the contact form above if you need some advice.\nWhy can’t I access my subscription account?\nIt could be because you don't have an active Bare Biology account yet."
+      }
+    ],
+    "about": [
+      {
+        "t": "About us",
+        "url": "https://www.barebiology.com/pages/our-story",
+        "sum": "Made for and by courageous women\nWe have heart. Which is stronger than balls.\nThe word courage comes from the Latin for heart (cor) and old French, meaning full of heart. And that’s where Bare Biology comes from. The heart. Founded by and run by women. Courageous women who deal with all the same stuff as you.\nWomen, by nature as givers and protectors of life and as a result of our history and society, are courageous every day. Walking home at night in the dark, smiling through intense period pain and heavy bleeding in a meeting room or classroom, standing firm in a doctor’s surgery when we’re being dismissed and told “not to Google stuff”. Although never courageous enough to tell a hairdresser they don’t like the hair cut. Yes, looks lovely thanks (goes away and cries).\nIt takes a lot of courage to start and run a business\nPeople often ask me “how do you do it”? I have to pull my big-girl pants on everyday and be a role model for my children and my team. Even when I’ve had no sleep (lifelong insomniac) or am a bag of anxiety. But, I absolutely love what we do here and this business I built. They also ask “why did you do it”?"
+      },
+      {
+        "t": "Sustainability",
+        "url": "https://www.barebiology.com/pages/sustainability",
+        "sum": "All about\nContents: Sustainable fish supply\nCertifications\nSustainable Bovine Collagen Supply\nCreatine, Vitamin D & Magnesium\nGelatin capsules\nHow to recycle our products\nAll about our pouches\nSummary\nSustainability and sourcing: it’s why we’re here\nBare Biology exists because our founder Mel couldn’t find a fish oil she trusted enough to give to her family. Sustainability, transparency and ethical sourcing have shaped everything we’ve done since, even our name.\nSince day one, we have been sourcing our fish oil range from certified fisheries, holding ourselves to rigorous independent testing standards, and developing the UK’s first MSC Certified marine collagen. Since then, we’ve scrutinised every part of our supply chain, from fish oil and creatine to capsule coatings, pouches and ink. Hands up, we aren’t perfect, but we’re working on it.\nFor the designated readers in the family, we…"
+      },
+      {
+        "t": "Stockists",
+        "url": "https://www.barebiology.com/blogs/stockists",
+        "sum": "All locations\nOnline\nGuernsey\nIreland\nLondon\nMidlands\nNorth East\nNorth West\nNorthern Ireland\nScotland\nSouth East\nSouth West\nSearch all Stockists\nSelfridges\nInstore & Online\nLondon, Birmingham, Manchester Exchange Square, Manchester Trafford.\nHarrods pharmacy\nInstore\nKnightsbridge | London.\nWhole Foods Market\nCamden, Clapham Junction, Fulham, High Street Kensington, Kings Road, Piccadilly, Stoke Newington | London.\nPlanet Organic\nBroadway Market, Chiswick, Ealing, Hampstead, Islington, Muswell Hill, Queen's Park, Westbourne Grove | London.\nNatural Dispensary healf\nSarah Chapman\nSloane Square | London.\nAmrita Nutrition\nJohn Bell & Croyden\nWestminster | London.\nNature Doc Shop\n1 2 3 … 6 Next"
+      }
+    ],
+    "legal": [
+      {
+        "t": "Privacy policy",
+        "url": "https://www.barebiology.com/policies/privacy-policy",
+        "sum": "Bare Biology respects your privacy and is committed to protecting your personal data. This Privacy Policy aims to give you information on how we collect and process your personal data through your use of this website and will inform you as to how we look after your personal data and tell you about your privacy rights.\nWe will process and protect your personal data as set out in this Privacy Policy, so please read it carefully.\nThis Privacy Policy was last updated on 2nd March 2026. Copies of earlier versions are available on request, please email us at info@barebiology.com.\nWho We Are: Controller:\nBare Biology (collectively referred to as “we”, “us” or “our”) is a specialist online retailer of high quality health foods and supplements.\nBare Biology are the controller and are responsible for your personal data, which means that we determine the purposes and ways of the processing of your personal data."
+      },
+      {
+        "t": "Terms of service",
+        "url": "https://www.barebiology.com/pages/money-back-guarantee-terms-conditions",
+        "sum": "Money-Back Guarantee – Terms & Conditions\nAt Bare Biology, we believe in the quality of our products and want you to feel confident in trying them. That's why we offer a 30-day Money Back Guarantee on your first purchase if you're not completely satisfied.\nEligibility Criteria\nOur Money-Back Guarantee is designed to give customers the confidence to try a Bare Biology product for the first time.\nTo be eligible:\nThe guarantee applies to your first purchase of a specific product only.\nIt covers a genuine first trial of a product and doesn’t apply to multiple units of the same product. For example, if you purchase several packs of the same product, the guarantee does not extend to all unopened packs if you decide after trying one that it isn't right for you.\nIf you are trying a product for the first time, we recommend purchasing a single pack. This allows you to properly trial the product while remaining eligible for the Money-Back Guarantee if it isn't the right fit."
+      },
+      {
+        "t": "Refund policy",
+        "url": "https://www.barebiology.com/policies/refund-policy",
+        "sum": "This Returns Policy explains what we offer our customers for returned products in addition to our customers’ legal rights. Some of these legal rights are also summarised below. For detailed information on legal rights, you can contact Citizens Advice at www.citizensadvice.org.uk or call 0808 223 1133.\nReturning a product\nHopefully you won't want to return our products, but if you change your mind, please kindly re-package your return with a note including your name and order number, and send it within 30 days.\nWe can only process refunds for returned products that arrive in a re-saleable condition. Please help us to ensure you qualify for a full refund by:\n✓ checking the safety seal on the product is intact\n✓ ensuring the product is well packaged\n✓ obtaining proof of postage\nWe recommend using a trackable service on all returns. We don’t cover postage costs where you have changed your mind about the purchase."
+      }
+    ]
+  },
+  "optionLabel": "Pack",
+  "_pages": "Cookie policy dropped (scraped as a raw cookie table); their FAQ page is titled FAQs, not Shipping.",
+  "copy": {
+    "about": "Loved by nutritional therapists, health experts and our customers. Our omega-3, algae oils, marine collagen and vitamin D are cult favourites."
+  },
+  "_about": "Footer line from their own meta description (scraped value was a heading or Title Case)."
 }

@@ -13,6 +13,7 @@ const PAY = Array.isArray(B.payments) && B.payments.length ? B.payments : null, 
 const LOGO = B.assets.logoDark, LOGO_L = B.assets.logoLight || B.assets.logoDark;
 // Push toast app icon: brand logo (light on dark tile when available) with letter fallback.
 function pushAppIconHTML(){
+  if (B.assets && B.assets.appIcon) return '<img src="'+B.assets.appIcon+'" alt="" class="push-icon appicon">';
   const light = B.assets && B.assets.logoLight, dark = B.assets && B.assets.logoDark;
   if (light) return '<img src="'+light+'" alt="" class="push-icon dark">';
   if (dark) return '<img src="'+dark+'" alt="" class="push-icon">';
@@ -158,6 +159,12 @@ function toggleWish(h){
 
 // ---------- sizes ----------
 const SIZE_GROUPS = (B.sizes && B.sizes.groups) || [];
+// option naming: brands with no size preferences (supplements, food, most jewellery) never say "size" in the UI
+const NO_SIZE_VERT = /food|supplement/.test(B.vertical||'');
+const isSizeOptOf = p => !NO_SIZE_VERT && (!p.on || /size|waist|fit/i.test(p.on));
+const optLblOf = p => isSizeOptOf(p) ? 'Size' : (p.on && !/size/i.test(p.on) ? p.on : (B.optionLabel || 'Option'));
+const optLine = (p, v) => p.sz.length > 1 ? optLblOf(p)+' '+prettySize(v) : '';
+const NOUN = B.noun || (/food|supplement|beauty|skincare/.test(B.vertical||'') ? ['product','products'] : ['piece','pieces']);
 const normSize = s => String(s).split(' - ')[0].trim().toUpperCase();
 const hasSize = () => SIZE_GROUPS.some(g => mySize[g.key]);
 const sizeLabel = () => SIZE_GROUPS.filter(g => mySize[g.key]).map(g => (g.prefix||'') + mySize[g.key]).join(' · ');
@@ -515,8 +522,8 @@ function Home(el){
       '<div class="hero-slot"></div>'+deptToggle()+
       (newIn.length ? '<section class="section"><div class="sec-head"><div><h2>New In</h2><p>'+esc(H.newSub||'The latest arrivals')+'</p></div><button class="link" data-act="col" data-v="'+esc(H.newCol)+'">View all</button></div><div class="hscroll">'+newIn.map(p=>pcard(p,{w:400})).join('')+'</div></section>' : '')+
       (tiles.length ? '<section class="section"><div class="sec-head"><div><h2>Shop by Category</h2></div><button class="link" data-act="tab" data-v="shop">All</button></div><div class="cat-grid">'+tiles.map(t=>'<div class="cat-tile" data-act="col" data-v="'+esc(t[0])+'"><img loading="lazy" decoding="async" fetchpriority="high" data-prio '+cover(t[0])+' alt=""><span>'+esc(t[1])+'</span></div>').join('')+'</div></section>' : '')+
-      (H.editorial && H.editorial.img && colBy(H.editorial.col) ? '<div class="editorial" data-act="col" data-v="'+esc(H.editorial.col)+'"><img loading="lazy" src="'+esc(H.editorial.img)+'" alt=""><div class="hero-copy"><div class="eyebrow">'+esc(H.editorial.eyebrow||'')+'</div><div class="hero-title">'+esc(H.editorial.title||'')+'</div><span class="btn btn-light">Shop now</span></div></div>' : '')+
-      (best.length ? '<section class="section"><div class="sec-head"><div><h2>'+esc(H.bestTitle||'Best Sellers')+'</h2><p>'+esc(H.bestSub||'The pieces everyone’s wearing')+'</p></div><button class="link" data-act="col" data-v="'+esc(H.bestCol)+'">View all</button></div><div class="hscroll">'+best.map(p=>pcard(p,{w:400})).join('')+'</div></section>' : '')+
+      (H.editorial && H.editorial.img && colBy(H.editorial.col) ? '<div class="editorial'+(H.editorial.fit==='natural'?' natural':'')+'" data-act="col" data-v="'+esc(H.editorial.col)+'"><img loading="lazy" src="'+esc(H.editorial.img)+'" alt=""><div class="hero-copy"><div class="eyebrow">'+esc(H.editorial.eyebrow||'')+'</div><div class="hero-title">'+esc(H.editorial.title||'')+'</div><span class="btn btn-light">Shop now</span></div></div>' : '')+
+      (best.length ? '<section class="section"><div class="sec-head"><div><h2>'+esc(H.bestTitle||'Best Sellers')+'</h2><p>'+esc(H.bestSub||(NOUN[0]==='piece'?'The pieces everyone’s wearing':'Our customers’ favourites'))+'</p></div><button class="link" data-act="col" data-v="'+esc(H.bestCol)+'">View all</button></div><div class="hscroll">'+best.map(p=>pcard(p,{w:400})).join('')+'</div></section>' : '')+
       (fc ? '<div class="feature-card" style="margin-top:28px" data-act="col" data-v="'+esc(H.feature.col)+'"><img loading="lazy" src="'+(H.feature.img ? esc(H.feature.img) : img(fc.im[1]||fc.im[0],700))+'" alt=""><div><b>'+esc(H.feature.title)+'</b><span class="btn btn-light btn-sm">'+esc(H.feature.cta||'Shop now')+'</span></div></div>' : '')+
       proofHTML()+
       igHTML()+
@@ -637,7 +644,8 @@ function PDP(el, h){
   const mineAvail = hasSize() ? p.sz.find(s => s[1] && sizeMatch(s[0])) : null;
   const mineOut = hasSize() && !mineAvail && p.sz.some(s => sizeMatch(s[0]));
   if (mineAvail) size = mineAvail[0];
-  if (!size && p.sz.length === 1 && p.sz[0][1]) size = p.sz[0][0];   // single variant (One size): pre-selected, no 'Please select a size'
+  if (!size && p.sz.length === 1 && p.sz[0][1]) size = p.sz[0][0];
+  const oneOpt = p.sz.length === 1, isSizeOpt = isSizeOptOf(p), optLbl = optLblOf(p);   // p.on = the product's Shopify option name (Format, Length, Metal...)   // single variant (One size): pre-selected, no 'Please select a size'
   const ship = (SHIP.options||[]);
   el.classList.add('pdp');
   el.innerHTML =
@@ -652,9 +660,9 @@ function PDP(el, h){
       (pays('klarna') ? '<div class="klarna">Or 3 payments of '+money(p.p/3)+' with Klarna</div>' : '')+proofHTML(true)+
       (coming ? '<div class="soon-note">'+I.drop+'<div><b>DROP '+esc(DR.num)+' / '+esc(DR.name)+'</b><span>App early access '+fmtDay(dropTimes().app)+'. Website 24 hours later.</span></div></div>' : '')+
       (sibs.length > 1 ? '<div class="label-row"><b>Colour</b><span>'+esc(p.c)+'</span></div><div class="swatches">'+sibs.map(s=>'<button class="swatch '+(s.h===h?'on':'')+'" data-sib="'+esc(s.h)+'" aria-label="'+esc(s.c)+'"><img loading="lazy" decoding="async" '+srcs(s.im[0],150,44)+' alt=""></button>').join('')+'</div>' : '')+
-      '<div class="label-row"><b>Size</b><span id="sizeLbl">'+(mineAvail?'Your saved size: '+esc(prettySize(size)):mineOut?'Your size ('+esc(sizeLabel())+') is sold out':'Select a size')+'</span></div>'+
+      (oneOpt ? '' : '<div class="label-row"><b>'+esc(optLbl)+'</b><span id="sizeLbl">'+(mineAvail?'Your saved size: '+esc(prettySize(size)):mineOut?'Your size ('+esc(sizeLabel())+') is sold out':'Select '+(isSizeOpt?'a size':'an option'))+'</span></div>'+
       '<div class="sizes">'+p.sz.map(s=>'<button class="size '+(long?'sm ':'')+(s[1]?'':'out ')+(s[0]===size?'on ':'')+(hasSize()&&sizeMatch(s[0])?'mine':'')+'" data-size="'+esc(s[0])+'" data-in="'+s[1]+'">'+esc(prettySize(s[0]))+'</button>').join('')+'</div>'+
-      '<div class="size-hint">'+I.bell+'<span>'+(mineOut?'Tap your size for a back-in-size alert':'Tap a sold-out size for a back-in-stock alert')+'</span>'+(SIZE_GROUPS.length?'<button class="link sm" data-act="size">'+(hasSize()?'Change size':'Save my size')+'</button>':'')+'</div>'+
+      '<div class="size-hint">'+I.bell+'<span>'+(mineOut?'Tap your size for a back-in-size alert':isSizeOpt?'Tap a sold-out size for a back-in-stock alert':'Tap a sold-out option for a back-in-stock alert')+'</span>'+(SIZE_GROUPS.length&&isSizeOpt?'<button class="link sm" data-act="size">'+(hasSize()?'Change size':'Save my size')+'</button>':'')+'</div>')+
       '<div class="perks">'+(B.pdpPerks||[]).slice(0,3).map((t,i)=>'<div>'+[I.truck,I.ret,I.star][i]+esc(t)+'</div>').join('')+'</div>'+
       '<div class="acc">'+
         '<details open><summary>Description'+I.plus+'</summary><div class="acc-body">'+esc(p.d || 'Designed by '+NAME+'.')+'</div></details>'+
@@ -682,14 +690,14 @@ function PDP(el, h){
   $$('.size', el).forEach(b => b.addEventListener('click', () => {
     if (b.dataset.in === '0'){ toast('We’ll alert you when '+prettySize(b.dataset.size)+' is back', I.bell); return; }
     size = b.dataset.size; $$('.size', el).forEach(x=>x.classList.toggle('on', x===b));
-    const l = $('#sizeLbl', el); l.textContent = (sizeMatch(size)?'Your saved size: ':'Size ') + prettySize(size); l.style.color='';
+    const l = $('#sizeLbl', el); l.textContent = (sizeMatch(size)?'Your saved size: ':(isSizeOpt?'Size ':'')) + prettySize(size); l.style.color='';
   }));
   let addedT;
   const ab = $('#addBtn', el), abLabel = ab.innerHTML;
   $('#addBtn', el).addEventListener('click', e => {
     if (coming) { dropNotify = true; store.set('dropNotify', true); $('.ab-l', ab).textContent = 'On the list ✓'; toast('We’ll notify you when DROP '+DR.num+' opens', I.bell); return; }
     if (soldOut) { toast('We’ll alert you when it’s back in stock', I.bell); return; }
-    if (!size){ const sz = $('.sizes', el); sz.classList.remove('shake'); void sz.offsetWidth; sz.classList.add('shake'); const l=$('#sizeLbl', el); l.textContent = 'Please select a size'; l.style.color='var(--sale)'; sz.scrollIntoView({behavior:'smooth', block:'center'}); return; }
+    if (!size){ const sz = $('.sizes', el); sz.classList.remove('shake'); void sz.offsetWidth; sz.classList.add('shake'); const l=$('#sizeLbl', el); l.textContent = isSizeOpt ? 'Please select a size' : 'Please select an option'; l.style.color='var(--sale)'; sz.scrollIntoView({behavior:'smooth', block:'center'}); return; }
     // confirmation: the button turns into "Added" with a drawn check, the bag badge bumps, then the summary sheet rises
     clearTimeout(addedT);
     ab.classList.remove('added'); void ab.offsetWidth;
@@ -718,7 +726,7 @@ function addToBag(h, size, silent, delay){
 function addedSheet(p, size){
   const total = bag.reduce((a,i)=>a+P[i.h].p*i.q,0);
   const left = FREE_SHIP - total;
-  openSheet('<h3>Added to bag</h3><div class="added"><img src="'+img(p.im[0],200)+'" alt=""><div><b>'+esc(p.t)+'</b><small>Size '+esc(prettySize(size))+' · '+money(p.p)+'</small></div></div>'+
+  openSheet('<h3>Added to bag</h3><div class="added"><img src="'+img(p.im[0],200)+'" alt=""><div><b>'+esc(p.t)+'</b><small>'+(optLine(p,size)?esc(optLine(p,size))+' · ':'')+money(p.p)+'</small></div></div>'+
     (FREE_SHIP ? '<div class="ship-prog" style="margin:0 0 16px"><p>'+(left>0?'You’re <b>'+money(left)+'</b> away from free '+esc(SHIP.region||'')+' delivery':'<b>You’ve unlocked free '+esc(SHIP.region||'')+' delivery</b>')+'</p><div class="bar"><i style="width:'+Math.min(100,total/FREE_SHIP*100)+'%"></i></div></div>' : '')+
     '<div class="btns"><button class="btn btn-dark btn-block" id="goBag">View bag & checkout</button><button class="btn btn-outline btn-block" data-act="close">Continue shopping</button></div>',
     s => $('#goBag', s).addEventListener('click', () => { closeSheet(); switchTab('bag'); }));
@@ -744,7 +752,7 @@ function Bag(el){
     const saved = bag.reduce((a,i)=>a+(P[i.h].cp>P[i.h].p?(P[i.h].cp-P[i.h].p)*i.q:0),0);
     el.innerHTML = topbar({}) + '<div class="large-title"><small>'+T.cnt+(T.cnt===1?' item':' items')+'</small>Bag</div>' +
       (FREE_SHIP ? '<div class="ship-prog"><p>'+(T.sub<FREE_SHIP?'Spend <b>'+money(FREE_SHIP-T.sub)+'</b> more for free '+esc(SHIP.region||'')+' delivery':'<b>Free '+esc(SHIP.region||'')+' delivery unlocked</b> — '+esc(o.name))+'</p><div class="bar"><i style="width:'+Math.min(100,T.sub/FREE_SHIP*100)+'%"></i></div></div>' : '')+
-      bag.map((it,ix)=>{ const p=P[it.h]; return '<div class="bag-item" data-ix="'+ix+'"><img src="'+img(p.im[0],250)+'" alt="" data-act="pdp" data-v="'+esc(p.h)+'"><div class="bi-info"><b data-act="pdp" data-v="'+esc(p.h)+'">'+esc(p.n)+'</b><small>'+esc(p.c)+(p.c?' · ':'')+'Size '+esc(prettySize(it.s))+'</small>'+priceHTML(p)+
+      bag.map((it,ix)=>{ const p=P[it.h]; return '<div class="bag-item" data-ix="'+ix+'"><img src="'+img(p.im[0],250)+'" alt="" data-act="pdp" data-v="'+esc(p.h)+'"><div class="bi-info"><b data-act="pdp" data-v="'+esc(p.h)+'">'+esc(p.n)+'</b><small>'+esc(p.c)+(p.c&&optLine(p,it.s)?' · ':'')+esc(optLine(p,it.s))+'</small>'+priceHTML(p)+
         '<div class="bi-bottom"><div class="qty"><button data-q="-1" aria-label="Decrease">−</button><span>'+it.q+'</span><button data-q="1" aria-label="Increase">+</button></div><button class="remove" data-rm>Remove</button></div></div></div>'; }).join('')+
       (promo ? '<div class="promo on">'+I.tag+'<div><b>'+esc(DISC.code)+' applied</b><small>'+DISC.pct+'% off your first app order</small></div><button class="remove" id="promoRm">Remove</button></div>'
              : '<button class="promo" id="promoAdd">'+I.gift+'<div><b>First app order?</b><small>Tap to apply '+esc(DISC.code)+' for '+DISC.pct+'% off</small></div><span class="promo-cta">Apply</span></button>')+
@@ -805,7 +813,7 @@ function Wishlist(el, mode){
   const render = () => {
     el.innerHTML = topbar(mode === 'pushed' ? { back:true, title:'', right:bagBtn() } : { right:bagBtn() }) + '<div class="large-title"><small>Saved for later</small>Wishlist</div>' +
       (wish.length ? '<div class="count">'+wish.length+' saved '+(wish.length===1?'item':'items')+' · we’ll let you know if prices drop</div><div class="grid">'+wish.map(h=>pcard(P[h])).join('')+'</div>'
-                   : '<div class="empty" style="padding-top:40px"><div class="eic">'+I.heart+'</div><h3>Nothing saved yet</h3><p>Tap the heart on any piece to save it here — we’ll alert you if the price drops or your size is running low.</p>'+(H.hero&&colBy(H.hero.col)?'<button class="btn btn-dark" data-act="col" data-v="'+esc(H.hero.col)+'">'+esc(H.hero.cta||'Shop now')+'</button>':'')+'</div>') + credit();
+                   : '<div class="empty" style="padding-top:40px"><div class="eic">'+I.heart+'</div><h3>Nothing saved yet</h3><p>Tap the heart on any '+NOUN[0]+' to save it here — we’ll alert you if the price drops'+(SIZE_GROUPS.length?' or your size is running low':' or it’s running low')+'.</p>'+(H.hero&&colBy(H.hero.col)?'<button class="btn btn-dark" data-act="col" data-v="'+esc(H.hero.col)+'">'+esc(H.hero.cta||'Shop now')+'</button>':'')+'</div>') + credit();
   };
   render();
   el._refresh = render;
@@ -857,14 +865,14 @@ function Drops(el){
       '<div class="large-title"><small>App early access</small>Drops</div>'+
       '<div class="drop-card'+(dropLive?' live':'')+'"><img src="'+esc(dropImg()||'')+'" alt=""><div class="dc-in">'+
         '<div class="dc-tag">'+(dropLive?'<span class="live-dot"></span>Live now for app users':'Next drop')+'</div>'+
-        '<div class="dc-title">DROP '+esc(DR.num)+' <span>/</span> '+esc(DR.name)+'</div>'+(DR.title&&DR.title!==DR.name?'<div class="dc-sub">'+esc(DR.title)+'</div>':'')+
+        '<div class="dc-title">DROP '+esc(DR.num)+' <span>/</span> '+esc(DR.name)+'</div>'+(DR.title&&DR.title.toLowerCase()!==String(DR.name).toLowerCase()?'<div class="dc-sub">'+esc(DR.title)+'</div>':'')+
         (dropLive ? '<div class="cd"><div class="wide"><b>LIVE</b><small>Website opens '+t.web.toLocaleDateString('en-GB',{weekday:'long'})+'</small></div></div>' : '<div class="cd">'+cdHTML()+'</div>')+
         '<p class="dc-early">'+I.bolt+'App users get in 24 hours before the website</p>'+
         (dropLive ? '<button class="btn btn-light btn-block" data-act="col" data-v="__drop">Shop the drop</button>'
                   : '<button class="btn btn-light btn-block" id="notifyBtn">'+(dropNotify?'You’re on the list ✓':'Notify me when it opens')+'</button>')+
       '</div></div>'+
       '<div class="drop-times"><div><small>App early access</small><b>'+fmtDay(t.app)+'</b></div><div><small>Website</small><b>'+fmtDay(t.web)+'</b></div></div>'+
-      (items.length ? '<section class="section"><div class="sec-head"><div><h2>First Look</h2><p>'+items.length+' pieces from '+esc(DR.title||DR.name)+'</p></div>'+(dropLive?'<button class="link" data-act="col" data-v="__drop">View all</button>':'')+'</div><div class="grid">'+items.map(p=>pcard(p,{dropGrid:true})).join('')+'</div></section>' : '')+
+      (items.length ? '<section class="section"><div class="sec-head"><div><h2>First Look</h2><p>'+items.length+' '+NOUN[1]+' from '+esc(DR.title||DR.name)+'</p></div>'+(dropLive?'<button class="link" data-act="col" data-v="__drop">View all</button>':'')+'</div><div class="grid">'+items.map(p=>pcard(p,{dropGrid:true})).join('')+'</div></section>' : '')+
       (prev && prods(prev.col).length ? '<section class="section"><div class="sec-head"><div><h2>Latest drop</h2><p>Out now</p></div></div><div class="feature-card" data-act="col" data-v="'+esc(prev.col)+'"><img loading="lazy" src="'+img((prods(prev.col)[0]||{im:['']}).im[0],700)+'" alt=""><div><b>'+esc(prev.title)+'</b><span class="btn btn-light btn-sm">Shop now</span></div></div></section>' : '')+
       '<div class="drop-banner"><div class="db-ic">'+I.bell+'</div><div class="db-t"><b>Early access alerts</b><p>Get a push the moment app early access opens.</p></div><button class="switch '+(prefs.early?'on':'')+'" id="earlySw" aria-label="Early access alerts"></button></div>'+credit();
     const nb = $('#notifyBtn', el);
@@ -877,7 +885,7 @@ function Drops(el){
 
 // ---------- ACCOUNT ----------
 function Account(el){
-  const prefRows = [['drops','New drops','The moment a new collection lands'],['early','Early access','App-only access 24 hours before the website'],['restock','Back in stock','When your size comes back'],['price','Price drops','On items in your wishlist'],['orders','Order updates','Dispatch and live delivery tracking']];
+  const prefRows = [['drops','New drops','The moment a new collection lands'],['early','Early access','App-only access 24 hours before the website'],['restock','Back in stock',(SIZE_GROUPS.length?'When your size comes back':'When a saved favourite is back')],['price','Price drops','On items in your wishlist'],['orders','Order updates','Dispatch and live delivery tracking']];
   const group = (key, title) => { const list = PAGES[key]; return list && list.length ? '<details class="acct-acc"><summary>'+esc(title)+I.plus+'</summary><div>'+list.map((pg,i)=>'<button class="link-row" data-page="'+key+':'+i+'">'+esc(pg.t)+I.chev+'</button>').join('')+'</div></details>' : ''; };
   const render = () => {
     el.innerHTML = topbar({title:'', right:bagBtn()}) +
@@ -885,9 +893,9 @@ function Account(el){
       (signedIn ? '<div class="acct-card"><div class="av">'+I.user+'</div><div><b>Signed in (demo)</b><small>Nothing was saved or sent</small></div><button class="link" id="signOut">Sign out</button></div>'
                 : '<div class="acct-card"><div class="av">'+I.user+'</div><div><b>Welcome</b><small>Log in for faster checkout, order tracking and early access.</small></div></div><div class="acct-btns"><button class="btn btn-dark" data-act="login">Log in</button><button class="btn btn-outline" data-act="signup">Sign up</button></div>')+
       (B.rewards && B.rewards.enabled ? '<div class="rewards-mini" data-act="rewards"><div class="rm-left"><small>'+esc(B.rewards.name)+'</small><b>1,250 pts</b><div class="rm-bar"><i></i></div><p>Tap to show your card</p></div><div class="rm-right">'+I.card+'</div></div>' : '')+
-      (WISH_TAB ? '' : '<button class="acct-link" data-act="wishlist">'+I.heart+'<span><b>Wishlist</b><small>'+(wish.length ? wish.length+' saved '+(wish.length===1?'piece':'pieces') : 'Nothing saved yet')+'</small></span>'+I.chev+'</button>')+
+      (WISH_TAB ? '' : '<button class="acct-link" data-act="wishlist">'+I.heart+'<span><b>Wishlist</b><small>'+(wish.length ? wish.length+' saved '+(wish.length===1?NOUN[0]:NOUN[1]) : 'Nothing saved yet')+'</small></span>'+I.chev+'</button>')+
       (COMM ? '<button class="acct-link" data-act="tab" data-v="community">'+I.people+'<span><b>'+esc(CM.title||'Community')+'</b><small>'+esc([EV?'Events':'', FM?'the forum':''].filter(Boolean).join(' & '))+'</small></span>'+I.chev+'</button>' : '')+
-      '<div class="drop-banner" id="dropBanner"><div class="db-ic">'+I.bell+'</div><div class="db-t"><b>Drop alerts</b><p>Be first to know when new pieces land.</p></div><button class="switch '+(prefs.drops?'on':'')+'" id="dropSwitch" aria-label="Toggle drop alerts"></button></div>'+
+      '<div class="drop-banner" id="dropBanner"><div class="db-ic">'+I.bell+'</div><div class="db-t"><b>Drop alerts</b><p>Be first to know when new '+NOUN[1]+' land.</p></div><button class="switch '+(prefs.drops?'on':'')+'" id="dropSwitch" aria-label="Toggle drop alerts"></button></div>'+
       (SIZE_GROUPS.length ? '<div class="s-sec acct-h"><h4>Your size</h4></div><div class="acct-size">'+SIZE_GROUPS.map(g=>'<div class="label-row" style="margin:4px 0 8px"><b>'+esc(g.label)+'</b>'+(mySize[g.key]?'<span>Saved: '+esc((g.prefix||'')+mySize[g.key])+'</span>':'<span>Not set</span>')+'</div><div class="sizes">'+g.opts.map(o=>'<button class="size'+(String(mySize[g.key])===String(o)?' on':'')+'" data-g="'+esc(g.key)+'" data-o="'+esc(o)+'">'+esc((g.prefix||'')+o)+'</button>').join('')+'</div>').join('')+'<p class="acct-note">'+I.ruler+'<span>Pre-selected on product pages, used for the “in my size” filter and back-in-size alerts.</span></p></div>' : '')+
       '<div class="s-sec acct-h"><h4>Notifications</h4></div>'+
       '<div class="pref-group">'+prefRows.map(x=>'<div class="pref" data-pref="'+x[0]+'" role="switch" aria-checked="'+!!prefs[x[0]]+'" tabindex="0"><div><b>'+x[1]+'</b><small>'+x[2]+'</small></div><span class="switch '+(prefs[x[0]]?'on':'')+'"></span></div>').join('')+'</div>'+
@@ -1164,7 +1172,7 @@ function showPush(title, text, thumb, action){
     if (seq !== pushSeq) return;
     $('#pushTitle').textContent = title;
     $('#pushText').textContent = text;
-    $('#pushThumb').src = thumb || B.assets.favicon;
+    $('#pushThumb').src = thumb || B.assets.appIcon || B.assets.favicon;
     el.classList.remove('hiding');
     el.classList.remove('show');
     void el.offsetWidth; // restart entrance keyframes
@@ -1186,13 +1194,13 @@ const Demo = {
   bag(){
     if (!bag.length){ const p = prods(H.bestCol).find(x => x.sz.some(s=>s[1])) || ALL.find(x => x.sz.some(s=>s[1])); if (!p){ toast('No products available'); return; } addToBag(p.h, firstSize(p), true); }
     const p = P[bag[0].h];
-    showPush('You left something in your bag', p.n+(p.c?' in '+p.c:'')+' is still waiting, and sizes are going fast. Use '+DISC.code+' for '+DISC.pct+'% off.', img(p.im[0],120), () => switchTab('bag'));
+    showPush('You left something in your bag', p.n+(p.c?' in '+p.c:'')+' is still waiting'+(SIZE_GROUPS.length?', and sizes are going fast':'')+'. Use '+DISC.code+' for '+DISC.pct+'% off.', img(p.im[0],120), () => switchTab('bag'));
   },
   restock(){
     const pool = prods(H.newCol).concat(ALL);
     const p = (hasSize() ? pool.find(inMySize) : null) || pool.find(x => x.sz.some(s=>s[1]));
     if (!p){ toast('No products available'); return; }
-    showPush('Back in stock in your size', p.n+(p.c?' ('+p.c+')':'')+' is back in size '+prettySize(firstSize(p))+'. Tap to grab it before it goes again.', img(p.im[0],120), () => push(PDP, p.h));
+    showPush(SIZE_GROUPS.length ? 'Back in stock in your size' : 'Back in stock', p.n+(p.c?' ('+p.c+')':'')+(SIZE_GROUPS.length ? ' is back in size '+prettySize(firstSize(p)) : ' is back in stock')+'. Tap to grab it before it goes again.', img(p.im[0],120), () => push(PDP, p.h));
   },
   price(){
     let h = wish.find(x => P[x].cp > P[x].p);
@@ -1244,7 +1252,7 @@ function showWelcome(){
 let demoHTML = '';
 function buildChrome(){
   const pitch = B.pitch || {};
-  const demoBtns = [['bag','Abandoned bag','What’s still in the bag, plus '+DISC.code],['restock','Back in stock','In your saved size'],...(ALL.some(x => x.cp > x.p) ? [['price','Price drop on wishlist','A real reduced item, badged in-app']] : []),['drop','Drop is live', DR ? 'DROP '+DR.num+' / '+DR.name+', app early access' : 'New arrivals'],...(COMM ? [evSplit().up.length ? ['community','New event near you', evSplit().up[0].title] : ['community', 'Community reply', 'A reply in the '+(CM.title||'community')+' forum']] : []),['welcome','Show welcome message','The '+DISC.code+' offer shown on open']];
+  const demoBtns = [['bag','Abandoned bag','What’s still in the bag, plus '+DISC.code],['restock','Back in stock',SIZE_GROUPS.length?'In your saved size':'A saved favourite is back'],...(ALL.some(x => x.cp > x.p) ? [['price','Price drop on wishlist','A real reduced item, badged in-app']] : []),['drop','Drop is live', DR ? 'DROP '+DR.num+' / '+DR.name+', app early access' : 'New arrivals'],...(COMM ? [evSplit().up.length ? ['community','New event near you', evSplit().up[0].title] : ['community', 'Community reply', 'A reply in the '+(CM.title||'community')+' forum']] : []),['welcome','Show welcome message','The '+DISC.code+' offer shown on open']];
   demoHTML = demoBtns.map(d=>'<button class="demo-btn" data-demo="'+d[0]+'"><span><b>'+esc(d[1])+'</b><small>'+esc(d[2])+'</small></span>'+I.bell+'</button>').join('');
   // desktop "Why an app" stats (defaults in _template/config.json, overridable per brand; "stats": false hides them)
   const ST = B.stats && Array.isArray(B.stats.items) ? B.stats.items.filter(x => x && x.num) : [];

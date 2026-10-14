@@ -37,5 +37,9 @@
       "Gift-range launches with app-only early access",
       "Shopify checkout with Apple Pay, Shop Pay and PayPal"
     ]
+  },
+  "vertical": "food",
+  "sizes": {
+    "groups": []
   }
 }

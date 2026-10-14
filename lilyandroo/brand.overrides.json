@@ -97,5 +97,24 @@
       }
     ]
   },
-  "_heroSlides": "Their real 3-slide homepage slideshow (lilyandroo.com, 14 Oct 2026): copy and links as on the site; landscape images cropped to the portrait half with the model/product, copy kept at the bottom clear of faces. Slide 2 links to their Jewellery Gift Sets collection (the site links Best Sellers, which was not in the scraped nav)."
+  "_heroSlides": "Their real 3-slide homepage slideshow (lilyandroo.com, 14 Oct 2026): copy and links as on the site; landscape images cropped to the portrait half with the model/product, copy kept at the bottom clear of faces. Slide 2 links to their Jewellery Gift Sets collection (the site links Best Sellers, which was not in the scraped nav).",
+  "vertical": "jewellery",
+  "sizes": {
+    "groups": [
+      {
+        "key": "ring",
+        "label": "Ring size",
+        "opts": [
+          "Small (K)",
+          "Medium (M)",
+          "Large (P)"
+        ]
+      }
+    ]
+  },
+  "_sizes": "They sell 44 rings sized Small (K) / Medium (M) / Large (P): Ring size is the only size preference. Necklaces/bracelets have no size prefs.",
+  "copy": {
+    "about": "Elegant jewellery, handmade in London."
+  },
+  "_about": "Footer line from their own meta description (scraped value was a heading or Title Case)."
 }

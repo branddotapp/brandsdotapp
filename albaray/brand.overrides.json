@@ -26,7 +26,7 @@
   "drop": {
     "num": "01",
     "name": "THE BURGUNDY EDIT",
-    "title": "Burgundy Edit",
+    "title": "The Burgundy Edit",
     "col": "the-burgundy-edit",
     "products": [
       "burgundy-fair-isle-crew-cardigan-aw26",
@@ -58,5 +58,16 @@
         ]
       }
     ]
-  }
+  },
+  "vertical": "apparel",
+  "perks": [
+    "10% off your first order with email sign up",
+    "Free UK shipping on orders over £99",
+    "30-day returns",
+    "Rated 4.7 ★★★★★ from 6,051 reviews"
+  ],
+  "copy": {
+    "about": "Thoughtfully designed, sustainable women's clothing made for modern living, carefully designed with a low environmental impact."
+  },
+  "_about": "Footer line from their own meta description (scraped value was a heading or Title Case)."
 }

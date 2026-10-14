@@ -3,7 +3,7 @@
  "site": "https://www.barebiology.com",
  "domain": "barebiology.com",
  "generator": "brandsdotapp/tools/build_brand.py",
- "generatedAt": "2026-10-14T01:33:06",
+ "generatedAt": "2026-10-14T08:17:08",
  "discount": {
   "code": "APP10",
   "pct": 10
@@ -20,7 +20,7 @@
    "c": "",
    "ty": "Collagen",
    "p": 39.95,
-   "cp": 239.7,
+   "cp": 0,
    "im": [
     "https://cdn.shopify.com/s/files/1/0209/7232/files/Skinful-packshot-tub.jpg?v=1767777609",
     "https://cdn.shopify.com/s/files/1/0209/7232/files/Tile_1_Skinful_Format_Dosage.jpg?v=1767776643",
@@ -43,6 +43,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Skinful Marine Collagen is the purest way to feed your skin, delivering type I collagen to support skin, hair, nails, muscles and joints. Two heaped teaspoons (or one scoop) provide 5g of MSC-certified collagen from hydrolysed wild codfish skin (Gadus morhua, to you and me), made in Norway. Heat-resistant, and so fine it blends into anything, like all the green-flag choices that are actually good for you.",
    "tg": [
     "collagen",
@@ -60,7 +61,7 @@
    "c": "",
    "ty": "Collagen",
    "p": 29.95,
-   "cp": 179.7,
+   "cp": 0,
    "im": [
     "https://cdn.shopify.com/s/files/1/0209/7232/files/Fundamental_collagen_tub_packshot.jpg?v=1752142505",
     "https://cdn.shopify.com/s/files/1/0209/7232/files/Fundamental_Tile_1_Dosage.jpg?v=1776419809",
@@ -79,6 +80,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Fundamental bovine collagen for women who want to maintain the structure of their joints, bones, muscles, and skin. Balanced Type I and III collagen , 1 00% hydrolysed to just 2,000 Daltons, it’s the absorbable kind. Totally tasteless, sourced from Swiss and EU grass-fed cattle. Collagen that builds bodies for living in.",
    "tg": [
     "_badge_best_seller_",
@@ -93,7 +95,7 @@
    "c": "",
    "ty": "Omega 3 Fish Oil",
    "p": 32.95,
-   "cp": 197.7,
+   "cp": 0,
    "im": [
     "https://cdn.shopify.com/s/files/1/0209/7232/files/Lifeandsouldailies_refresh_pouch_packshot.jpg?v=1767344513",
     "https://cdn.shopify.com/s/files/1/0209/7232/files/BareBiology_Life_Soul_PDP_Tiles_AW_OL_Artboard_16.jpg?v=1776239658",
@@ -120,6 +122,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Life & Soul Daily Capsules carry all the mighty cellular power of our fish oil in just two capsules for a sharper brain , stronger heart , and clearer vision at every life stage. With 1,700mg of omega-3 sustainably sourced from small, wild-caught fish . Good for every living body, from anxious teens to frazzled midlife to your grandest era. Better days, for days.",
    "tg": [
     "_badge_best_seller_",
@@ -143,7 +146,7 @@
    "c": "",
    "ty": "Collagen",
    "p": 45.0,
-   "cp": 270.0,
+   "cp": 0,
    "im": [
     "https://cdn.shopify.com/s/files/1/0209/7232/files/SkinfulVitC-packshot-tub.jpg?v=1760956350",
     "https://cdn.shopify.com/s/files/1/0209/7232/files/Skinful_Vit_C_1.jpg?v=1762515430",
@@ -162,6 +165,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Skinful Marine Collagen with Vitamin C makes collagen synthesis taste good, delivering type I collagen to support skin, hair, nails, muscles and joints. Two heaped teaspoons (or one scoop) provide 4.5g of MSC-certified collagen from hydrolysed wild codfish skin, made in Norway, with natural vitamin C from acerola, the cherry on top for added absorption, sweetened naturally with strawberry. Proof that powerful marine collagen doesn’t have to taste awful or cost the ocean.",
    "tg": [
     "collagen",
@@ -180,7 +184,7 @@
    "c": "",
    "ty": "Omega 3 Fish Oil",
    "p": 51.95,
-   "cp": 311.7,
+   "cp": 0,
    "im": [
     "https://cdn.shopify.com/s/files/1/0209/7232/files/Life_Soul_refresh_pack_shots.jpg?v=1753803976",
     "https://cdn.shopify.com/s/files/1/0209/7232/files/BareBiology_Life_Soul_PDP_Tiles_AW_OL_Artboard_6.jpg?v=1765532823",
@@ -199,6 +203,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Life & Soul Liquid is our most potent fish oil, delivering ultra-strength cellular support for a sharper brain , stronger heart , and clearer vision to those who need it most. One teaspoon provides 4,000 mg of clinical-grade omega-3, sustainably sourced from small, wild-caught fish . This is your every day health insurance policy for long-life living.",
    "tg": [
     "eye",
@@ -220,7 +225,7 @@
    "c": "",
    "ty": "Omega 3 Fish Oil",
    "p": 32.95,
-   "cp": 197.7,
+   "cp": 0,
    "im": [
     "https://cdn.shopify.com/s/files/1/0209/7232/files/Lifeandsoulminis_refresh_pouch_packshot.jpg?v=1753802066",
     "https://cdn.shopify.com/s/files/1/0209/7232/files/BareBiology_Life_Soul_PDP_Tiles_AW_OL_Artboard_26.jpg?v=1776239644",
@@ -247,6 +252,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Life & Soul daily mini capsules hold all the cellular power of our fish oil in just four easy-to-swallow capsules for a sharper brain , stronger heart , and clearer vision . With 1,700mg of omega-3, sustainably sourced from small, wild-caught fish . People protection for growing bodies and anyone who struggles with swallowing pills.",
    "tg": [
     "capsules",
@@ -267,7 +273,7 @@
    "c": "",
    "ty": "Omega 3 Fish Oil",
    "p": 32.95,
-   "cp": 197.7,
+   "cp": 0,
    "im": [
     "https://cdn.shopify.com/s/files/1/0209/7232/files/vim-and-vigour-vegan-VV60-pouch.jpg?v=1759231218",
     "https://cdn.shopify.com/s/files/1/0209/7232/files/Vim_Vigour_PDP_Tile1.jpg?v=1760093198",
@@ -294,6 +300,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Vim & Vigour capsules match the cellular power of fish oil, without the fish. Two capsules carry 500mg DHA, 250mg EPA (916mg total omega-3), plus 4mg astaxanthin, one of nature's most potent antioxidants. That's a tin of sardines' worth of support for sharper brains, stronger hearts and clearer vision. Brilliant for anyone who'd rather stay strong with plants. Get those mighty micro-organisms working for you.",
    "tg": [
     "Capsu",
@@ -313,7 +320,7 @@
    "c": "",
    "ty": "Vitamin D",
    "p": 21.95,
-   "cp": 131.7,
+   "cp": 0,
    "im": [
     "https://cdn.shopify.com/s/files/1/0209/7232/files/Beam_Balance_Spray_bottle_packshot.jpg?v=1769011441",
     "https://cdn.shopify.com/s/files/1/0209/7232/files/Health_Claim_BB_Product_Tile_1.jpg?v=1755852962",
@@ -332,6 +339,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Beam & Balance peppermint flavoured spray is a refreshing daily dose of powerful immune support for when the sun has got its hat on. Three sprays give you 4,000 IU (100 micrograms) of vitamin D3 sustainably sourced from algae, and 100 micrograms of K2, a plant-derived nutrient that shifts calcium where you need it. Good for bones, teeth, and muscles. Off-season sunshine to keep your immune defences locked in.",
    "tg": [
     "beam",
@@ -347,7 +355,7 @@
    "c": "",
    "ty": "Omega 3 Fish Oil",
    "p": 33.95,
-   "cp": 203.7,
+   "cp": 0,
    "im": [
     "https://cdn.shopify.com/s/files/1/0209/7232/files/rise-and-shine-omega-3-vitamins-RS60-Pouch.jpg?v=1765533061",
     "https://cdn.shopify.com/s/files/1/0209/7232/files/Rise_Shine_Product_Tile_1_USP.jpg?v=1771930487",
@@ -374,6 +382,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Rise & Shine capsules are your year-round guarantee of cellular superpowers and armour-plated immunity. This healthy 2-for-1 earns its keep, with 1,600mg of sustainably sourced omega-3 and 1,000 IU (25 µg) of vitamin D3. A tactical no-brainer for anyone who wants to stay well without rattling.",
    "tg": [
     "capsules",
@@ -391,7 +400,7 @@
    "c": "",
    "ty": "Magnesium",
    "p": 34.99,
-   "cp": 209.94,
+   "cp": 0,
    "im": [
     "https://cdn.shopify.com/s/files/1/0209/7232/files/Ready_and_rested_packshot.jpg?v=1769015722",
     "https://cdn.shopify.com/s/files/1/0209/7232/files/Ready_rested_Tile-1-Format-_-Dosage.jpg?v=1769013901",
@@ -410,6 +419,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Meet your gentle giant: Ready & Rested delivers 375mg of highly absorbable magnesium bisglycinate per serving , supporting relaxation , sleep , and stress relief - without upsetting your stomach. Thanks to its easy absorption, it reaches the areas other magnesium can’t, like your nervous system. Get ready to be called ‘way more chill these days’.",
    "tg": [
     "_badge_best_seller_",
@@ -424,7 +434,7 @@
    "c": "",
    "ty": "Vitamin D",
    "p": 21.95,
-   "cp": 131.7,
+   "cp": 0,
    "im": [
     "https://cdn.shopify.com/s/files/1/0209/7232/files/Beam_and_Balance_unflavoured_packshot.jpg?v=1769011419",
     "https://cdn.shopify.com/s/files/1/0209/7232/files/Bare_Unflavoured_Product_Tile_1.jpg?v=1755852354",
@@ -443,6 +453,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "In the top 3 OG supplements we nearly all need for i mmunity and bone strength , a beautifully simple and powerful spray with just 3 plant-based ingredients. Unflavoured and unadulterated.",
    "tg": [
     "Kids",
@@ -470,6 +481,7 @@
      1
     ]
    ],
+   "on": "",
    "d": "Unusual to find a useful prick, but here it is. A few tiny drops of blood tell you how much vitamin D you actually need. About 1 in 6 UK adults is thought to be deficient in vitamin D but it’s best to check, as too much (though rare) can be pretty bad.",
    "tg": [
     "testkit"
@@ -483,7 +495,7 @@
    "c": "",
    "ty": "Creatine",
    "p": 34.95,
-   "cp": 209.7,
+   "cp": 0,
    "im": [
     "https://cdn.shopify.com/s/files/1/0209/7232/files/High_Flyer_Creatine_Monohydrate_Powder_Pouch_Packshot.jpg?v=1765195909",
     "https://cdn.shopify.com/s/files/1/0209/7232/files/High_Flyer_Creatine_Slide_1.jpg?v=1765462638",
@@ -502,6 +514,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "High Flyer Creatine Monohydrate puts your cells on fast charge, helping you find the strength, firepower, and resilience to push on. One scoop contains 5g Creavitalis® creatine monohydrate, made in Germany. It’s the Bare standard. Super-fine, micronised powder for easy absorption and strength that matches your determination. This is how we power on.",
    "tg": [
     "_badge_best_seller_",
@@ -516,7 +529,7 @@
    "c": "",
    "ty": "Omega 3 Fish Oil",
    "p": 23.95,
-   "cp": 143.7,
+   "cp": 0,
    "im": [
     "https://cdn.shopify.com/s/files/1/0209/7232/files/Mindful_pouch_packshot.jpg?v=1774974368",
     "https://cdn.shopify.com/s/files/1/0209/7232/files/Tile-1_-Format-_-Dosage.jpg?v=1774973072",
@@ -543,6 +556,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Mindful DHA Capsules supply your brain with the omega-3 it’s built on. Each small capsule contains 560mg of DHA, a major structural fat concentrated in the brain. The EFSA confirms that DHA contributes to the maintenance of normal brain function. That should put your mind at rest.",
    "tg": [
     "capsules",
@@ -561,7 +575,7 @@
    "c": "",
    "ty": "Omega 3 Fish Oil",
    "p": 23.95,
-   "cp": 143.7,
+   "cp": 0,
    "im": [
     "https://cdn.shopify.com/s/files/1/0209/7232/files/Mums_bumps_pouch_packshot.jpg?v=1769011234",
     "https://cdn.shopify.com/s/files/1/0209/7232/files/Mums_Bumps_Tile-1-Format-_-Dosage.jpg?v=1769005072",
@@ -588,6 +602,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Mums & Bumps DHA Capsules give essential omega-3 support for anyone growing a tiny human. Just one capsule a day gives you a bumper 560mg of DHA, feeding your body with the essential fatty acids to support your baby's growth and keep your brain in business.",
    "tg": [
     "_badge_award_winning_",
@@ -608,7 +623,7 @@
    "c": "",
    "ty": "Omega 3 Fish Oil",
    "p": 32.95,
-   "cp": 197.7,
+   "cp": 0,
    "im": [
     "https://cdn.shopify.com/s/files/1/0209/7232/files/Action_Heroes_liquid_packshot.jpg?v=1758730063",
     "https://cdn.shopify.com/s/files/1/0209/7232/files/Action_Heroes_Product_Tile_1.jpg?v=1760516631",
@@ -631,6 +646,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Action Heroes Liquid is the purest omega-3 for kids you can buy. Cellular support for growing bodies, with 470mg of DHA and 94mg EPA. That's the same omega-3 as a tin of sardines for about a tenner a month. IFOS certified, with no nasties, and no fishy taste. Naturally flavoured with Sicilian lemon to win over even the fussiest food critics. Each bottle comes with a syringe to make dosing doable. It's a no-brainer for big thinkers.",
    "tg": [
     "fishoil",
@@ -884,13 +900,14 @@
   "fontHref": "https://fonts.googleapis.com/css2?family=EB+Garamond:wght@300;400;500;600;700&display=swap"
  },
  "assets": {
-  "logoDark": "assets/img/logo-black.png",
-  "favicon": "assets/img/favicon.png"
+  "logoDark": "assets/img/logo-official-dark.png",
+  "favicon": "assets/img/favicon.png",
+  "logoLight": "assets/img/logo-official-light.png"
  },
  "pages": {
   "help": [
    {
-    "t": "Shipping",
+    "t": "FAQs",
     "url": "https://www.barebiology.com/pages/frequently-asked-questions",
     "sum": "Discount + Offers\nHow Can I Pay?\nWhere's My Order\nCancelling, Changing, or Returning My Order\nWhere can I buy?\nFlourish Loyalty\nBecome a stockist\nFAQ Quick Search\nEnter a keyword into the search bar to start filtering results - for example \"Delivery\".\nDiscount And Offers\nDo you offer bundle deals?\nOh yes. You get 25% off when you buy 6 of the same product.\nWhy won't my discount code work?\nUsually it's because discount codes can't be used with another offer. Your discount code won't work if you're using it alongside 6 packs or subscription purchases, unless that code is a reward from redeemed loyalty points.\nDiscount codes can't be used at the same time as loyalty points either.\nAny questions, our customer service team is on hand to help anytime. Contact us via live chat, or, email info@barebiology.com anytime.\nWhat credit and debit cards do you accept?\nAny major debit or credit card, including American Express."
    },
@@ -932,11 +949,6 @@
     "t": "Refund policy",
     "url": "https://www.barebiology.com/policies/refund-policy",
     "sum": "This Returns Policy explains what we offer our customers for returned products in addition to our customers’ legal rights. Some of these legal rights are also summarised below. For detailed information on legal rights, you can contact Citizens Advice at www.citizensadvice.org.uk or call 0808 223 1133.\nReturning a product\nHopefully you won't want to return our products, but if you change your mind, please kindly re-package your return with a note including your name and order number, and send it within 30 days.\nWe can only process refunds for returned products that arrive in a re-saleable condition. Please help us to ensure you qualify for a full refund by:\n✓ checking the safety seal on the product is intact\n✓ ensuring the product is well packaged\n✓ obtaining proof of postage\nWe recommend using a trackable service on all returns. We don’t cover postage costs where you have changed your mind about the purchase."
-   },
-   {
-    "t": "Cookie policy",
-    "url": "https://www.barebiology.com/pages/cookie-policy",
-    "sum": "website.\nCategory\nDescription\nProvider\nDuration\nStrictly required\n_orig_referrer\nShopify\n2 weeks\n_landing_page\n_ab\n_secure_session\n_id\n1 day cart cart_sig connection with checkout. It is used to verify the integrity of the cart and to ensure performance of some cart operations.\ncart_ts connection with checkout.\ncart_ver connection with the shopping cart.\ncart_currency checkout_token connection with a checkout service.\n1 year\nSecure_ customer_sig\nUsed to identify a user after they sign into a shop as a customer so they do not need to log in again.\nstorefront_digest storefront while it's password protected.\n2 years status preferences\n_disabled\n_shopify_m\n_shopify_tm\n30 minutes\n_shopify_tw\n_tracking\n_consent preferences if a merchant has set up privacy rules in the visitor's region.\ntracked_start_ checkout identity_state identity_ customer\n_account\n_number\n12 weeks\n_customer\n_account_shop\n_sessions\nUsed in combination with the_secure_account_session_id"
    }
   ]
  },
@@ -983,10 +995,9 @@
  },
  "reviews": null,
  "perks": [
-  "Free Delivery On All Orders",
-  "Sign Up For 10% Off",
-  "Not for you? We'll refund you.",
-  "30-day returns"
+  "Free delivery on all orders",
+  "Sign up for 10% off",
+  "Not for you? We'll refund you"
  ],
  "payments": [
   "american_express",
@@ -1053,7 +1064,8 @@
    "col": "skin",
    "img": "assets/img/campaign-wide.jpg",
    "eyebrow": "Shop the edit",
-   "title": "SKIN HEALTH"
+   "title": "SKIN HEALTH",
+   "fit": "natural"
   },
   "feature": null,
   "bestSub": "Omega-3, their cult favourite",
@@ -1113,7 +1125,7 @@
  },
  "drop": null,
  "copy": {
-  "about": "Made for and by courageous women",
+  "about": "Loved by nutritional therapists, health experts and our customers. Our omega-3, algae oils, marine collagen and vitamin D are cult favourites.",
   "emptyBag": "Start with the latest Skin Health pieces.",
   "heroNotif": "The new season is here."
  },
@@ -1168,5 +1180,7 @@
    "Size options from variants: none",
    "No upcoming season collection found: Drops tab hidden"
   ]
- }
+ },
+ "vertical": "supplements",
+ "optionLabel": "Pack"
 }

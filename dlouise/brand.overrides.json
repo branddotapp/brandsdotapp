@@ -40,5 +40,52 @@
   "theme": {
     "sale": "#c62f2f"
   },
-  "_theme": "colours adjusted for WCAG AA contrast"
+  "_theme": "colours adjusted for WCAG AA contrast",
+  "vertical": "jewellery",
+  "sizes": {
+    "groups": [
+      {
+        "key": "ring",
+        "label": "Ring size",
+        "opts": [
+          "US 5 / UK J / EU 48",
+          "US 6 / UK L / EU 51",
+          "US 7 / UK N / EU 54",
+          "US 8 / UK Q / EU 57",
+          "US 9 / UK R / EU 59"
+        ]
+      }
+    ]
+  },
+  "_sizes": "Ring sizes from their real ring variants; everything else (necklaces, earrings) has no size.",
+  "perks": [
+    "Free UK delivery over £75",
+    "30-day returns"
+  ],
+  "shipping": {
+    "options": [
+      {
+        "id": "standard",
+        "name": "Standard (2-3 working days)",
+        "desc": "£3.50 or free for orders over £75",
+        "price": 3.5,
+        "short": "Standard (2-3 working days)"
+      },
+      {
+        "id": "express",
+        "name": "Express (1-2 working days)",
+        "desc": "Tracked express",
+        "price": 3.95,
+        "short": "Express (1-2 working days)"
+      }
+    ],
+    "notes": [],
+    "freeOver": 75,
+    "region": "UK"
+  },
+  "_shipping": "From their shipping page: UK Standard £3.50, free over £75; Express 1-2 days £3.95 (AED options belong to their UAE store and were dropped).",
+  "copy": {
+    "about": "A London-based waterproof jewellery brand: high-quality, affordable rings, bracelets, earrings and necklaces that do not fade."
+  },
+  "_about": "Footer line from their own meta description (scraped value was a heading or Title Case)."
 }

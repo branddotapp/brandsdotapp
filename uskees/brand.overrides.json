@@ -73,5 +73,10 @@
         "sum": "Refunds and returns\nIn short...\nYou can return full-price items to Uskees within 30 days of receiving them, and still receive a full refund.\nIf you'd like to return an item bought in sale, you must let us know your intention to return it within 14 days of delivery. You must then send it back within 14 days of letting us know.\nThis is in addition to your legal right to cancel an online order within 14 days of delivery, which applies to all customers in the UK and EU (see Ts & Cs below).\nCondition of returns\nPlease return items unworn, with their labels and repair kits still attached, and in the condition you received them. You're welcome to try items on as you would in a shop. If an item comes back worn, washed or damaged, we may reduce your refund to reflect the loss in value.\nItems are your responsibility until they reach us, so we recommend using a tracked service.\nThis returns policy does not affect your statutory rights."
       }
     ]
-  }
+  },
+  "vertical": "apparel",
+  "copy": {
+    "about": "A UK brand specialising in joyful riffs on classic fashion: workwear-inspired garments, suiting and one-off collections, for a rich and fulfilling life."
+  },
+  "_about": "Footer line from their own meta description (scraped value was a heading or Title Case)."
 }

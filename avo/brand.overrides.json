@@ -113,5 +113,10 @@
       }
     ]
   },
-  "_hero": "Their real mobile hero (April 2026). Its headline and 'shop the collection' button are part of the image, so nothing is overlaid; the top is extended in their purple so the headline sits below the app header."
+  "_hero": "Their real mobile hero (April 2026). Its headline and 'shop the collection' button are part of the image, so nothing is overlaid; the top is extended in their purple so the headline sits below the app header.",
+  "vertical": "apparel",
+  "copy": {
+    "about": "Activewear designed for women 5'3\" and under. No more rolling sleeves or bunching leggings, just petite gym wear that finally fits properly."
+  },
+  "_about": "Footer line from their own meta description (scraped value was a heading or Title Case)."
 }

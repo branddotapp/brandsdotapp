@@ -156,10 +156,12 @@ def map_product(p):
         colour = p['variants'][0].get('option%d' % (ci + 1)) or ''
     prices = [float(v.get('price') or 0) for v in p.get('variants', [])] or [0]
     cps = [float(v.get('compare_at_price') or 0) for v in p.get('variants', [])] or [0]
-    price, cp = min(prices), max(cps)
+    price = min(prices)
+    vmin = min(p.get('variants') or [{}], key=lambda v: float(v.get('price') or 0))
+    cp = float(vmin.get('compare_at_price') or 0)   # compare-at of the same (cheapest) variant, not a 6-pack's
     imgs = [i.get('src') for i in p.get('images', []) if i.get('src')][:6]
     return {'h': p['handle'], 't': title, 'n': name.strip(), 'c': colour.strip(), 'ty': (p.get('product_type') or '').strip(),
-            'p': round(price, 2), 'cp': round(cp, 2) if cp > price else 0, 'im': imgs, 'sz': sizes,
+            'p': round(price, 2), 'cp': round(cp, 2) if cp > price else 0, 'im': imgs, 'sz': sizes, 'on': ('Size' if si is not None else ((p.get('options') or [{}])[0].get('name') or '').strip().title() if len(p.get('variants') or []) > 1 else '').replace('Title', ''),
             'd': html_text(p.get('body_html')), 'tg': p.get('tags', [])[:30], 'pub': (p.get('published_at') or '')[:10]}
 
 MAX_COLS = 24   # menu collections taken into the app
@@ -892,11 +894,11 @@ def scrape(url, slug, out_dir, do_render=True, max_products=400, extra_cols=(), 
         if s.lower() not in [x.lower() for x in ann] and not re.search(r'cookie|accept|close|menu|search|cart|£\d+\.\d\d', s, re.I): ann.append(s)
     perks = []
     if ship['freeOver']: perks.append('Free %s delivery over %s%g' % (ship['region'] or '', B['currency']['symbol'], ship['freeOver']))
-    perks += [x for x in ann[:6] if not re.fullmatch(r'\s*(instagram|tiktok|facebook|twitter|x|youtube|pinterest|snapchat|email|contact( us)?)\s*', x, re.I)][:5]
+    perks += [x for x in ann[:6] if not re.fullmatch(r'\s*(instagram|tiktok|facebook|twitter|x|youtube|pinterest|snapchat|email|contact( us)?|(previous|next) (announcement|slide)|announcement|pause|play|close)\s*', x, re.I)][:5]
     if B['returns']['short'] and not any('return' in p.lower() for p in perks): perks.append(B['returns']['short'])
     for n in ship['notes'][:1]:
         if re.search(r'now shipping|warehouse', n, re.I): perks.append(n.rstrip('.'))
-    B['perks'] = [re.sub(r'\s+', ' ', p).strip() for p in dict.fromkeys(perks) if p]
+    B['perks'] = [re.sub(r'\s+', ' ', p).strip() for p in dict.fromkeys(perks) if p and not re.search(r'[{};]|:root|--[a-z]', p)]
     # payment methods from the store's payment icons (Shopify renders <svg aria-labelledby="pi-apple_pay">…)
     pays = list(dict.fromkeys(re.findall(r'\bpi-([a-z_]+)"', home)))
     if pays: B['payments'] = pays; found('Payment methods (footer icons): ' + ', '.join(pays))
@@ -1031,6 +1033,26 @@ def deep_merge(a, b):
         out[k] = deep_merge(a.get(k), v) if isinstance(v, dict) and isinstance(a.get(k), dict) else v
     return out
 
+def make_app_icon(out_dir, B, th):
+    """Square app icon (push notifications, home-screen icon): the brand's light logo centred on its ink colour."""
+    try:
+        from PIL import Image
+        lp = os.path.join(out_dir, (B.get('assets') or {}).get('logoLight') or 'assets/img/logo-white.png')
+        if not os.path.exists(lp): return
+        logo = Image.open(lp).convert('RGBA'); bb = logo.getbbox()
+        if bb: logo = logo.crop(bb)
+        S = 512; ink = rgb_of(th['ink']) or (17, 17, 17)
+        icon = Image.new('RGBA', (S, S), tuple(ink) + (255,))
+        w = int(S * .74); h = int(logo.height * w / logo.width)
+        if h > S * .5: h = int(S * .5); w = int(logo.width * h / logo.height)
+        logo = logo.resize((max(1, w), max(1, h)), Image.LANCZOS)
+        icon.alpha_composite(logo, ((S - w) // 2, (S - h) // 2))
+        icon.convert('RGB').save(os.path.join(out_dir, 'assets', 'img', 'app-icon.png'))
+        B['assets']['appIcon'] = 'assets/img/app-icon.png'
+        with open(os.path.join(out_dir, 'assets', 'brand.js'), 'a') as f: f.write('window.BRAND.assets.appIcon="assets/img/app-icon.png";\n')
+    except Exception as e:
+        log('  ✗ app icon: %s' % e)
+
 def theme_css(th):
     font = th.get('font')
     pairs = [('ink', th['ink']), ('bg', th['bg']), ('bg-rgb', th['bgRgb']), ('text', th['text']), ('muted', th['muted']), ('line', th['line']),
@@ -1065,6 +1087,7 @@ def write_app(B, out_dir):
         f.write('window.BRAND=' + json.dumps(slim, ensure_ascii=False, separators=(',', ':')) + ';\n')
     th = B['theme'] = normalise_theme(B['theme'])
     tpl = open(os.path.join(TEMPLATE, 'index.html')).read()
+    make_app_icon(out_dir, B, th)
     rep = {'{{NAME}}': html.escape(B['name']), '{{THEME_COLOR}}': th['ink'], '{{FAVICON}}': B['assets'].get('favicon', ''),
            '{{FONT_LINK}}': ('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="%s" rel="stylesheet">' % html.escape(th['fontHref'])) if th.get('fontHref') else '',
            '{{THEME_CSS}}': theme_css(th), '{{VERSION}}': datetime.datetime.now().strftime('%Y%m%d%H%M')}

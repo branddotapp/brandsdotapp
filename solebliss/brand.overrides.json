@@ -12,7 +12,7 @@
   "drop": {
     "num": "01",
     "name": "NEW ARRIVALS",
-    "title": "shop new arrivals",
+    "title": "New Arrivals",
     "col": "new-arrivals",
     "products": [
       "fen-black-patent",
@@ -46,5 +46,6 @@
         ]
       }
     ]
-  }
+  },
+  "vertical": "footwear"
 }

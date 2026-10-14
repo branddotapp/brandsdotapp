@@ -26,5 +26,14 @@
   "theme": {
     "sand2": "#eceded"
   },
-  "_theme": "colours adjusted for WCAG AA contrast"
+  "_theme": "colours adjusted for WCAG AA contrast",
+  "vertical": "apparel",
+  "perks": [
+    "Complimentary UK delivery on orders £250+",
+    "14-day returns"
+  ],
+  "copy": {
+    "about": "British. Considered. Worn on repeat. Crafted from exceptional natural fibres, made by the very best makers."
+  },
+  "_about": "Footer line from their own meta description (scraped value was a heading or Title Case)."
 }

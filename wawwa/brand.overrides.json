@@ -33,6 +33,96 @@
     "newCol": "studio-workers-collection",
     "newSub": "Studio Worker's Collection",
     "bestCol": "moleskin-at-the-mill",
-    "bestSub": "Moleskin at the Mill"
-  }
+    "bestSub": "Moleskin at the Mill",
+    "editorial": {
+      "col": "outerwear",
+      "img": "assets/img/campaign-wide.jpg",
+      "eyebrow": "Shop the edit",
+      "title": "Outerwear",
+      "fit": "natural"
+    },
+    "hero": {
+      "poster": "assets/img/hero-mobile.jpg",
+      "video": null,
+      "eyebrow": "New season",
+      "title": "SHIRTS",
+      "cta": "Shop shirts",
+      "col": "shirts"
+    }
+  },
+  "vertical": "apparel",
+  "_editorial": "Campaign artwork has hand-lettered text baked in (MOLESKIN AT THE MILL): shown uncropped with the title underneath.",
+  "perks": [
+    "Free UK delivery over £80",
+    "Organic, Fairtrade & vegan clothing",
+    "30-day returns"
+  ],
+  "_perks": "Scraped bar was carousel button labels (Previous/Next announcement); replaced with their own meta description claims + returns policy.",
+  "_hero": "Site hero is a wide desktop triptych with baked-in stickers (cropped badly on a phone). Using their own 4:5 \"March drop\" ad image instead.",
+  "copy": {
+    "about": "WAWWA are a sustainable clothing brand making organic, Fairtrade, vegan, planet-friendly clothing with a positive social impact."
+  },
+  "_about": "Footer line from their own meta description (scraped value was a heading or Title Case).",
+  "name": "WAWWA",
+  "short": "WAWWA",
+  "shipping": {
+    "options": [
+      {
+        "id": "tracked48",
+        "name": "Tracked 48 (2-3 working days)",
+        "desc": "£3.50, free over £80",
+        "price": 3.5,
+        "short": "Tracked 48"
+      },
+      {
+        "id": "tracked24",
+        "name": "Tracked 24 (1-2 working days)",
+        "desc": "£4.95",
+        "price": 4.95,
+        "short": "Tracked 24"
+      }
+    ],
+    "notes": [],
+    "freeOver": 80,
+    "region": "UK"
+  },
+  "_shipping": "From their shipping page: UK Tracked 48 £3.50 (free over £80), Tracked 24 £4.95.",
+  "pages": {
+    "help": [
+      {
+        "t": "Shipping",
+        "url": "https://wawwaclothing.com/pages/2021-shipping",
+        "sum": "International orders are sent DDP - customs and duties are paid upfront at checkout, nothing to pay upon delivery.\nNorway and Switzerland are the exception. We can't send DDP to either, so your local customs authority will bill you for duties and any handling fee before your parcel is released.\nAll transit times are estimates from the point of dispatch. If not received within estimated time frames please reach out, hi@wawwa.co\nUnited Kingdom\nTracked 48\n2 to 3 working days\n£3.50\nFree over £80\nTracked 24\n1 to 2 working days\n£4.95\nFree over £120\nNorth America\nStandard tracked\n5 to 8 working days\n£9.95\nEurope\n3 to 7 working days\nFree over £100\nAustralia and New Zealand\n6 to 10 working days\nRest of the world\n8 to 12 working days\n£14.95"
+      },
+      {
+        "t": "Returns",
+        "url": "https://wawwaclothing.com/pages/returns",
+        "sum": "All returns and exchanges must be processed through our self-service portal.\nYard Sale Items Not Eligible for Refunds: Start a return or exchange\nYou'll need your order number (e.g. #12345) and one of the following: the email the order was placed with, the phone number used, or the postcode.\nWhen sending your parcel back, please clearly mark the goods as RETURN on any customs paperwork and declare the correct value of the items. We're unable to cover customs charges on return packages.\nReturn within 30 days of your order being fulfilled for a refund\nItems must be unworn, in their original packaging with tags attached, and free from pet hair. Items returned in poor condition will incur a restocking fee of at least £10.\nReturn shipping is paid by you. We recommend a tracked service so you have proof of delivery\nOriginal shipping charges and customs duties are non-refundable (shown as 'Tax' on your confirmation email), unless a parcel is lost or undelivered due to a fault on our end"
+      },
+      {
+        "t": "Contact",
+        "url": "https://wawwaclothing.com/pages/contact",
+        "sum": "Email: hi@wawwa.co, hi@wawwa.co.\nYou can also use the contact form on the site."
+      }
+    ],
+    "about": [],
+    "legal": [
+      {
+        "t": "Privacy policy",
+        "url": "https://wawwaclothing.com/pages/privacy-policy",
+        "sum": "This Privacy Policy describes how your personal information is collected, used, and shared when you visit or make a purchase from https://wawwaclothing.com (the “Site”).\nPersonal Information We Collect: We collect Device Information using the following technologies:\n“Log files” track actions occurring on the Site, and collect data including your IP address, browser type, Internet service provider, referring/exit pages, and date/time stamps.\n“Web beacons,” “tags,” and “pixels” are electronic files used to record information about how you browse the Site. (These include Facebook, Instagram and TikTok)\nAdditionally when you make a purchase or attempt to make a purchase through the Site, we collect certain information from you, including your name, billing address, shipping address, payment information, email address, and phone number. We refer to this information as “Order Information.”\nWhen we talk about “Personal Information” in this Privacy Policy, we are talking both about Device Information and Order Information."
+      },
+      {
+        "t": "Terms of service",
+        "url": "https://wawwaclothing.com/policies/terms-of-service",
+        "sum": "Terms of service\nOverview: This website is operated by WAWWA Limited. Throughout the site, the terms “we”, “us” and “our” refer to WAWWA Limited. WAWWA Limited offers this website, including all information, tools and services available from this site to you, the user, conditioned upon your acceptance of all terms, conditions, policies and notices stated here.\nBy visiting our site and/ or purchasing something from us, you engage in our “Service” and agree to be bound by the following terms and conditions (“Terms of Service”, “Terms”), including those additional terms and conditions and policies referenced herein and/or available by hyperlink. These Terms of Service apply to all users of the site, including without limitation users who are browsers, vendors, customers, merchants, and/ or contributors of content.\nPlease read these Terms of Service carefully before accessing or using our…"
+      },
+      {
+        "t": "Refund policy",
+        "url": "https://wawwaclothing.com/policies/refund-policy",
+        "sum": "Refund policy\nOur policy lasts 30 days. If 30 days have gone by since your purchase, unfortunately we can’t offer you a refund or exchange.\nTo be eligible for a return, your item must be unused and in the same condition that you received it. It must also be in the original packaging.\nNon-returnable items:\nGift cards\nTo complete your return, we require a receipt or proof of purchase.\nRefunds (if applicable)\nOnce your return is received and inspected, we will send you an email to notify you that we have received your returned item. We will also notify you of the approval or rejection of your refund.\nIf you are approved, then your refund will be processed, and a credit will automatically be applied to your credit card or original method of payment, within a certain amount of days.\nLate or missing refunds (if applicable)\nIf you haven’t received a refund yet, first check your bank account again.\nThen contact your credit card company, it may take some time before your refund is officially posted."
+      }
+    ]
+  },
+  "_pages": "Stockists page dropped (it is a JS store-locator widget, nothing readable)."
 }

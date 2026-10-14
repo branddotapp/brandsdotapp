@@ -3,14 +3,14 @@
  "site": "https://wawwaclothing.com",
  "domain": "wawwaclothing.com",
  "generator": "brandsdotapp/tools/build_brand.py",
- "generatedAt": "2026-10-14T00:14:14",
+ "generatedAt": "2026-10-14T08:17:08",
  "discount": {
   "code": "APP10",
   "pct": 10
  },
  "legalName": "WAWWA Ф",
- "name": "Wawwa ф",
- "short": "Wawwa ф",
+ "name": "WAWWA",
+ "short": "WAWWA",
  "platform": "shopify",
  "products": {
   "520-organic-hoody-grey-marl": {
@@ -55,6 +55,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The UK Made 520 Organic Hoody in Grey Marl is a heavyweight staple built to last. Crafted from 520gsm organic loopback cotton, this hoody delivers warmth, comfort, and durability in a considered, modern shape. Designed with a boxy, relaxed fit and a slight crop, it balances classic proportions with contemporary appeal. Bar tacks reinforce all high-stress points, while the pre-shrunk fabric ensures it keeps its shape wash after wash. This is a hoody that feels substantial, moves with you, and is made to withstand years of wear. Proudly made in the UK, it marks the first in a series of locally produced jersey pieces, reflecting our commitment to quality, ethical manufacturing, and heritage…",
    "tg": [
     "flag:full-size-break",
@@ -112,6 +113,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The UK Made 520 Organic Hoody in Dark Navy is a heavyweight staple built to last. Crafted from 520gsm organic loopback cotton, this hoody delivers warmth, comfort, and durability in a considered, modern shape. Designed with a boxy, relaxed fit and a slight crop, it balances classic proportions with contemporary appeal. Bar tacks reinforce all high-stress points, while the pre-shrunk fabric ensures it keeps its shape wash after wash. This is a hoody that feels substantial, moves with you, and is made to withstand years of wear. Proudly made in the UK, it marks the first in a series of locally produced jersey pieces, reflecting our commitment to quality, ethical manufacturing, and heritage…",
    "tg": [
     "flag:full-size-break",
@@ -169,6 +171,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The UK Made Heavyweight Two-Way Zip Hoody in Black is a zip-through built to the same heavyweight standard as our pullover. Crafted from 520gsm organic loopback cotton, it delivers warmth, structure and everyday versatility in a considered, modern shape. Designed with a boxy, relaxed fit and a slight crop, it is opened up by a custom two-way matte YKK zip -releasing from the top or the bottom, so it sits comfortably when seated and vents without coming off. The hood is double-lined so it holds its structure, bar tacks reinforce all high-stress points, and the pre-shrunk fabric ensures it keeps its shape wash after wash. Proudly made in the UK, reflecting our commitment to quality, ethical…",
    "tg": [
     "Brick Camo",
@@ -226,6 +229,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Ellis Rugby Sweatshirt in Slate redefines luxury jersey by blending premium comfort with honest workwear details. Crafted from heavyweight 520gsm organic cotton and made in the UK, this isn't your average sweatshirt - it's built to last and designed to layer. Pre-washed and ready to wear, the Ellis won't shrink or lose its shape, no matter how often you reach for it. The relaxed fit features an adjustable shock cord waist, while ripstop elbow patches add character and durability that nods to its workwear inspiration. Made by workers paid the real living wage in a small UK factory, the Ellis bridges the gap between luxury jersey and functional design. Whether worn over a hoody or solo as…",
    "tg": [
     "flag:limited-sizes",
@@ -280,6 +284,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Ellis Rugby Sweatshirt in Navy redefines luxury jersey by blending premium comfort with honest workwear details. Crafted from heavyweight 520gsm organic cotton and made in the UK, this isn't your average sweatshirt - it's built to last and designed to layer. Pre-washed and ready to wear, the Ellis won't shrink or lose its shape, no matter how often you reach for it. The relaxed fit features an adjustable shock cord waist, while ripstop elbow patches add character and durability that nods to its workwear inspiration. Made by workers paid the real living wage in a small UK factory, the Ellis bridges the gap between luxury jersey and functional design. Whether worn over a hoody or solo as…",
    "tg": [
     "b2b",
@@ -335,6 +340,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The UK Made Heavyweight Two-Way Zip Hoody in Chocolate Brown is a zip-through built to the same heavyweight standard as our pullover. Crafted from 520gsm organic loopback cotton, it delivers warmth, structure and everyday versatility in a considered, modern shape. Designed with a boxy, relaxed fit and a slight crop, it is opened up by a custom two-way matte YKK zip -releasing from the top or the bottom, so it sits comfortably when seated and vents without coming off. The hood is double-lined so it holds its structure, bar tacks reinforce all high-stress points, and the pre-shrunk fabric ensures it keeps its shape wash after wash. Proudly made in the UK, reflecting our commitment to quality…",
    "tg": [
     "Brick Camo",
@@ -393,6 +399,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The UK Made Heavyweight Two-Way Zip Hoody in Signal Red is a zip-through built to the same heavyweight standard as our pullover. Crafted from 520gsm organic loopback cotton, it delivers warmth, structure and everyday versatility in a considered, modern shape. Designed with a boxy, relaxed fit and a slight crop, it is opened up by a custom two-way matte YKK zip -releasing from the top or the bottom, so it sits comfortably when seated and vents without coming off. The hood is double-lined so it holds its structure, bar tacks reinforce all high-stress points, and the pre-shrunk fabric ensures it keeps its shape wash after wash. Proudly made in the UK, reflecting our commitment to quality…",
    "tg": [
     "Brick Camo",
@@ -450,6 +457,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The UK Made 520 Organic Hoody in Black is a heavyweight staple built to last. Crafted from 520gsm organic loopback cotton, this hoody delivers warmth, comfort, and durability in a considered, modern shape. Designed with a boxy, relaxed fit and a slight crop, it balances classic proportions with contemporary appeal. Bar tacks reinforce all high-stress points, while the pre-shrunk fabric ensures it keeps its shape wash after wash. This is a hoody that feels substantial, moves with you, and is made to withstand years of wear. Proudly made in the UK, it marks the first in a series of locally produced jersey pieces, reflecting our commitment to quality, ethical manufacturing, and heritage…",
    "tg": [
     "b2b",
@@ -508,6 +516,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The UK Made 520 Organic Hoody in Navy is a heavyweight staple built to last. Crafted from 520gsm organic loopback cotton, this hoody delivers warmth, comfort, and durability in a considered, modern shape. Designed with a boxy, relaxed fit and a slight crop, it balances classic proportions with contemporary appeal. Bar tacks reinforce all high-stress points, while the pre-shrunk fabric ensures it keeps its shape wash after wash. This is a hoody that feels substantial, moves with you, and is made to withstand years of wear. Proudly made in the UK, it marks the first in a series of locally produced jersey pieces, reflecting our commitment to quality, ethical manufacturing, and heritage…",
    "tg": [
     "b2b",
@@ -565,6 +574,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Ellis Rugby Sweatshirt in Stone redefines luxury jersey by blending premium comfort with honest workwear details. Crafted from heavyweight 520gsm organic cotton and made in the UK, this isn't your average sweatshirt — it's built to last and designed to layer. Pre-washed and ready to wear, the Ellis won't shrink or lose its shape, no matter how often you reach for it. The relaxed fit features an adjustable shock cord waist, while ripstop elbow patches add character and durability that nods to its workwear inspiration. Made by workers paid the real living wage in a small UK factory, the Ellis bridges the gap between luxury jersey and functional design. Whether worn over a hoody or solo as…",
    "tg": [
     "flag:limited-sizes",
@@ -621,6 +631,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The UK Made 520 Organic Hoody in Chocolate Brown is a heavyweight staple built to last. Crafted from 520gsm organic loopback cotton, this hoody delivers warmth, comfort, and durability in a considered, modern shape. Designed with a boxy, relaxed fit and a slight crop, it balances classic proportions with contemporary appeal. Bar tacks reinforce all high-stress points, while the pre-shrunk fabric ensures it keeps its shape wash after wash. This is a hoody that feels substantial, moves with you, and is made to withstand years of wear. Proudly made in the UK, reflecting our commitment to quality, ethical manufacturing, and heritage craftsmanship. Key Features: Heavyweight 520gsm organic…",
    "tg": [
     "Brick Camo",
@@ -679,6 +690,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The UK Made 520 Organic Hoody in Signal Red is a heavyweight staple built to last. Crafted from 520gsm organic loopback cotton, this hoody delivers warmth, comfort, and durability in a considered, modern shape. Designed with a boxy, relaxed fit and a slight crop, it balances classic proportions with contemporary appeal. Bar tacks reinforce all high-stress points, while the pre-shrunk fabric ensures it keeps its shape wash after wash. This is a hoody that feels substantial, moves with you, and is made to withstand years of wear. Proudly made in the UK, reflecting our commitment to quality, ethical manufacturing, and heritage craftsmanship. Key Features: Heavyweight 520gsm organic loopback…",
    "tg": [
     "Brick Camo",
@@ -737,6 +749,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The UK Made Range Waffle Sweat in Chocolate Brown is a heavyweight waffle raglan with the density and drape of knitwear. Crafted from heavyweight organic cotton waffle jersey, it delivers warmth, texture and a plush, brushed handle in a considered, modern shape. The waffle texture takes its cue from the collection's source material - the squared, repeating brickwork of the Manchester mills we work in. Powder Blue contrast cover-stitching runs throughout as a signature detail, set against a deep chocolate ground, with a curved hem that sits cleanly untucked and a subtle logo. Substantial enough to wear as a mid-layer in its own right, or as a warm base layer beneath the collection's hoodies…",
    "tg": [
     "Brick Camo",
@@ -793,6 +806,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The UK Made Range Waffle Sweat in Signal Red is a heavyweight waffle raglan with the density and drape of knitwear. Crafted from heavyweight organic cotton waffle jersey, it delivers warmth, texture and a plush, brushed handle in a considered, modern shape. The waffle texture takes its cue from the collection's source material - the squared, repeating brickwork of the Manchester mills we work in. Ecru contrast cover-stitching runs throughout as a signature detail, set against a Signal Red ground drawn from the city's industrial signage, with a curved hem that sits cleanly untucked and a subtle logo. Substantial enough to wear as a mid-layer in its own right, or as a warm base layer beneath…",
    "tg": [
     "Brick Camo",
@@ -849,6 +863,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Meet the Raglan Waffle Sweat in stone with orange contrast - a heavyweight waffle-knit raglan, built as the warm layer for our Moleskin at the Mill collection. The plush organic cotton waffle has a soft, brushed handle and is so dense it feels more like knitwear than a jersey top. Wear it as a mid-layer, or as a warm base layer under the Mill Vest and the rest of the Moleskin range. Orange contrast cover-stitching runs throughout as a signature detail. Key Features Heavyweight organic cotton waffle jersey Knitwear-like drape - works as a mid-layer or a warm base layer Contrast cover-stitching throughout (orange on stone) Pre-shrunk Subtle logo Made in the UK by a team paid the real living…",
    "tg": [
     "L-INSTOCK",
@@ -902,6 +917,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Studio Graphic Hoody in washed blue is made in the UK from 520gsm organic cotton. Soft, substantial, and pre-shrunk — the kind of jersey that holds its shape wash after wash, and gets better with wear. Featuring the Stride Worker print - a love letter to the industry of craft. Drawn from the industrial signage of Manchester's manufacturing past — the painted lettering on mill walls, the faded shop fronts, the bold utilitarian typography of a city built around making things. Rooted equally in mid-century American workwear graphics, it's the kind of print that earns its place on the chest. The Studio Graphic Hoodies feature: 520gsm organic cotton jersey UK-made Stride Worker chest print…",
    "tg": [
     "L-INSTOCK",
@@ -955,6 +971,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Linear Notion Hoody is back by popular demand - now on our heavyweight 520 hoody, in washed blue. Linear Notion is our best-selling print from the past year. What's it of? That's up for debate. No one really knows the inspiration behind it and everyone reads something different into it, which is part of the fun. After so many requests, we've brought it back out of the archives. Key Features 520 GSM organic cotton loopback jersey Linear Notion graphic, designed in-house Heavyweight, soft-touch hoody Made in the UK by a team paid the real living wage",
    "tg": [
     "Moleskin",
@@ -1005,6 +1022,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Studio Graphic Hoody in black is made in the UK from 520gsm organic cotton. Soft, substantial, and pre-shrunk — the kind of jersey that holds its shape wash after wash, and gets better with wear. Featuring the Stride Worker print - a love letter to the industry of craft. Drawn from the industrial signage of Manchester's manufacturing past — the painted lettering on mill walls, the faded shop fronts, the bold utilitarian typography of a city built around making things. Rooted equally in mid-century American workwear graphics, it's the kind of print that earns its place on the chest. The Studio Graphic Hoodies feature: 520gsm organic cotton jersey UK-made Stride Worker chest print Relaxed…",
    "tg": [
     "L-INSTOCK",
@@ -1057,6 +1075,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Linear Notion Hoody is back by popular demand - now on our heavyweight 520 hoody, in black. Linear Notion is our best-selling print from the past year. What's it of? That's up for debate. No one really knows the inspiration behind it and everyone reads something different into it, which is part of the fun. After so many requests, we've brought it back out of the archives. Key Features 520 GSM organic cotton loopback jersey Linear Notion graphic, designed in-house Heavyweight, soft-touch hoody Made in the UK by a team paid the real living wage",
    "tg": [
     "Moleskin",
@@ -1106,6 +1125,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "A reworked take on our popular Mill Jacket. The new Mill Overshirt in brown keeps everything that worked - relaxed silhouette, workwear-rooted construction - and builds on it. The fit is slightly more relaxed and cropped, the fabric heavier at 310gsm, and an internal stash pocket adds extra utility where you need it most. Made from mid-heavyweight cotton, it's built to hold its shape and soften with wear. Finished with an etched Corozo button at the collar. Designed as a transitional piece. Relaxed enough to layer when the temperature drops, and sits just as well over a tee. Key Features 310gsm heavyweight BCI cotton twill Relaxed, slightly cropped fit Internal stash pocket Etched Corozo…",
    "tg": [
     "b2b",
@@ -1162,6 +1182,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "A reworked take on our popular Mill Jacket. The new Mill Overshirt in navy keeps everything that worked - relaxed silhouette, workwear-rooted construction - and builds on it. The fit is slightly more relaxed and cropped, the fabric heavier at 310gsm, and an internal stash pocket adds extra utility where you need it most. Made from mid-heavyweight cotton, it's built to hold its shape and soften with wear. Finished with an etched Corozo button at the collar. Designed as a transitional piece. Relaxed enough to layer when the temperature drops, and sits just as well over a tee. Key Features 310gsm heavyweight BCI cotton twill Relaxed, slightly cropped fit Internal stash pocket Etched Corozo nut…",
    "tg": [
     "b2b",
@@ -1219,6 +1240,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "A reworked take on our popular Mill Jacket. The new Mill Overshirt in brown keeps everything that worked - relaxed silhouette, workwear-rooted construction - and builds on it. The fit is slightly more relaxed and cropped, the fabric heavier at 310gsm, and an internal stash pocket adds extra utility where you need it most. Made from mid-heavyweight cotton, it's built to hold its shape and soften with wear. Finished with an etched Corozo button at the collar. Designed as a transitional piece. Relaxed enough to layer when the temperature drops, and sits just as well over a tee. Key Features 310gsm heavyweight BCI cotton twill Relaxed, slightly cropped fit Internal stash pocket Etched Corozo…",
    "tg": [
     "b2b",
@@ -1277,6 +1299,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "A reworked take on our popular Mill Jacket. The new Mill Overshirt in maroon keeps everything that worked - relaxed silhouette, workwear-rooted construction - and builds on it. The fit is slightly more relaxed and cropped, the fabric heavier at 310gsm, and an internal stash pocket adds extra utility where you need it most. Made from mid-heavyweight cotton, it's built to hold its shape and soften with wear. Finished with an etched Corozo button at the collar. Designed as a transitional piece. Relaxed enough to layer when the temperature drops, and sits just as well over a tee. Key Features 310gsm heavyweight BCI cotton twill Relaxed, slightly cropped fit Internal stash pocket Etched Corozo…",
    "tg": [
     "b2b",
@@ -1334,6 +1357,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Our Burgundy Nell Jacket is a modern wardrobe essential, combining everyday practicality with refined detailing. Designed with a relaxed, boxy fit, it features an innovative five-pocket system, including double-layered check pockets and a discreet side-entry handwarmer for effortless functionality on the move. Crafted in Manchester from premium Scottish dry-waxed cotton canvas sourced from Dundee, the Nell offers lightweight water resistance that’s ideal for unpredictable weather. Sustainable corozo nut buttons and adjustable cuffs add a polished finish. Its modular design allows a removable hood system to be attached via hidden poppers, offering versatility without compromising style. True…",
    "tg": [
     "12Sept",
@@ -1391,6 +1415,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Timeless versatility defines our Black Nell Jacket, an essential piece for any wardrobe. This relaxed, boxy-fit jacket showcases thoughtful innovation with its five-pocket system, including cleverly positioned double-layered check pockets and a discrete side-entry hand warmer. Crafted from Scottish dry-waxed cotton canvas from Dundee, it offers lightweight water resistance perfect for unpredictable weather. The jacket features premium corozo nut buttons and adjustable cuffs for a refined finish. Its modular design includes a removable hood system, attached via hidden poppers, offering versatility without compromising style. Key Points: Innovative 5-pocket design for maximum functionality…",
    "tg": [
     "12Sept",
@@ -1446,6 +1471,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Our Khaki Nell Jacket brings military-inspired sophistication to modern outerwear. This relaxed, boxy-fit jacket showcases thoughtful innovation with its five-pocket system, including cleverly positioned double-layered check pockets and a discrete side-entry hand warmer. Crafted from Scottish dry-waxed cotton canvas from Dundee, it offers lightweight water resistance perfect for unpredictable weather. The jacket features premium corozo nut buttons and adjustable cuffs for a refined finish. Its modular design includes a removable hood system, attached via hidden poppers, offering versatility without compromising style. Key Points: Innovative 5-pocket design for maximum functionality Premium…",
    "tg": [
     "12Sept",
@@ -1503,6 +1529,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Embrace the depth of our Indigo Blue Nell Jacket, a contemporary take on classic outerwear. This relaxed, boxy-fit jacket showcases thoughtful innovation with its five-pocket system, including cleverly positioned double-layered check pockets and a discrete side-entry hand warmer. Crafted from Scottish dry-waxed cotton canvas from Dundee, it offers lightweight water resistance perfect for unpredictable weather. The jacket features premium corozo nut buttons and adjustable cuffs for a refined finish. Its modular design includes a removable hood system, attached via hidden poppers, offering versatility without compromising style. Key Points: Innovative 5-pocket design for maximum functionality…",
    "tg": [
     "12Sept",
@@ -1558,6 +1585,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Meet the Moleskin Zama Pants V2 in navy - our warmest Zama yet, made entirely from soft, heavyweight Italian moleskin. Moleskin is a proper cold-weather cloth: a densely woven 100% cotton fabric, brushed on one side until it's soft as suede. That dense weave traps warmth and blocks the wind, which is why grafters and gamekeepers have relied on it for over a century. Ours is woven in Lombardy and dyed in Tuscany, by mills that have been perfecting moleskin for generations. The Zama V2 is a relaxed, easy-fit trouser with a wide leg and a slight taper. It has the comfort of a sweatpant but reads as an everyday trouser. New for V2 is a built-in adjustable belt waistband, so you can cinch it to…",
    "tg": [
     "L-INSTOCK",
@@ -1612,6 +1640,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Meet the Moleskin Zama Pants V2 in khaki - our warmest Zama yet, made entirely from soft, heavyweight Italian moleskin. Khaki is new this year: a warm, autumnal take on a workwear classic. Moleskin is a proper cold-weather cloth: a densely woven 100% cotton fabric, brushed on one side until it's soft as suede. That dense weave traps warmth and blocks the wind, which is why grafters and gamekeepers have relied on it for over a century. Ours is woven in Lombardy and dyed in Tuscany, by mills that have been perfecting moleskin for generations. The Zama V2 is a relaxed, easy-fit trouser with a wide leg and a slight taper. It has the comfort of a sweatpant but reads as an everyday trouser. New…",
    "tg": [
     "L-INSTOCK",
@@ -1666,6 +1695,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Meet the Moleskin Zama Pants V2 in black - our warmest Zama yet, made entirely from soft, heavyweight Italian moleskin. Moleskin is a proper cold-weather cloth: a densely woven 100% cotton fabric, brushed on one side until it's soft as suede. That dense weave traps warmth and blocks the wind, which is why grafters and gamekeepers have relied on it for over a century. Ours is woven in Lombardy and dyed in Tuscany, by mills that have been perfecting moleskin for generations. The Zama V2 is a relaxed, easy-fit trouser with a wide leg and a slight taper. It has the comfort of a sweatpant but reads as an everyday trouser. New for V2 is a built-in adjustable belt waistband, so you can cinch it to…",
    "tg": [
     "L-INSTOCK",
@@ -1721,6 +1751,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Meet the Moleskin Zama Pants V2 in stone - our warmest Zama yet, made entirely from soft, heavyweight Italian moleskin. Moleskin is a proper cold-weather cloth: a densely woven 100% cotton fabric, brushed on one side until it's soft as suede. That dense weave traps warmth and blocks the wind, which is why grafters and gamekeepers have relied on it for over a century. Ours is woven in Lombardy and dyed in Tuscany, by mills that have been perfecting moleskin for generations. The Zama V2 is a relaxed, easy-fit trouser with a wide leg and a slight taper. It has the comfort of a sweatpant but reads as an everyday trouser. New for V2 is a built-in adjustable belt waistband, so you can cinch it to…",
    "tg": [
     "L-INSTOCK",
@@ -1775,6 +1806,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Our Zama pant in Black is the undisputed all-rounder trouser. They're pretty laid back and are a staple pant for any occasion. Made from some super comfy organic cotton twill with an elasticated waist to give 'em a bit of stretch post meal, with some extra legroom for those long walks beforehand. 100% Cotton Wide Leg Fit Reinforced gusset Cuff adjuster for relaxed or tapered leg Made in UK Male Model - 6ft wearing size L Female model, size 8, 5ft 7\" wearing XS Just a quick note to let you know these may shrink a bit after their first wash. So it's worth sizing up, but should retain its shape after a hang-dry and iron. We recommend 30° at the absolute most. Looking for a slightly slimmer…",
    "tg": [
     "Autumn Ink pt.1",
@@ -1835,6 +1867,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Atlas Barrel Leg Pant in Navy is a relaxed, easy-wear trouser shaped around comfort, movement, and modern volume. Designed to transition effortlessly between everyday life and more active moments, it balances soft structure with quiet functionality. Crafted from durable organic cotton ripstop, finished with a subtle grid weave designed not to run if snagged. Easy through warmer months and comfortable layered over thermals when temperatures drop - year-round staples built for repeat wear. The silhouette is defined by off-centre seam detailing that gently sculpts the voluminous barrel leg while maintaining a clean, contemporary profile. An elasticated waistband with drawstrings delivers…",
    "tg": [
     "b2b",
@@ -1895,6 +1928,7 @@
      0
     ]
    ],
+   "on": "Size",
    "d": "The UK Made Garment Dyed Atlas Pants in Powder Blue are our Atlas pant given a pigment-dye treatment. Crafted from organic cotton ripstop, they deliver durability and a washed, lived-in character from the first wear. Dyeing after construction is a slower process, but it lends the fabric a vintage patina and makes the durable ripstop grid really stand out - a texture chosen to echo the brickwork that runs through the collection. Because the pigment continues to soften and shift with wear, every pair breaks in differently. A clever detail: we inverted the logos so they take the dye too, shifting to match the garment. The waist is comfortably adjustable, the hems adjust on poppers, and seams…",
    "tg": [
     "Brick Camo",
@@ -1950,6 +1984,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Atlas Barrel Leg Pant in Khaki is a relaxed, easy-wear trouser shaped around comfort, movement, and modern volume. Designed to transition effortlessly between everyday life and more active moments, it balances soft structure with quiet functionality. Crafted from durable organic cotton ripstop, finished with a subtle grid weave designed not to run if snagged. Easy through warmer months and comfortable layered over thermals when temperatures drop, it’s a year-round staple built for repeat wear. The silhouette is defined by off-centre seam detailing that gently sculpts the voluminous barrel leg while maintaining a clean, contemporary profile. An elasticated waistband with drawstrings…",
    "tg": [
     "b2b",
@@ -2009,6 +2044,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The UK Made Water Resistant Zama Pants in Black are the hero trousers of this collection. Crafted from a water-resistant dry wax cotton - they deliver weather protection, durability and character that develops with wear. Cut to a relaxed fit with a slight taper, they feature a belt built into the waistband, twin-needle seams throughout for durability, and bar tacks at all high-stress points. Sewn in-house in Manchester, in the same fabric as the Roam Raglan Jacket, so the two pair as a co-ord. The dry wax carries no oily finish, develops a unique patina over time, and can be re-waxed for life. Proudly made in the UK, reflecting our commitment to quality, ethical manufacturing, and heritage…",
    "tg": [
     "Brick Camo",
@@ -2065,6 +2101,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Classic meets contemporary with our Black Leo Pant, a versatile essential. These pants feature a refined relaxed fit with a considered taper, offering a smarter alternative to our classic Zama style. Crafted from specially developed Scottish dry-waxed cotton from Dundee, they provide water resistance while maintaining a soft, premium feel. The thoughtfully designed gusset construction ensures unrestricted movement, while the adjustable shock cord waist delivers perfect fit customisation. Each pair is proudly crafted in Manchester, combining local production with world-class materials. Key Points: Premium Scottish dry-waxed cotton from Dundee Water-resistant yet soft to touch BCI Cotton…",
    "tg": [
     "flag:full-size-break",
@@ -2081,65 +2118,6 @@
     "XXL-INSTOCK"
    ],
    "pub": "2026-09-04"
-  },
-  "zama-pant-khaki-green": {
-   "h": "zama-pant-khaki-green",
-   "t": "Zama Pant  - Khaki Green",
-   "n": "Zama Pant",
-   "c": "Khaki Green",
-   "ty": "Pants",
-   "p": 120.0,
-   "cp": 0,
-   "im": [
-    "https://cdn.shopify.com/s/files/1/1377/2863/files/WAWWA_AUGUST_2026_-_ECOM_WEB_-372.jpg?v=1791363647",
-    "https://cdn.shopify.com/s/files/1/1377/2863/files/WAWWA_AUGUST_2026_-_ECOM_WEB_-371.jpg?v=1791363647",
-    "https://cdn.shopify.com/s/files/1/1377/2863/files/WAWWA_AUGUST_2026_-_ECOM_WEB_-375.jpg?v=1791363647",
-    "https://cdn.shopify.com/s/files/1/1377/2863/files/WAWWA_AUGUST_2026_-_ECOM_WEB_-376.jpg?v=1791363647",
-    "https://cdn.shopify.com/s/files/1/1377/2863/files/daGDH3-ATDBqGoCPIRel9PEQVHcUGnOGhL4i22zGDPc.jpg?v=1761059667",
-    "https://cdn.shopify.com/s/files/1/1377/2863/files/N06E7gtCe9VGiy8AyJN0Mlp3SUoJq93Wmbxuk-Acmb4.jpg?v=1761059667"
-   ],
-   "sz": [
-    [
-     "XS",
-     1
-    ],
-    [
-     "S",
-     1
-    ],
-    [
-     "M",
-     1
-    ],
-    [
-     "L",
-     1
-    ],
-    [
-     "XL",
-     1
-    ],
-    [
-     "XXL",
-     1
-    ]
-   ],
-   "d": "Our Zama pant in Khaki Green is the undisputed all-rounder trouser. They're pretty laid back and are a staple pant for any occasion. Made from some super comfy organic cotton twill with an elasticated waist to give 'em a bit of stretch post meal, with some extra legroom for those long walks beforehand. 100% Cotton Wide Leg Fit Reinforced gusset Cuff adjuster for relaxed or tapered leg Made in UK Model Sizes: Noah is 6ft wearing size L Ella is 5ft 6 wearing size XS Just a quick note to let you know these may shrink a bit after their first wash. So it's worth sizing up, but should retain its shape after a hang-dry and iron. We recommend 30° at the absolute most. Looking for a slightly slimmer…",
-   "tg": [
-    "b2b",
-    "flag:limited-sizes",
-    "Hero",
-    "L-INSTOCK",
-    "M-INSTOCK",
-    "S-INSTOCK",
-    "state:ready-to-ship",
-    "uniformbywawwa",
-    "XL-INSTOCK",
-    "XS-INSTOCK",
-    "XXL-INSTOCK",
-    "ZAPC"
-   ],
-   "pub": "2026-02-12"
   },
   "leo-pant-khaki-green": {
    "h": "leo-pant-khaki-green",
@@ -2183,6 +2161,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The utilitarian appeal of our Khaki Leo Pant speaks to both style and function. These pants feature a refined relaxed fit with a considered taper, offering a smarter alternative to our classic Zama style. Crafted from specially developed Scottish dry-waxed cotton from Dundee, they provide water resistance while maintaining a soft, premium feel. The thoughtfully designed gusset construction ensures unrestricted movement, while the adjustable shock cord waist delivers perfect fit customization. Each pair is proudly crafted in Manchester, combining local production with world-class materials. Key Points: Premium Scottish dry-waxed cotton from Dundee Water-resistant yet soft to touch BCI Cotton…",
    "tg": [
     "flag:full-size-break",
@@ -2243,6 +2222,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Deep, rich tones define our Indigo Blue Leo Pant, elevating casual refinement. These pants feature a refined relaxed fit with a considered taper, offering a smarter alternative to our classic Zama style. Crafted from specially developed Scottish dry-waxed cotton from Dundee, they provide water resistance while maintaining a soft, premium feel. The thoughtfully designed gusset construction ensures unrestricted movement, while the adjustable shock cord waist delivers perfect fit customization. Each pair is proudly crafted in Manchester, combining local production with world-class materials. Key Points: Premium Scottish dry-waxed cotton from Dundee Water-resistant yet soft to touch BCI Cotton…",
    "tg": [
     "flag:limited-sizes",
@@ -2303,6 +2283,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Our Zama pant in Stone is the undisputed all-rounder trouser. They're pretty laid back and are a staple pant for any occasion. Made from some super comfy organic cotton twill with an elasticated waist to give 'em a bit of stretch post meal, with some extra legroom for those long walks beforehand. 100% Cotton Wide Leg Fit Reinforced gusset Cuff adjuster for relaxed or tapered leg Made in UK Model Sizes: Noah is 6ft wearing size L Ella is 5ft 6 wearing size XS Just a quick note to let you know these may shrink a bit after their first wash. So it's worth sizing up, but should retain its shape after a hang-dry and iron. We recommend 30° at the absolute most. Looking for a slightly slimmer…",
    "tg": [
     "Autumn Ink pt.1",
@@ -2363,6 +2344,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Zama Sweatpant in Black takes our best-selling Zama Pant and re-imagines it in heavyweight 520gsm organic cotton jersey. So substantial it needs two hangers to stay up, this is comfort elevated to new heights. Cut with a straight leg that looks as smart as our tailored Zama Pant, these aren't just sweatpants, they're the jersey version of a proven winner. Pre-washed and built to last, the Zama won't shrink, stretch, or lose its crisp silhouette. The heavyweight jersey holds its shape without creasing, while the clean internal waistband and subtle silicone toggle keep things refined. A curved pocket lined with ripstop adds functional detail that speaks to quality craftsmanship, bringing…",
    "tg": [
     "b2b",
@@ -2418,6 +2400,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The UK Made Water Resistant Zama Pants in Abstract Brick Camo are the hero trousers of this collection. Crafted from a water-resistant dry wax cotton - they deliver weather protection, durability and character that develops with wear. The Abstract Brick Camo is our own printed fabric, developed from the brickwork surrounding the Manchester mill we work in. Because we take an asymmetrical approach to cutting, every pair is entirely unique. Cut to a relaxed fit with a slight taper, they feature a belt built into the waistband, twin-needle seams throughout for durability, and bar tacks at all high-stress points. Sewn in-house in Manchester, in the same fabric as the Roam Raglan Jacket, so the…",
    "tg": [
     "Brick Camo",
@@ -2474,6 +2457,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The UK Made Water Resistant Zama Pants in Blue Brick Camo are the hero trousers of this collection. Crafted from a water-resistant dry wax cotton - they deliver weather protection, durability and character that develops with wear. The Blue Brick Camo is our own printed fabric, developed from the brickwork surrounding the Manchester mill we work in. Because we take an asymmetrical approach to cutting, every pair is entirely unique. Cut to a relaxed fit with a slight taper, they feature a belt built into the waistband, twin-needle seams throughout for durability, and bar tacks at all high-stress points. Sewn in-house in Manchester, in the same fabric as the Roam Raglan Jacket, so the two pair…",
    "tg": [
     "Brick Camo",
@@ -2530,6 +2514,7 @@
      0
     ]
    ],
+   "on": "Size",
    "d": "The UK Made Garment Dyed Atlas Pants in Fawn Brown are our Atlas pant given a pigment-dye treatment. Crafted from organic cotton ripstop, they deliver durability, versatility and a washed, lived-in character from the first wear. Dyeing after construction is a slower process, but it lends the fabric a vintage patina and makes the durable ripstop grid really stand out - a texture chosen to echo the brickwork that runs through the collection. Because the pigment continues to soften and shift with wear, every pair breaks in differently. A clever detail: we inverted the logos so they take the dye too, shifting to match the garment. The waist is comfortably adjustable, the hems adjust on poppers…",
    "tg": [
     "Brick Camo",
@@ -2582,6 +2567,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Atlas Barrel Leg Pant in Black is an easy-wearing, hard-working pant designed to move seamlessly between daily life and active use. They feature a wide barrel leg fit, offering comfort and freedom of movement with a relaxed, modern silhouette. Constructed from durable organic cotton ripstop - the grid weave is designed not to run if snagged. The fabric is lightweight enough for summer, while still layering comfortably over thermals in colder months. A soft elasticated waistband provides all-day comfort, with drawstrings for a secure fit. Top-stitched seams add strength where it’s needed most, while deep side pockets are designed to properly hold your essentials. A practical key loop…",
    "tg": [
     "b2b",
@@ -2640,6 +2626,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Atlas Barrel Leg Pant in Stone is a relaxed, easy-wear trouser shaped around comfort, movement, and modern volume. Designed to transition effortlessly between everyday life and more active moments, it balances soft structure with quiet functionality. Crafted from durable organic cotton ripstop, finished with a subtle grid weave designed not to run if snagged. Easy through warmer months and comfortable layered over thermals when temperatures drop, it’s a year-round staple built for repeat wear. The silhouette is defined by off-centre seam detailing that gently sculpts the voluminous barrel leg while maintaining a clean, contemporary profile. An elasticated waistband with drawstrings…",
    "tg": [
     "b2b",
@@ -2657,62 +2644,6 @@
     "XXL-INSTOCK"
    ],
    "pub": "2026-05-28"
-  },
-  "twill-studio-pants-black": {
-   "h": "twill-studio-pants-black",
-   "t": "Twill Studio Pants - Black",
-   "n": "Twill Studio Pants",
-   "c": "Black",
-   "ty": "Pants",
-   "p": 185.0,
-   "cp": 0,
-   "im": [
-    "https://cdn.shopify.com/s/files/1/1377/2863/files/WAWWA_MAY_2026_-_ECOM_-_WEB-4.jpg?v=1784438744",
-    "https://cdn.shopify.com/s/files/1/1377/2863/files/WAWWA_MAY_2026_-_ECOM_-_WEB-3.jpg?v=1784438716",
-    "https://cdn.shopify.com/s/files/1/1377/2863/files/WAWWA_MAY_2026_-_ECOM_-_WEB-1.jpg?v=1784438686",
-    "https://cdn.shopify.com/s/files/1/1377/2863/files/WAWWA_MAY_2026_-_ECOM_-_WEB-7.jpg?v=1784438658",
-    "https://cdn.shopify.com/s/files/1/1377/2863/files/WAWWA_MAY_2026_-_ECOM_-_WEB-5.jpg?v=1787029965",
-    "https://cdn.shopify.com/s/files/1/1377/2863/files/WAWWA_MAY_2026_-_ECOM_-_WEB-6.jpg?v=1787029938"
-   ],
-   "sz": [
-    [
-     "XS",
-     1
-    ],
-    [
-     "S",
-     1
-    ],
-    [
-     "M",
-     1
-    ],
-    [
-     "L",
-     1
-    ],
-    [
-     "XL",
-     1
-    ],
-    [
-     "XXL",
-     1
-    ]
-   ],
-   "d": "The Twill Studio Pants in black are built for a full day on your feet. The summer iteration of our Workers Club trouser takes everything you know — the oversized stash pockets, the integrated G-hook belt, the bar-tacked stress points — and moves it into a medium weight 285gsm BCI cotton twill. Lighter on the body, and fully machine washable. Twill is one of the oldest weave structures in workwear for a reason. The diagonal weave distributes tension across the fabric more evenly than a plain weave, meaning it resists abrasion and tearing far beyond what you'd expect at this weight. It also carries a natural give that moves with you rather than against you — you feel it when you bend down…",
-   "tg": [
-    "flag:limited-sizes",
-    "L-INSTOCK",
-    "M-INSTOCK",
-    "Part 2",
-    "pre-order",
-    "S-INSTOCK",
-    "state:ready-to-ship",
-    "Workers Club SS26",
-    "XXL-INSTOCK"
-   ],
-   "pub": "2026-10-09"
   },
   "twill-studio-pants-stone": {
    "h": "twill-studio-pants-stone",
@@ -2756,6 +2687,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Twill Studio Pants in stone are built for a full day on your feet. The summer iteration of our Workers Club trouser takes everything you know — the oversized stash pockets, the integrated G-hook belt, the bar-tacked stress points — and moves it into a medium weight 285gsm BCI cotton twill. Lighter on the body, and fully machine washable. Twill is one of the oldest weave structures in workwear for a reason. The diagonal weave distributes tension across the fabric more evenly than a plain weave, meaning it resists abrasion and tearing far beyond what you'd expect at this weight. It also carries a natural give that moves with you rather than against you — you feel it when you bend down…",
    "tg": [
     "flag:limited-sizes",
@@ -2769,6 +2701,63 @@
     "XS-INSTOCK"
    ],
    "pub": "2026-06-11"
+  },
+  "twill-studio-pants-black": {
+   "h": "twill-studio-pants-black",
+   "t": "Twill Studio Pants - Black",
+   "n": "Twill Studio Pants",
+   "c": "Black",
+   "ty": "Pants",
+   "p": 185.0,
+   "cp": 0,
+   "im": [
+    "https://cdn.shopify.com/s/files/1/1377/2863/files/WAWWA_MAY_2026_-_ECOM_-_WEB-4.jpg?v=1784438744",
+    "https://cdn.shopify.com/s/files/1/1377/2863/files/WAWWA_MAY_2026_-_ECOM_-_WEB-3.jpg?v=1784438716",
+    "https://cdn.shopify.com/s/files/1/1377/2863/files/WAWWA_MAY_2026_-_ECOM_-_WEB-1.jpg?v=1784438686",
+    "https://cdn.shopify.com/s/files/1/1377/2863/files/WAWWA_MAY_2026_-_ECOM_-_WEB-7.jpg?v=1784438658",
+    "https://cdn.shopify.com/s/files/1/1377/2863/files/WAWWA_MAY_2026_-_ECOM_-_WEB-5.jpg?v=1787029965",
+    "https://cdn.shopify.com/s/files/1/1377/2863/files/WAWWA_MAY_2026_-_ECOM_-_WEB-6.jpg?v=1787029938"
+   ],
+   "sz": [
+    [
+     "XS",
+     1
+    ],
+    [
+     "S",
+     1
+    ],
+    [
+     "M",
+     1
+    ],
+    [
+     "L",
+     1
+    ],
+    [
+     "XL",
+     1
+    ],
+    [
+     "XXL",
+     1
+    ]
+   ],
+   "on": "Size",
+   "d": "The Twill Studio Pants in black are built for a full day on your feet. The summer iteration of our Workers Club trouser takes everything you know — the oversized stash pockets, the integrated G-hook belt, the bar-tacked stress points — and moves it into a medium weight 285gsm BCI cotton twill. Lighter on the body, and fully machine washable. Twill is one of the oldest weave structures in workwear for a reason. The diagonal weave distributes tension across the fabric more evenly than a plain weave, meaning it resists abrasion and tearing far beyond what you'd expect at this weight. It also carries a natural give that moves with you rather than against you — you feel it when you bend down…",
+   "tg": [
+    "flag:limited-sizes",
+    "L-INSTOCK",
+    "M-INSTOCK",
+    "Part 2",
+    "pre-order",
+    "S-INSTOCK",
+    "state:ready-to-ship",
+    "Workers Club SS26",
+    "XXL-INSTOCK"
+   ],
+   "pub": "2026-10-09"
   },
   "twill-studio-pants-navy": {
    "h": "twill-studio-pants-navy",
@@ -2812,6 +2801,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Twill Studio Pants in navy are built for a full day on your feet. The summer iteration of our Workers Club trouser takes everything you know — the oversized stash pockets, the integrated G-hook belt, the bar-tacked stress points — and moves it into a medium weight 285gsm BCI cotton twill. Lighter on the body, and fully machine washable. Twill is one of the oldest weave structures in workwear for a reason. The diagonal weave distributes tension across the fabric more evenly than a plain weave, meaning it resists abrasion and tearing far beyond what you'd expect at this weight. It also carries a natural give that moves with you rather than against you — you feel it when you bend down…",
    "tg": [
     "flag:limited-sizes",
@@ -2823,6 +2813,66 @@
     "XS-INSTOCK"
    ],
    "pub": "2026-06-11"
+  },
+  "zama-pant-khaki-green": {
+   "h": "zama-pant-khaki-green",
+   "t": "Zama Pant  - Khaki Green",
+   "n": "Zama Pant",
+   "c": "Khaki Green",
+   "ty": "Pants",
+   "p": 120.0,
+   "cp": 0,
+   "im": [
+    "https://cdn.shopify.com/s/files/1/1377/2863/files/WAWWA_AUGUST_2026_-_ECOM_WEB_-372.jpg?v=1791363647",
+    "https://cdn.shopify.com/s/files/1/1377/2863/files/WAWWA_AUGUST_2026_-_ECOM_WEB_-371.jpg?v=1791363647",
+    "https://cdn.shopify.com/s/files/1/1377/2863/files/WAWWA_AUGUST_2026_-_ECOM_WEB_-375.jpg?v=1791363647",
+    "https://cdn.shopify.com/s/files/1/1377/2863/files/WAWWA_AUGUST_2026_-_ECOM_WEB_-376.jpg?v=1791363647",
+    "https://cdn.shopify.com/s/files/1/1377/2863/files/daGDH3-ATDBqGoCPIRel9PEQVHcUGnOGhL4i22zGDPc.jpg?v=1761059667",
+    "https://cdn.shopify.com/s/files/1/1377/2863/files/N06E7gtCe9VGiy8AyJN0Mlp3SUoJq93Wmbxuk-Acmb4.jpg?v=1761059667"
+   ],
+   "sz": [
+    [
+     "XS",
+     1
+    ],
+    [
+     "S",
+     1
+    ],
+    [
+     "M",
+     1
+    ],
+    [
+     "L",
+     1
+    ],
+    [
+     "XL",
+     1
+    ],
+    [
+     "XXL",
+     1
+    ]
+   ],
+   "on": "Size",
+   "d": "Our Zama pant in Khaki Green is the undisputed all-rounder trouser. They're pretty laid back and are a staple pant for any occasion. Made from some super comfy organic cotton twill with an elasticated waist to give 'em a bit of stretch post meal, with some extra legroom for those long walks beforehand. 100% Cotton Wide Leg Fit Reinforced gusset Cuff adjuster for relaxed or tapered leg Made in UK Model Sizes: Noah is 6ft wearing size L Ella is 5ft 6 wearing size XS Just a quick note to let you know these may shrink a bit after their first wash. So it's worth sizing up, but should retain its shape after a hang-dry and iron. We recommend 30° at the absolute most. Looking for a slightly slimmer…",
+   "tg": [
+    "b2b",
+    "flag:limited-sizes",
+    "Hero",
+    "L-INSTOCK",
+    "M-INSTOCK",
+    "S-INSTOCK",
+    "state:ready-to-ship",
+    "uniformbywawwa",
+    "XL-INSTOCK",
+    "XS-INSTOCK",
+    "XXL-INSTOCK",
+    "ZAPC"
+   ],
+   "pub": "2026-02-12"
   },
   "zama-pant-brown": {
    "h": "zama-pant-brown",
@@ -2866,6 +2916,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Our Zama pant in Brown is the undisputed all-rounder trouser. They're pretty laid back and are a staple pant for any occasion. Made from some super comfy organic cotton twill with an elasticated waist to give 'em a bit of stretch post meal, with some extra legroom for those long walks beforehand. 100% Cotton Wide Leg Fit Reinforced gusset Cuff adjuster for relaxed or tapered leg Made in UK Model Sizes: Noah is 6ft wearing size L Ella is 5ft 6 wearing size XS Just a quick note to let you know these may shrink a bit after their first wash. So it's worth sizing up, but should retain its shape after a hang-dry and iron. We recommend 30° at the absolute most. Looking for a slightly slimmer…",
    "tg": [
     "flag:limited-sizes",
@@ -2923,6 +2974,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Zama Sweatpant in Navy takes our best-selling Zama Pant and reimagines it in heavyweight 520gsm organic cotton jersey. This is comfort elevated to new heights. Cut with a straight leg that looks as smart as our tailored Zama Pant, these aren't just sweatpants, they're the jersey version of a proven winner. Pre-washed and built to last, the Zama won't shrink, stretch, or lose its crisp silhouette. The heavyweight jersey holds its shape without creasing, while the clean internal waistband and subtle silicone toggle keep things refined. A curved pocket lined with ripstop adds functional detail that speaks to quality craftsmanship, bringing the same attention to detail that made the…",
    "tg": [
     "flag:limited-sizes",
@@ -2975,6 +3027,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Our Zama Short in Black is the ultimate warm-weather essential. They're perfectly laid back and versatile enough for any summer occasion. Made from super comfy organic cotton twill with an elasticated waist to give 'em a bit of breathing room post-BBQ, with a relaxed fit that keeps you cool during those hot summer days. 100% Cotton Relaxed Fit Elasticated Waist Deep Side Pockets Made in UK Model Sizes: Tony is 6ft wearing size L Ella is 5ft 6 wearing size XS Just a quick note to let you know these may shrink a bit after their first wash. So it's worth sizing up, but should retain their shape after a hang-dry and iron. We recommend 30° at the absolute most.",
    "tg": [
     "flag:limited-sizes",
@@ -3030,6 +3083,7 @@
      0
     ]
    ],
+   "on": "Size",
    "d": "Our Zama Short in Stone Grey is the ultimate warm-weather essential. They're perfectly laid back and versatile enough for any summer occasion. Made from super comfy organic cotton twill with an elasticated waist to give 'em a bit of breathing room post-BBQ, with a relaxed fit that keeps you cool during those hot summer days. 100% Cotton Relaxed Fit Elasticated Waist Deep Side Pockets Made in UK Model Sizes: Tony is 6ft wearing size L Ella is 5ft 6 wearing size XS Just a quick note to let you know these may shrink a bit after their first wash. So it's worth sizing up, but should retain their shape after a hang-dry and iron. We recommend 30° at the absolute most.",
    "tg": [
     "flag:limited-sizes",
@@ -3087,6 +3141,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Introducing the Patti Short in red/pink - cut from a lightweight checked fabric in a organic cotton and recycled polyester blend, these are the shorts you'll reach for whether you're navigating the city, heading to the beach, or out on the hills. Two front pleats add style and comfort, while the elasticated drawstring waist lets you dial in the fit. Relaxed and lightweight - perfect for the warmer days to come. Style them with a T-Shirt or go full co-ord, pairing with the matching Ezra Shirt. Key Features 60% organic cotton, 40% recycled polyester checked fabric Lightweight and breathable Elasticated waist with drawstring for an adjustable fit Two front pleats for added comfort and ease of…",
    "tg": [
     "flag:limited-sizes",
@@ -3142,6 +3197,7 @@
      0
     ]
    ],
+   "on": "Size",
    "d": "Introducing the Ripstop Zama Hiking Short in stone. The Zama fit, now built for the trail - same comfortable, relaxed silhouette, durable ripstop fabric, with features you need for a day outdoors. A built-in belt with easy tighten-and-release ladder lock keeps things secure without fuss. Big side pockets handle the bulk (snacks), and a key loop and zipped pocket keep valuables secure. Durability comes as standard with reinforced topstitching and bar-tacked stress points throughout — built to stand up to the rigors of the hike. Comfortable enough for a full day on the hills. Relaxed enough for everything else. Key Features Durable ripstop fabric Relaxed Zama fit Built-in belt with ladder…",
    "tg": [
     "b2b",
@@ -3192,20 +3248,20 @@
     ],
     [
      "XL",
-     1
+     0
     ],
     [
      "XXL",
      1
     ]
    ],
+   "on": "Size",
    "d": "All the construction DNA of the Studio Pants, cut short for the warmer months. The Twill Studio Shorts in navy carry the same oversized stash pockets, the same integrated G-hook belt, and the same bar-tacked reinforcement — just in a silhouette built for summer. The 285gsm BCI cotton twill holds its shape through the day and washes clean, so these move easily from the studio to wherever you're headed after. The built-in G-hook belt eliminates waistband gaping without the fuss of a separate belt. The deep stash pockets keep your hands free and your tools close. Two belt loops on the waistband allow you to clip on the Detachable Apron Pouch when you need an extra place to stow your gear. The…",
    "tg": [
     "flag:limited-sizes",
     "S-INSTOCK",
     "state:ready-to-ship",
     "Workers Club SS26",
-    "XL-INSTOCK",
     "XS-INSTOCK",
     "XXL-INSTOCK"
    ],
@@ -3253,6 +3309,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "All the construction DNA of the Studio Pants, cut short for the warmer months. The Twill Studio Shorts in stone carry the same oversized stash pockets, the same integrated G-hook belt, and the same bar-tacked reinforcement — just in a silhouette built for summer. The 285gsm BCI cotton twill holds its shape through the day and washes clean, so these move easily from the studio to wherever you're headed after. The built-in G-hook belt eliminates waistband gaping without the fuss of a separate belt. The deep stash pockets keep your hands free and your tools close. Two belt loops on the waistband allow you to clip on the Detachable Apron Pouch when you need an extra place to stow your gear. The…",
    "tg": [
     "L-INSTOCK",
@@ -3307,6 +3364,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The barely-there running short, built for the simple joy of an out and back. Cut from a soft, wood-based viscose made using Lenzing™ yarn, it's so light and fluid you'll forget you're wearing it, moving with a gentle drape exactly as you do. We've kept it clean and simple, with nothing you don't need: a discreet key pocket at the back, adjustable internal cords for a comfortable fit, and a high side split for a full, free stride. Woven from tree cellulose, then pressed and sewn by us in Manchester by a team paid the Real Living Wage. Key details: Featherlight, breathable viscose twill with a soft, fluid drape Sustainably sourced, wood-based viscose made using Lenzing™ yarn, spun from tree…",
    "tg": [
     "flag:limited-sizes",
@@ -3362,6 +3420,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Meet the Moleskin Ayla Skirt V2 in brown - our full A-line skirt, lined with Italian moleskin and upgraded with a new built-in belt. The outer is a 100% cotton twill, a traditional, hardwearing workwear weave. Inside, a soft moleskin lining keeps it warm against the skin. The two fabric weights have been carefully balanced, so the layers come together as one warm, comfy skirt rather than feeling bulky or doubled-up. You'd never know it was lined. The generous A-line silhouette is easy to move in, and deep side pockets keep your essentials close. The big V2 change is a built-in adjustable belt waistband - cinch it for a tighter, more tailored hold. A proper wardrobe staple you'll reach for…",
    "tg": [
     "L-INSTOCK",
@@ -3417,6 +3476,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Meet the Moleskin Ayla Skirt V2 in black - our full A-line skirt, lined with Italian moleskin and upgraded with a new built-in belt. The outer is a 100% cotton twill, a traditional, hardwearing workwear weave. Inside, a soft moleskin lining keeps it warm against the skin. The two fabric weights have been carefully balanced, so the layers come together as one warm, comfy skirt rather than feeling bulky or doubled-up. You'd never know it was lined. The generous A-line silhouette is easy to move in, and deep side pockets keep your essentials close. The big V2 change is a built-in adjustable belt waistband - cinch it for a tighter, more tailored hold. A proper wardrobe staple you'll reach for…",
    "tg": [
     "L-INSTOCK",
@@ -3472,6 +3532,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Meet the Moleskin Ayla Skirt V2 in khaki - our full A-line skirt, lined with Italian moleskin and upgraded with a new built-in belt. The outer is a 100% cotton twill, a traditional, hardwearing workwear weave. Inside, a soft moleskin lining keeps it warm against the skin. The two fabric weights have been carefully balanced, so the layers come together as one warm, comfy skirt rather than feeling bulky or doubled-up. You'd never know it was lined. The generous A-line silhouette is easy to move in, and deep side pockets keep your essentials close. The big V2 change is a built-in adjustable belt waistband - cinch it for a tighter, more tailored hold. A proper wardrobe staple you'll reach for…",
    "tg": [
     "L-INSTOCK",
@@ -3525,6 +3586,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Meet the Moleskin Ayla Skirt V2 in stone - our full A-line skirt, lined with Italian moleskin and upgraded with a new built-in belt. The outer is a 100% cotton twill, a traditional, hardwearing workwear weave. Inside, a soft moleskin lining keeps it warm against the skin. The two fabric weights have been carefully balanced, so the layers come together as one warm, comfy skirt rather than feeling bulky or doubled-up. You'd never know it was lined. The generous A-line silhouette is easy to move in, and deep side pockets keep your essentials close. The big V2 change is a built-in adjustable belt waistband - cinch it for a tighter, more tailored hold. A proper wardrobe staple you'll reach for…",
    "tg": [
     "M-INSTOCK",
@@ -3533,65 +3595,6 @@
     "S-INSTOCK"
    ],
    "pub": "2026-10-08"
-  },
-  "ayla-skirt-cotton-poplin-black": {
-   "h": "ayla-skirt-cotton-poplin-black",
-   "t": "Ayla Poplin Skirt - Black",
-   "n": "Ayla Poplin Skirt",
-   "c": "Black",
-   "ty": "Skirt",
-   "p": 110.0,
-   "cp": 0,
-   "im": [
-    "https://cdn.shopify.com/s/files/1/1377/2863/files/tUmR4Ee3KfI0zwcjK2owzyZsRyjRqqTMfgUfrXCAOKc.jpg?v=1760010984",
-    "https://cdn.shopify.com/s/files/1/1377/2863/files/JdBLPqg2aumNjyOKm4CTafwLnMTSNx_NBIDckgHz_Ck.jpg?v=1760010984",
-    "https://cdn.shopify.com/s/files/1/1377/2863/files/nNc4ovQhVXOTsb2TzVua7-7hOHuLuydJghe9nFgj4A8.jpg?v=1760010984",
-    "https://cdn.shopify.com/s/files/1/1377/2863/files/e4YZ8HKD60UDKbgc1Tk7bXrXWEHPdVv_SUFKuCx347I.jpg?v=1760010984",
-    "https://cdn.shopify.com/s/files/1/1377/2863/files/18cO5y0_xkQFxBGfBFfbzWVM2qgfpcX0R55SZZXaNOk.jpg?v=1760010984",
-    "https://cdn.shopify.com/s/files/1/1377/2863/files/SX0Ya8DyZrpTeILWRpMHf4-3Myt567nPQKWaswTshx0.jpg?v=1760010984"
-   ],
-   "sz": [
-    [
-     "XS",
-     1
-    ],
-    [
-     "S",
-     1
-    ],
-    [
-     "M",
-     1
-    ],
-    [
-     "L",
-     1
-    ],
-    [
-     "XL",
-     1
-    ],
-    [
-     "XXL",
-     1
-    ]
-   ],
-   "d": "Make a timeless statement with our Black Ayla A-Line Skirt, the epitome of versatile elegance. Crafted from lightweight organic cotton poplin, this skirt offers a modern, technical feel while maintaining exceptional comfort. The flattering A-line silhouette is enhanced by an elasticated waist, ensuring all-day comfort without compromising on style. Deep side pockets add practical functionality to this versatile piece, while subtle logo branding maintains its refined aesthetic. Proudly made in Manchester, each skirt represents our commitment to local production and premium quality. Key Selling Points: Premium lightweight organic cotton with a technical finish Versatile A-line silhouette…",
-   "tg": [
-    "Autumn Ink pt.1",
-    "flag:full-size-break",
-    "Hero",
-    "L-INSTOCK",
-    "M-INSTOCK",
-    "NAHLD",
-    "Psystone",
-    "S-INSTOCK",
-    "state:ready-to-ship",
-    "XL-INSTOCK",
-    "XS-INSTOCK",
-    "XXL-INSTOCK"
-   ],
-   "pub": "2025-06-20"
   },
   "ayla-skirt-cotton-poplin-indigo-blue": {
    "h": "ayla-skirt-cotton-poplin-indigo-blue",
@@ -3635,9 +3638,70 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Dive into deep, rich tones with our Indigo Ayla A-Line Skirt, a contemporary take on classic design. Crafted from lightweight organic cotton poplin, this skirt offers a modern, technical feel while maintaining exceptional comfort. The flattering A-line silhouette is enhanced by an elasticated waist, ensuring all-day comfort without compromising on style. Deep side pockets add practical functionality to this versatile piece, while subtle logo branding maintains its refined aesthetic. Proudly made in Manchester, each skirt represents our commitment to local production and premium quality. Key Features: Premium lightweight organic cotton with a technical finish Versatile A-line silhouette…",
    "tg": [
     "Autumn Ink pt.1",
+    "Hero",
+    "L-INSTOCK",
+    "M-INSTOCK",
+    "NAHLD",
+    "Psystone",
+    "S-INSTOCK",
+    "state:ready-to-ship",
+    "XL-INSTOCK",
+    "XS-INSTOCK",
+    "XXL-INSTOCK"
+   ],
+   "pub": "2025-06-20"
+  },
+  "ayla-skirt-cotton-poplin-black": {
+   "h": "ayla-skirt-cotton-poplin-black",
+   "t": "Ayla Poplin Skirt - Black",
+   "n": "Ayla Poplin Skirt",
+   "c": "Black",
+   "ty": "Skirt",
+   "p": 110.0,
+   "cp": 0,
+   "im": [
+    "https://cdn.shopify.com/s/files/1/1377/2863/files/tUmR4Ee3KfI0zwcjK2owzyZsRyjRqqTMfgUfrXCAOKc.jpg?v=1760010984",
+    "https://cdn.shopify.com/s/files/1/1377/2863/files/JdBLPqg2aumNjyOKm4CTafwLnMTSNx_NBIDckgHz_Ck.jpg?v=1760010984",
+    "https://cdn.shopify.com/s/files/1/1377/2863/files/nNc4ovQhVXOTsb2TzVua7-7hOHuLuydJghe9nFgj4A8.jpg?v=1760010984",
+    "https://cdn.shopify.com/s/files/1/1377/2863/files/e4YZ8HKD60UDKbgc1Tk7bXrXWEHPdVv_SUFKuCx347I.jpg?v=1760010984",
+    "https://cdn.shopify.com/s/files/1/1377/2863/files/18cO5y0_xkQFxBGfBFfbzWVM2qgfpcX0R55SZZXaNOk.jpg?v=1760010984",
+    "https://cdn.shopify.com/s/files/1/1377/2863/files/SX0Ya8DyZrpTeILWRpMHf4-3Myt567nPQKWaswTshx0.jpg?v=1760010984"
+   ],
+   "sz": [
+    [
+     "XS",
+     1
+    ],
+    [
+     "S",
+     1
+    ],
+    [
+     "M",
+     1
+    ],
+    [
+     "L",
+     1
+    ],
+    [
+     "XL",
+     1
+    ],
+    [
+     "XXL",
+     1
+    ]
+   ],
+   "on": "Size",
+   "d": "Make a timeless statement with our Black Ayla A-Line Skirt, the epitome of versatile elegance. Crafted from lightweight organic cotton poplin, this skirt offers a modern, technical feel while maintaining exceptional comfort. The flattering A-line silhouette is enhanced by an elasticated waist, ensuring all-day comfort without compromising on style. Deep side pockets add practical functionality to this versatile piece, while subtle logo branding maintains its refined aesthetic. Proudly made in Manchester, each skirt represents our commitment to local production and premium quality. Key Selling Points: Premium lightweight organic cotton with a technical finish Versatile A-line silhouette…",
+   "tg": [
+    "Autumn Ink pt.1",
+    "flag:full-size-break",
     "Hero",
     "L-INSTOCK",
     "M-INSTOCK",
@@ -3693,6 +3757,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Our Stone Ayla A-Line Skirt offers a neutral foundation for endless styling possibilities. Crafted from lightweight organic cotton poplin, this skirt offers a modern, technical feel while maintaining exceptional comfort. The flattering A-line silhouette is enhanced by an elasticated waist, ensuring all-day comfort without compromising on style. Deep side pockets add practical functionality to this versatile piece, while subtle logo branding maintains its refined aesthetic. Proudly made in Manchester, each skirt represents our commitment to local production and premium quality. Key Features: Premium lightweight organic cotton with a technical finish Versatile A-line silhouette suitable for…",
    "tg": [
     "Autumn Ink pt.1",
@@ -3753,6 +3818,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The earthy tones of our Khaki Ayla A-Line Skirt bring a natural sophistication to any wardrobe. Crafted from lightweight organic cotton poplin, this skirt offers a modern, technical feel while maintaining exceptional comfort. The flattering A-line silhouette is enhanced by an elasticated waist, ensuring all-day comfort without compromising on style. Deep side pockets add practical functionality to this versatile piece, while subtle logo branding maintains its refined aesthetic. Proudly made in Manchester, each skirt represents our commitment to local production and premium quality. Key Selling Points: Premium lightweight organic cotton with a technical finish Versatile A-line silhouette…",
    "tg": [
     "Autumn Ink pt.1",
@@ -3813,6 +3879,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Your new warm-weather staple. The Aimee Top V2 arrives in a lightweight red checked fabric - effortless and easy to style. Improved where it counts; a better fit around the chest and neck, and a flattering wide boat neckline. The relaxed silhouette drapes naturally over the body, with side openings that add ease around the hips. Cinch in the removable back tie for a more defined waist, or leave it loose for an easy, unstructured look. Two ways to wear it, endless ways to style it. Pair it with the Patti Shorts for a laid-back summer look, or dress it up with the Ayla Skirt for something a little more considered. Cut from a breathable organic cotton and recycled polyester blend that feels as…",
    "tg": [
     "flag:limited-sizes",
@@ -3869,6 +3936,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Introducing the Ayla in red check - The same flattering A-line silhouette and all-day comfort you know, now cut from a lightweight organic cotton and recycled polyester checked fabric - made for warm days and easy living. The elasticated waist gives a comfortable custom fit, deep side pockets handle the essentials, and the maxi length flows effortlessly. Wear it with the matching Aimee Top for a full check co-ord, or style it with a t-shirt for a more casual look. Key Features Organic cotton & recycled polyester blend checked fabric Lightweight and breathable Flattering A-line silhouette Maxi length Elasticated waist for a comfortable, flexible fit Deep side pockets Pairs with the Aimee Top…",
    "tg": [
     "L-INSTOCK",
@@ -3924,6 +3992,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The UK Made Roam Raglan Jacket in Black is the hero layer of this collection. Crafted from a water-resistant dry wax organic cotton, it delivers weather protection, an adjustable silhouette and character that develops with wear. A lightweight, unlined shell cut relaxed and boxy - cinch the waist to crop the shape, taper it at the cuff on poppers, and open it from either end on the two-way zip. Two large front stash pockets, raglan sleeves for movement, and bar tacks at all high-stress points. Sewn in-house in Manchester, in the same fabric as the Water Resistant Zama Pants, so the two pair as a co-ord. Because it is a dry wax fabric it carries no oily finish, develops a unique patina over…",
    "tg": [
     "Brick Camo",
@@ -3981,6 +4050,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The UK Made Roam Raglan Jacket in Abstract Brick Camo is the hero layer of this collection. Crafted from a water-resistant dry wax organic cotton, it delivers weather protection, an adjustable silhouette and character that develops with wear. The Abstract Brick Camo is our own printed fabric, developed from the brickwork surrounding the Manchester mill we work in. Because we take an asymmetrical approach to cutting, every jacket is entirely unique. A lightweight, unlined shell cut relaxed and boxy - cinch the waist to crop the shape, taper it at the cuff on poppers, and open it from either end on the two-way zip. Two large front stash pockets, raglan sleeves for movement, and bar tacks at…",
    "tg": [
     "Brick Camo",
@@ -4037,6 +4107,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The UK Made Roam Raglan Jacket in Bracken is the hero layer of this collection. Crafted from a water-resistant dry wax organic cotton, it delivers weather protection, an adjustable silhouette and character that develops with wear. A lightweight, unlined shell cut relaxed and boxy - cinch the waist to crop the shape, taper it at the cuff on poppers, and open it from either end on the two-way zip. Two large front stash pockets, raglan sleeves for movement, and bar tacks at all high-stress points. Sewn in-house in Manchester, in the same fabric as the Water Resistant Zama Pants, so the two pair as a co-ord. Because it is a dry wax fabric it carries no oily finish, develops a unique patina over…",
    "tg": [
     "Brick Camo",
@@ -4093,6 +4164,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The UK Made Roam Raglan Jacket in Blue Brick Camo is the hero layer of this collection. Crafted from a water-resistant dry wax organic cotton, it delivers weather protection, an adjustable silhouette and character that develops with wear. The Blue Brick Camo is our own printed fabric, developed from the brickwork surrounding the Manchester mill we work in. Because we take an asymmetrical approach to cutting, every jacket is entirely unique. A lightweight, unlined shell cut relaxed and boxy - cinch the waist to crop the shape, taper it at the cuff on poppers, and open it from either end on the two-way zip. Two large front stash pockets, raglan sleeves for movement, and bar tacks at all…",
    "tg": [
     "Brick Camo",
@@ -4145,6 +4217,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Phil Track Jacket in Dusty Blue is a 10-piece raglan construction - lightweight, water-resistant, and one of the most technically ambitious things we've made yet. We wanted the feel of a classic nylon track top without the synthetics, which meant finding a fabric that could do both. We landed on a microgrid ripstop - 100% cotton with a dry wax finish that keeps the rain off and can be re-waxed over its lifetime. It's the weight and handle of a technical nylon, only it'll last considerably longer and you can actually reproof it when it needs it. The silhouette is adjustable. The shock cord hem lets you change the shape depending on how you want to wear it - cinched or relaxed. High zip…",
    "tg": [
     "flag:limited-sizes",
@@ -4182,6 +4255,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Your post-run layer. The one you shrug on when you're back through the door on a Sunday, or heading straight to the pub for a well-earned pint. One of the rarest things we make: limited to just 30. Key details: Ultra-heavyweight 520gsm organic cotton - Soft against the skin, and easily washable. Premium YKK gunmetal-grey zip Snug tunnel neck and contrast overlock hem Beautifully soft against the skin, easily washable Made in the UK by a team paid the Real Living Wage. Model Sizes: Tony: 6ft, wearing size L Kaman: 5ft 6, wearing size XS",
    "tg": [
     "flag:full-size-break",
@@ -4219,6 +4293,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "Your post-run layer. The one you shrug on when you're back through the door on a Sunday, or heading straight to the pub for a well-earned pint. One of the rarest things we make: limited to just 30. Key details: Ultra-heavyweight 520gsm organic cotton - Soft against the skin, and easily washable. Premium YKK gunmetal-grey zip Snug tunnel neck and contrast overlock hem Beautifully soft against the skin, easily washable Made in the UK by a team paid the Real Living Wage. Model Sizes: Tony: 6ft, wearing size L Kaman: 5ft 6, wearing size XS",
    "tg": [
     "flag:full-size-break",
@@ -4271,6 +4346,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Nell Overshirt & Hood Set in classic black is the ultimate WAWWA outerwear package - bringing together the versatile Nell Overshirt, its modular detachable hood, and Reproofing Spray to keep your gear performing at its best. The Nell Overshirt is cut with a relaxed, boxy fit that balances everyday functionality with refined detailing. An innovative five-pocket system, including double-layered chest pockets and a discreet side-entry handwarmer provides maximum utility. Crafted in Manchester from premium Scottish dry-waxed cotton canvas, it delivers lightweight water resistance ideal for unpredictable weather. Sustainable corozo nut buttons, adjustable cuffs, and an oversized cut for…",
    "tg": [
     "flag:limited-sizes",
@@ -4308,6 +4384,7 @@
      1
     ]
    ],
+   "on": "",
    "d": "Embrace the depth of our Burgundy Detachable Hood, a contemporary take on classic outerwear. The perfect complement to your Nell Jacket, our detachable hood combines functionality with sophisticated design. Crafted from the same premium Scottish dry-waxed cotton as the jacket, it ensures consistent protection and style. The innovative tyre panel design and double-layered construction offer superior coverage, while multiple adjustment points allow for a customized fit around your face. Attaches seamlessly to your Nell Jacket with discrete poppers. Key Points: Matches Nell Jacket perfectly in material and style Premium Scottish dry-waxed cotton construction Water-resistant properties Multiple…",
    "tg": [
     "12Sept",
@@ -4340,6 +4417,7 @@
      1
     ]
    ],
+   "on": "",
    "d": "Embrace the depth of our Indigo Blue Detachable Hood, a contemporary take on classic outerwear. The perfect complement to your Nell Jacket, our detachable hood combines functionality with sophisticated design. Crafted from the same premium Scottish dry-waxed cotton as the jacket, it ensures consistent protection and style. The innovative tyre panel design and double-layered construction offer superior coverage, while multiple adjustment points allow for a customized fit around your face. Attaches seamlessly to your Nell Jacket with discrete poppers. Key Points: Matches Nell Jacket perfectly in material and style Premium Scottish dry-waxed cotton construction Water-resistant properties…",
    "tg": [
     "12Sept",
@@ -4393,6 +4471,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Mill Vest in black is a versatile layering piece designed to keep you warm without adding bulk. Lined with luxurious moleskin, a tightly woven cotton fabric with a soft finish, it offers exceptional insulation while staying breathable. The dense nap traps heat close to the body, making it a perfect choice for transitional weather and cooler days. The moleskin-lined inseam pockets provide both comfort and extra warmth for cold hands, while the exterior is crafted from heavyweight BCI (Better Cotton Initiative) cotton canvas, chosen for its durability and clean, structured look. Subtle split-seam detailing gives the vest a considered finish without detracting from its minimal silhouette.…",
    "tg": [
     "Autumn Ink pt.2",
@@ -4403,6 +4482,7 @@
     "Moleskin at the Mill 26",
     "state:ready-to-ship",
     "XL-INSTOCK",
+    "XS-INSTOCK",
     "XXL-INSTOCK"
    ],
    "pub": "2026-10-08"
@@ -4449,6 +4529,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Mill Vest in brown is a versatile layering piece designed to keep you warm without adding bulk. Lined with luxurious moleskin, a tightly woven cotton fabric with a soft finish, it offers exceptional insulation while staying breathable. The dense nap traps heat close to the body, making it a perfect choice for transitional weather and cooler days. The moleskin-lined inseam pockets provide both comfort and extra warmth for cold hands, while the exterior is crafted from heavyweight BCI (Better Cotton Initiative) cotton canvas, chosen for its durability and clean, structured look. Subtle split-seam detailing gives the vest a considered finish without detracting from its minimal silhouette.…",
    "tg": [
     "Autumn Ink pt.1",
@@ -4485,6 +4566,7 @@
      1
     ]
    ],
+   "on": "",
    "d": "Our Khaki Detachable Hood brings military-inspired sophistication to modern outerwear. The perfect complement to your Nell Jacket, our detachable hood combines functionality with sophisticated design. Crafted from the same premium Scottish dry-waxed cotton as the jacket, it ensures consistent protection and style. The innovative tyre panel design and double-layered construction offer superior coverage, while multiple adjustment points allow for a customized fit around your face. Attaches seamlessly to your Nell Jacket with discrete poppers. Key Points: Matches Nell Jacket perfectly in material and style Premium Scottish dry-waxed cotton construction Water-resistant properties Multiple…",
    "tg": [
     "12Sept",
@@ -4517,6 +4599,7 @@
      1
     ]
    ],
+   "on": "",
    "d": "Timeless versatility defines our Black Detachable Hood, an essential piece for any wardrobe. The perfect complement to your Nell Jacket, our detachable hood combines functionality with sophisticated design. Crafted from the same premium Scottish dry-waxed cotton as the jacket, it ensures consistent protection and style. The innovative tyre panel design and double-layered construction offer superior coverage, while multiple adjustment points allow for a customized fit around your face. Attaches seamlessly to your Nell Jacket with discrete poppers. Key Points: Matches Nell Jacket perfectly in material and style Premium Scottish dry-waxed cotton construction Water-resistant properties Multiple…",
    "tg": [
     "12Sept",
@@ -4571,6 +4654,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Nell Overshirt & Hood Set in indigo blue is the ultimate WAWWA outerwear package - bringing together the versatile Nell Overshirt, its modular detachable hood, and Reproofing Spray to keep your gear performing at its best. The Nell Overshirt is cut with a relaxed, boxy fit that balances everyday functionality with refined detailing. An innovative five-pocket system, including double-layered chest pockets and a discreet side-entry handwarmer provides maximum utility. Crafted in Manchester from premium Scottish dry-waxed cotton canvas, it delivers lightweight water resistance ideal for unpredictable weather. Sustainable corozo nut buttons, adjustable cuffs, and an oversized cut for…",
    "tg": [
     "flag:limited-sizes",
@@ -4624,6 +4708,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Nell Overshirt & Hood Set in classic Khaki is the ultimate WAWWA outerwear package - bringing together the versatile Nell Overshirt, its modular detachable hood, and Reproofing Spray to keep your gear performing at its best. The Nell Overshirt is cut with a relaxed, boxy fit that balances everyday functionality with refined detailing. An innovative five-pocket system, including double-layered chest pockets and a discreet side-entry handwarmer provides maximum utility. Crafted in Manchester from premium Scottish dry-waxed cotton canvas, it delivers lightweight water resistance ideal for unpredictable weather. Sustainable corozo nut buttons, adjustable cuffs, and an oversized cut for…",
    "tg": [
     "L-INSTOCK",
@@ -4657,6 +4742,7 @@
      1
     ]
    ],
+   "on": "",
    "d": "Introducing the Mill Cotton Beanie in Indigo - the ultimate blend of style and comfort for any season. Crafted from 100% cotton, this beanie offers a soft, breathable fit that keeps you cozy without overheating. Made in Manchester, UK, each beanie is produced with care and precision, ensuring top-notch quality. Our dedicated workers are paid the real living wage, reflecting our commitment to ethical manufacturing practices. Whether you're heading out for a brisk morning walk or simply adding a stylish touch to your outfit, the Mill Cotton Beanie in Indigo is your go-to accessory. Its versatile design suits any wardrobe, making it a must-have for both men and women. 100% Cotton Soft and…",
    "tg": [
     "1+1",
@@ -4691,6 +4777,7 @@
      0
     ]
    ],
+   "on": "",
    "d": "Introducing the Mill Cotton Beanie in Chocolate – the ultimate blend of style and comfort for your everyday wear. Crafted from 100% cotton, this beanie offers a soft, breathable fit that keeps you cozy without overheating. Made in Manchester, UK, each beanie is produced with care and precision, ensuring top-notch quality. Our commitment to ethical manufacturing means that all workers involved in the production are paid the real living wage, supporting fair labor practices. Whether you're heading out for a brisk walk or simply looking to add a touch of warmth to your outfit, the Mill Cotton Beanie in Chocolate is your go-to accessory. Its rich chocolate hue complements any wardrobe, making…",
    "tg": [
     "1+1",
@@ -4728,6 +4815,7 @@
      1
     ]
    ],
+   "on": "",
    "d": "The UK Made Oak Cap in Abstract Brick Camo is a soft, short-peak cap cut in the collection's custom print. Crafted from a water-resistant dry wax organic cotton and lined with soft brushed cotton, it delivers weather protection and everyday comfort in a packable shape. The Abstract Brick Camo is our own printed fabric, developed from the brickwork surrounding the Manchester mill we work in. Because we take an asymmetrical approach to cutting, every cap is entirely unique. A shock-cord adjuster fits a range of head sizes, and the crown is soft enough to fold down and shove in a pocket. Sewn in-house in Manchester, in the same fabric as the Roam Raglan Jacket and Water Resistant Zama Pants.…",
    "tg": [
     "Brick Camo",
@@ -4758,6 +4846,7 @@
      1
     ]
    ],
+   "on": "",
    "d": "The latest addition to our knitwear collection, and our first foray into in-house knitwear. The panels are spun by a lovely local family-run business round the corner and then finished in our own UK micro factory by our super talented team of machinists! A double-fold beanie that's slightly deeper than our traditional fisher beanie but still has a classic look. 100% Cotton Yarn Made in Manchester Recycled Polyester Brand Label Workers paid real living wage",
    "tg": [
     "1+1",
@@ -4793,6 +4882,7 @@
      1
     ]
    ],
+   "on": "",
    "d": "The latest addition to our knitwear collection, and our first foray into in-house knitwear. The panels are spun by a lovely local family-run business round the corner and then finished in our own UK micro factory by our super talented team of machinists! A double-fold beanie that's slightly deeper than our traditional fisher beanie but still has a classic look. 100% Cotton Yarn Made in Manchester Recycled Polyester Brand Label Workers paid real living wage",
    "tg": [
     "1+1",
@@ -4826,6 +4916,7 @@
      1
     ]
    ],
+   "on": "",
    "d": "The latest addition to our knitwear collection, and our first foray into in-house knitwear. The panels are spun by a lovely local family-run business round the corner and then finished in our own UK micro factory by our super talented team of machinists! A double-fold beanie that's slightly deeper than our traditional fisher beanie but still has a classic look. 100% Cotton Yarn Made in Manchester Recycled Polyester Brand Label Workers paid real living wage",
    "tg": [
     "1+1",
@@ -4861,6 +4952,7 @@
      1
     ]
    ],
+   "on": "",
    "d": "The latest addition to our knitwear collection, and our first foray into in-house knitwear. The panels are spun by a lovely local family-run business round the corner and then finished in our own UK micro factory by our super talented team of machinists! A double-fold beanie that's slightly deeper than our traditional fisher beanie but still has a classic look. 100% Cotton Yarn Made in Manchester Recycled Polyester Brand Label Workers paid real living wage",
    "tg": [
     "1+1",
@@ -4895,6 +4987,7 @@
      1
     ]
    ],
+   "on": "",
    "d": "The UK Made Oak Cap in Blue Brick Camo is a soft, short-peak cap cut in the collection's custom print. Crafted from a water-resistant dry wax organic cotton and lined with soft brushed cotton, it delivers weather protection and everyday comfort in a packable shape. The Blue Brick Camo is our own printed fabric, developed from the brickwork surrounding the Manchester mill we work in. Because we take an asymmetrical approach to cutting, every cap is entirely unique. A shock-cord adjuster fits a range of head sizes, and the crown is soft enough to fold down and shove in a pocket. Sewn in-house in Manchester, in the same fabric as the Roam Raglan Jacket and Water Resistant Zama Pants. Proudly…",
    "tg": [
     "Brick Camo",
@@ -4945,6 +5038,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Linear Notion T-Shirt is back by popular demand, now in washed blue. Linear Notion is our best-selling print from the past year. What's it of? That's up for debate. No one really knows the inspiration behind it and everyone reads something different into it, which is part of the fun. After so many requests, we've brought it back out of the archives. Key Features 100% organic cotton jersey Linear Notion graphic, designed in-house Made in the UK by a team paid the real living wage",
    "tg": [
     "Letterboxable",
@@ -4975,6 +5069,7 @@
      1
     ]
    ],
+   "on": "",
    "d": "The Barley Scarf - Seasonal Essential, Everyday Comfort Stay warm in complete comfort with the Barley Scarf in dark green & navy - a soft, breathable layer designed for the colder months. Made from 100% cotton, it’s guaranteed no itch, no scratch , just smooth, comfy wear all day long. Woven just up the road from our Manchester workshop, the Barley Scarf features a bespoke WAWWA jacquard pattern - the design is woven directly into the fabric for a premium finish, lasting quality, and subtle texture that elevates any outfit. A timeless piece you’ll reach for again and again, crafted locally by skilled makers paid the real living wage. Key Features Bespoke WAWWA jacquard Barley pattern 100%…",
    "tg": [
     "b2b",
@@ -5009,6 +5104,7 @@
      1
     ]
    ],
+   "on": "",
    "d": "Designed for effortless everyday carry, the Crescent Crossbody in charcoal combines clean aesthetics with thoughtful functionality. Its streamlined silhouette sits comfortably against the body, creating a sleek profile whether worn on the back or swung round to the front for quick access. Crafted from organic large-grid ripstop fabric, woven and waxed in Scotland. This heavyweight textile offers exceptional water resistance and durability - the ripstop weave prevents tears from spreading, while the wax coating provides weather protection that improves with age and wear. Despite its compact footprint, the Crescent offers surprising capacity with a generous depth that accommodates daily…",
    "tg": [
     "Default Title-INSTOCK",
@@ -5060,6 +5156,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Linear Notion print is back by popular demand - this time on our cropped-cut tee, in black. Linear Notion is our best-selling print from the past year. What's it of? That's up for debate. No one really knows the inspiration behind it and everyone reads something different into it, which is part of the fun. After so many requests, we've brought it back out of the archives. Key Features 100% organic cotton jersey Cropped cut Linear Notion graphic, designed in-house Made in the UK by a team paid the real living wage",
    "tg": [
     "Letterboxable",
@@ -5089,6 +5186,7 @@
      1
     ]
    ],
+   "on": "",
    "d": "The Barley Scarf - Seasonal Essential, Everyday Comfort Stay warm in complete comfort with the Barley Scarf in brown & natural - a soft, breathable layer designed for the colder months. Made from 100% cotton, it’s guaranteed no itch, no scratch , just smooth, comfy wear all day long. Woven just up the road from our Manchester workshop, the Barley Scarf features a bespoke WAWWA jacquard pattern - the design is woven directly into the fabric for a premium finish, lasting quality, and subtle texture that elevates any outfit. A timeless piece you’ll reach for again and again, crafted locally by skilled makers paid the real living wage. Key Features Bespoke WAWWA jacquard Barley pattern 100%…",
    "tg": [
     "b2b",
@@ -5123,6 +5221,7 @@
      1
     ]
    ],
+   "on": "",
    "d": "Wrap up in the new Barley Scarf in khaki/natural - a fresh addition to our seasonal knitwear collection. Crafted from 100% cotton, it’s soft, breathable, and designed to keep you comfortable through the colder months. Featuring a custom WAWWA Barley pattern, this scarf brings a subtle hit of texture and interest to any outfit. An easy, timeless piece made to elevate your everyday wardrobe. Proudly made in Manchester by skilled workers paid the real living wage. Key Features Custom WAWWA Barley design 100% Cotton - guaranteed no itch Ethically made in Manchester, UK",
    "tg": [
     "Accessories",
@@ -5179,6 +5278,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Linear Notion T-Shirt is back by popular demand, now in white. Linear Notion is our best-selling print from the past year. What's it of? That's up for debate. No one really knows the inspiration behind it and everyone reads something different into it, which is part of the fun. After so many requests, we've brought it back out of the archives. Key Features 100% organic cotton jersey Linear Notion graphic, designed in-house Made in the UK by a team paid the real living wage",
    "tg": [
     "Letterboxable",
@@ -5229,6 +5329,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Linear Notion T-Shirt is back by popular demand, now in black. Linear Notion is our best-selling print from the past year. What's it of? That's up for debate. No one really knows the inspiration behind it and everyone reads something different into it, which is part of the fun. After so many requests, we've brought it back out of the archives. Key Features 100% organic cotton jersey Linear Notion graphic, designed in-house Made in the UK by a team paid the real living wage",
    "tg": [
     "Letterboxable",
@@ -5277,6 +5378,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Linear Notion print is back by popular demand - this time on our cropped-cut tee, in washed blue. Linear Notion is our best-selling print from the past year. What's it of? That's up for debate. No one really knows the inspiration behind it and everyone reads something different into it, which is part of the fun. After so many requests, we've brought it back out of the archives. Key Features 100% organic cotton jersey Cropped cut Linear Notion graphic, designed in-house Made in the UK by a team paid the real living wage",
    "tg": [
     "Letterboxable",
@@ -5307,6 +5409,7 @@
      1
     ]
    ],
+   "on": "",
    "d": "The Barley Scarf - Seasonal Essential, Everyday Comfort Wrap up in the new Barley Scarf in Terracotta/Rust - a fresh addition to our seasonal knitwear collection. Crafted from 100% cotton, it’s soft, breathable, and designed to keep you comfortable through the colder months. Featuring a custom WAWWA Barley pattern, this scarf brings a subtle hit of texture and interest to any outfit. An easy, timeless piece made to elevate your everyday wardrobe. Proudly made in Manchester by skilled workers paid the real living wage. Key Features Custom WAWWA Barley design 100% Cotton Ethically made in Manchester, UK",
    "tg": [
     "b2b",
@@ -5360,6 +5463,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Linear Notion print is back by popular demand - this time on our cropped-cut tee, in white. Linear Notion is our best-selling print from the past year. What's it of? That's up for debate. No one really knows the inspiration behind it and everyone reads something different into it, which is part of the fun. After so many requests, we've brought it back out of the archives. Key Features 100% organic cotton jersey Cropped cut Linear Notion graphic, designed in-house Made in the UK by a team paid the real living wage",
    "tg": [
     "Letterboxable",
@@ -5390,6 +5494,7 @@
      1
     ]
    ],
+   "on": "",
    "d": "The UK Made Water Resistant Messenger Bag in Blue Brick Camo is a crossbody built for everyday carry. Crafted from organic waxed ripstop cotton, it delivers weather protection, durability and a secure, organised interior. The Blue Brick Camo is our own printed fabric, developed from the brickwork surrounding the Manchester mill we work in. Because we take an asymmetrical approach to cutting, every bag is entirely unique. A recycled zip fastens the main compartment, with an open-top pocket and a hook for keys inside, and the cotton webbing strap adjusts to a full length of 115cm. Finished with a recycled polyester label and sewn in-house in Manchester. Proudly made in the UK, reflecting our…",
    "tg": [
     "Brick Camo",
@@ -5420,6 +5525,7 @@
      1
     ]
    ],
+   "on": "",
    "d": "The WAWWA Jesmonite Brick is a heavyweight object for the home, hand-poured in our Manchester workshop. Cast from Jesmonite, each one comes out slightly different, so no two are the same. Cigs, plants and incense not included. Our logo is embossed on the side, and three recessed sections are cast into it - part-depth, not holes right through. Use them for a stem or two of Ikebana, for small bits and bobs, or leave it as a tactile ornament on the shelf. A knowing nod to the famous streetwear brick, with real weight and presence behind it. Proudly made in Manchester, reflecting our commitment to quality, ethical manufacturing, and heritage craftsmanship. Key Features: Hand-poured Jesmonite -…",
    "tg": [
     "Brick Camo",
@@ -5470,6 +5576,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The UK Made Bulmer Graphic T-Shirt in White is a numbered limited edition carrying a John Bulmer photograph, printed onto 230gsm GOTS-certified organic cotton jersey. A run of fifty, and no more. The Brick Camo collection is a homage to Manchester's industrial landscape - the mills we work in and the brickwork that surrounds them. Alongside the fabrics we printed ourselves, we sought out photography that captured it directly. Each tee is individually numbered by hand — 1/50, 2/50 — in a regular fit with a short sleeve, pre-shrunk so it holds its shape through regular wear. Proudly made in the UK, reflecting our commitment to quality, ethical manufacturing, and heritage craftsmanship. Key…",
    "tg": [
     "Brick Camo",
@@ -5509,6 +5616,7 @@
      1
     ]
    ],
+   "on": "",
    "d": "The UK Made Musette in Blue Brick Camo is a lightweight stash bag based on a classic cycling musette. Crafted from a water-resistant dry wax organic cotton, it delivers weather protection and easy everyday carry in a grab-and-go shape. The Blue Brick Camo is our own printed fabric, developed from the brickwork surrounding the Manchester mill we work in. Because we take an asymmetrical approach to cutting, every bag is entirely unique. A two-popper closure opens and shuts quickly, and the durable strap adjusts on premium Italian hardware, extending to 137cm. Roomy enough for the essentials at 39cm wide by 28.5cm high. Sewn in-house in Manchester, in the same fabric as the Roam Raglan Jacket…",
    "tg": [
     "Brick Camo",
@@ -5560,6 +5668,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The UK Made Bulmer Graphic T-Shirt in Black is a numbered limited edition carrying a John Bulmer photograph, printed onto 230gsm GOTS-certified organic cotton jersey. A run of fifty, and no more. The Brick Camo collection is a homage to Manchester's industrial landscape - the mills we work in and the brickwork that surrounds them. Alongside the fabrics we printed ourselves, we sought out photography that captured it directly. Each tee is individually numbered by hand — 1/50, 2/50 — in a regular fit with a short sleeve, pre-shrunk so it holds its shape through regular wear. Proudly made in the UK, reflecting our commitment to quality, ethical manufacturing, and heritage craftsmanship. Key…",
    "tg": [
     "Brick Camo",
@@ -5617,6 +5726,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The UK Made Grounded Logo T-Shirt in White carries our own logo, redrawn and filled with the collection's brick print. Crafted from 230gsm GOTS-certified organic cotton jersey, it offers a substantial, structured handle in a clean everyday shape. The Grounded logo draws on the same source as the wider Brick Camo collection - the Manchester mills we work in and the brickwork that surrounds them. Here it sits across the chest in blue, hand-drawn and printed in our own workshop. A regular fit with a short sleeve, in a weight that holds its shape and is made to last. Pre-shrunk, and finished with a custom artwork size label and subtle WAWWA logo tab. Proudly made in the UK, reflecting our…",
    "tg": [
     "Brick Camo",
@@ -5649,6 +5759,7 @@
      1
     ]
    ],
+   "on": "",
    "d": "The UK Made Water Resistant Messenger Bag in Abstract Brick Camo is a crossbody built for everyday carry. Crafted from organic waxed ripstop cotton, it delivers weather protection, durability and a secure, organised interior. The Abstract Brick Camo is our own printed fabric, developed from the brickwork surrounding the Manchester mill we work in. Because we take an asymmetrical approach to cutting, every bag is entirely unique. A recycled zip fastens the main compartment, with an open-top pocket and a hook for keys inside, and the cotton webbing strap adjusts to a full length of 115cm. Finished with a recycled polyester label and sewn in-house in Manchester. Proudly made in the UK…",
    "tg": [
     "Brick Camo",
@@ -5700,6 +5811,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The UK Made Brick Logo T-Shirt in White carries the brick logo on our organic cotton tee. Crafted from 230gsm GOTS-certified organic cotton jersey, it offers a substantial, structured handle in a clean everyday shape. The brick logo draws on the same source as the wider Brick Camo collection - the Manchester mills we work in and the brickwork that surrounds them. Printed to order in our own workshop, in a regular fit with a short sleeve, at a weight that holds its shape and is made to last. Pre-shrunk, and finished with a custom artwork size label and subtle WAWWA logo tab. Proudly made in the UK, reflecting our commitment to quality, ethical manufacturing, and heritage craftsmanship. Key…",
    "tg": [
     "Brick Camo",
@@ -5750,6 +5862,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The UK Made Brick Logo T-Shirt in Black carries the brick logo on our organic cotton tee. Crafted from 230gsm GOTS-certified organic cotton jersey, it offers a substantial, structured handle in a clean everyday shape. The brick logo draws on the same source as the wider Brick Camo collection - the Manchester mills we work in and the brickwork that surrounds them. Printed to order in our own workshop, in a regular fit with a short sleeve, at a weight that holds its shape and is made to last. Pre-shrunk, and finished with a custom artwork size label and subtle WAWWA logo tab. Proudly made in the UK, reflecting our commitment to quality, ethical manufacturing, and heritage craftsmanship. Key…",
    "tg": [
     "Brick Camo",
@@ -5783,6 +5896,7 @@
      1
     ]
    ],
+   "on": "",
    "d": "The UK Made Musette in Abstract Brick Camo is a lightweight stash bag based on a classic cycling musette. Crafted from a water-resistant dry wax organic cotton, it delivers weather protection and easy everyday carry in a grab-and-go shape. The Abstract Brick Camo is our own printed fabric, developed from the brickwork surrounding the Manchester mill we work in. Because we take an asymmetrical approach to cutting, every bag is entirely unique. A two-popper closure opens and shuts quickly, and the durable strap adjusts on premium Italian hardware, extending to 137cm. Roomy enough for the essentials at 39cm wide by 28.5cm high. Sewn in-house in Manchester, in the same fabric as the Roam Raglan…",
    "tg": [
     "Brick Camo",
@@ -5828,6 +5942,7 @@
      0
     ]
    ],
+   "on": "Frame",
    "d": "Cubitts x WAWWA Sunnies + Sling - Pick + Mix The Solaris Sunglasses and Sunnies Sling, together at a saving. Pick your frame, pick your sling. Our first ever sunglasses, made in collaboration with Cubitts spectacle makers. Each frame is hand-cut and polished at Cubitts' London workshop by makers paid at least the real Living Wage — the same standard we hold ourselves to at our own factory in Manchester. Choose Coconut, a translucent brown acetate with a sunshine yellow lens that brightens your view rather than darkens it, or Khaki, a translucent green acetate with a neutral smoke grey lens for when the sun properly shows up. Then pick your Sunnies Sling in black, khaki or yellow ripstop — a…",
    "tg": [
     "Cubitts",
@@ -5859,6 +5974,7 @@
      0
     ]
    ],
+   "on": "",
    "d": "Cubitts x WAWWA Solaris Sunglasses — Khaki Handmade in London from khaki acetate with a smoke grey lens, these limited edition sunglasses are our everyday take on the collaboration. Complete with a DIY paracord neck strap and Solaris printed cleaning cloth. Our first ever sunglasses, made in collaboration with Cubitts spectacle makers. The whole project started with a pair of vintage Nighthawk glasses built to brighten your view rather than darken it: a little sunshine filter for a city that's grey most of the year. This is the version for when the sun does show up, with a neutral grey lens and a translucent khaki frame we picked from Cubitts' acetate library. Each frame is hand-cut and…",
    "tg": [
     "Cubitts",
@@ -5889,6 +6005,7 @@
      0
     ]
    ],
+   "on": "",
    "d": "Cubitts x WAWWA Solaris Sunglasses — Coconut Handmade in London from coconut acetate with a yellow tinted lens, these limited edition sunglasses are designed to brighten your view rather than darken it. Complete with a DIY paracord neck strap and Solaris printed cleaning cloth. Our first ever sunglasses, made in collaboration with Cubitts spectacle makers. The idea came from a pair of vintage Nighthawk glasses we came across. The yellow lens was originally designed to help drivers see better at night, cutting glare and filtering blue light. Instead of dimming the world, they lift it. And with Manchester being grey for most of the year, we loved the idea of giving you a little sunshine…",
    "tg": [
     "Cubitts",
@@ -5919,6 +6036,7 @@
      1
     ]
    ],
+   "on": "",
    "d": "WAWWA x Cubitts Sunglasses Sling — Khaki A wearable case for a pair of sunglasses worth looking after. Made in-house at Phoenix Mill, our Manchester factory. Glasses spend most of their life being taken off and put somewhere. So rather than a case that lives in a drawer, we made one you'd actually carry. We adapted one of our existing styles, taking direction from our Sacoche and stripping it back to its simplest form, which felt right for something that's going to get used every day. Water-resistant dry wax ripstop, a single popper closure, and an adjustable black paracord strap using the same slip knot as the sunglasses neck straps. Frames and cleaning cloth go in the main body; other…",
    "tg": [
     "Cubitts",
@@ -5950,6 +6068,7 @@
      0
     ]
    ],
+   "on": "",
    "d": "WAWWA x Cubitts Sunglasses Sling — Yellow A wearable case for a pair of sunglasses worth looking after. Made in-house at Phoenix Mill, our Manchester factory. Glasses spend most of their life being taken off and put somewhere. So rather than a case that lives in a drawer, we made one you'd actually carry. We adapted one of our existing styles, taking direction from our Sacoche and stripping it back to its simplest form, which felt right for something that's going to get used every day. Water-resistant dry wax ripstop, a single popper closure, and an adjustable black paracord strap using the same slip knot as the sunglasses neck straps. Frames and cleaning cloth go in the main body; other…",
    "tg": [
     "Cubitts",
@@ -5999,6 +6118,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The hand-painted Solaris sun, printed onto our UK-made mid-weight organic t-shirt in white. Solaris is the graphic at the heart of our collaboration with Cubitts spectacle makers — a project all about light, and a little sunshine filter for a city that's grey most of the year. Printed front and centre on our first UK-made jersey blank: a soft 230gsm organic cotton jersey with a relaxed fit and very slight crop. Pre-shrunk and ready for regular washing, it holds its shape and softens with wear. Finished with a subtle logo in the side seam and a custom artwork size label. Key Features Hand-painted Solaris sun graphic 100% organic cotton jersey, 230gsm Relaxed fit with a very slight crop Short…",
    "tg": [
     "Cubitts",
@@ -6031,6 +6151,7 @@
      1
     ]
    ],
+   "on": "",
    "d": "Our first backpack. The Bridge is a roll-top in khaki green, made from heavyweight waxed cotton for the commute during the week and whatever you're doing at the weekend. The outside is deliberately clean. One hidden pocket sits in the side seam for your phone and keys, and everything else happens inside: a full-length central zip opens the bag right out so you can pack it flat and actually see your gear. A laptop sleeve, a notebook sleeve and a bottle pocket keep it all in order. Roll the top down and the zip is covered. Short of a pair of scissors, there's no way in. The fabric is a 400gsm waxed cotton ripstop, woven and waxed in Dundee by Halley Stevensons and sewn in Glasgow by a small…",
    "tg": [
     "b2b",
@@ -6064,6 +6185,7 @@
      1
     ]
    ],
+   "on": "",
    "d": "Our first backpack. The Bridge is a roll-top in black, made from heavyweight waxed cotton for the commute during the week and whatever you're doing at the weekend. The outside is deliberately clean. One hidden pocket sits in the side seam for your phone and keys, and everything else happens inside: a full-length central zip opens the bag right out so you can pack it flat and actually see your gear. A laptop sleeve, a notebook sleeve and a bottle pocket keep it all in order. Roll the top down and the zip is covered. Short of a pair of scissors, there's no way in. The fabric is a 400gsm waxed cotton ripstop, woven and waxed in Dundee by Halley Stevensons and sewn in Glasgow by a small…",
    "tg": [
     "b2b",
@@ -6116,6 +6238,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Women's Workers Stride T-Shirt in marl grey is made in the UK from 230gsm organic cotton. Soft, substantial, and pre-shrunk — the kind of jersey that holds its shape wash after wash, and gets better with wear. The Stride Worker print is a love letter to the industry of craft. Drawn from the industrial signage of Manchester's manufacturing past — the painted lettering on mill walls, the faded shop fronts, the bold utilitarian typography of a city built around making things. Rooted equally in mid-century American workwear graphics, it's the kind of print that earns its place on the chest. The Workers Stride T-Shirt feature: 230gsm organic cotton jersey UK-made - by workers paid the Real…",
    "tg": [
     "Letterboxable",
@@ -6165,6 +6288,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Workers Stride T-Shirt in navy is made in the UK from 230gsm organic cotton. Soft, substantial, and pre-shrunk — the kind of jersey that holds its shape wash after wash, and gets better with wear. The Stride Worker print is a love letter to the industry of craft. Drawn from the industrial signage of Manchester's manufacturing past — the painted lettering on mill walls, the faded shop fronts, the bold utilitarian typography of a city built around making things. Rooted equally in mid-century American workwear graphics, it's the kind of print that earns its place on the chest. The Workers Stride T-Shirt feature: 230gsm organic cotton jersey UK-made Stride Worker print Relaxed fit with a…",
    "tg": [
     "L-INSTOCK",
@@ -6220,6 +6344,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Workers Stride T-Shirt in grey marl is made in the UK from 230gsm organic cotton. Soft, substantial, and pre-shrunk — the kind of jersey that holds its shape wash after wash, and gets better with wear. The Stride Worker print is a love letter to the industry of craft. Drawn from the industrial signage of Manchester's manufacturing past — the painted lettering on mill walls, the faded shop fronts, the bold utilitarian typography of a city built around making things. Rooted equally in mid-century American workwear graphics, it's the kind of print that earns its place on the chest. The Workers Stride T-Shirt feature: 230gsm organic cotton jersey UK-made Stride Worker print Relaxed fit with…",
    "tg": [
     "L-INSTOCK",
@@ -6276,6 +6401,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Workers Logo Stride T-Shirt in navy is made in the UK from 230gsm organic cotton. Soft, substantial, and pre-shrunk — the kind of jersey that holds its shape wash after wash, and gets better with wear. The Workers Club Logo features proudly on the chest along with the new signature Workers Club graphic - Stride Worker - back print, a love letter to the industry of craft. Drawn from the industrial signage of Manchester's manufacturing past — the painted lettering on mill walls, the faded shop fronts, the bold utilitarian typography of a city built around making things. Rooted equally in mid-century American workwear graphics, it's the kind of print that earns its place. The Workers…",
    "tg": [
     "L-INSTOCK",
@@ -6330,6 +6456,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Workers Logo Stride T-Shirt in marl grey is made in the UK from 230gsm organic cotton. Soft, substantial, and pre-shrunk — the kind of jersey that holds its shape wash after wash, and gets better with wear. The Workers Club Logo features proudly on the chest along with the new signature Workers Club graphic - Stride Worker - back print, a love letter to the industry of craft. Drawn from the industrial signage of Manchester's manufacturing past — the painted lettering on mill walls, the faded shop fronts, the bold utilitarian typography of a city built around making things. Rooted equally in mid-century American workwear graphics, it's the kind of print that earns its place. The Workers…",
    "tg": [
     "Letterboxable",
@@ -6364,6 +6491,7 @@
      1
     ]
    ],
+   "on": "",
    "d": "The Studio Musette in black is a working bag. The right size to grab on your way out the door — nothing more, nothing less. Based on the classic cycling musette silhouette, updated for daily use with a durable adjustable strap and premium Italian hardware. A loop on the base lets you rig a stabilising arm if you want one — we've made ours from paracord. The bag features the Stride Worker print, the new signature Workers Club graphic rooted in mid-century American workwear and the industrial signage of Manchester's manufacturing past. Two poppers close the bag and allow quick access on the move. Inside, two dedicated loops hold the Detachable Apron Pouch securely — so when it's not clipped…",
    "tg": [
     "Default Title-INSTOCK",
@@ -6397,6 +6525,7 @@
      0
     ]
    ],
+   "on": "",
    "d": "The Studio Musette in stone is a working bag. The right size to grab on your way out the door — nothing more, nothing less. Based on the classic cycling musette silhouette, updated for daily use with a durable adjustable strap and premium Italian hardware. A loop on the base lets you rig a stabilising arm if you want one — we've made ours from paracord. The bag features the Stride Worker print, the new signature Workers Club graphic rooted in mid-century American workwear and the industrial signage of Manchester's manufacturing past. Two poppers close the bag and allow quick access on the move. Inside, two dedicated loops hold the Detachable Apron Pouch securely — so when it's not clipped…",
    "tg": [
     "pre-order",
@@ -6427,6 +6556,7 @@
      1
     ]
    ],
+   "on": "",
    "d": "The Studio Bag in Black is your essential creative companion. Crafted from robust BCI canvas in classic black, this A3-sized tote seamlessly combines utility with understated style. The adjustable strap adapts to your workflow, whether worn cross-body or on the shoulder, while the snap closure keeps your portfolio and tools secure. The spacious interior accommodates A3 portfolios, sketchbooks, or creative materials with room to spare. Our signature woven artwork label adds a subtle mark of quality. Features: Premium BCI cotton canvas Adjustable crossbody strap Secure snap closure Internal Stash Pocket A3 portfolio compatible Durable build Signature artwork label Dimensions 66cm x 46cm x…",
    "tg": [
     "AWWC",
@@ -6459,6 +6589,7 @@
      1
     ]
    ],
+   "on": "",
    "d": "The Studio Bag in Khaki is your essential creative companion. Crafted from robust BCI canvas in classic khaki, this A3-sized tote seamlessly combines utility with understated style. The adjustable strap adapts to your workflow, whether worn cross-body or on the shoulder, while the snap closure keeps your portfolio and tools secure. The spacious interior accommodates A3 portfolios, sketchbooks, or creative materials with room to spare. Our signature woven artwork label adds a subtle mark of quality. Features: Premium BCI cotton canvas Adjustable crossbody strap Secure snap closure A3 portfolio compatible Durable build Internal Stash Pocket Signature artwork label Dimensions 66cm x 46cm x…",
    "tg": [
     "AWWC",
@@ -6490,6 +6621,7 @@
      1
     ]
    ],
+   "on": "",
    "d": "The Studio Bag in Navy is your essential creative companion. Crafted from robust BCI canvas, this A3-sized tote seamlessly combines utility with understated style. The adjustable strap adapts to your workflow, whether worn cross-body or on the shoulder, while the snap closure keeps your portfolio and tools secure. The spacious interior accommodates A3 portfolios, sketchbooks, or creative materials with room to spare. Our signature woven artwork label adds a subtle mark of quality. Features: Premium BCI cotton canvas Adjustable crossbody strap Secure snap closure Internal Stash Pocket A3 portfolio compatible Durable build Signature artwork label Dimensions 66cm x 46cm x 16cm The perfect…",
    "tg": [
     "AWWC",
@@ -6521,6 +6653,7 @@
      1
     ]
    ],
+   "on": "",
    "d": "The Studio Bag in Stone is your essential creative companion. Crafted from robust BCI canvas in sophisticated stone, this A3-sized tote seamlessly combines utility with understated style. The adjustable strap adapts to your workflow, whether worn cross-body or on the shoulder, while the snap closure keeps your portfolio and tools secure. The spacious interior accommodates A3 portfolios, sketchbooks, or creative materials with room to spare. Our signature woven artwork label adds a subtle mark of quality. Features: Premium BCI cotton canvas Adjustable crossbody strap Secure snap closure A3 portfolio compatible Internal Stash Pocket Durable build Signature artwork label Dimensions 66cm x 46cm…",
    "tg": [
     "AWWC",
@@ -6572,6 +6705,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Women's Workers Stride T-Shirt in black is made in the UK from 230gsm organic cotton. Soft, substantial, and pre-shrunk — the kind of jersey that holds its shape wash after wash, and gets better with wear. The Stride Worker print is a love letter to the industry of craft. Drawn from the industrial signage of Manchester's manufacturing past — the painted lettering on mill walls, the faded shop fronts, the bold utilitarian typography of a city built around making things. Rooted equally in mid-century American workwear graphics, it's the kind of print that earns its place on the chest. The Workers Stride T-Shirt feature: 230gsm organic cotton jersey UK-made - by workers paid the Real…",
    "tg": [
     "L-INSTOCK",
@@ -6628,6 +6762,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Women's Workers Stride T-Shirt in white is made in the UK from 230gsm organic cotton. Soft, substantial, and pre-shrunk — the kind of jersey that holds its shape wash after wash, and gets better with wear. The Stride Worker print is a love letter to the industry of craft. Drawn from the industrial signage of Manchester's manufacturing past — the painted lettering on mill walls, the faded shop fronts, the bold utilitarian typography of a city built around making things. Rooted equally in mid-century American workwear graphics, it's the kind of print that earns its place on the chest. The Workers Stride T-Shirt feature: 230gsm organic cotton jersey UK-made - by workers paid the Real…",
    "tg": [
     "L-INSTOCK",
@@ -6685,6 +6820,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Workers Logo Stride T-Shirt in Black is made in the UK from 230gsm organic cotton. Soft, substantial, and pre-shrunk — the kind of jersey that holds its shape wash after wash, and gets better with wear.",
    "tg": [
     "Letterboxable",
@@ -6737,6 +6873,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Workers Stride T-Shirt in white is made in the UK from 230gsm organic cotton. Soft, substantial, and pre-shrunk — the kind of jersey that holds its shape wash after wash, and gets better with wear. The Stride Worker print is a love letter to the industry of craft. Drawn from the industrial signage of Manchester's manufacturing past — the painted lettering on mill walls, the faded shop fronts, the bold utilitarian typography of a city built around making things. Rooted equally in mid-century American workwear graphics, it's the kind of print that earns its place on the chest. The Workers Stride T-Shirt feature: 230gsm organic cotton jersey UK-made Stride Worker print Relaxed fit with a…",
    "tg": [
     "L-INSTOCK",
@@ -6794,6 +6931,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Workers Stride T-Shirt in black is made in the UK from 230gsm organic cotton. Soft, substantial, and pre-shrunk — the kind of jersey that holds its shape wash after wash, and gets better with wear. The Stride Worker print is a love letter to the industry of craft. Drawn from the industrial signage of Manchester's manufacturing past — the painted lettering on mill walls, the faded shop fronts, the bold utilitarian typography of a city built around making things. Rooted equally in mid-century American workwear graphics, it's the kind of print that earns its place on the chest. The Workers Stride T-Shirt feature: 230gsm organic cotton jersey UK-made Stride Worker print Relaxed fit with a…",
    "tg": [
     "L-INSTOCK",
@@ -6849,6 +6987,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Workers Logo Stride T-Shirt in white is made in the UK from 230gsm organic cotton. Soft, substantial, and pre-shrunk — the kind of jersey that holds its shape wash after wash, and gets better with wear. The Workers Club Logo features proudly on the chest along with the new signature Workers Club graphic - Stride Worker - back print, a love letter to the industry of craft. Drawn from the industrial signage of Manchester's manufacturing past — the painted lettering on mill walls, the faded shop fronts, the bold utilitarian typography of a city built around making things. Rooted equally in mid-century American workwear graphics, it's the kind of print that earns its place. The Workers…",
    "tg": [
     "L-INSTOCK",
@@ -6901,6 +7040,7 @@
      1
     ]
    ],
+   "on": "Size",
    "d": "The Women's Workers Stride T-Shirt in washed blue is made in the UK from 230gsm organic cotton. Soft, substantial, and pre-shrunk — the kind of jersey that holds its shape wash after wash, and gets better with wear. The Stride Worker print is a love letter to the industry of craft. Drawn from the industrial signage of Manchester's manufacturing past — the painted lettering on mill walls, the faded shop fronts, the bold utilitarian typography of a city built around making things. Rooted equally in mid-century American workwear graphics, it's the kind of print that earns its place on the chest. The Workers Stride T-Shirt feature: 230gsm organic cotton jersey UK-made - by workers paid the Real…",
    "tg": [
     "L-INSTOCK",
@@ -6938,6 +7078,7 @@
      1
     ]
    ],
+   "on": "",
    "d": "The Studio Musette in navy is a working bag. The right size to grab on your way out the door — nothing more, nothing less. Based on the classic cycling musette silhouette, updated for daily use with a durable adjustable strap and premium Italian hardware. A loop on the base lets you rig a stabilising arm if you want one — we've made ours from paracord. The bag features the Stride Worker print, the new signature Workers Club graphic rooted in mid-century American workwear and the industrial signage of Manchester's manufacturing past. Two poppers close the bag and allow quick access on the move. Inside, two dedicated loops hold the Detachable Apron Pouch securely — so when it's not clipped to…",
    "tg": [
     "Default Title-INSTOCK",
@@ -7002,7 +7143,6 @@
     "atlas-pants-khaki",
     "water-resistant-zama-pants-black",
     "leo-pant-black",
-    "zama-pant-khaki-green",
     "leo-pant-khaki-green",
     "leo-pant-indigo-blue",
     "zama-pant-stone-grey",
@@ -7012,9 +7152,10 @@
     "garment-dyed-atlas-pants-fawn-brown",
     "barrel-pant-black",
     "barrel-pant-stone",
-    "twill-studio-pants-black",
     "twill-studio-pants-stone",
+    "twill-studio-pants-black",
     "twill-studio-pants-navy",
+    "zama-pant-khaki-green",
     "zama-pant-brown",
     "zama-sweatpant-navy"
    ]
@@ -7040,8 +7181,8 @@
     "moleskin-ayla-skirt-v2-black",
     "moleskin-ayla-skirt-v2-khaki",
     "moleskin-ayla-skirt-v2-stone",
-    "ayla-skirt-cotton-poplin-black",
     "ayla-skirt-cotton-poplin-indigo-blue",
+    "ayla-skirt-cotton-poplin-black",
     "ayla-skirt-cotton-poplin-stone",
     "ayla-skirt-cotton-poplin-khaki",
     "aimee-top-v2-red-check",
@@ -7253,13 +7394,7 @@
     "sum": "Email: hi@wawwa.co, hi@wawwa.co.\nYou can also use the contact form on the site."
    }
   ],
-  "about": [
-   {
-    "t": "Stockists",
-    "url": "https://wawwaclothing.com/pages/store-locator",
-    "sum": "Loading store locator from Stockist store locator..."
-   }
-  ],
+  "about": [],
   "legal": [
    {
     "t": "Privacy policy",
@@ -7280,10 +7415,25 @@
  },
  "frameable": false,
  "shipping": {
-  "options": [],
+  "options": [
+   {
+    "id": "tracked48",
+    "name": "Tracked 48 (2-3 working days)",
+    "desc": "£3.50, free over £80",
+    "price": 3.5,
+    "short": "Tracked 48"
+   },
+   {
+    "id": "tracked24",
+    "name": "Tracked 24 (1-2 working days)",
+    "desc": "£4.95",
+    "price": 4.95,
+    "short": "Tracked 24"
+   }
+  ],
   "notes": [],
-  "freeOver": null,
-  "region": ""
+  "freeOver": 80,
+  "region": "UK"
  },
  "currency": {
   "code": "GBP",
@@ -7314,8 +7464,8 @@
   "checked": "14 Oct 2026"
  },
  "perks": [
-  "Previous announcement",
-  "Next announcement",
+  "Free UK delivery over £80",
+  "Organic, Fairtrade & vegan clothing",
   "30-day returns"
  ],
  "payments": [
@@ -7344,11 +7494,12 @@
   "bestCol": "moleskin-at-the-mill",
   "newSub": "Studio Worker's Collection",
   "hero": {
-   "poster": "assets/img/hero-poster.jpg",
-   "eyebrow": "New Season",
-   "title": "HOODY & SWEATSHIRTS",
-   "cta": "Shop Hoody & Sweatshirts",
-   "col": "hoodies-sweatshirts"
+   "poster": "assets/img/hero-mobile.jpg",
+   "eyebrow": "New season",
+   "title": "SHIRTS",
+   "cta": "Shop shirts",
+   "col": "shirts",
+   "video": null
   },
   "tiles": [
    [
@@ -7380,7 +7531,8 @@
    "col": "outerwear",
    "img": "assets/img/campaign-wide.jpg",
    "eyebrow": "Shop the edit",
-   "title": "OUTERWEAR"
+   "title": "Outerwear",
+   "fit": "natural"
   },
   "feature": {
    "col": "studio-workers-collection",
@@ -7470,7 +7622,7 @@
   "previous": null
  },
  "copy": {
-  "about": "WAWWA Are A Sustainable Clothing Brand Making Organic, Fairtrade, Vegan Planet Friendly Clothing With A Positive Social Impact.",
+  "about": "WAWWA are a sustainable clothing brand making organic, Fairtrade, vegan, planet-friendly clothing with a positive social impact.",
   "emptyBag": "Start with the latest Hoody & Sweatshirts pieces.",
   "heroNotif": "The new season is here."
  },
@@ -7527,5 +7679,6 @@
    "Loyalty programme not found (rewards card is illustrative only)",
    "Drop date is not published anywhere: countdown uses a rolling placeholder (app early access Wed 19:00, website Thu 19:00)"
   ]
- }
+ },
+ "vertical": "apparel"
 }
