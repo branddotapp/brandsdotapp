@@ -649,7 +649,7 @@ def run(pw, w, h, tag):
         if (bd) bd.classList.remove('show');
     }""")
     p.wait_for_timeout(300)
-    if p.locator('.view.top.pdp').count(): p.click('.view.top [data-act="back"]'); p.wait_for_timeout(500)  # a demo push can deep-link into a PDP
+    if p.locator('#tabbar.hidden').count(): p.evaluate("window.__app.switchTab('home')"); p.wait_for_timeout(500)  # a demo push can deep-link into a PDP
     tab('wishlist'); p.wait_for_timeout(500); shot('22-wishlist'); broken_imgs()
     if p.locator('#tabbar button[data-tab="drops"]').count(): tab('drops'); p.wait_for_timeout(500); shot('23-drops-live')
     check_community(p, tag, w, BR, shot, tab, broken_imgs)
