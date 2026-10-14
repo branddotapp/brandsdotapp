@@ -173,6 +173,10 @@ const NO_SIZE_VERT = /food|supplement/.test(B.vertical||'');
 if (B.packshots || NO_SIZE_VERT) document.documentElement.classList.add('packshot');
 const isSizeOptOf = p => !NO_SIZE_VERT && (!p.on || /size|waist|fit/i.test(p.on));
 const optLblOf = p => isSizeOptOf(p) ? 'Size' : (p.on && !/size/i.test(p.on) ? p.on : (B.optionLabel || 'Option'));
+// Beauty/consumables: 'Buy again' in Account (opt-in B.reorder = {title, sub, products:[handles]}). Illustrative order history.
+const reorderHTML = () => { const R = B.reorder; if (!R) return ''; const ps = (R.products||[]).map(h=>P[h]).filter(p => p && p.sz.some(s=>s[1])).slice(0,4); if (!ps.length) return '';
+  return '<div class="s-sec acct-h"><h4>'+esc(R.title||'Buy again')+'</h4></div><div class="reorder">'+(R.sub?'<p class="ro-sub">'+esc(R.sub)+'</p>':'')+ps.map(p=>'<div class="ro-row" data-act="pdp" data-v="'+esc(p.h)+'"><img loading="lazy" '+srcs(p.im[0],150,56)+' alt=""><div><b>'+esc(p.n)+'</b><small>'+esc(optLine(p, firstSize(p)) || money(p.p))+'</small></div><button class="btn btn-outline sm" data-reorder="'+esc(p.h)+'">Reorder</button></div>').join('')+'</div>'; };
+const persOf = p => !!(B.personalise && new RegExp(B.personalise.match||'personalis|engrav|custom|name ','i').test(p.t+' '+(p.on||'')));
 const optLine = (p, v) => p.sz.length > 1 ? optLblOf(p)+' '+prettySize(v) : '';
 const NOUN = B.noun || (/food|supplement|beauty|skincare/.test(B.vertical||'') ? ['product','products'] : ['piece','pieces']);
 const normSize = s => String(s).split(' - ')[0].trim().toUpperCase();
@@ -552,9 +556,11 @@ function Home(el){
   // past the hero the band turns solid so the clear menu/status stay readable over light content
   let deep = null;
   // brands whose solid band is light (brand.css: :root{--deep-band:light}) switch the status bar to dark text with it
+  const HEROLIGHT = !!(B.home && B.home.hero && B.home.hero.light); if (HEROLIGHT) document.documentElement.classList.add('hero-light');
   const lightBand = getComputedStyle(document.documentElement).getPropertyValue('--deep-band').trim() === 'light';
-  el.addEventListener('scroll', () => { const d = el.scrollTop > 480; if (d === deep) return; deep = d; const h = $('.home-head', el); if (h) h.classList.toggle('deep', d); if (lightBand && el.classList.contains('top')) setStatus(!d); }, {passive:true});
+  el.addEventListener('scroll', () => { const d = el.scrollTop > 480; if (d === deep) return; deep = d; const h = $('.home-head', el); if (h) h.classList.toggle('deep', d); if (lightBand && el.classList.contains('top')) setStatus(!d); if (HEROLIGHT && el.classList.contains('top')) setStatus(d); }, {passive:true});
   el._refresh = () => { const st = el.scrollTop; render(); el.scrollTop = st; deep = null; el.dispatchEvent(new Event('scroll')); };
+  if (HEROLIGHT) return { light:false };
   return lightBand ? { light:true, lightUntil:481 } : { light:true };
 }
 
@@ -679,9 +685,10 @@ function PDP(el, h){
       (oneOpt ? '' : '<div class="label-row"><b>'+esc(optLbl)+'</b><span id="sizeLbl">'+(mineAvail?'Your saved size: '+esc(prettySize(size)):mineOut?'Your size ('+esc(sizeLabel())+') is sold out':'Select '+(isSizeOpt?'a size':'an option'))+'</span></div>'+
       '<div class="sizes">'+p.sz.map(s=>'<button class="size '+(long?'sm ':'')+(s[1]?'':'out ')+(s[0]===size?'on ':'')+(hasSize()&&sizeMatch(s[0])?'mine':'')+'" data-size="'+esc(s[0])+'" data-in="'+s[1]+'">'+esc(prettySize(s[0]))+'</button>').join('')+'</div>'+
       '<div class="size-hint">'+I.bell+'<span>'+(mineOut?'Tap your size for a back-in-size alert':isSizeOpt?'Tap a sold-out size for a back-in-stock alert':'Tap a sold-out option for a back-in-stock alert')+'</span>'+(SIZE_GROUPS.length&&isSizeOpt?'<button class="link sm" data-act="size">'+(hasSize()?'Change size':'Save my size')+'</button>':'')+'</div>')+
+      (persOf(p) ? '<div class="pers"><div class="label-row"><b>'+esc(B.personalise.label||'Personalise it')+'</b><span>'+esc(B.personalise.hint||'Up to '+(B.personalise.max||12)+' characters')+'</span></div><input id="persTxt" maxlength="'+(B.personalise.max||12)+'" autocomplete="off" placeholder="'+esc(B.personalise.placeholder||'Name or initials')+'" aria-label="Personalisation text"></div>' : '')+
       '<div class="perks">'+(B.pdpPerks||[]).slice(0,3).map((t,i)=>'<div>'+[I.truck,I.ret,I.star][i]+esc(t)+'</div>').join('')+'</div>'+
       '<div class="acc">'+
-        '<details open><summary>Description'+I.plus+'</summary><div class="acc-body">'+esc(p.d || 'Designed by '+NAME+'.')+'</div></details>'+
+        (p.d ? '<details open><summary>Description'+I.plus+'</summary><div class="acc-body">'+esc(p.d)+'</div></details>' : '')+
         (ship.length ? '<details><summary>Delivery'+I.plus+'</summary><div class="acc-body"><ul>'+ship.map(o=>'<li><b>'+esc(o.name)+'</b> — '+(o.price==null?'':o.price?money(o.price):'Free')+(o.freeOver?', free on orders over '+money(o.freeOver):'')+(o.desc?', '+esc(o.desc):'')+'</li>').join('')+(SHIP.notes||[]).map(n=>'<li>'+esc(n)+'</li>').join('')+'</ul></div></details>' : '')+
         (B.returns && B.returns.summary ? '<details><summary>Returns'+I.plus+'</summary><div class="acc-body">'+esc(B.returns.summary)+'</div></details>' : '')+
       '</div>'+
@@ -718,7 +725,8 @@ function PDP(el, h){
     clearTimeout(addedT);
     ab.classList.remove('added'); void ab.offsetWidth;
     ab.innerHTML = '<span class="ab-l ab-done">'+I.check+'Added</span>'; ab.classList.add('added');
-    addToBag(h, size, false, 560);
+    const pt = $('#persTxt', el); if (pt && !pt.value.trim()){ pt.classList.remove('shake'); void pt.offsetWidth; pt.classList.add('shake'); pt.focus(); return; }
+    addToBag(h, size, false, 560, pt ? pt.value.trim() : '');
     addedT = setTimeout(() => { ab.classList.remove('added'); ab.innerHTML = abLabel; anim($('.ab-l', ab), [{opacity:0, transform:'translateY(6px)'},{opacity:1, transform:'none'}], { duration:260 }); }, 2400);
   });
   $('#shareBtn', el).addEventListener('click', () => {
@@ -730,10 +738,10 @@ function PDP(el, h){
   el._refresh = () => $$('[data-wish]', el).forEach(b => b.classList.toggle('on', inWish(b.dataset.v)));
   return { hideTabs:true };
 }
-function addToBag(h, size, silent, delay){
+function addToBag(h, size, silent, delay, pz){
   const p = P[h];
-  const ex = bag.find(i => i.h===h && i.s===size);
-  if (ex) ex.q++; else bag.push({ h, s:size, q:1 });
+  const ex = bag.find(i => i.h===h && i.s===size && (i.pz||'')===(pz||''));
+  if (ex) ex.q++; else bag.push(pz ? { h, s:size, q:1, pz } : { h, s:size, q:1 });
   saveBag();
   if (silent) return;
   if (delay && !RM.matches) { new Image().src = img(p.im[0],200); setTimeout(() => addedSheet(p, size), delay); return; }
@@ -768,7 +776,7 @@ function Bag(el){
     const saved = bag.reduce((a,i)=>a+(P[i.h].cp>P[i.h].p?(P[i.h].cp-P[i.h].p)*i.q:0),0);
     el.innerHTML = topbar({}) + '<div class="large-title"><small>'+T.cnt+(T.cnt===1?' item':' items')+'</small>Bag</div>' +
       (FREE_SHIP ? '<div class="ship-prog"><p>'+(T.sub<FREE_SHIP?'Spend <b>'+money(FREE_SHIP-T.sub)+'</b> more for free '+esc(SHIP.region||'')+' delivery':'<b>Free '+esc(SHIP.region||'')+' delivery unlocked</b> — '+esc(o.name))+'</p><div class="bar"><i style="width:'+Math.min(100,T.sub/FREE_SHIP*100)+'%"></i></div></div>' : '')+
-      bag.map((it,ix)=>{ const p=P[it.h]; return '<div class="bag-item" data-ix="'+ix+'"><img src="'+img(p.im[0],250)+'" alt="" data-act="pdp" data-v="'+esc(p.h)+'"><div class="bi-info"><b data-act="pdp" data-v="'+esc(p.h)+'">'+esc(p.n)+'</b><small>'+esc(p.c)+(p.c&&optLine(p,it.s)?' · ':'')+esc(optLine(p,it.s))+'</small>'+priceHTML(p)+
+      bag.map((it,ix)=>{ const p=P[it.h]; return '<div class="bag-item" data-ix="'+ix+'"><img src="'+img(p.im[0],250)+'" alt="" data-act="pdp" data-v="'+esc(p.h)+'"><div class="bi-info"><b data-act="pdp" data-v="'+esc(p.h)+'">'+esc(p.n)+'</b><small>'+esc(p.c)+(p.c&&optLine(p,it.s)?' · ':'')+esc(optLine(p,it.s))+(it.pz?'<span class="bi-pz">“'+esc(it.pz)+'”</span>':'')+'</small>'+priceHTML(p)+
         '<div class="bi-bottom"><div class="qty"><button data-q="-1" aria-label="Decrease">−</button><span>'+it.q+'</span><button data-q="1" aria-label="Increase">+</button></div><button class="remove" data-rm>Remove</button></div></div></div>'; }).join('')+
       (promo ? '<div class="promo on">'+I.tag+'<div><b>'+esc(DISC.code)+' applied</b><small>'+DISC.pct+'% off your first app order</small></div><button class="remove" id="promoRm">Remove</button></div>'
              : '<button class="promo" id="promoAdd">'+I.gift+'<div><b>First app order?</b><small>Tap to apply '+esc(DISC.code)+' for '+DISC.pct+'% off</small></div><span class="promo-cta">Apply</span></button>')+
@@ -913,6 +921,7 @@ function Account(el){
       (COMM ? '<button class="acct-link" data-act="tab" data-v="community">'+I.people+'<span><b>'+esc(CM.title||'Community')+'</b><small>'+esc([EV?'Events':'', FM?'the forum':''].filter(Boolean).join(' & '))+'</small></span>'+I.chev+'</button>' : '')+
       '<div class="drop-banner" id="dropBanner"><div class="db-ic">'+I.bell+'</div><div class="db-t"><b>Drop alerts</b><p>Be first to know when new '+NOUN[1]+' land.</p></div><button class="switch '+(prefs.drops?'on':'')+'" id="dropSwitch" aria-label="Toggle drop alerts"></button></div>'+
       (SIZE_GROUPS.length ? '<div class="s-sec acct-h"><h4>Your size</h4></div><div class="acct-size">'+SIZE_GROUPS.map(g=>'<div class="label-row" style="margin:4px 0 8px"><b>'+esc(g.label)+'</b>'+(mySize[g.key]?'<span>Saved: '+esc((g.prefix||'')+mySize[g.key])+'</span>':'<span>Not set</span>')+'</div><div class="sizes">'+g.opts.map(o=>'<button class="size'+(String(mySize[g.key])===String(o)?' on':'')+'" data-g="'+esc(g.key)+'" data-o="'+esc(o)+'">'+esc((g.prefix||'')+o)+'</button>').join('')+'</div>').join('')+'<p class="acct-note">'+I.ruler+'<span>Pre-selected on product pages, used for the “in my size” filter and back-in-size alerts.</span></p></div>' : '')+
+      reorderHTML()+
       '<div class="s-sec acct-h"><h4>Notifications</h4></div>'+
       '<div class="pref-group">'+prefRows.map(x=>'<div class="pref" data-pref="'+x[0]+'" role="switch" aria-checked="'+!!prefs[x[0]]+'" tabindex="0"><div><b>'+x[1]+'</b><small>'+x[2]+'</small></div><span class="switch '+(prefs[x[0]]?'on':'')+'"></span></div>').join('')+'</div>'+
       '<div class="s-sec acct-h"><h4>Information</h4></div><div class="acct-groups">'+group('help','Help')+group('about','About')+group('legal','Legal')+'</div>'+
@@ -936,6 +945,7 @@ function Account(el){
       if (k === 'drops') syncDropsUI();
       toast(r.querySelector('b').textContent+(prefs[k]?' on':' off'), I.bell);
     }));
+    $$('[data-reorder]', el).forEach(b => b.addEventListener('click', e => { e.stopPropagation(); const p = P[b.dataset.reorder]; addToBag(p.h, firstSize(p)); }));
     $$('[data-page]', el).forEach(b => b.addEventListener('click', () => { const [g,i] = b.dataset.page.split(':'); openBrowser(PAGES[g][+i]); }));
     const so = $('#signOut', el); if (so) so.addEventListener('click', () => { signedIn = false; render(); toast('Signed out'); });
   };

@@ -41,3 +41,18 @@ Automated: visual_check.py 0 fail / 0 crop warnings on all 10 (393x852 + 375x667
 - barebiology — DONE. 42 screens at 375x667 re-read. 'Pack' options (no sizes), free Express Royal Mail, real copy. All items pass.
 - lilyandroo (re-check): delivery set from lilyandroo.com/policies/shipping-policy: Standard free (Royal Mail Tracked 48, 2-4 days), Next Working Day £6.95, Saturday £15.00. Still DONE.
 - dlouise (re-check): Hoop, Huggie and Chain bracelet covers were the Advent Calendar box. Now real products (Tapered Oval Hoops, Tennis Huggies, Dainty Pearl Bracelet) via the new covers override. Still DONE.
+
+## abbottlyon — DONE (2026-10-14, Lewis pick, no size screening)
+- Logo: official SVG wordmark (al-master-logo_1.svg) on splash, header, icon and pushes. The site only has a 32px AL monogram, so the icon uses the wordmark.
+- Hero: their real single mobile banner (Made To Order / 2 for 1 NAME241), baked; new `home.hero.light` flag gives a dark header/status bar over the cream image.
+- Delivery: UK Standard £3.99, Next Working Day £5.99, both free over £70 (/pages/shipping). Trustpilot 4.3 "Great", 31,415 reviews.
+- Ring sizes UK J–Q only; personalisation input (max 12, matches site) on name/engraved pieces, verified on Signature Name Necklace.
+- Screens read at 393x852 + 375x667; visual_check 0 fail / 0 crop.
+
+## refy — DONE (2026-10-14, Lewis pick)
+- Logo: official REFY wordmark everywhere. Hero: their single real video slide (no on-site text), copy placed in the lower third, clear of faces.
+- Shade options (no sizes), Buy again / Reorder in Account (Brow, Lash, Lip Sculpt, Skin Base).
+- Delivery: Standard £4, free over £30; Next Day £6, free over £80 (/pages/shipping-delivery).
+- Reviews block omitted on purpose (Trustpilot 3.5 "Average").
+- About copy from /pages/the-refy-story; fixed "SHOP ALL BESTSELLERS" banner overflow.
+- Screens read at both sizes; visual_check 0 fail / 0 crop.

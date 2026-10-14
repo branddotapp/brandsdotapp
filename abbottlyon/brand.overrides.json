@@ -1,0 +1,133 @@
+{
+  "assets": {
+    "logoDark": "assets/img/logo-official.png",
+    "logoLight": "assets/img/logo-official-light.png"
+  },
+  "vertical": "jewellery",
+  "home": {
+    "hero": {
+      "poster": "assets/img/hero-mobile.jpg",
+      "baked": true,
+      "col": "name-necklaces",
+      "cta": "Shop name jewellery",
+      "focus": "center",
+      "light": true
+    },
+    "newSub": "The latest arrivals",
+    "tiles": [
+      [
+        "necklaces",
+        "Necklaces"
+      ],
+      [
+        "bracelets",
+        "Bracelets"
+      ],
+      [
+        "earrings",
+        "Earrings"
+      ],
+      [
+        "rings",
+        "Rings"
+      ],
+      [
+        "womens-watches",
+        "Watches"
+      ],
+      [
+        "name-necklaces",
+        "Name Necklaces"
+      ]
+    ]
+  },
+  "copy": {
+    "about": "A global, affordable luxury design house creating personalised, meaningful and trend-led pieces for every occasion. Designed in Bath and London since 2015."
+  },
+  "shipping": {
+    "region": "UK",
+    "freeOver": 70,
+    "notes": [],
+    "options": [
+      {
+        "id": "std",
+        "name": "Standard Shipping (2-4 working days)",
+        "short": "Standard",
+        "desc": "\u00a33.99 or free on orders over \u00a370",
+        "price": 3.99,
+        "freeOver": 70
+      },
+      {
+        "id": "nwd",
+        "name": "Next Working Day",
+        "desc": "Order by 10pm Mon-Thu. Not for made-to-order pieces",
+        "price": 5.99,
+        "freeOver": 70
+      }
+    ]
+  },
+  "perks": [
+    "Free UK delivery over \u00a370",
+    "120,000+ 5 star reviews",
+    "Water Resistant",
+    "1 Year Returns",
+    "5 year Warranty"
+  ],
+  "pdpPerks": [
+    "Free UK delivery over \u00a370",
+    "1 year returns",
+    "5 year warranty"
+  ],
+  "reviews": {
+    "source": "Trustpilot",
+    "score": 4.3,
+    "count": 31415,
+    "label": "Great",
+    "url": "https://uk.trustpilot.com/review/www.abbottlyon.com",
+    "checked": "2026-10-14"
+  },
+  "sizes": {
+    "groups": [
+      {
+        "key": "ring",
+        "label": "Ring size",
+        "opts": [
+          "UK J / US 5 / EU 48.5",
+          "UK K / US 5.5 / EU 50",
+          "UK L / US 6 / EU 51",
+          "UK M / US 6.5 / EU 52",
+          "UK N / US 7 / EU 53.5",
+          "UK O / US 7.5 / EU 55",
+          "UK P / US 8 / EU 56",
+          "UK Q / US 8.5 / EU 57"
+        ]
+      }
+    ]
+  },
+  "personalise": {
+    "label": "Your personalisation",
+    "hint": "Name, initials or date",
+    "placeholder": "e.g. Sarah",
+    "max": 12,
+    "match": "personalis|engrav|custom|name necklace|name bracelet|signature name"
+  },
+  "search": {
+    "trending": [
+      "Name necklace",
+      "Locket",
+      "Birthstone",
+      "Bracelet",
+      "Huggie",
+      "Watch",
+      "Ring",
+      "Gift set"
+    ],
+    "popular": [
+      "name-necklaces",
+      "necklaces",
+      "bracelets",
+      "earrings",
+      "rings"
+    ]
+  }
+}

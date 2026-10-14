@@ -1,0 +1,98 @@
+{
+  "vertical": "beauty",
+  "optionLabel": "Shade",
+  "packshots": true,
+  "home": {
+    "hero": {
+      "video": "assets/hero.mp4",
+      "poster": "assets/img/hero-poster.jpg",
+      "videoW": 680,
+      "videoH": 1080,
+      "videoWebm": "assets/hero.webm",
+      "eyebrow": "Simplified beauty",
+      "title": "BESTSELLERS",
+      "cta": "Shop bestsellers",
+      "col": "bestsellers"
+    },
+    "newSub": "Our customers' favourites"
+  },
+  "shipping": {
+    "region": "UK",
+    "freeOver": 30,
+    "notes": [],
+    "options": [
+      {
+        "id": "std",
+        "name": "Standard Shipping (2-3 working days)",
+        "short": "Standard",
+        "desc": "\u00a34 or free on orders over \u00a330",
+        "price": 4.0,
+        "freeOver": 30
+      },
+      {
+        "id": "nd",
+        "name": "Next Day (order by 4pm)",
+        "desc": "\u00a36 or free on orders over \u00a380",
+        "price": 6.0,
+        "freeOver": 80
+      }
+    ]
+  },
+  "perks": [
+    "Free delivery on all orders \u00a330+",
+    "Free Mini Concealer on all orders over \u00a340",
+    "Free Next Day Delivery over \u00a380",
+    "14-day returns"
+  ],
+  "pdpPerks": [
+    "Free UK delivery over \u00a330",
+    "14-day returns",
+    "Klarna available"
+  ],
+  "search": {
+    "trending": [
+      "Brow Sculpt",
+      "Lip Sculpt",
+      "Lash Sculpt",
+      "Lip Gloss",
+      "Blush",
+      "Bronzer",
+      "Skin Tint",
+      "Brush"
+    ],
+    "popular": [
+      "refy-lips",
+      "eyes",
+      "refy-face-body",
+      "cheek",
+      "skin"
+    ]
+  },
+  "reorder": {
+    "title": "Buy again",
+    "sub": "Your go-tos, back in your bag in one tap.",
+    "products": [
+      "brow-sculpt",
+      "lash-sculpt",
+      "lip-sculpt",
+      "skin-base"
+    ]
+  },
+  "sizes": {
+    "groups": []
+  },
+  "collectionTitles": {
+    "bestsellers": "Bestsellers",
+    "refy-face-body": "Face",
+    "gifts": "Gifting"
+  },
+  "copy": {
+    "about": "Launched in 2020 by Jess Hunt and Jenna Meek, REFY was born from a need to simplify routines. Brow Sculpt came first, selling out in under 6 weeks with a waiting list longer than 100,000. Vegan, cruelty and fragrance free, and Leaping Bunny certified.",
+    "emptyBag": "Start with our bestsellers."
+  },
+  "shop": {
+    "featureCats": {
+      "title": "BESTSELLERS"
+    }
+  }
+}
