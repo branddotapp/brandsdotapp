@@ -62272,10 +62272,30 @@
  },
  "frameable": false,
  "shipping": {
-  "options": [],
+  "options": [
+   {
+    "id": "std",
+    "name": "Standard Delivery (2-4 working days)",
+    "short": "Standard",
+    "desc": "Free, Royal Mail Tracked 48",
+    "price": 0
+   },
+   {
+    "id": "nwd",
+    "name": "Next Working Day",
+    "desc": "Order before 2pm, DPD",
+    "price": 6.95
+   },
+   {
+    "id": "sat",
+    "name": "Saturday Delivery",
+    "desc": "Order before 2pm on Friday, DPD",
+    "price": 15.0
+   }
+  ],
   "notes": [],
   "freeOver": null,
-  "region": ""
+  "region": "UK"
  },
  "currency": {
   "code": "GBP",

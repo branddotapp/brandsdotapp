@@ -13069,5 +13069,10 @@
   ]
  },
  "vertical": "jewellery",
- "stripMenuCounts": true
+ "stripMenuCounts": true,
+ "covers": {
+  "hoop-earrings": "tapered-oval-hoop",
+  "huggie-earrings": "tennis-huggies",
+  "chains-bracelets": "dainty-pearl-bracelet"
+ }
 }

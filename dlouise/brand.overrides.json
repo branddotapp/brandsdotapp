@@ -1,169 +1,174 @@
 {
-  "home": {
-    "hero": {
-      "poster": "assets/img/hero-poster.jpg",
-      "eyebrow": "Buy 2, Get 1 Free",
-      "title": "LUXURY YOU CAN LIVE IN",
-      "cta": "Shop bestsellers",
-      "col": "best-sellers"
-    },
-    "newSub": "The latest bracelets",
-    "editorial": {
-      "col": "tennis-bracelets",
-      "title": "Tennis Bracelets",
-      "img": "assets/img/campaign-wide.jpg",
-      "eyebrow": "Shop the edit"
-    },
-    "tiles": [
-      [
-        "necklaces",
-        "Necklaces"
-      ],
-      [
-        "rings",
-        "Rings"
-      ],
-      [
-        "bracelet",
-        "Bracelets"
-      ],
-      [
-        "hoop-earrings",
-        "Hoop Earrings"
-      ],
-      [
-        "charms",
-        "Charms"
-      ],
-      [
-        "watches-1",
-        "Watches"
-      ]
-    ]
+ "home": {
+  "hero": {
+   "poster": "assets/img/hero-poster.jpg",
+   "eyebrow": "Buy 2, Get 1 Free",
+   "title": "LUXURY YOU CAN LIVE IN",
+   "cta": "Shop bestsellers",
+   "col": "best-sellers"
   },
-  "_drop": "No season drop is published on the site, so the Drops tab features their real New In collection; the date is the rolling placeholder.",
-  "drop": {
-    "num": "01",
-    "name": "NEW IN",
-    "title": "New In",
-    "col": "new-in",
-    "products": [
-      "bezel-trilogy-ring-tanzanite",
-      "multi-stone-ring-clear",
-      "bezel-trilogy-ring-ruby",
-      "bezel-trilogy-ring-clear",
-      "oval-bezel-stacking-ring",
-      "marquise-stacking-ring-sapphire-tanzanite",
-      "marquise-stacking-ring",
-      "oval-bezel-stacking-ring-sapphire-tanzanite"
-    ],
-    "weekday": 4,
-    "hour": 19,
-    "earlyHours": 24,
-    "previous": null
+  "newSub": "The latest bracelets",
+  "editorial": {
+   "col": "tennis-bracelets",
+   "title": "Tennis Bracelets",
+   "img": "assets/img/campaign-wide.jpg",
+   "eyebrow": "Shop the edit"
   },
-  "socials": {
-    "instagram": "https://www.instagram.com/d.louise/"
-  },
-  "instagram": {
-    "handle": "d.louise",
-    "url": "https://www.instagram.com/d.louise/",
-    "posts": []
-  },
-  "theme": {
-    "sale": "#c62f2f"
-  },
-  "_theme": "colours adjusted for WCAG AA contrast",
-  "vertical": "jewellery",
-  "sizes": {
-    "groups": [
-      {
-        "key": "ring",
-        "label": "Ring size",
-        "opts": [
-          "US 5 / UK J / EU 48",
-          "US 6 / UK L / EU 51",
-          "US 7 / UK N / EU 54",
-          "US 8 / UK Q / EU 57",
-          "US 9 / UK R / EU 59"
-        ]
-      }
-    ]
-  },
-  "_sizes": "Ring sizes from their real ring variants; everything else (necklaces, earrings) has no size.",
-  "perks": [
-    "Free UK delivery over £75",
-    "30-day returns"
+  "tiles": [
+   [
+    "necklaces",
+    "Necklaces"
+   ],
+   [
+    "rings",
+    "Rings"
+   ],
+   [
+    "bracelet",
+    "Bracelets"
+   ],
+   [
+    "hoop-earrings",
+    "Hoop Earrings"
+   ],
+   [
+    "charms",
+    "Charms"
+   ],
+   [
+    "watches-1",
+    "Watches"
+   ]
+  ]
+ },
+ "_drop": "No season drop is published on the site, so the Drops tab features their real New In collection; the date is the rolling placeholder.",
+ "drop": {
+  "num": "01",
+  "name": "NEW IN",
+  "title": "New In",
+  "col": "new-in",
+  "products": [
+   "bezel-trilogy-ring-tanzanite",
+   "multi-stone-ring-clear",
+   "bezel-trilogy-ring-ruby",
+   "bezel-trilogy-ring-clear",
+   "oval-bezel-stacking-ring",
+   "marquise-stacking-ring-sapphire-tanzanite",
+   "marquise-stacking-ring",
+   "oval-bezel-stacking-ring-sapphire-tanzanite"
   ],
-  "shipping": {
-    "options": [
-      {
-        "id": "standard",
-        "name": "Standard (2-3 working days)",
-        "desc": "£3.50 or free for orders over £75",
-        "price": 3.5,
-        "short": "Standard (2-3 working days)",
-        "freeOver": 75
-      },
-      {
-        "id": "express",
-        "name": "Express (1-2 working days)",
-        "desc": "Tracked express",
-        "price": 3.95,
-        "short": "Express (1-2 working days)"
-      }
-    ],
-    "notes": [],
-    "freeOver": 75,
-    "region": "UK"
-  },
-  "_shipping": "From their shipping page: UK Standard £3.50, free over £75; Express 1-2 days £3.95 (AED options belong to their UAE store and were dropped).",
-  "copy": {
-    "about": "A London-based waterproof jewellery brand: high-quality, affordable rings, bracelets, earrings and necklaces that do not fade.",
-    "emptyBag": "Start with the latest bracelets."
-  },
-  "_about": "Footer line from their own meta description (scraped value was a heading or Title Case).",
-  "assets": {
-    "logoDark": "assets/img/logo-official-dark.png",
-    "logoLight": "assets/img/logo-official-light.png"
-  },
-  "_assets": "Official logo from their site header: DLO_Logotype_-_Charcoal.png. (Scraper had picked a product/hero image.)",
-  "shop": {
-    "cats": [
-      "necklaces",
-      "bracelet",
-      "rings",
-      "hoop-earrings",
-      "huggie-earrings",
-      "stud-earrings",
-      "statement-earrings",
-      "charms",
-      "watches-1",
-      "engravable"
-    ],
-    "edits": [
-      "new-in",
-      "best-sellers",
-      "gifts-for-anniversaries",
-      "silver",
-      "last-chance",
-      "tennis-necklaces",
-      "tennis-bracelets"
+  "weekday": 4,
+  "hour": 19,
+  "earlyHours": 24,
+  "previous": null
+ },
+ "socials": {
+  "instagram": "https://www.instagram.com/d.louise/"
+ },
+ "instagram": {
+  "handle": "d.louise",
+  "url": "https://www.instagram.com/d.louise/",
+  "posts": []
+ },
+ "theme": {
+  "sale": "#c62f2f"
+ },
+ "_theme": "colours adjusted for WCAG AA contrast",
+ "vertical": "jewellery",
+ "sizes": {
+  "groups": [
+   {
+    "key": "ring",
+    "label": "Ring size",
+    "opts": [
+     "US 5 / UK J / EU 48",
+     "US 6 / UK L / EU 51",
+     "US 7 / UK N / EU 54",
+     "US 8 / UK Q / EU 57",
+     "US 9 / UK R / EU 59"
     ]
-  },
-  "_shop": "Product types as categories, campaigns/gifting as edits.",
-  "stripMenuCounts": true,
-  "_editorial_col": "Editorial title/collection matched to what the image shows.",
-  "search": {
-    "trending": [
-      "Charm",
-      "Bracelet",
-      "Earrings",
-      "Ring",
-      "Necklace",
-      "Watch",
-      "Tennis bracelet",
-      "Huggie"
-    ]
-  }
+   }
+  ]
+ },
+ "_sizes": "Ring sizes from their real ring variants; everything else (necklaces, earrings) has no size.",
+ "perks": [
+  "Free UK delivery over £75",
+  "30-day returns"
+ ],
+ "shipping": {
+  "options": [
+   {
+    "id": "standard",
+    "name": "Standard (2-3 working days)",
+    "desc": "£3.50 or free for orders over £75",
+    "price": 3.5,
+    "short": "Standard (2-3 working days)",
+    "freeOver": 75
+   },
+   {
+    "id": "express",
+    "name": "Express (1-2 working days)",
+    "desc": "Tracked express",
+    "price": 3.95,
+    "short": "Express (1-2 working days)"
+   }
+  ],
+  "notes": [],
+  "freeOver": 75,
+  "region": "UK"
+ },
+ "_shipping": "From their shipping page: UK Standard £3.50, free over £75; Express 1-2 days £3.95 (AED options belong to their UAE store and were dropped).",
+ "copy": {
+  "about": "A London-based waterproof jewellery brand: high-quality, affordable rings, bracelets, earrings and necklaces that do not fade.",
+  "emptyBag": "Start with the latest bracelets."
+ },
+ "_about": "Footer line from their own meta description (scraped value was a heading or Title Case).",
+ "assets": {
+  "logoDark": "assets/img/logo-official-dark.png",
+  "logoLight": "assets/img/logo-official-light.png"
+ },
+ "_assets": "Official logo from their site header: DLO_Logotype_-_Charcoal.png. (Scraper had picked a product/hero image.)",
+ "shop": {
+  "cats": [
+   "necklaces",
+   "bracelet",
+   "rings",
+   "hoop-earrings",
+   "huggie-earrings",
+   "stud-earrings",
+   "statement-earrings",
+   "charms",
+   "watches-1",
+   "engravable"
+  ],
+  "edits": [
+   "new-in",
+   "best-sellers",
+   "gifts-for-anniversaries",
+   "silver",
+   "last-chance",
+   "tennis-necklaces",
+   "tennis-bracelets"
+  ]
+ },
+ "_shop": "Product types as categories, campaigns/gifting as edits.",
+ "stripMenuCounts": true,
+ "_editorial_col": "Editorial title/collection matched to what the image shows.",
+ "search": {
+  "trending": [
+   "Charm",
+   "Bracelet",
+   "Earrings",
+   "Ring",
+   "Necklace",
+   "Watch",
+   "Tennis bracelet",
+   "Huggie"
+  ]
+ },
+ "covers": {
+  "hoop-earrings": "tapered-oval-hoop",
+  "huggie-earrings": "tennis-huggies",
+  "chains-bracelets": "dainty-pearl-bracelet"
+ }
 }

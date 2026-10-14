@@ -23,6 +23,8 @@ function pushAppIconHTML(){
   return '<div class="push-icon letter" aria-hidden="true">'+letter+'</div>';
 }
 const colBy = h => COLS.find(c => c.h === h);
+// Collection cover product: B.covers[collection] = product handle, else the first product.
+const coverOf = h => { const k = B.covers && B.covers[h]; return (k && P[k]) || prods(h)[0]; };
 // Collection titles a product sits in, so a search for 'Trainers' finds shoes titled 'Metro: Bordeau Suede'.
 let _cto;
 const colTitlesOf = p => { if (!_cto){ _cto={}; COLS.forEach(c => (c.p||[]).forEach(h => { (_cto[h]=_cto[h]||[]).push(c.t); })); } return (_cto[p.h]||[]).join(' '); };
@@ -525,7 +527,7 @@ function Home(el){
     // drop pieces that aren't live yet ("Coming soon", not buyable) go to the end of the New In rail, so it opens on something you can buy
     const newAll = prods(H.newCol), newIn = newAll.filter(p => !isComing(p.h)).concat(newAll.filter(p => isComing(p.h))).slice(0, 12);
     const best = prods(H.bestCol).slice(0, 12);
-    const cover = h => { const p = prods(h)[0]; return p ? srcs(p.im[0], 400, 180) : 'src=""'; };
+    const cover = h => { const p = coverOf(h); return p ? srcs(p.im[0], 400, 180) : 'src=""'; };
     const tiles = (H.tiles || []).filter(t => prods(t[0]).length);
     const fc = H.feature && prods(H.feature.col)[0];
     el.innerHTML =
@@ -583,7 +585,7 @@ function showDeptChooser(after){
 let shopSeg = 'cats';   // remembered while the app is open, so popping back to Shop keeps the chosen segment
 function Shop(el, seg){
   if (seg === 'cats' || seg === 'edits') shopSeg = seg;
-  const row = h => { const c = colBy(h), n = prods(h).length, p = prods(h)[0]; if (!c || !p) return ''; return '<div class="cat-row" data-act="col" data-v="'+esc(h)+'"><img loading="lazy" decoding="async" '+srcs(p.im[0],200,56)+' alt=""><div><b>'+esc(c.t)+'</b><small>'+n+(n===1?' style':' styles')+'</small></div>'+I.chev+'</div>'; };
+  const row = h => { const c = colBy(h), n = prods(h).length, p = coverOf(h); if (!c || !p) return ''; return '<div class="cat-row" data-act="col" data-v="'+esc(h)+'"><img loading="lazy" decoding="async" '+srcs(p.im[0],200,56)+' alt=""><div><b>'+esc(c.t)+'</b><small>'+n+(n===1?' style':' styles')+'</small></div>'+I.chev+'</div>'; };
   const body = s => {
     const list = (s === 'cats' ? SH.cats : SH.edits) || [];
     const f = s === 'cats' ? SH.featureCats : SH.featureEdits;
@@ -846,7 +848,7 @@ function Search(el, q0){
     body.innerHTML =
       (recent.length ? '<div class="s-sec"><h4>Recent</h4><div class="chips">'+recent.map(r=>'<button class="chip" data-q="'+esc(r)+'">'+esc(r)+'</button>').join('')+'</div></div>' : '')+
       (TR.length ? '<div class="s-sec"><h4>Trending</h4><div class="chips">'+TR.map(r=>'<button class="chip" data-q="'+esc(r)+'">'+esc(r)+'</button>').join('')+'</div></div>' : '')+
-      (POP.length ? '<div class="s-sec"><h4>Popular categories</h4></div><div class="cat-list">'+POP.map(h=>{const c=colBy(h),p=prods(h)[0];const n = prods(h).length; return '<div class="cat-row" data-act="col" data-v="'+esc(h)+'"><img loading="lazy" decoding="async" '+srcs(p.im[0],200,56)+' alt=""><div><b>'+esc(c.t)+'</b><small>'+n+(n===1?' style':' styles')+'</small></div>'+I.chev+'</div>';}).join('')+'</div>' : '')+credit();
+      (POP.length ? '<div class="s-sec"><h4>Popular categories</h4></div><div class="cat-list">'+POP.map(h=>{const c=colBy(h),p=coverOf(h);const n = prods(h).length; return '<div class="cat-row" data-act="col" data-v="'+esc(h)+'"><img loading="lazy" decoding="async" '+srcs(p.im[0],200,56)+' alt=""><div><b>'+esc(c.t)+'</b><small>'+n+(n===1?' style':' styles')+'</small></div>'+I.chev+'</div>';}).join('')+'</div>' : '')+credit();
     bindQ();
   };
   const run = (commit) => {

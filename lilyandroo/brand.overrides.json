@@ -1,139 +1,163 @@
 {
-  "home": {
-    "hero": {
-      "poster": "assets/img/hero-poster.jpg",
-      "eyebrow": "Make It Personal",
-      "title": "NEW IN",
-      "cta": "Shop now",
-      "col": "new-in"
-    },
-    "heroSlides": [
-      {
-        "img": "assets/slides/1.jpg",
-        "eyebrow": "New In",
-        "title": "MAKE IT PERSONAL",
-        "cta": "Shop now",
-        "col": "new-in",
-        "pos": "bottom",
-        "focus": "center"
-      },
-      {
-        "img": "assets/slides/2.jpg",
-        "eyebrow": "For someone special",
-        "title": "TIMELESS GIFTS",
-        "cta": "Shop now",
-        "col": "jewellery-gift-sets",
-        "pos": "bottom",
-        "focus": "center top"
-      },
-      {
-        "img": "assets/slides/3.jpg",
-        "eyebrow": "Handcrafted With Love",
-        "title": "THE WEDDING SHOP",
-        "cta": "Shop now",
-        "col": "wedding",
-        "pos": "bottom",
-        "focus": "center top"
-      }
-    ],
-    "editorial": null
+ "home": {
+  "hero": {
+   "poster": "assets/img/hero-poster.jpg",
+   "eyebrow": "Make It Personal",
+   "title": "NEW IN",
+   "cta": "Shop now",
+   "col": "new-in"
   },
-  "_drop": "No season drop is published on the site, so the Drops tab features their real Wedding Jewellery collection; the date is the rolling placeholder.",
-  "drop": {
-    "num": "01",
-    "name": "THE WEDDING SHOP",
-    "title": "Wedding Jewellery",
+  "heroSlides": [
+   {
+    "img": "assets/slides/1.jpg",
+    "eyebrow": "New In",
+    "title": "MAKE IT PERSONAL",
+    "cta": "Shop now",
+    "col": "new-in",
+    "pos": "bottom",
+    "focus": "center"
+   },
+   {
+    "img": "assets/slides/2.jpg",
+    "eyebrow": "For someone special",
+    "title": "TIMELESS GIFTS",
+    "cta": "Shop now",
+    "col": "jewellery-gift-sets",
+    "pos": "bottom",
+    "focus": "center top"
+   },
+   {
+    "img": "assets/slides/3.jpg",
+    "eyebrow": "Handcrafted With Love",
+    "title": "THE WEDDING SHOP",
+    "cta": "Shop now",
     "col": "wedding",
-    "products": [
-      "gold-pearl-with-baroque-drop-necklace",
-      "silver-pearl-with-baroque-drop-necklace",
-      "silver-large-baroque-pearl-drop-stud-earrings",
-      "gold-medium-double-sided-pearl-drop-stud-earrings",
-      "gold-three-graduated-pearl-drop-lariat-necklace",
-      "silver-three-graduated-pearl-drop-lariat-necklace",
-      "silver-medium-double-sided-pearl-drop-stud-earrings",
-      "gold-large-baroque-pearl-lariat-necklace"
-    ],
-    "weekday": 4,
-    "hour": 19,
-    "earlyHours": 24,
-    "previous": null
-  },
-  "_pages": "Removed pages that 404 or only render with JS (no readable text): https://lilyandroo.com/pages/shipping-returns, https://lilyandroo.com/pages/help-centre",
-  "pages": {
-    "help": [
-      {
-        "t": "Contact",
-        "url": "https://lilyandroo.com/pages/contact-form",
-        "sum": "Email: info@lilyandroo.com, info@lilyandroo.com., marketing@lilyandroo.com.\nYou can also use the contact form on the site."
-      }
-    ],
-    "about": [
-      {
-        "t": "About us",
-        "url": "https://lilyandroo.com/pages/about",
-        "sum": "Our Story\nAbout Lily & Roo\nLily & Roo began with a very personal search.\nWhen our founder, Brittany Preston, was searching for jewellery for her own wedding day, she struggled to find pieces that truly felt right. Everything she discovered either drew attention away from the dress or felt overly trend-led. She wanted something timeless and understated — jewellery that enhanced the look as the perfect finishing touch, rather than becoming the main focus.\nShe wanted jewellery that complemented the moment, not competed with it. Pieces that felt special enough for a wedding day, yet versatile enough to be worn again and again, on everyday outings, meaningful occasions, and celebrations long after the dress was packed away.\nSo she decided to create it.\nToday, Lily & Roo is led by Brittany, and powered by a team of over 20 women who share a love for thoughtful design and beautifully made jewellery. Over 40% of our jewellery is handmade, and every piece is created with the same care and intention that inspired the brand from the very beginning."
-      },
-      {
-        "t": "Sustainability",
-        "url": "https://lilyandroo.com/pages/sustainability",
-        "sum": "Handmade in the UK: Most of our pieces are made in our UK studio by our talented all-female team of designers and makers. Additional components are produced in the UK, India and Thailand using sustainable, ethical factories carefully selected by us. Whether your piece is solid Gold, Gold-filled or Sterling Silver, where we can, we use recycled materials for our jewellery.\nEthical Stones, Every Time.: Here at Lily & Roo, all of our Diamonds comply with the Kimberley Process Certification Scheme, which is designed to prevent the trade in conflict diamonds. Each stone is carefully selected for its quality and traceability.\nOur genuine freshwater pearls are never synthetic, chosen for their natural beauty and lighter footprint.\nOur Packaging Is 100% Eco Friendly: Your Lily & Roo packaging is 100% eco-friendly, from the jewellery box to the delivery bag. When it comes to being 100% recyclable, we still have work to do. The great news is, we’re on track to get there soon and we’ll keep you posted."
-      }
-    ],
-    "legal": [
-      {
-        "t": "Privacy policy",
-        "url": "https://lilyandroo.com/policies/privacy-policy",
-        "sum": "Privacy policy\nLast updated: 24 July 2026\nThis Privacy Policy explains how Lily & Roo collects, uses, stores and shares your personal information when you visit lilyandroo.com (the “Site”), place an order, contact us or otherwise use our services.\nWe want you to understand what information we hold, why we need it and the choices available to you.\nIf you have questions about this policy, would like more information about our privacy practices, wish to exercise your rights or want to make a complaint, please contact us:\nEmail: info@lilyandroo.com\nPost: Lily & Roo, 49 Clarendon Road, Watford WD17 1HP, United Kingdom\nThe Personal Information We Collect\nWe collect information about your device, your use of the Site and the details required to process your purchases. We may also collect information when you contact our Client Services team. In this policy, “personal information” means information that identifies you or could reasonably be linked to you."
-      },
-      {
-        "t": "Terms of service",
-        "url": "https://lilyandroo.com/policies/terms-of-service",
-        "sum": "Terms of service\nOverview: The term ‘Lily & Roo’, ‘lilyandroo.com’, ‘us’ or ‘we’ refers to Lily & Roo Ltd. Our company registration number is 11384718 and our registered office address is GNR8, 49 Clarendon Road, Watford, WD17 1HP, United Kingdom. Our registered VAT number is 310275839. The term ‘you’ or ‘customer’ refers to the user or viewer of our Website or the person buying or requesting services and/or products from Lily & Roo Ltd.\nBy visiting our site and/ or purchasing something from us, you engage in our \"Service\" and agree to be bound by the following terms and conditions (\"Terms of Service\", \"Terms\"), including those additional terms and conditions and policies referenced herein and/or available by hyperlink. These Terms of Service apply to all users of the site, including without limitation users who are browsers, vendors, customers, merchants, and/ or contributors of…"
-      },
-      {
-        "t": "Refund policy",
-        "url": "https://lilyandroo.com/policies/refund-policy",
-        "sum": "Refund policy\nAt Lily & Roo, we strive to provide the highest quality products and service. We understand that there may be occasions when you wish to return an item, and we want to make the process as straightforward as possible.\nStart your return using our returns portal\nThe returns portal is currently available for orders returned from the UK, Australia, Canada, Finland, France, Germany, Ireland, the Netherlands, New Zealand, Sweden and the USA. For returns from any other country, please contact our Client Services team for assistance.\nImportant: Duties, Import Taxes and State Sales Tax\nIf your order was sent Delivered Duty Paid (DDP), the product price may include import duties, tariffs and import taxes paid on your behalf to the relevant customs or tax authorities.\nFor change-of-mind returns, including unwanted items or items that do not suit, the portion of the order value attributable to import duties, tariffs and import taxes will be deducted from your refund and will not be refunded by Lily & Roo, except where a refund is required by applicable law."
-      }
+    "pos": "bottom",
+    "focus": "center top"
+   }
+  ],
+  "editorial": null
+ },
+ "_drop": "No season drop is published on the site, so the Drops tab features their real Wedding Jewellery collection; the date is the rolling placeholder.",
+ "drop": {
+  "num": "01",
+  "name": "THE WEDDING SHOP",
+  "title": "Wedding Jewellery",
+  "col": "wedding",
+  "products": [
+   "gold-pearl-with-baroque-drop-necklace",
+   "silver-pearl-with-baroque-drop-necklace",
+   "silver-large-baroque-pearl-drop-stud-earrings",
+   "gold-medium-double-sided-pearl-drop-stud-earrings",
+   "gold-three-graduated-pearl-drop-lariat-necklace",
+   "silver-three-graduated-pearl-drop-lariat-necklace",
+   "silver-medium-double-sided-pearl-drop-stud-earrings",
+   "gold-large-baroque-pearl-lariat-necklace"
+  ],
+  "weekday": 4,
+  "hour": 19,
+  "earlyHours": 24,
+  "previous": null
+ },
+ "_pages": "Removed pages that 404 or only render with JS (no readable text): https://lilyandroo.com/pages/shipping-returns, https://lilyandroo.com/pages/help-centre",
+ "pages": {
+  "help": [
+   {
+    "t": "Contact",
+    "url": "https://lilyandroo.com/pages/contact-form",
+    "sum": "Email: info@lilyandroo.com, info@lilyandroo.com., marketing@lilyandroo.com.\nYou can also use the contact form on the site."
+   }
+  ],
+  "about": [
+   {
+    "t": "About us",
+    "url": "https://lilyandroo.com/pages/about",
+    "sum": "Our Story\nAbout Lily & Roo\nLily & Roo began with a very personal search.\nWhen our founder, Brittany Preston, was searching for jewellery for her own wedding day, she struggled to find pieces that truly felt right. Everything she discovered either drew attention away from the dress or felt overly trend-led. She wanted something timeless and understated — jewellery that enhanced the look as the perfect finishing touch, rather than becoming the main focus.\nShe wanted jewellery that complemented the moment, not competed with it. Pieces that felt special enough for a wedding day, yet versatile enough to be worn again and again, on everyday outings, meaningful occasions, and celebrations long after the dress was packed away.\nSo she decided to create it.\nToday, Lily & Roo is led by Brittany, and powered by a team of over 20 women who share a love for thoughtful design and beautifully made jewellery. Over 40% of our jewellery is handmade, and every piece is created with the same care and intention that inspired the brand from the very beginning."
+   },
+   {
+    "t": "Sustainability",
+    "url": "https://lilyandroo.com/pages/sustainability",
+    "sum": "Handmade in the UK: Most of our pieces are made in our UK studio by our talented all-female team of designers and makers. Additional components are produced in the UK, India and Thailand using sustainable, ethical factories carefully selected by us. Whether your piece is solid Gold, Gold-filled or Sterling Silver, where we can, we use recycled materials for our jewellery.\nEthical Stones, Every Time.: Here at Lily & Roo, all of our Diamonds comply with the Kimberley Process Certification Scheme, which is designed to prevent the trade in conflict diamonds. Each stone is carefully selected for its quality and traceability.\nOur genuine freshwater pearls are never synthetic, chosen for their natural beauty and lighter footprint.\nOur Packaging Is 100% Eco Friendly: Your Lily & Roo packaging is 100% eco-friendly, from the jewellery box to the delivery bag. When it comes to being 100% recyclable, we still have work to do. The great news is, we’re on track to get there soon and we’ll keep you posted."
+   }
+  ],
+  "legal": [
+   {
+    "t": "Privacy policy",
+    "url": "https://lilyandroo.com/policies/privacy-policy",
+    "sum": "Privacy policy\nLast updated: 24 July 2026\nThis Privacy Policy explains how Lily & Roo collects, uses, stores and shares your personal information when you visit lilyandroo.com (the “Site”), place an order, contact us or otherwise use our services.\nWe want you to understand what information we hold, why we need it and the choices available to you.\nIf you have questions about this policy, would like more information about our privacy practices, wish to exercise your rights or want to make a complaint, please contact us:\nEmail: info@lilyandroo.com\nPost: Lily & Roo, 49 Clarendon Road, Watford WD17 1HP, United Kingdom\nThe Personal Information We Collect\nWe collect information about your device, your use of the Site and the details required to process your purchases. We may also collect information when you contact our Client Services team. In this policy, “personal information” means information that identifies you or could reasonably be linked to you."
+   },
+   {
+    "t": "Terms of service",
+    "url": "https://lilyandroo.com/policies/terms-of-service",
+    "sum": "Terms of service\nOverview: The term ‘Lily & Roo’, ‘lilyandroo.com’, ‘us’ or ‘we’ refers to Lily & Roo Ltd. Our company registration number is 11384718 and our registered office address is GNR8, 49 Clarendon Road, Watford, WD17 1HP, United Kingdom. Our registered VAT number is 310275839. The term ‘you’ or ‘customer’ refers to the user or viewer of our Website or the person buying or requesting services and/or products from Lily & Roo Ltd.\nBy visiting our site and/ or purchasing something from us, you engage in our \"Service\" and agree to be bound by the following terms and conditions (\"Terms of Service\", \"Terms\"), including those additional terms and conditions and policies referenced herein and/or available by hyperlink. These Terms of Service apply to all users of the site, including without limitation users who are browsers, vendors, customers, merchants, and/ or contributors of…"
+   },
+   {
+    "t": "Refund policy",
+    "url": "https://lilyandroo.com/policies/refund-policy",
+    "sum": "Refund policy\nAt Lily & Roo, we strive to provide the highest quality products and service. We understand that there may be occasions when you wish to return an item, and we want to make the process as straightforward as possible.\nStart your return using our returns portal\nThe returns portal is currently available for orders returned from the UK, Australia, Canada, Finland, France, Germany, Ireland, the Netherlands, New Zealand, Sweden and the USA. For returns from any other country, please contact our Client Services team for assistance.\nImportant: Duties, Import Taxes and State Sales Tax\nIf your order was sent Delivered Duty Paid (DDP), the product price may include import duties, tariffs and import taxes paid on your behalf to the relevant customs or tax authorities.\nFor change-of-mind returns, including unwanted items or items that do not suit, the portion of the order value attributable to import duties, tariffs and import taxes will be deducted from your refund and will not be refunded by Lily & Roo, except where a refund is required by applicable law."
+   }
+  ]
+ },
+ "_heroSlides": "Their real 3-slide homepage slideshow (lilyandroo.com, 14 Oct 2026): copy and links as on the site; landscape images cropped to the portrait half with the model/product, copy kept at the bottom clear of faces. Slide 2 links to their Jewellery Gift Sets collection (the site links Best Sellers, which was not in the scraped nav).",
+ "vertical": "jewellery",
+ "sizes": {
+  "groups": [
+   {
+    "key": "ring",
+    "label": "Ring size",
+    "opts": [
+     "Small (K)",
+     "Medium (M)",
+     "Large (P)"
     ]
-  },
-  "_heroSlides": "Their real 3-slide homepage slideshow (lilyandroo.com, 14 Oct 2026): copy and links as on the site; landscape images cropped to the portrait half with the model/product, copy kept at the bottom clear of faces. Slide 2 links to their Jewellery Gift Sets collection (the site links Best Sellers, which was not in the scraped nav).",
-  "vertical": "jewellery",
-  "sizes": {
-    "groups": [
-      {
-        "key": "ring",
-        "label": "Ring size",
-        "opts": [
-          "Small (K)",
-          "Medium (M)",
-          "Large (P)"
-        ]
-      }
-    ]
-  },
-  "_sizes": "They sell 44 rings sized Small (K) / Medium (M) / Large (P): Ring size is the only size preference. Necklaces/bracelets have no size prefs.",
-  "copy": {
-    "about": "Elegant jewellery, handmade in London."
-  },
-  "_about": "Footer line from their own meta description (scraped value was a heading or Title Case).",
-  "scrape": {
-    "extraCollections": [
-      "rings"
-    ]
-  },
-  "_editorial": "Removed: the campaign image cut a face in half at the phone width; the 3-slide hero already carries the campaign.",
-  "search": {
-    "trending": [
-      "Necklace",
-      "Earrings",
-      "Bracelet",
-      "Ring",
-      "Pearl",
-      "Initial",
-      "Jewellery sets",
-      "Anklet"
-    ]
-  }
+   }
+  ]
+ },
+ "_sizes": "They sell 44 rings sized Small (K) / Medium (M) / Large (P): Ring size is the only size preference. Necklaces/bracelets have no size prefs.",
+ "copy": {
+  "about": "Elegant jewellery, handmade in London."
+ },
+ "_about": "Footer line from their own meta description (scraped value was a heading or Title Case).",
+ "scrape": {
+  "extraCollections": [
+   "rings"
+  ]
+ },
+ "_editorial": "Removed: the campaign image cut a face in half at the phone width; the 3-slide hero already carries the campaign.",
+ "search": {
+  "trending": [
+   "Necklace",
+   "Earrings",
+   "Bracelet",
+   "Ring",
+   "Pearl",
+   "Initial",
+   "Jewellery sets",
+   "Anklet"
+  ]
+ },
+ "shipping": {
+  "region": "UK",
+  "options": [
+   {
+    "id": "std",
+    "name": "Standard Delivery (2-4 working days)",
+    "short": "Standard",
+    "desc": "Free, Royal Mail Tracked 48",
+    "price": 0
+   },
+   {
+    "id": "nwd",
+    "name": "Next Working Day",
+    "desc": "Order before 2pm, DPD",
+    "price": 6.95
+   },
+   {
+    "id": "sat",
+    "name": "Saturday Delivery",
+    "desc": "Order before 2pm on Friday, DPD",
+    "price": 15.0
+   }
+  ]
+ }
 }

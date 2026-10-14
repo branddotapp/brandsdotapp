@@ -39,3 +39,5 @@ Automated: visual_check.py 0 fail / 0 crop warnings on all 10 (393x852 + 375x667
 - solebliss (re-check) — the bag also said 'Free' at £189. Corrected from solebliss.com/pages/shipping-returns: UK £5.95, free over £200. Still DONE.
 - navygrey (re-check) — the scraped 'UK delivery £60' was wrong. Corrected from navygrey.co/pages/orders-delivery: Royal Mail £5.75 (free over £250), DPD £7.00, DPD Premium £10.00. Still DONE.
 - barebiology — DONE. 42 screens at 375x667 re-read. 'Pack' options (no sizes), free Express Royal Mail, real copy. All items pass.
+- lilyandroo (re-check): delivery set from lilyandroo.com/policies/shipping-policy: Standard free (Royal Mail Tracked 48, 2-4 days), Next Working Day £6.95, Saturday £15.00. Still DONE.
+- dlouise (re-check): Hoop, Huggie and Chain bracelet covers were the Advent Calendar box. Now real products (Tapered Oval Hoops, Tennis Huggies, Dainty Pearl Bracelet) via the new covers override. Still DONE.
