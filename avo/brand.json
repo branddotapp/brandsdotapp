@@ -1460,11 +1460,12 @@
   "bestCol": "best-sellers",
   "newSub": "What's new",
   "hero": {
-   "poster": "assets/img/hero-poster.jpg",
-   "eyebrow": "Trusted by thousands of petite women",
-   "title": "LOVED BY PETITES",
+   "poster": "assets/img/hero-mobile.jpg",
+   "eyebrow": "",
+   "title": "",
    "cta": "Shop best sellers",
-   "col": "best-sellers"
+   "col": null,
+   "video": null
   },
   "tiles": [
    [

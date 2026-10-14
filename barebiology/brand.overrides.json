@@ -15,5 +15,21 @@
     "bestTitle": "Omega-3"
   },
   "_note": "Subscriptions: their real Subscribe & Save (15% off + free shipping, skip/change/cancel any time) per their FAQ.",
-  "_hero": "Homepage hero video is only 2.3s, too short to loop smoothly, so the hero uses its still poster frame."
+  "_hero": "Homepage hero video is only 2.3s, too short to loop smoothly, so the hero uses its still poster frame.",
+  "perks": [
+    "Free Delivery On All Orders",
+    "Sign Up For 10% Off",
+    "Not for you? We'll refund you.",
+    "30-day returns"
+  ],
+  "_perks": "dropped a CSS fragment the scraper picked up from their announcement bar",
+  "pitch": {
+    "title": "Bare Biology,<br>one tap away.",
+    "copy": "A concept for the Bare Biology app: reorder your daily omega-3, collagen and vitamin D in a tap, push reminders before you run out, and Shopify checkout with Apple Pay. Their real Subscribe & Save (15% off, free shipping) would carry over. Tap around, everything works.",
+    "list": [
+      "One-tap reorder and run-out reminders",
+      "Subscribe & Save, managed in the app",
+      "Shopify checkout with Apple Pay, Shop Pay and PayPal"
+    ]
+  }
 }

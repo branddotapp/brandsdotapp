@@ -28,5 +28,14 @@
   "theme": {
     "sand2": "#efefe9"
   },
-  "_theme": "colours adjusted for WCAG AA contrast"
+  "_theme": "colours adjusted for WCAG AA contrast",
+  "pitch": {
+    "title": "Just Bee,<br>one tap away.",
+    "copy": "A concept for the Just Bee app: reorder your daily honey in a tap, gift-range launches with app-first access, and Shopify checkout with Apple Pay. Tap around, everything works.",
+    "list": [
+      "One-tap reorder of your daily honey",
+      "Gift-range launches with app-only early access",
+      "Shopify checkout with Apple Pay, Shop Pay and PayPal"
+    ]
+  }
 }

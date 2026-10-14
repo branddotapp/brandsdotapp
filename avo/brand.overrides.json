@@ -38,11 +38,11 @@
   },
   "home": {
     "hero": {
-      "poster": "assets/img/hero-poster.jpg",
-      "eyebrow": "Trusted by thousands of petite women",
-      "title": "LOVED BY PETITES",
-      "cta": "Shop best sellers",
-      "col": "best-sellers"
+      "poster": "assets/img/hero-mobile.jpg",
+      "video": null,
+      "eyebrow": "",
+      "title": "",
+      "col": null
     },
     "newCol": "whats-new",
     "newSub": "What's new",
@@ -112,5 +112,6 @@
         "sum": "Refund policy\nRefund Policy\nWe offer an easy, tracked returns service for UK customers, and you can return any of your items within 14 days of receiving your order.\nTo be eligible for a full refund, items must be unworn and unwashed, with tags still attached. We can't accept returns for items with make-up, deodorant or self-tan on them, or items that smell of smoke, perfume, body sprays or creams. If these conditions aren't met, we're unable to offer a full refund.\nHow to return\nUK customers can start a return through our Royal Mail returns portal here: https://www.royalmail.com/track-my-return#/details/9074. Once your return is requested, you'll be given a Royal Mail label or QR code to use.\nIf you're based outside the UK, please email hello@avoactivewear.com and we'll help you start your return.\nPlease always use the returns portal so we can process your return properly. If you send an order back without requesting it through the portal or using the label provided, the return fee still applies, any postage you've paid yourself can't be reimbursed, and you'll need to include your order details inside the parcel."
       }
     ]
-  }
+  },
+  "_hero": "Their real mobile hero (April 2026). Its headline and 'shop the collection' button are part of the image, so nothing is overlaid; the top is extended in their purple so the headline sits below the app header."
 }

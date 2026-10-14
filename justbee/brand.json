@@ -2028,11 +2028,11 @@
   "heroNotif": "The new season is here."
  },
  "pitch": {
-  "title": "Just Bee Honey,<br>one tap away.",
-  "copy": "A concept for a native Just Bee Honey shopping app: drop alerts, early access, saved sizes and a faster path from first look to checkout. Tap around, everything works.",
+  "title": "Just Bee,<br>one tap away.",
+  "copy": "A concept for the Just Bee app: reorder your daily honey in a tap, gift-range launches with app-first access, and Shopify checkout with Apple Pay. Tap around, everything works.",
   "list": [
-   "Drops with app-only early access",
-   "Saved size and back-in-size alerts",
+   "One-tap reorder of your daily honey",
+   "Gift-range launches with app-only early access",
    "Shopify checkout with Apple Pay, Shop Pay and PayPal"
   ]
  },

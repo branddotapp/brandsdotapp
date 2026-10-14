@@ -182,6 +182,8 @@ def run(pw, w, h):
         top('.size-filter').click(); check('size-sheet')
         p.locator('#sheet .size').nth(min(2, p.locator('#sheet .size').count() - 1)).click(); p.click('#szSave'); check('collection-my-size')
     # a buyable piece (department brands can have drop pieces marked Coming soon in the list)
+    if not p.locator('.view.top .pcard').count():  # small catalogue: the saved size can empty a collection, use a Home rail piece
+        tab('home'); p.wait_for_timeout(400)
     i = p.evaluate("[...document.querySelectorAll('.view.top .pcard')].findIndex(c => { const h = c.dataset.v; return !(window.__app.coming && window.__app.coming(h)); })")
     p.locator('.view.top .pcard').nth(max(i, 0)).click(); check('pdp')
     p.evaluate("document.querySelector('.view.top .pscroll').scrollTop = 600"); check('pdp-scrolled')
