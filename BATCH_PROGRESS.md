@@ -31,3 +31,4 @@ Automated: visual_check.py 0 fail / 0 crop warnings on all 10 (393x852 + 375x667
 - uskees — DONE. 46 screens at 375x667 re-read. Fixed this pass: search-row types (Overshirts_cord), welcome card (logo was over a face; now logo on brand colour, applied to all brands). All items pass.
 - albaray — DONE. 49 screens at 375x667 re-read (splash checked separately at 900ms: logo fades in, fine). All items pass.
 - navygrey — DONE. 45 screens at 375x667 re-read. Shop 'New arrivals' banner now framed at 12% (face whole); all items pass.
+- lilyandroo — DONE. 44 screens at 375x667 re-read. Fixed the restock push saying 'back in size A' (initial letter): it now picks a product with a real size option (bracelet Small/Medium). Ring size kept because they sell rings. All items pass.

@@ -1207,9 +1207,10 @@ const Demo = {
   },
   restock(){
     const pool = prods(H.newCol).concat(ALL);
-    const p = (hasSize() ? pool.find(inMySize) : null) || pool.find(x => x.sz.some(s=>s[1]));
+    const p = (hasSize() ? pool.find(inMySize) : null) || (SIZE_GROUPS.length && pool.find(x => isSizeOptOf(x) && x.sz.length>1 && x.sz.some(s=>s[1]))) || pool.find(x => x.sz.some(s=>s[1]));
     if (!p){ toast('No products available'); return; }
-    showPush(SIZE_GROUPS.length ? 'Back in stock in your size' : 'Back in stock', p.n+(p.c?' ('+p.c+')':'')+(SIZE_GROUPS.length ? ' is back in size '+prettySize(firstSize(p)) : ' is back in stock')+'. Tap to grab it before it goes again.', img(p.im[0],120), () => push(PDP, p.h));
+    const sized = SIZE_GROUPS.length && isSizeOptOf(p) && p.sz.length>1;
+    showPush(sized ? 'Back in stock in your size' : 'Back in stock', p.n+(p.c?' ('+p.c+')':'')+(sized ? ' is back in size '+prettySize(firstSize(p)) : ' is back in stock')+'. Tap to grab it before it goes again.', img(p.im[0],120), () => push(PDP, p.h));
   },
   price(){
     let h = wish.find(x => P[x].cp > P[x].p);
