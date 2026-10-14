@@ -920,7 +920,7 @@ def scrape(url, slug, out_dir, do_render=True, max_products=400, extra_cols=(), 
                  'featureCats': {'col': hero_c, 'title': ctitle(hero_c).upper(), 'cta': 'Shop now', 'idx': 1} if hero_c else None,
                  'featureEdits': {'col': sale_c, 'title': ctitle(sale_c).upper(), 'cta': 'Shop the ' + ctitle(sale_c).lower()} if sale_c else None}
     types = collections.Counter(p['ty'] for p in products.values() if p['ty'])
-    B['search'] = {'trending': [re.sub(r's$', '', t) if not t.lower().endswith(('ss', 'ts', 'wear')) else t for t, _ in types.most_common(8)], 'popular': [h for h in [new_c] + cats[:4] if h]}
+    B['search'] = {'trending': [t for t in (singular(t) for t, _ in types.most_common(10)) if t and not re.search(r'[_#]|\bgift card', t, re.I)][:8], 'popular': [h for h in [new_c] + cats[:4] if h]}
     B['sizes'] = {'groups': size_groups(products)}
     (found if B['sizes']['groups'] else missing)('Size options from variants: ' + ('; '.join('%s %s' % (g['label'], '/'.join(g['opts'])) for g in B['sizes']['groups']) or 'none'))
     # drop: most recently published season collection that isn't the current hero collection
@@ -1053,6 +1053,15 @@ def make_app_icon(out_dir, B, th):
     except Exception as e:
         log('  ✗ app icon: %s' % e)
 
+def singular(t):
+    """Search chip text from a product type: 'Necklaces' -> 'Necklace', but never 'Dresse'/'Accessorie'/'Jean'."""
+    l = t.lower()
+    if re.search(r'(ss|us|is|ts|wear|jeans|trousers|shorts|leggings|joggers|pants|tights|boots|sandals|heels|loafers|trainers)$', l) or ' ' in t: return t
+    if l.endswith('ies'): return t[:-3] + 'y'
+    if re.search(r'(ss|x|ch|sh)es$', l): return t[:-2]
+    if l.endswith('s'): return t[:-1]
+    return t
+
 def strip_counts(B):
     """Menu labels sometimes carry a product count ("Bracelets 79", "Watches 4"): never show those in titles.
     Opt-in per brand (brand.overrides.json -> "stripMenuCounts": true) because real names carry numbers too (Omega 3, Size 43)."""
@@ -1060,6 +1069,8 @@ def strip_counts(B):
     cnt = re.compile(r'(?<=[A-Za-z)])\s+\d{1,4}(?=\s|$)(?!\s*(?:%|cm|mm|g|ml|ct|pieces?|styles?)\b)')
     known = {c['t'] for c in B.get('collections', [])}
     for c in B.get('collections', []): c['t'] = cnt.sub('', c['t']).strip()
+    for t in (B.get('home') or {}).get('tiles') or []:
+        if isinstance(t, list) and len(t) > 1 and isinstance(t[1], str): t[1] = cnt.sub('', t[1]).strip()
     for sect, keys in (('shop', ('featureCats', 'featureEdits')), ('home', ('feature', 'editorial', 'hero'))):
         for k in keys:
             d = (B.get(sect) or {}).get(k)

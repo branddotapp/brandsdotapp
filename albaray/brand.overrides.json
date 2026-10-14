@@ -15,6 +15,12 @@
       "title": "",
       "cta": "Shop New In",
       "col": "new-in"
+    },
+    "editorial": {
+      "col": "knitwear",
+      "title": "Knitwear",
+      "img": "assets/img/campaign-wide.jpg",
+      "eyebrow": "Shop the edit"
     }
   },
   "_drop": "No season drop is published on the site, so the Drops tab features their real Burgundy Edit collection; the date is the rolling placeholder.",
@@ -86,5 +92,18 @@
       "organic-cotton"
     ]
   },
-  "_shop": "'View All' removed from categories; Re-Loved sub-collections live under the Re-Loved edit, not as product categories."
+  "_shop": "'View All' removed from categories; Re-Loved sub-collections live under the Re-Loved edit, not as product categories.",
+  "_editorial_col": "Editorial title/collection matched to what the image shows.",
+  "search": {
+    "trending": [
+      "Dress",
+      "Knitwear",
+      "Top",
+      "Trousers",
+      "Skirt",
+      "Jacket",
+      "Jeans",
+      "Cardigan"
+    ]
+  }
 }

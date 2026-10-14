@@ -1035,3 +1035,5 @@ img.img-err{visibility:hidden}
 .hero.baked{cursor:pointer}
 /* packshot verticals (food, supplements): product images are labelled jars/pouches, never crop through the label */
 .packshot .gtrack img,.packshot .pimg img{object-fit:contain;padding:6% 4%;box-sizing:border-box}
+.packshot .cat-tile img{object-fit:contain;padding:8% 8% 24%;box-sizing:border-box}
+.packshot .feature-card img{object-fit:contain;object-position:right center;padding:4% 2% 4% 40%;box-sizing:border-box}

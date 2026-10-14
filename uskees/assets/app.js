@@ -598,7 +598,10 @@ function Collection(el, h){
   const c = colBy(h);
   if (!c){ el.innerHTML = topbar({back:true,title:'Not found'}) + '<div class="empty"><h3>Collection unavailable</h3><button class="btn btn-dark" data-act="back">Go back</button></div>'; return {}; }
   let sort = 'featured', stockOnly = false, mineOnly = store.get('mineOnly', false) && hasSize();
-  const sizeFilterHTML = () => SIZE_GROUPS.length ? '<div class="size-filter"><div><b>Only show items in stock in my size</b><small>'+(hasSize()?'Your size: '+esc(sizeLabel())+' · <u data-sz>change</u>':'Set your size to use this filter')+'</small></div><span class="switch '+(mineOnly?'on':'')+'"></span></div>' : '';
+  // only where this collection actually sells sized items (a ring size filter makes no sense on necklaces)
+  const SZ_OPTS = new Set(SIZE_GROUPS.flatMap(g => (g.opts||[]).map(o => normSize(o))));
+  const colSized = prods(h).some(p => p.sz.some(s => SZ_OPTS.has(normSize(s[0]))));
+  const sizeFilterHTML = () => SIZE_GROUPS.length && colSized ? '<div class="size-filter"><div><b>Only show items in stock in my size</b><small>'+(hasSize()?'Your size: '+esc(sizeLabel())+' · <u data-sz>change</u>':'Set your size to use this filter')+'</small></div><span class="switch '+(mineOnly?'on':'')+'"></span></div>' : '';
   const render = () => {
     let list = prods(h);
     if (stockOnly) list = list.filter(p => p.sz.some(s=>s[1]));

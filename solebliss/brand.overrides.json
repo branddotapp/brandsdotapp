@@ -76,5 +76,15 @@
   },
   "_shop": "Duplicate bags collection removed.",
   "packshots": true,
-  "_home": "Editorial removed (it repeated the hero image); Shop feature is Trainers, not the EU 43 size collection. Product shots shown uncropped (shoes were cut at toe/heel)."
+  "_home": "Editorial removed (it repeated the hero image); Shop feature is Trainers, not the EU 43 size collection. Product shots shown uncropped (shoes were cut at toe/heel).",
+  "search": {
+    "trending": [
+      "Trainers",
+      "Boots",
+      "Loafers",
+      "Heels",
+      "Sandals",
+      "Bag"
+    ]
+  }
 }

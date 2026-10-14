@@ -113,5 +113,18 @@
       "sweats"
     ]
   },
-  "_shop": "Single-product collection (3001 buttoned overshirt) removed from categories; Evo/Sweats are edits."
+  "_shop": "Single-product collection (3001 buttoned overshirt) removed from categories; Evo/Sweats are edits.",
+  "search": {
+    "trending": [
+      "Overshirt",
+      "Blazer",
+      "T-shirt",
+      "Painter pants",
+      "Beanie",
+      "Knitwear",
+      "Coat",
+      "Cardigan"
+    ]
+  },
+  "_search": "Trending terms were Shopify product-type codes (T-SHIRTS_JERSEY); replaced with their real product words."
 }

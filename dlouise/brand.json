@@ -12892,27 +12892,27 @@
     "Rings"
    ],
    [
-    "engravable",
-    "Engraveable"
+    "bracelet",
+    "Bracelets"
+   ],
+   [
+    "hoop-earrings",
+    "Hoop Earrings"
+   ],
+   [
+    "charms",
+    "Charms"
    ],
    [
     "watches-1",
-    "Watches 4"
-   ],
-   [
-    "lab-grown-diamonds",
-    "Lab Grown Diamond Jewellery 1"
-   ],
-   [
-    "engravable-necklaces",
-    "Engravable Necklaces 9"
+    "Watches"
    ]
   ],
   "editorial": {
-   "col": "necklaces",
+   "col": "tennis-bracelets",
    "img": "assets/img/campaign-wide.jpg",
    "eyebrow": "Shop the edit",
-   "title": "NECKLACES"
+   "title": "Tennis Bracelets"
   },
   "feature": {
    "col": "gifts-for-anniversaries",
@@ -12958,13 +12958,13 @@
  "search": {
   "trending": [
    "Charm",
-   "Bracelets",
-   "Earring",
+   "Bracelet",
+   "Earrings",
    "Ring",
    "Necklace",
    "Watch",
-   "Accessorie",
-   "Stud"
+   "Tennis bracelet",
+   "Huggie"
   ],
   "popular": [
    "new-in",

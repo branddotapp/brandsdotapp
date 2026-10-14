@@ -19196,10 +19196,10 @@
    ]
   ],
   "editorial": {
-   "col": "outerwear",
+   "col": "knitwear",
    "img": "assets/img/campaign-wide.jpg",
    "eyebrow": "Shop the edit",
-   "title": "JACKETS"
+   "title": "Knitwear"
   },
   "feature": {
    "col": "re-loved",
@@ -19241,14 +19241,14 @@
  },
  "search": {
   "trending": [
-   "Top",
-   "Dresse",
+   "Dress",
    "Knitwear",
-   "Trouser",
-   "Skirts",
-   "Outerwear",
-   "Jean",
-   "Accessorie"
+   "Top",
+   "Trousers",
+   "Skirt",
+   "Jacket",
+   "Jeans",
+   "Cardigan"
   ],
   "popular": [
    "new-in",

@@ -120,5 +120,16 @@
   "copy": {
     "about": "Activewear designed for women 5'3\" and under. No more rolling sleeves or bunching leggings, just petite gym wear that finally fits properly."
   },
-  "_about": "Footer line from their own meta description (scraped value was a heading or Title Case)."
+  "_about": "Footer line from their own meta description (scraped value was a heading or Title Case).",
+  "search": {
+    "trending": [
+      "Leggings",
+      "Shorts",
+      "Crop top",
+      "Hoodie",
+      "Joggers",
+      "Sports bra",
+      "Socks"
+    ]
+  }
 }

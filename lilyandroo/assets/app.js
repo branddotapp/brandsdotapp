@@ -163,6 +163,7 @@ const SIZE_GROUPS = (B.sizes && B.sizes.groups) || [];
 // Shopify product types are sometimes internal codes (BLAZERS_TWILL, 2024-AW): hide those rather than show them
 const cleanType = t => { if (!t) return ''; const m = /^([A-Z][A-Z-]+)_[A-Z_]+$/.exec(t); if (m) return m[1].charAt(0)+m[1].slice(1).toLowerCase(); return /[_#/\\]|\d{3,}/.test(t) ? '' : t; };
 const NO_SIZE_VERT = /food|supplement/.test(B.vertical||'');
+if (B.packshots || NO_SIZE_VERT) document.documentElement.classList.add('packshot');
 const isSizeOptOf = p => !NO_SIZE_VERT && (!p.on || /size|waist|fit/i.test(p.on));
 const optLblOf = p => isSizeOptOf(p) ? 'Size' : (p.on && !/size/i.test(p.on) ? p.on : (B.optionLabel || 'Option'));
 const optLine = (p, v) => p.sz.length > 1 ? optLblOf(p)+' '+prettySize(v) : '';
@@ -597,7 +598,10 @@ function Collection(el, h){
   const c = colBy(h);
   if (!c){ el.innerHTML = topbar({back:true,title:'Not found'}) + '<div class="empty"><h3>Collection unavailable</h3><button class="btn btn-dark" data-act="back">Go back</button></div>'; return {}; }
   let sort = 'featured', stockOnly = false, mineOnly = store.get('mineOnly', false) && hasSize();
-  const sizeFilterHTML = () => SIZE_GROUPS.length ? '<div class="size-filter"><div><b>Only show items in stock in my size</b><small>'+(hasSize()?'Your size: '+esc(sizeLabel())+' · <u data-sz>change</u>':'Set your size to use this filter')+'</small></div><span class="switch '+(mineOnly?'on':'')+'"></span></div>' : '';
+  // only where this collection actually sells sized items (a ring size filter makes no sense on necklaces)
+  const SZ_OPTS = new Set(SIZE_GROUPS.flatMap(g => (g.opts||[]).map(o => normSize(o))));
+  const colSized = prods(h).some(p => p.sz.some(s => SZ_OPTS.has(normSize(s[0]))));
+  const sizeFilterHTML = () => SIZE_GROUPS.length && colSized ? '<div class="size-filter"><div><b>Only show items in stock in my size</b><small>'+(hasSize()?'Your size: '+esc(sizeLabel())+' · <u data-sz>change</u>':'Set your size to use this filter')+'</small></div><span class="switch '+(mineOnly?'on':'')+'"></span></div>' : '';
   const render = () => {
     let list = prods(h);
     if (stockOnly) list = list.filter(p => p.sz.some(s=>s[1]));
@@ -1236,9 +1240,17 @@ const Demo = {
   },
   welcome(){ showWelcome(); }
 };
+// welcome card photo: the hero, unless the hero artwork carries its own lettering (then the editorial image or a product shot)
+function welcomeImg(){
+  if (B.welcomeImg) return B.welcomeImg;
+  const h = H.hero || {};
+  if (h.poster && !h.baked && h.title !== '') return h.poster;
+  if (H.editorial && H.editorial.img && H.editorial.fit !== 'natural') return H.editorial.img;
+  const p = ALL.find(x => x.im && x.im[0]); return p ? img(p.im[0], 800) : h.poster;
+}
 function showWelcome(){
   const m = $('#welcome');
-  m.innerHTML = '<div class="wl-card"><div class="wl-top">'+(H.hero && H.hero.poster ? '<img src="'+esc(H.hero.poster)+'" alt="">' : '')+'<img src="'+LOGO_L+'" alt="'+esc(NAME)+'" class="wl-logo'+(B.assets.logoLight?'':' inv')+'"></div><div class="wl-body">'+
+  m.innerHTML = '<div class="wl-card"><div class="wl-top">'+(welcomeImg() ? '<img src="'+esc(welcomeImg())+'" alt="">' : '')+'<img src="'+LOGO_L+'" alt="'+esc(NAME)+'" class="wl-logo'+(B.assets.logoLight?'':' inv')+'"></div><div class="wl-body">'+
     '<small>Welcome to the app</small><h2>'+DISC.pct+'% off your first order</h2>'+
     '<button class="wl-code" id="wlCode"><span>'+esc(DISC.code)+'</span><em>'+I.copy+'Tap to copy</em></button>'+
     '<button class="btn btn-dark btn-block" id="wlGo">Start shopping</button><button class="wl-skip" id="wlSkip">Maybe later</button></div></div>';
