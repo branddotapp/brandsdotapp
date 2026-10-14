@@ -7421,7 +7421,8 @@
     "name": "Tracked 48 (2-3 working days)",
     "desc": "£3.50, free over £80",
     "price": 3.5,
-    "short": "Tracked 48"
+    "short": "Tracked 48",
+    "freeOver": 80
    },
    {
     "id": "tracked24",
@@ -7485,7 +7486,7 @@
  ],
  "rewards": {
   "enabled": true,
-  "name": "Wawwa ф Rewards",
+  "name": "WAWWA Rewards",
   "real": false,
   "stockists": true
  },
@@ -7627,8 +7628,8 @@
   "heroNotif": "The new season is here."
  },
  "pitch": {
-  "title": "Wawwa ф,<br>one tap away.",
-  "copy": "A concept for a native Wawwa ф shopping app: drop alerts, early access, saved sizes and a faster path from first look to checkout. Tap around, everything works.",
+  "title": "WAWWA,<br>one tap away.",
+  "copy": "A concept for a native WAWWA shopping app: drop alerts, early access, saved sizes and a faster path from first look to checkout. Tap around, everything works.",
   "list": [
    "Drops with app-only early access",
    "Saved size and back-in-size alerts",
@@ -7642,7 +7643,7 @@
  ],
  "report": {
   "found": [
-   "Name: Wawwa ф (site calls itself “WAWWA Ф”)",
+   "Name: WAWWA (site calls itself “WAWWA Ф”)",
    "Shopify store detected (/products.json is public)",
    "234 products in /products.json, 112 collections in /collections.json",
    "12 menu collections → 141 products in the app",

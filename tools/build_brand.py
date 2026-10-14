@@ -1168,7 +1168,15 @@ def main():
                    per_col=int(sc.get('perCollection') or 0))
     ov = os.path.join(out, 'brand.overrides.json')
     if os.path.exists(ov):
+        old_name = B.get('name')
         B = deep_merge(B, json.load(open(ov)))
+        # a renamed brand ("Wawwa ф" -> "WAWWA"): carry the new name into every derived string (pitch, rewards, copy)
+        if old_name and B.get('name') and B['name'] != old_name:
+            def _rn(o):
+                if isinstance(o, dict): return {k: _rn(v) for k, v in o.items()}
+                if isinstance(o, list): return [_rn(v) for v in o]
+                return o.replace(old_name, B['name']) if isinstance(o, str) else o
+            keep = B['name']; B = _rn(B); B['name'] = keep
         # collection titles can be renamed without replacing the whole list: "collectionTitles": {"handle": "Title"}
         for c in B.get('collections', []):
             if c['h'] in (B.get('collectionTitles') or {}): c['t'] = B['collectionTitles'][c['h']]

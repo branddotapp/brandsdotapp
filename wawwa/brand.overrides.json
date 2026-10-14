@@ -72,7 +72,8 @@
         "name": "Tracked 48 (2-3 working days)",
         "desc": "£3.50, free over £80",
         "price": 3.5,
-        "short": "Tracked 48"
+        "short": "Tracked 48",
+        "freeOver": 80
       },
       {
         "id": "tracked24",

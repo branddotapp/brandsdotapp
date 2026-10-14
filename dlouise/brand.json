@@ -12822,7 +12822,8 @@
     "name": "Standard (2-3 working days)",
     "desc": "£3.50 or free for orders over £75",
     "price": 3.5,
-    "short": "Standard (2-3 working days)"
+    "short": "Standard (2-3 working days)",
+    "freeOver": 75
    },
    {
     "id": "express",

@@ -19071,7 +19071,8 @@
     "name": "Royal Mail Standard UK Delivery",
     "desc": "",
     "price": 4.95,
-    "short": "UK Delivery"
+    "short": "UK Delivery",
+    "freeOver": 99
    },
    {
     "id": "local-collect-dpd-next-day-delivery",
@@ -19096,7 +19097,7 @@
    }
   ],
   "notes": [],
-  "freeOver": null,
+  "freeOver": 99,
   "region": ""
  },
  "currency": {

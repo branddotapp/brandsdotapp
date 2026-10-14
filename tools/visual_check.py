@@ -16,7 +16,7 @@ EDGE_JS = r"""() => {
     const el = t.parentElement; const cs = getComputedStyle(el);
     if (cs.visibility === 'hidden' || cs.display === 'none' || +cs.opacity === 0) continue;
     if (el.closest('.hc-track,.rail,.chips,.scroller,.marquee,.ann,[data-scroll-x]')) continue;
-    let a = el, sx = false; while (a && a !== view) { const c = getComputedStyle(a); if (/auto|scroll/.test(c.overflowX) && a.scrollWidth > a.clientWidth + 4) { sx = true; break; } a = a.parentElement; }
+    let a = el, sx = false; while (a && a !== view) { const c = getComputedStyle(a); if ((/auto|scroll/.test(c.overflowX) && a.scrollWidth > a.clientWidth + 4) || c.textOverflow === 'ellipsis' || c.webkitLineClamp !== 'none') { sx = true; break; } a = a.parentElement; }
     if (sx || /^[★☆\s]+$/.test(t.textContent)) continue;
     const rg = document.createRange(); rg.selectNodeContents(t);
     for (const r of rg.getClientRects()) {

@@ -105,5 +105,41 @@
       "Jeans",
       "Cardigan"
     ]
+  },
+  "shipping": {
+    "options": [
+      {
+        "id": "royal-mail-standard-uk-delivery",
+        "name": "Royal Mail Standard UK Delivery",
+        "desc": "",
+        "price": 4.95,
+        "short": "UK Delivery",
+        "freeOver": 99
+      },
+      {
+        "id": "local-collect-dpd-next-day-delivery",
+        "name": "Local Collect DPD Next Day Delivery",
+        "desc": "",
+        "price": 4.95,
+        "short": "Day Delivery"
+      },
+      {
+        "id": "royal-mail-express-delivery",
+        "name": "Royal Mail Express Delivery",
+        "desc": "",
+        "price": 5.95,
+        "short": "Express Delivery"
+      },
+      {
+        "id": "dpd-next-business-day-delivery",
+        "name": "DPD Next Business Day Delivery",
+        "desc": "",
+        "price": 6.95,
+        "short": "Day Delivery"
+      }
+    ],
+    "notes": [],
+    "freeOver": 99,
+    "region": ""
   }
 }

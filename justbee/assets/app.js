@@ -1203,7 +1203,7 @@ const Demo = {
   bag(){
     if (!bag.length){ const p = prods(H.bestCol).find(x => x.sz.some(s=>s[1])) || ALL.find(x => x.sz.some(s=>s[1])); if (!p){ toast('No products available'); return; } addToBag(p.h, firstSize(p), true); }
     const p = P[bag[0].h];
-    showPush('You left something in your bag', p.n+(p.c?' in '+p.c:'')+' is still waiting'+(SIZE_GROUPS.length?', and sizes are going fast':'')+'. Use '+DISC.code+' for '+DISC.pct+'% off.', img(p.im[0],120), () => switchTab('bag'));
+    showPush('You left something in your bag', p.n+(p.c?' in '+p.c:'')+' is still waiting'+(isSizeOptOf(p)&&p.sz.length>1?', and sizes are going fast':'')+'. Use '+DISC.code+' for '+DISC.pct+'% off.', img(p.im[0],120), () => switchTab('bag'));
   },
   restock(){
     const pool = prods(H.newCol).concat(ALL);

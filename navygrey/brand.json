@@ -4375,16 +4375,17 @@
  "shipping": {
   "options": [
    {
-    "id": "uk-orders-for-orders-under",
-    "name": "UK orders for orders under",
-    "desc": "Standard Delivery with Royal Mail - 2 working days -£5.00",
+    "id": "uk",
+    "name": "UK delivery",
+    "desc": "Complimentary on orders £250+",
     "price": 60.0,
-    "short": "orders under"
+    "freeOver": 250,
+    "short": "UK delivery"
    }
   ],
   "notes": [],
-  "freeOver": 250.0,
-  "region": ""
+  "freeOver": 250,
+  "region": "UK"
  },
  "currency": {
   "code": "GBP",

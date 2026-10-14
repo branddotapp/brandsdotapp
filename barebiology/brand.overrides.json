@@ -100,5 +100,27 @@
   "copy": {
     "about": "Loved by nutritional therapists, health experts and our customers. Our omega-3, algae oils, marine collagen and vitamin D are cult favourites."
   },
-  "_about": "Footer line from their own meta description (scraped value was a heading or Title Case)."
+  "_about": "Footer line from their own meta description (scraped value was a heading or Title Case).",
+  "shipping": {
+    "options": [
+      {
+        "id": "express-royal-mail-shipping-1-2-working-days",
+        "name": "Express Royal Mail Shipping (1-2 working days)",
+        "desc": "",
+        "price": 3.99,
+        "short": "Express Royal Mail Shipping (1-2 working days)",
+        "freeOver": 0.01
+      },
+      {
+        "id": "dpd-next-day-if-you-need-your-order-sooner",
+        "name": "DPD Next Day (if you need your order sooner)",
+        "desc": "Orders placed by 12:30pm Mon-Thurs will be dispatched the same day.",
+        "price": 6.99,
+        "short": "DPD Next Day (if you need your order sooner)"
+      }
+    ],
+    "notes": [],
+    "freeOver": null,
+    "region": ""
+  }
 }

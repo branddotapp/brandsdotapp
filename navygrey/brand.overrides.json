@@ -59,5 +59,20 @@
       "Shirt",
       "Sweatshirt"
     ]
+  },
+  "shipping": {
+    "options": [
+      {
+        "id": "uk",
+        "name": "UK delivery",
+        "desc": "Complimentary on orders £250+",
+        "price": 60.0,
+        "freeOver": 250,
+        "short": "UK delivery"
+      }
+    ],
+    "notes": [],
+    "freeOver": 250,
+    "region": "UK"
   }
 }

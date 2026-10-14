@@ -8988,10 +8988,26 @@
  },
  "frameable": false,
  "shipping": {
-  "options": [],
+  "options": [
+   {
+    "id": "std",
+    "name": "Standard (2-4 working days)",
+    "desc": "£2.99, free over £90",
+    "price": 2.99,
+    "freeOver": 90,
+    "short": "Standard"
+   },
+   {
+    "id": "exp",
+    "name": "Express (1-2 working days)",
+    "desc": "£4.99",
+    "price": 4.99,
+    "short": "Express"
+   }
+  ],
   "notes": [],
-  "freeOver": null,
-  "region": ""
+  "freeOver": 90,
+  "region": "UK"
  },
  "currency": {
   "code": "GBP",

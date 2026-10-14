@@ -960,7 +960,8 @@
     "name": "Express Royal Mail Shipping (1-2 working days)",
     "desc": "",
     "price": 3.99,
-    "short": "Express Royal Mail Shipping (1-2 working days)"
+    "short": "Express Royal Mail Shipping (1-2 working days)",
+    "freeOver": 0.01
    },
    {
     "id": "dpd-next-day-if-you-need-your-order-sooner",
