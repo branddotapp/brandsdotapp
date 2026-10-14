@@ -4375,12 +4375,24 @@
  "shipping": {
   "options": [
    {
-    "id": "uk",
-    "name": "UK delivery",
-    "desc": "Complimentary on orders £250+",
-    "price": 60.0,
-    "freeOver": 250,
-    "short": "UK delivery"
+    "id": "rm",
+    "name": "Royal Mail Standard (2-4 working days)",
+    "short": "Royal Mail Standard",
+    "desc": "£5.75 or free on UK orders over £250",
+    "price": 5.75,
+    "freeOver": 250
+   },
+   {
+    "id": "dpd",
+    "name": "DPD Standard (1-2 working days)",
+    "desc": "Tracked",
+    "price": 7.0
+   },
+   {
+    "id": "prem",
+    "name": "DPD Premium (1 working day)",
+    "desc": "Order by 1pm Mon-Thu",
+    "price": 10.0
    }
   ],
   "notes": [],

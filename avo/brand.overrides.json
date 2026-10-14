@@ -1,135 +1,148 @@
 {
-  "scrape": {
-    "_why": "small catalogue: pull every real collection from their nav",
-    "extraCollections": [
-      "whats-new",
-      "best-sellers",
-      "all-petite-leggings",
-      "joggers",
-      "the-senara-crop-top-v2",
-      "all-products"
-    ],
-    "perCollection": 40
-  },
-  "_reviews": "Real store-wide Judge.me score, checked 14 Oct 2026.",
-  "reviews": {
-    "score": 4.9,
-    "count": 1370,
-    "label": "on Judge.me",
-    "source": "Judge.me",
-    "url": "https://judge.me/reviews/stores/avoactivewear.com",
-    "checked": "14 Oct 2026"
-  },
-  "_sizes": "real variant sizes (petite fit, XS UK 6-8 to XL UK 14-16)",
-  "sizes": {
-    "groups": [
-      {
-        "key": "top",
-        "label": "Clothing size",
-        "opts": [
-          "XS (UK 6-8)",
-          "S (UK 8-10)",
-          "M (UK 10-12)",
-          "L (UK 12-14)",
-          "XL (UK 14-16)"
-        ]
-      }
+ "scrape": {
+  "_why": "small catalogue: pull every real collection from their nav",
+  "extraCollections": [
+   "whats-new",
+   "best-sellers",
+   "all-petite-leggings",
+   "joggers",
+   "the-senara-crop-top-v2",
+   "all-products"
+  ],
+  "perCollection": 40
+ },
+ "_reviews": "Real store-wide Judge.me score, checked 14 Oct 2026.",
+ "reviews": {
+  "score": 4.9,
+  "count": 1370,
+  "label": "on Judge.me",
+  "source": "Judge.me",
+  "url": "https://judge.me/reviews/stores/avoactivewear.com",
+  "checked": "14 Oct 2026"
+ },
+ "_sizes": "real variant sizes (petite fit, XS UK 6-8 to XL UK 14-16)",
+ "sizes": {
+  "groups": [
+   {
+    "key": "top",
+    "label": "Clothing size",
+    "opts": [
+     "XS (UK 6-8)",
+     "S (UK 8-10)",
+     "M (UK 10-12)",
+     "L (UK 12-14)",
+     "XL (UK 14-16)"
     ]
+   }
+  ]
+ },
+ "home": {
+  "hero": {
+   "poster": "assets/img/hero-mobile.jpg",
+   "video": null,
+   "eyebrow": "",
+   "title": "",
+   "col": "whats-new",
+   "baked": true,
+   "cta": "Shop the collection"
   },
-  "home": {
-    "hero": {
-      "poster": "assets/img/hero-mobile.jpg",
-      "video": null,
-      "eyebrow": "",
-      "title": "",
-      "col": "whats-new",
-      "baked": true,
-      "cta": "Shop the collection"
-    },
-    "newCol": "whats-new",
-    "newSub": "What's new",
-    "bestCol": "best-sellers",
-    "bestSub": "Loved by Petites"
-  },
-  "_drop": "No season drop is published, so Drops features their real Pocket Leggings collection; date is the rolling placeholder.",
-  "drop": {
-    "num": "01",
-    "name": "POCKET LEGGINGS",
-    "title": "Pocket Leggings",
-    "col": "the-pocket-rocket-collection",
-    "products": [
-      "the-pocket-rocket-legging-black",
-      "the-pocket-rocket-legging-plum"
-    ],
-    "weekday": 4,
-    "hour": 19,
-    "earlyHours": 24,
-    "previous": null
-  },
-  "_pages": "Removed cookie policy (renders only with JS, no readable text).",
-  "pages": {
-    "help": [
-      {
-        "t": "Shipping",
-        "url": "https://avoactivewear.com/pages/shipping-information",
-        "sum": "Shipping Information\nWhat are your postage fees?\nAll orders are dispatched from our UK warehouse using a fully tracked Royal Mail or DPD service.\nUK orders over £90 qualify for free Royal Mail Tracked 48 delivery. For orders under £90, you can choose from a range of delivery options at checkout.\nWe also ship internationally to Ireland, the EU, USA, Canada, Australia, and New Zealand. Any applicable duties and taxes will be displayed at checkout, so there are no surprises when your order arrives.\nHow long will it take to receive my order?\nMost orders are dispatched the same day or next working day. During busy periods, such as new launches, restocks, or Black Friday, please allow up to 3 working days.\nFor next day delivery with DPD, your order needs to be placed before 12pm.\nDelivery times will vary depending on your location and the shipping service chosen at checkout. You'll receive a tracking email once your order has been dispatched so you can follow its journey."
-      },
-      {
-        "t": "Returns",
-        "url": "https://avoactivewear.com/pages/returns",
-        "sum": "Returns & Refunds\nTo start the return process for your order, please follow the link below to our Royal Mail returns portal start my return\nFrequently Asked Questions\nDo you accept returns?\nYes we do! We offer a free returns service for UK based customers\nYou can return any of your items within 14 days of receipt of your order\nItems must be in unworn and unwashed condition with tags still attached to be considered for a full refund\nWe do not accept returns for products which have make-up, deodorant, or self-tan on them, nor products that smell like smoke, perfume, body sprays or creams\nPlease note that we are unable to offer a full refund if the above conditions are not met\nIf you are based outside the UK and wish to return an item, please email us so that we can start your return\nAre there any charges for return?\nWe charge a £3.50 fee for returns, which covers the cost of processing your return. It's deducted from your refund, and you can request your return through our Returns Portal and use the provided Royal Mail label or QR code."
-      },
-      {
-        "t": "FAQs",
-        "url": "https://avoactivewear.com/pages/faq",
-        "sum": "Frequently Asked Questions\nWhat size should I buy?\nFor the best fit, please refer to our sizing chart.\nHow should I wash my Avo clothing?\nWe recommend washing your items at 30 degrees or below. Hang dry and do not tumble dry. To optimise the lifespan of your garment we suggest a cold machine wash or hand wash followed by hanging to air dry. Do not bleach, dry clean or iron.\nWhere can I find information about shipping and delivery?\nPlease click here\nWhere can I find information about returns and refunds?\nGet in touch\nIf you can't find the answer to your question here, please feel free to contact us via email and we will aim to respond within 48 hours"
-      },
-      {
-        "t": "Contact",
-        "url": "https://avoactivewear.com/pages/contact",
-        "sum": "Contact\nPlease contact us via the form below or email hello@avoactivewear.com\nWe aim to respond to messages within 48 hours.\nRegistered business address: 310 Charlton Road, Brentry, Bristol BS10 6JZ\nContact us"
-      }
-    ],
-    "about": [
-      {
-        "t": "About us",
-        "url": "https://avoactivewear.com/pages/about",
-        "sum": "The Story of Avo Activewear\nAvo is the UK’s 1st sportswear brand dedicated exclusively to women 5'3\" and under. Our mission is simple: to create high-quality activewear that fits petite proportions properly – no rolling up hems, no awkwardly high waistbands, and no compromising on style or function.\nWhat began as a personal frustration has grown into an award-winning brand recognised by Women’s Health, Heat, and Woman & Home. We've been named a Drapers Disruptor Finalist and received the Bristol Life Award for Best Small Business, celebrating our commitment to innovation in a space that had long overlooked petite women.\nOur collection includes best-selling flared leggings, sports bras, maternity styles, and everyday activewear essentials – all crafted with purpose, precision, and petite women in mind.\nMeet The Founder - Ally Patterson\nStanding at 5'1\", I've experienced the challenges petite women face when shopping for activewear. Frustrated with the lack of options that truly fit, I decided to take matters into my own hands. My journey began in 2017, armed with nothing but basic sewing skills and a determination to make a change."
-      }
-    ],
-    "legal": [
-      {
-        "t": "Privacy policy",
-        "url": "https://avoactivewear.com/pages/privacy-policy",
-        "sum": "Your privacy is important to us. It is Avo Activewear Ltd's policy to respect your privacy regarding any information we may collect from you across our website, www.avoactivewear.com.\nWe only ask for personal information when we truly need it to provide a service to you. We collect it by fair and lawful means, with your knowledge and consent. We also let you know why we’re collecting it and how it will be used.\nWe only retain collected information for as long as necessary to provide you with your requested service. What data we store, we’ll protect within commercially acceptable means to prevent loss and theft, as well as unauthorised access, disclosure, copying, use or modification.\nWe don’t share any personally identifying information publicly or with third-parties, except when required to by law or when necessary to provide services (such as payment processing, shipping, and customer support)."
-      },
-      {
-        "t": "Terms of service",
-        "url": "https://avoactivewear.com/pages/terms-of-service",
-        "sum": "1. Terms\nBy accessing the website at www.avoactivewear.com, you are agreeing to be bound by these terms of service, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this website are protected by applicable copyright and trademark law.\n2. Use Licence\nPermission is granted to temporarily download one copy of the materials (information or software) on Avo Activewear Ltd's website for personal, non-commercial transitory viewing only. This is the grant of a licence, not a transfer of title, and under this licence you may not:\nmodify or copy the materials; use the materials for any commercial purpose, or for any public display (commercial or non-commercial); attempt to decompile or reverse engineer any software contained on Avo Activewear Ltd's website; remove any copyright or other proprietary notations from the materials; or transfer the materials to another person or \"mirror\" the materials on any other server."
-      },
-      {
-        "t": "Refund policy",
-        "url": "https://avoactivewear.com/policies/refund-policy",
-        "sum": "Refund policy\nRefund Policy\nWe offer an easy, tracked returns service for UK customers, and you can return any of your items within 14 days of receiving your order.\nTo be eligible for a full refund, items must be unworn and unwashed, with tags still attached. We can't accept returns for items with make-up, deodorant or self-tan on them, or items that smell of smoke, perfume, body sprays or creams. If these conditions aren't met, we're unable to offer a full refund.\nHow to return\nUK customers can start a return through our Royal Mail returns portal here: https://www.royalmail.com/track-my-return#/details/9074. Once your return is requested, you'll be given a Royal Mail label or QR code to use.\nIf you're based outside the UK, please email hello@avoactivewear.com and we'll help you start your return.\nPlease always use the returns portal so we can process your return properly. If you send an order back without requesting it through the portal or using the label provided, the return fee still applies, any postage you've paid yourself can't be reimbursed, and you'll need to include your order details inside the parcel."
-      }
-    ]
-  },
-  "_hero": "Their mobile hero artwork has its headline and \"shop the collection\" button baked in: no overlay copy, whole hero opens What's New.",
-  "vertical": "apparel",
-  "copy": {
-    "about": "Activewear designed for women 5'3\" and under. No more rolling sleeves or bunching leggings, just petite gym wear that finally fits properly."
-  },
-  "_about": "Footer line from their own meta description (scraped value was a heading or Title Case).",
-  "search": {
-    "trending": [
-      "Leggings",
-      "Shorts",
-      "Crop top",
-      "Hoodie",
-      "Joggers",
-      "Sports bra",
-      "Socks"
-    ]
-  }
+  "newCol": "whats-new",
+  "newSub": "What's new",
+  "bestCol": "best-sellers",
+  "bestSub": "Loved by Petites"
+ },
+ "_drop": "No season drop is published, so Drops features their real Pocket Leggings collection; date is the rolling placeholder.",
+ "drop": {
+  "num": "01",
+  "name": "POCKET LEGGINGS",
+  "title": "Pocket Leggings",
+  "col": "the-pocket-rocket-collection",
+  "products": [
+   "the-pocket-rocket-legging-black",
+   "the-pocket-rocket-legging-plum"
+  ],
+  "weekday": 4,
+  "hour": 19,
+  "earlyHours": 24,
+  "previous": null
+ },
+ "_pages": "Removed cookie policy (renders only with JS, no readable text).",
+ "pages": {
+  "help": [
+   {
+    "t": "Shipping",
+    "url": "https://avoactivewear.com/pages/shipping-information",
+    "sum": "Shipping Information\nWhat are your postage fees?\nAll orders are dispatched from our UK warehouse using a fully tracked Royal Mail or DPD service.\nUK orders over £90 qualify for free Royal Mail Tracked 48 delivery. For orders under £90, you can choose from a range of delivery options at checkout.\nWe also ship internationally to Ireland, the EU, USA, Canada, Australia, and New Zealand. Any applicable duties and taxes will be displayed at checkout, so there are no surprises when your order arrives.\nHow long will it take to receive my order?\nMost orders are dispatched the same day or next working day. During busy periods, such as new launches, restocks, or Black Friday, please allow up to 3 working days.\nFor next day delivery with DPD, your order needs to be placed before 12pm.\nDelivery times will vary depending on your location and the shipping service chosen at checkout. You'll receive a tracking email once your order has been dispatched so you can follow its journey."
+   },
+   {
+    "t": "Returns",
+    "url": "https://avoactivewear.com/pages/returns",
+    "sum": "Returns & Refunds\nTo start the return process for your order, please follow the link below to our Royal Mail returns portal start my return\nFrequently Asked Questions\nDo you accept returns?\nYes we do! We offer a free returns service for UK based customers\nYou can return any of your items within 14 days of receipt of your order\nItems must be in unworn and unwashed condition with tags still attached to be considered for a full refund\nWe do not accept returns for products which have make-up, deodorant, or self-tan on them, nor products that smell like smoke, perfume, body sprays or creams\nPlease note that we are unable to offer a full refund if the above conditions are not met\nIf you are based outside the UK and wish to return an item, please email us so that we can start your return\nAre there any charges for return?\nWe charge a £3.50 fee for returns, which covers the cost of processing your return. It's deducted from your refund, and you can request your return through our Returns Portal and use the provided Royal Mail label or QR code."
+   },
+   {
+    "t": "FAQs",
+    "url": "https://avoactivewear.com/pages/faq",
+    "sum": "Frequently Asked Questions\nWhat size should I buy?\nFor the best fit, please refer to our sizing chart.\nHow should I wash my Avo clothing?\nWe recommend washing your items at 30 degrees or below. Hang dry and do not tumble dry. To optimise the lifespan of your garment we suggest a cold machine wash or hand wash followed by hanging to air dry. Do not bleach, dry clean or iron.\nWhere can I find information about shipping and delivery?\nPlease click here\nWhere can I find information about returns and refunds?\nGet in touch\nIf you can't find the answer to your question here, please feel free to contact us via email and we will aim to respond within 48 hours"
+   },
+   {
+    "t": "Contact",
+    "url": "https://avoactivewear.com/pages/contact",
+    "sum": "Contact\nPlease contact us via the form below or email hello@avoactivewear.com\nWe aim to respond to messages within 48 hours.\nRegistered business address: 310 Charlton Road, Brentry, Bristol BS10 6JZ\nContact us"
+   }
+  ],
+  "about": [
+   {
+    "t": "About us",
+    "url": "https://avoactivewear.com/pages/about",
+    "sum": "The Story of Avo Activewear\nAvo is the UK’s 1st sportswear brand dedicated exclusively to women 5'3\" and under. Our mission is simple: to create high-quality activewear that fits petite proportions properly – no rolling up hems, no awkwardly high waistbands, and no compromising on style or function.\nWhat began as a personal frustration has grown into an award-winning brand recognised by Women’s Health, Heat, and Woman & Home. We've been named a Drapers Disruptor Finalist and received the Bristol Life Award for Best Small Business, celebrating our commitment to innovation in a space that had long overlooked petite women.\nOur collection includes best-selling flared leggings, sports bras, maternity styles, and everyday activewear essentials – all crafted with purpose, precision, and petite women in mind.\nMeet The Founder - Ally Patterson\nStanding at 5'1\", I've experienced the challenges petite women face when shopping for activewear. Frustrated with the lack of options that truly fit, I decided to take matters into my own hands. My journey began in 2017, armed with nothing but basic sewing skills and a determination to make a change."
+   }
+  ],
+  "legal": [
+   {
+    "t": "Privacy policy",
+    "url": "https://avoactivewear.com/pages/privacy-policy",
+    "sum": "Your privacy is important to us. It is Avo Activewear Ltd's policy to respect your privacy regarding any information we may collect from you across our website, www.avoactivewear.com.\nWe only ask for personal information when we truly need it to provide a service to you. We collect it by fair and lawful means, with your knowledge and consent. We also let you know why we’re collecting it and how it will be used.\nWe only retain collected information for as long as necessary to provide you with your requested service. What data we store, we’ll protect within commercially acceptable means to prevent loss and theft, as well as unauthorised access, disclosure, copying, use or modification.\nWe don’t share any personally identifying information publicly or with third-parties, except when required to by law or when necessary to provide services (such as payment processing, shipping, and customer support)."
+   },
+   {
+    "t": "Terms of service",
+    "url": "https://avoactivewear.com/pages/terms-of-service",
+    "sum": "1. Terms\nBy accessing the website at www.avoactivewear.com, you are agreeing to be bound by these terms of service, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this website are protected by applicable copyright and trademark law.\n2. Use Licence\nPermission is granted to temporarily download one copy of the materials (information or software) on Avo Activewear Ltd's website for personal, non-commercial transitory viewing only. This is the grant of a licence, not a transfer of title, and under this licence you may not:\nmodify or copy the materials; use the materials for any commercial purpose, or for any public display (commercial or non-commercial); attempt to decompile or reverse engineer any software contained on Avo Activewear Ltd's website; remove any copyright or other proprietary notations from the materials; or transfer the materials to another person or \"mirror\" the materials on any other server."
+   },
+   {
+    "t": "Refund policy",
+    "url": "https://avoactivewear.com/policies/refund-policy",
+    "sum": "Refund policy\nRefund Policy\nWe offer an easy, tracked returns service for UK customers, and you can return any of your items within 14 days of receiving your order.\nTo be eligible for a full refund, items must be unworn and unwashed, with tags still attached. We can't accept returns for items with make-up, deodorant or self-tan on them, or items that smell of smoke, perfume, body sprays or creams. If these conditions aren't met, we're unable to offer a full refund.\nHow to return\nUK customers can start a return through our Royal Mail returns portal here: https://www.royalmail.com/track-my-return#/details/9074. Once your return is requested, you'll be given a Royal Mail label or QR code to use.\nIf you're based outside the UK, please email hello@avoactivewear.com and we'll help you start your return.\nPlease always use the returns portal so we can process your return properly. If you send an order back without requesting it through the portal or using the label provided, the return fee still applies, any postage you've paid yourself can't be reimbursed, and you'll need to include your order details inside the parcel."
+   }
+  ]
+ },
+ "_hero": "Their mobile hero artwork has its headline and \"shop the collection\" button baked in: no overlay copy, whole hero opens What's New.",
+ "vertical": "apparel",
+ "copy": {
+  "about": "Activewear designed for women 5'3\" and under. No more rolling sleeves or bunching leggings, just petite gym wear that finally fits properly."
+ },
+ "_about": "Footer line from their own meta description (scraped value was a heading or Title Case).",
+ "search": {
+  "trending": [
+   "Leggings",
+   "Shorts",
+   "Crop top",
+   "Hoodie",
+   "Joggers",
+   "Sports bra",
+   "Socks"
+  ]
+ },
+ "shipping": {
+  "options": [
+   {
+    "id": "rm48",
+    "name": "Royal Mail Tracked 48",
+    "desc": "Free on UK orders over £90, otherwise shown at checkout",
+    "price": null,
+    "freeOver": 90
+   }
+  ],
+  "freeOver": 90,
+  "region": "UK"
+ }
 }

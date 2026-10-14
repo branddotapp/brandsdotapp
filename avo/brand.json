@@ -1420,10 +1420,18 @@
  },
  "frameable": false,
  "shipping": {
-  "options": [],
+  "options": [
+   {
+    "id": "rm48",
+    "name": "Royal Mail Tracked 48",
+    "desc": "Free on UK orders over £90, otherwise shown at checkout",
+    "price": null,
+    "freeOver": 90
+   }
+  ],
   "notes": [],
-  "freeOver": null,
-  "region": ""
+  "freeOver": 90,
+  "region": "UK"
  },
  "currency": {
   "code": "GBP",

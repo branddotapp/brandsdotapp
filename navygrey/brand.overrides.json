@@ -1,87 +1,99 @@
 {
-  "home": {
-    "hero": {
-      "poster": "assets/img/hero-mobile.jpg",
-      "eyebrow": "Newest arrivals and restocks",
-      "title": "NEW IN",
-      "cta": "Discover more",
-      "col": "new-in",
-      "video": null
-    },
-    "editorial": {
-      "col": "the-cardigans",
-      "title": "Cardigans",
-      "img": "assets/img/campaign-wide.jpg",
-      "eyebrow": "Shop the edit"
-    }
+ "home": {
+  "hero": {
+   "poster": "assets/img/hero-mobile.jpg",
+   "eyebrow": "Newest arrivals and restocks",
+   "title": "NEW IN",
+   "cta": "Discover more",
+   "col": "new-in",
+   "video": null
   },
-  "_drop": "No season drop is published on the site, so the Drops tab features their real Francli Bags collection; the date is the rolling placeholder.",
-  "drop": {
-    "num": "01",
-    "name": "NAVYGREY X FRANCLI",
-    "title": "Francli Bags",
-    "col": "navygrey-x-francli",
-    "products": [
-      "navygrey-x-francli-blue",
-      "navygrey-x-francli-red"
-    ],
-    "weekday": 4,
-    "hour": 19,
-    "earlyHours": 24,
-    "previous": null
-  },
-  "theme": {
-    "sand2": "#eceded"
-  },
-  "_theme": "colours adjusted for WCAG AA contrast",
-  "vertical": "apparel",
-  "perks": [
-    "Complimentary UK delivery on orders £250+",
-    "14-day returns"
-  ],
-  "copy": {
-    "about": "British. Considered. Worn on repeat. Crafted from exceptional natural fibres, made by the very best makers."
-  },
-  "_about": "Footer line from their own meta description (scraped value was a heading or Title Case).",
-  "assets": {
-    "logoDark": "assets/img/logo-official-dark.png",
-    "logoLight": "assets/img/logo-official-light.png"
-  },
-  "_assets": "Official logo from their site header: logo-2025-dark.svg. (Scraper had picked a product/hero image.)",
-  "_hero": "Site hero is a wide split image (person cut in half on a phone); using their own new-season portrait image from the homepage instead.",
-  "_editorial_col": "Editorial title/collection matched to what the image shows.",
-  "search": {
-    "trending": [
-      "Jumper",
-      "Cardigan",
-      "Shetland",
-      "Linen",
-      "Shirt",
-      "Sweatshirt"
-    ]
-  },
-  "shipping": {
-    "options": [
-      {
-        "id": "uk",
-        "name": "UK delivery",
-        "desc": "Complimentary on orders £250+",
-        "price": 60.0,
-        "freeOver": 250,
-        "short": "UK delivery"
-      }
-    ],
-    "notes": [],
-    "freeOver": 250,
-    "region": "UK"
-  },
-  "shop": {
-    "featureCats": {
-      "col": "new-in",
-      "title": "New arrivals",
-      "cta": "Shop now",
-      "idx": 1,
-      "focus": "center 12%"
-    }
+  "editorial": {
+   "col": "the-cardigans",
+   "title": "Cardigans",
+   "img": "assets/img/campaign-wide.jpg",
+   "eyebrow": "Shop the edit"
   }
+ },
+ "_drop": "No season drop is published on the site, so the Drops tab features their real Francli Bags collection; the date is the rolling placeholder.",
+ "drop": {
+  "num": "01",
+  "name": "NAVYGREY X FRANCLI",
+  "title": "Francli Bags",
+  "col": "navygrey-x-francli",
+  "products": [
+   "navygrey-x-francli-blue",
+   "navygrey-x-francli-red"
+  ],
+  "weekday": 4,
+  "hour": 19,
+  "earlyHours": 24,
+  "previous": null
+ },
+ "theme": {
+  "sand2": "#eceded"
+ },
+ "_theme": "colours adjusted for WCAG AA contrast",
+ "vertical": "apparel",
+ "perks": [
+  "Complimentary UK delivery on orders £250+",
+  "14-day returns"
+ ],
+ "copy": {
+  "about": "British. Considered. Worn on repeat. Crafted from exceptional natural fibres, made by the very best makers."
+ },
+ "_about": "Footer line from their own meta description (scraped value was a heading or Title Case).",
+ "assets": {
+  "logoDark": "assets/img/logo-official-dark.png",
+  "logoLight": "assets/img/logo-official-light.png"
+ },
+ "_assets": "Official logo from their site header: logo-2025-dark.svg. (Scraper had picked a product/hero image.)",
+ "_hero": "Site hero is a wide split image (person cut in half on a phone); using their own new-season portrait image from the homepage instead.",
+ "_editorial_col": "Editorial title/collection matched to what the image shows.",
+ "search": {
+  "trending": [
+   "Jumper",
+   "Cardigan",
+   "Shetland",
+   "Linen",
+   "Shirt",
+   "Sweatshirt"
+  ]
+ },
+ "shipping": {
+  "options": [
+   {
+    "id": "rm",
+    "name": "Royal Mail Standard (2-4 working days)",
+    "short": "Royal Mail Standard",
+    "desc": "£5.75 or free on UK orders over £250",
+    "price": 5.75,
+    "freeOver": 250
+   },
+   {
+    "id": "dpd",
+    "name": "DPD Standard (1-2 working days)",
+    "desc": "Tracked",
+    "price": 7.0
+   },
+   {
+    "id": "prem",
+    "name": "DPD Premium (1 working day)",
+    "desc": "Order by 1pm Mon-Thu",
+    "price": 10.0
+   }
+  ],
+  "notes": [],
+  "freeOver": 250,
+  "region": "UK"
+ },
+ "shop": {
+  "featureCats": {
+   "col": "new-in",
+   "title": "New arrivals",
+   "cta": "Shop now",
+   "idx": 1,
+   "focus": "center 12%"
+  }
+ }
 }

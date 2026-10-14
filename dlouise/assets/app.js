@@ -680,7 +680,7 @@ function PDP(el, h){
       '<div class="perks">'+(B.pdpPerks||[]).slice(0,3).map((t,i)=>'<div>'+[I.truck,I.ret,I.star][i]+esc(t)+'</div>').join('')+'</div>'+
       '<div class="acc">'+
         '<details open><summary>Description'+I.plus+'</summary><div class="acc-body">'+esc(p.d || 'Designed by '+NAME+'.')+'</div></details>'+
-        (ship.length ? '<details><summary>Delivery'+I.plus+'</summary><div class="acc-body"><ul>'+ship.map(o=>'<li><b>'+esc(o.name)+'</b> — '+(o.price?money(o.price):'Free')+(o.freeOver?', free on orders over '+money(o.freeOver):'')+(o.desc?', '+esc(o.desc):'')+'</li>').join('')+(SHIP.notes||[]).map(n=>'<li>'+esc(n)+'</li>').join('')+'</ul></div></details>' : '')+
+        (ship.length ? '<details><summary>Delivery'+I.plus+'</summary><div class="acc-body"><ul>'+ship.map(o=>'<li><b>'+esc(o.name)+'</b> — '+(o.price==null?'':o.price?money(o.price):'Free')+(o.freeOver?', free on orders over '+money(o.freeOver):'')+(o.desc?', '+esc(o.desc):'')+'</li>').join('')+(SHIP.notes||[]).map(n=>'<li>'+esc(n)+'</li>').join('')+'</ul></div></details>' : '')+
         (B.returns && B.returns.summary ? '<details><summary>Returns'+I.plus+'</summary><div class="acc-body">'+esc(B.returns.summary)+'</div></details>' : '')+
       '</div>'+
     '</div>'+
@@ -752,8 +752,8 @@ function bagTotals(){
   const sub = bag.reduce((a,i)=>a+P[i.h].p*i.q,0);
   const disc = promo ? Math.round(sub*DISC.pct)/100 : 0;
   const o = baseShip();
-  const ship = (o.freeOver && sub >= o.freeOver) ? 0 : (o.price||0);
-  return { sub, disc, ship, total: sub - disc + ship, cnt: bag.reduce((a,i)=>a+i.q,0) };
+  const ship = (o.freeOver && sub >= o.freeOver) ? 0 : (o.price==null && SHIP.options && SHIP.options.length ? null : (o.price||0));
+  return { sub, disc, ship, total: sub - disc + (ship||0), cnt: bag.reduce((a,i)=>a+i.q,0) };
 }
 function Bag(el){
   const render = () => {
@@ -772,7 +772,7 @@ function Bag(el){
              : '<button class="promo" id="promoAdd">'+I.gift+'<div><b>First app order?</b><small>Tap to apply '+esc(DISC.code)+' for '+DISC.pct+'% off</small></div><span class="promo-cta">Apply</span></button>')+
       '<div class="summary"><div class="row"><span>Subtotal</span><span>'+money(T.sub)+'</span></div>'+(saved?'<div class="row" style="color:var(--sale)"><span>You’re saving</span><span>−'+money(saved)+'</span></div>':'')+
         (promo?'<div class="row disc"><span>'+esc(DISC.code)+' ('+DISC.pct+'% off)</span><span>−'+money(T.disc)+'</span></div>':'')+
-        '<div class="row"><span>Delivery ('+esc(o.short||o.name)+')</span><span>'+(T.ship?money(T.ship):'Free')+'</span></div><div class="row total"><span>Total</span><span id="bagTotal">'+money(T.total)+'</span></div>'+
+        '<div class="row"><span>Delivery ('+esc(o.short||o.name)+')</span><span>'+(T.ship==null?'At checkout':T.ship?money(T.ship):'Free')+'</span></div><div class="row total"><span>Total</span><span id="bagTotal">'+money(T.total)+'</span></div>'+
         (B.rewards && B.rewards.enabled ? '<div class="pts">'+I.star+'<span>Members earn '+esc(B.rewards.name)+' points on this order</span></div>' : '')+'</div>'+
       '<div class="pay-row"><button class="btn btn-dark btn-block" id="checkout" style="height:52px">Checkout — '+money(T.total)+'</button><button class="apple-pay" id="applePay">'+I.apple+'Pay</button><div class="pay-icons">'+[['klarna','Klarna'],['paypal','PayPal'],['shopify_pay','Shop Pay'],['google_pay','Google Pay']].filter(x=>pays(x[0])).map(x=>'<span>'+x[1]+'</span>').join('·')+'</div></div>'+credit();
     $$('.bag-item', el).forEach(row => {
@@ -791,16 +791,16 @@ function Bag(el){
 }
 function checkout(quick){
   const T = bagTotals();
-  const opts = (SHIP.options && SHIP.options.length ? SHIP.options : [{id:'std',name:'Standard delivery',desc:'',price:0}]).slice(0,4).map(o => [o.id, o.name, o.desc||'', (o.freeOver && T.sub >= o.freeOver) ? 0 : (o.price||0)]);
+  const opts = (SHIP.options && SHIP.options.length ? SHIP.options : [{id:'std',name:'Standard delivery',desc:'',price:0}]).slice(0,4).map(o => [o.id, o.name, o.desc||'', (o.freeOver && T.sub >= o.freeOver) ? 0 : (o.price==null && SHIP.options && SHIP.options.length ? null : (o.price||0))]);
   let sel = opts[0][0];
-  const totalFor = () => T.sub - T.disc + opts.find(o=>o[0]===sel)[3];
+  const totalFor = () => T.sub - T.disc + (opts.find(o=>o[0]===sel)[3]||0);
   openSheet('<h3 style="margin-bottom:4px">Checkout</h3><p class="co-sub">'+I.lock+'Shopify checkout, inside the app</p>'+
     '<div class="express">'+(pays('apple_pay')?'<button class="xp apple" data-pay="Apple Pay">'+I.apple+'Pay</button>':'')+(pays('shopify_pay')?'<button class="xp shop" data-pay="Shop Pay"><b>shop</b><span>Pay</span></button>':'')+
       (pays('klarna') ? '<button class="xp klarna" data-pay="Klarna"><b>Klarna.</b><span id="klarna3">3 payments of '+money(totalFor()/3)+'</span></button>'
        : pays('paypal') ? '<button class="xp paypal" data-pay="PayPal"><b>Pay<i>Pal</i></b></button>' : '')+'</div>'+
     '<div class="or"><span>or pay by card</span></div>'+
     '<div class="co-row"><div>Deliver to<small>Your saved address</small></div><button class="co-change" data-change="address">Change</button></div>'+
-    opts.map(o=>'<div class="ship-opt '+(o[0]===sel?'on':'')+'" data-o="'+esc(o[0])+'"><i class="radio"></i><div>'+esc(o[1])+'<small>'+esc(o[2])+'</small></div><span>'+(o[3]?money(o[3]):'Free')+'</span></div>').join('')+
+    opts.map(o=>'<div class="ship-opt '+(o[0]===sel?'on':'')+'" data-o="'+esc(o[0])+'"><i class="radio"></i><div>'+esc(o[1])+'<small>'+esc(o[2])+'</small></div><span>'+(o[3]==null?'At checkout':o[3]?money(o[3]):'Free')+'</span></div>').join('')+
     (promo?'<div class="co-row"><div>Discount<small>'+esc(DISC.code)+', '+DISC.pct+'% off first app order</small></div><span style="color:var(--sale)">−'+money(T.disc)+'</span></div>':'')+
     '<div class="co-row" style="margin-top:8px"><div>Pay with<small>'+(quick?'Apple Pay':'Card ending ···· 4242')+'</small></div><button class="co-change" data-change="payment">Change</button></div>'+
     '<div class="co-row"><div><b>Total</b></div><span id="coTotal" style="font-size:15px;font-weight:600">'+money(totalFor())+'</span></div>'+

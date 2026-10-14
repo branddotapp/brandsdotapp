@@ -29153,10 +29153,18 @@
  },
  "frameable": false,
  "shipping": {
-  "options": [],
+  "options": [
+   {
+    "id": "uk",
+    "name": "UK delivery",
+    "desc": "£5.95 or free on orders over £200",
+    "price": 5.95,
+    "freeOver": 200
+   }
+  ],
   "notes": [],
-  "freeOver": null,
-  "region": "the U.S.? Click here to switch to our U.S. website."
+  "freeOver": 200,
+  "region": "UK"
  },
  "currency": {
   "code": "GBP",
