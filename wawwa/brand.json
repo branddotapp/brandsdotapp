@@ -8,7 +8,7 @@
   "code": "APP10",
   "pct": 10
  },
- "legalName": "WAWWA Ф",
+ "legalName": "WAWWA",
  "name": "WAWWA",
  "short": "WAWWA",
  "platform": "shopify",
@@ -7543,7 +7543,7 @@
   "bestSub": "Moleskin at the Mill"
  },
  "shop": {
-  "kicker": "WAWWA Ф",
+  "kicker": "WAWWA",
   "cats": [
    "hoodies-sweatshirts",
    "shirts",
@@ -7643,7 +7643,7 @@
  ],
  "report": {
   "found": [
-   "Name: WAWWA (site calls itself “WAWWA Ф”)",
+   "Name: WAWWA (site calls itself “WAWWA”)",
    "Shopify store detected (/products.json is public)",
    "234 products in /products.json, 112 collections in /collections.json",
    "12 menu collections → 141 products in the app",

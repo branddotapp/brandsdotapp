@@ -25,3 +25,6 @@ Checklist key: L logo/splash/icon/push · V vertical features · T text padding/
 | avo | pass | pass | pass | fixed (baked hero: no overlay, welcome uses product) | pass | fixed (heading-as-about) | pass | pass | needs final 375 pass |
 | barebiology | fixed (real SVG wordmark, app icon) | fixed (Pack not Size, no size wording, packshot) | pass | fixed (editorial natural) | pass | fixed (cookie table page, -83% badges) | fixed (free delivery on all orders) | pass | needs final 375 pass |
 Automated: visual_check.py 0 fail / 0 crop warnings on all 10 (393x852 + 375x667) as of 09:15.
+
+## Final 375x667 sign-off (14 Oct)
+- wawwa — DONE. All 45 screens re-read at 375x667. Fixed in this pass: welcome card now their rear-view product shot (logo was sitting on a face; the framing change *was* applied, the subject's head just sat under the centred logo), Shop kicker "WAWWA Ф" glyph. All checklist items pass.
