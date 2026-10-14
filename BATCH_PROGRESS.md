@@ -29,3 +29,4 @@ Automated: visual_check.py 0 fail / 0 crop warnings on all 10 (393x852 + 375x667
 ## Final 375x667 sign-off (14 Oct)
 - wawwa — DONE. All 45 screens re-read at 375x667. Fixed in this pass: welcome card now their rear-view product shot (logo was sitting on a face; the framing change *was* applied, the subject's head just sat under the centred logo), Shop kicker "WAWWA Ф" glyph. All checklist items pass.
 - uskees — DONE. 46 screens at 375x667 re-read. Fixed this pass: search-row types (Overshirts_cord), welcome card (logo was over a face; now logo on brand colour, applied to all brands). All items pass.
+- albaray — DONE. 49 screens at 375x667 re-read (splash checked separately at 900ms: logo fades in, fine). All items pass.
