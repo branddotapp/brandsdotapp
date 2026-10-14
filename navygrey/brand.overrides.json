@@ -1,11 +1,12 @@
 {
   "home": {
     "hero": {
-      "poster": "assets/img/hero-poster.jpg",
+      "poster": "assets/img/hero-mobile.jpg",
       "eyebrow": "Newest arrivals and restocks",
       "title": "NEW IN",
       "cta": "Discover more",
-      "col": "new-in"
+      "col": "new-in",
+      "video": null
     }
   },
   "_drop": "No season drop is published on the site, so the Drops tab features their real Francli Bags collection; the date is the rolling placeholder.",
@@ -35,5 +36,11 @@
   "copy": {
     "about": "British. Considered. Worn on repeat. Crafted from exceptional natural fibres, made by the very best makers."
   },
-  "_about": "Footer line from their own meta description (scraped value was a heading or Title Case)."
+  "_about": "Footer line from their own meta description (scraped value was a heading or Title Case).",
+  "assets": {
+    "logoDark": "assets/img/logo-official-dark.png",
+    "logoLight": "assets/img/logo-official-light.png"
+  },
+  "_assets": "Official logo from their site header: logo-2025-dark.svg. (Scraper had picked a product/hero image.)",
+  "_hero": "Site hero is a wide split image (person cut in half on a phone); using their own new-season portrait image from the homepage instead."
 }

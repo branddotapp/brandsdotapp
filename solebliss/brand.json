@@ -29109,8 +29109,8 @@
   "fontHref": "https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500;600;700&display=swap"
  },
  "assets": {
-  "logoLight": "assets/img/logo-white.png",
-  "logoDark": "assets/img/logo-black.png",
+  "logoLight": "assets/img/logo-official-light.png",
+  "logoDark": "assets/img/logo-official-dark.png",
   "favicon": "assets/img/favicon.png"
  },
  "pages": {
@@ -29193,7 +29193,7 @@
  "home": {
   "newCol": "new-arrivals",
   "bestCol": null,
-  "newSub": "The latest Size EU 43 pieces",
+  "newSub": "The latest arrivals",
   "hero": {
    "poster": "assets/img/hero-poster.jpg",
    "eyebrow": "Designed For Comfort",
@@ -29227,12 +29227,7 @@
     "Casual Bags"
    ]
   ],
-  "editorial": {
-   "col": "trainers",
-   "img": "assets/img/campaign-wide.jpg",
-   "eyebrow": "Shop the edit",
-   "title": "TRAINERS"
-  },
+  "editorial": null,
   "feature": {
    "col": "resort-collection",
    "title": "HOLIDAY SHOP",
@@ -29247,9 +29242,8 @@
    "loafers",
    "boots",
    "sandals",
-   "casual-bags",
-   "mother-of-the-bride-shoes",
    "platform-heels",
+   "mother-of-the-bride-shoes",
    "all-bags",
    "matching-shoes-handbags"
   ],
@@ -29260,9 +29254,9 @@
    "womens-size-43-shoes"
   ],
   "featureCats": {
-   "col": "womens-size-43-shoes",
-   "title": "SIZE EU 43",
-   "cta": "Shop now",
+   "col": "trainers",
+   "title": "Trainers",
+   "cta": "Shop trainers",
    "idx": 1
   },
   "featureEdits": null
@@ -29376,5 +29370,6 @@
    "No upcoming season collection found: Drops tab hidden"
   ]
  },
- "vertical": "footwear"
+ "vertical": "footwear",
+ "packshots": true
 }

@@ -6,6 +6,13 @@
       "title": "MEET THE NEW JUST BEE",
       "cta": "Shop Now",
       "col": "just-bee-raw-vitamin-honey"
+    },
+    "editorial": {
+      "col": "just-bee-raw-vitamin-honey",
+      "img": "assets/img/campaign-wide.jpg",
+      "eyebrow": "Shop the edit",
+      "title": "ALL HONEY",
+      "fit": "natural"
     }
   },
   "_drop": "No season drop is published on the site, so the Drops tab features their real Christmas Gifts collection; the date is the rolling placeholder.",
@@ -41,5 +48,10 @@
   "vertical": "food",
   "sizes": {
     "groups": []
-  }
+  },
+  "assets": {
+    "logoDark": "assets/img/logo-black.png",
+    "logoLight": "assets/img/logo-official-light.png"
+  },
+  "_editorial": "Editorial image has baked-in lettering: shown uncropped."
 }

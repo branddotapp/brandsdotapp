@@ -19006,8 +19006,8 @@
   "fontHref": "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&display=swap"
  },
  "assets": {
-  "logoLight": "assets/img/logo-white.png",
-  "logoDark": "assets/img/logo-black.png",
+  "logoLight": "assets/img/logo-official-light.png",
+  "logoDark": "assets/img/logo-official-dark.png",
   "favicon": "assets/img/favicon.png"
  },
  "pages": {
@@ -19130,8 +19130,7 @@
  "perks": [
   "10% off your first order with email sign up",
   "Free UK shipping on orders over £99",
-  "30-day returns",
-  "Rated 4.7 ★★★★★ from 6,051 reviews"
+  "30-day returns"
  ],
  "payments": [
   "american_express",
@@ -19164,10 +19163,11 @@
    "videoW": 504,
    "videoH": 800,
    "videoWebm": "assets/hero.webm",
-   "eyebrow": "Wardrobe Edits",
+   "eyebrow": "",
    "title": "",
    "cta": "Shop New In",
-   "col": "new-in"
+   "col": "new-in",
+   "baked": true
   },
   "tiles": [
    [
@@ -19221,13 +19221,7 @@
    "checks-tartans",
    "black-tailoring",
    "workwear",
-   "organic-cotton",
-   "view-all",
-   "re-loved-dresses",
-   "re-loved-tops",
-   "re-loved-trousers",
-   "re-loved-knitwear",
-   "re-loved-coats-jackets"
+   "organic-cotton"
   ],
   "edits": [
    "new-in",

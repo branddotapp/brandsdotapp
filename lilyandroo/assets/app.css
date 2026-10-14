@@ -1032,3 +1032,4 @@ img.img-err{visibility:hidden}
 .editorial.natural .hero-copy{position:static;padding:16px 22px 4px}
 .editorial.natural .hero-copy .btn-light{background:var(--ink);color:#fff}
 .editorial.natural::after{display:none}
+.hero.baked{cursor:pointer}

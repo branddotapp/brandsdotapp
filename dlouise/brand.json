@@ -12101,7 +12101,7 @@
   },
   {
    "h": "bracelet",
-   "t": "Bracelets 79",
+   "t": "Bracelets",
    "p": [
     "marquise-bangle-sapphire-tanzanite",
     "marquise-bangle",
@@ -12186,7 +12186,7 @@
   },
   {
    "h": "watches-1",
-   "t": "Watches 4",
+   "t": "Watches",
    "p": [
     "classic-leather-rectangle-watch",
     "classic-link-round-bi-metal-watch",
@@ -12196,7 +12196,7 @@
   },
   {
    "h": "silver",
-   "t": "Silver Jewellery 24",
+   "t": "Silver Jewellery",
    "p": [
     "luxe-tennis-bracelet",
     "compass-necklace",
@@ -12226,14 +12226,14 @@
   },
   {
    "h": "lab-grown-diamonds",
-   "t": "Lab Grown Diamond Jewellery 1",
+   "t": "Lab Grown Diamond Jewellery",
    "p": [
     "diamond-solitaire-necklace"
    ]
   },
   {
    "h": "last-chance",
-   "t": "Quiet Favourites 114",
+   "t": "Quiet Favourites",
    "p": [
     "luxe-tennis-bracelet",
     "tennis-bracelet",
@@ -12353,7 +12353,7 @@
   },
   {
    "h": "engravable-necklaces",
-   "t": "Engravable Necklaces 9",
+   "t": "Engravable Necklaces",
    "p": [
     "compass-necklace",
     "zodiac-talisman-necklace",
@@ -12368,7 +12368,7 @@
   },
   {
    "h": "tennis-necklaces",
-   "t": "Tennis Necklaces 4",
+   "t": "Tennis Necklaces",
    "p": [
     "luxe-tennis-necklace-40cm",
     "asscher-solitaire-necklace",
@@ -12378,7 +12378,7 @@
   },
   {
    "h": "pendants",
-   "t": "Pendant Necklaces 20",
+   "t": "Pendant Necklaces",
    "p": [
     "compass-necklace",
     "initial-chain-necklace",
@@ -12404,7 +12404,7 @@
   },
   {
    "h": "chain-necklaces",
-   "t": "Chain Necklaces 27",
+   "t": "Chain Necklaces",
    "p": [
     "initial-chain-necklace",
     "essentials-necklace",
@@ -12437,7 +12437,7 @@
   },
   {
    "h": "charms",
-   "t": "Chapters 103",
+   "t": "Chapters",
    "p": [
     "dice-charm",
     "lucky-number-8-charm",
@@ -12546,7 +12546,7 @@
   },
   {
    "h": "bangle-bracelets",
-   "t": "Bangles 24",
+   "t": "Bangles",
    "p": [
     "marquise-bangle-sapphire-tanzanite",
     "marquise-bangle",
@@ -12576,7 +12576,7 @@
   },
   {
    "h": "engravable-bracelets",
-   "t": "Engravable Bracelets 5",
+   "t": "Engravable Bracelets",
    "p": [
     "classic-chunky-heart-bracelet",
     "rectangle-disc-bracelet",
@@ -12587,7 +12587,7 @@
   },
   {
    "h": "tennis-bracelets",
-   "t": "Tennis Bracelets 11",
+   "t": "Tennis Bracelets",
    "p": [
     "luxe-tennis-bracelet",
     "tennis-bracelet",
@@ -12604,7 +12604,7 @@
   },
   {
    "h": "chains-bracelets",
-   "t": "Chain Bracelets 39",
+   "t": "Chain Bracelets",
    "p": [
     "advent-calendar-1",
     "dainty-pearl-bracelet",
@@ -12649,7 +12649,7 @@
   },
   {
    "h": "huggie-earrings",
-   "t": "Huggie Earrings 15",
+   "t": "Huggie Earrings",
    "p": [
     "advent-calendar-1",
     "tennis-huggies",
@@ -12670,7 +12670,7 @@
   },
   {
    "h": "statement-earrings",
-   "t": "Statement Earrings 21",
+   "t": "Statement Earrings",
    "p": [
     "tapered-oval-hoop",
     "bold-oval-white-statement-earrings",
@@ -12697,7 +12697,7 @@
   },
   {
    "h": "hoop-earrings",
-   "t": "Hoop Earrings 19",
+   "t": "Hoop Earrings",
    "p": [
     "advent-calendar-1",
     "essential-earrings-extra-small",
@@ -12722,7 +12722,7 @@
   },
   {
    "h": "stud-earrings",
-   "t": "Stud Earrings 27",
+   "t": "Stud Earrings",
    "p": [
     "tennis-studs",
     "classic-tennis-studs",
@@ -12772,8 +12772,8 @@
   "fontHref": "https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@300;400;500;600;700&display=swap"
  },
  "assets": {
-  "logoLight": "assets/img/logo-white.png",
-  "logoDark": "assets/img/logo-black.png",
+  "logoLight": "assets/img/logo-official-light.png",
+  "logoDark": "assets/img/logo-official-dark.png",
   "favicon": "assets/img/favicon.png"
  },
  "pages": {
@@ -12874,10 +12874,10 @@
  "home": {
   "newCol": "new-in",
   "bestCol": "best-sellers",
-  "newSub": "The latest Bracelets 79 pieces",
+  "newSub": "The latest bracelets",
   "hero": {
    "poster": "assets/img/hero-poster.jpg",
-   "eyebrow": "Buy 2, Get 1 Free",
+   "eyebrow": "Buy 2, Get Free",
    "title": "LUXURY YOU CAN LIVE IN",
    "cta": "Shop bestsellers",
    "col": "best-sellers"
@@ -12924,42 +12924,35 @@
   "kicker": "D.LOUISE Jewellery",
   "cats": [
    "necklaces",
+   "bracelet",
    "rings",
-   "engravable",
-   "watches-1",
-   "lab-grown-diamonds",
-   "engravable-necklaces",
-   "tennis-necklaces",
+   "hoop-earrings",
+   "huggie-earrings",
+   "stud-earrings",
+   "statement-earrings",
    "charms",
-   "engravable-bracelets"
+   "watches-1",
+   "engravable"
   ],
   "edits": [
    "new-in",
    "best-sellers",
    "gifts-for-anniversaries",
-   "bracelet",
    "silver",
    "last-chance",
-   "pendants",
-   "chain-necklaces",
-   "bangle-bracelets",
-   "tennis-bracelets",
-   "chains-bracelets",
-   "huggie-earrings",
-   "statement-earrings",
-   "hoop-earrings",
-   "stud-earrings"
+   "tennis-necklaces",
+   "tennis-bracelets"
   ],
   "featureCats": {
    "col": "bracelet",
-   "title": "BRACELETS 79",
+   "title": "BRACELETS",
    "cta": "Shop now",
    "idx": 1
   },
   "featureEdits": {
    "col": "last-chance",
-   "title": "QUIET FAVOURITES 114",
-   "cta": "Shop the quiet favourites 114"
+   "title": "QUIET FAVOURITES",
+   "cta": "Shop the quiet favourites"
   }
  },
  "search": {
@@ -13018,7 +13011,7 @@
  },
  "copy": {
   "about": "A London-based waterproof jewellery brand: high-quality, affordable rings, bracelets, earrings and necklaces that do not fade.",
-  "emptyBag": "Start with the latest Bracelets 79 pieces.",
+  "emptyBag": "Start with the latest bracelets.",
   "heroNotif": "The new season is here."
  },
  "pitch": {
@@ -13074,5 +13067,6 @@
    "No upcoming season collection found: Drops tab hidden"
   ]
  },
- "vertical": "jewellery"
+ "vertical": "jewellery",
+ "stripMenuCounts": true
 }

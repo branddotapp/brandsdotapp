@@ -8934,8 +8934,8 @@
   "fontHref": "https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@300;400;500;600;700&display=swap"
  },
  "assets": {
-  "logoLight": "assets/img/logo-white.png",
-  "logoDark": "assets/img/logo-black.png",
+  "logoLight": "assets/img/logo-official-light.png",
+  "logoDark": "assets/img/logo-official-dark.png",
   "favicon": "assets/img/favicon.png"
  },
  "pages": {
@@ -9120,13 +9120,12 @@
    "socks",
    "scarves",
    "ties",
-   "goods",
-   "3001-buttoned-overshirt",
-   "evo",
-   "sweats"
+   "goods"
   ],
   "edits": [
-   "issue-2-26"
+   "issue-2-26",
+   "evo",
+   "sweats"
   ],
   "featureCats": {
    "col": "issue-2-26",

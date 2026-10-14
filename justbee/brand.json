@@ -1831,7 +1831,8 @@
  },
  "assets": {
   "logoDark": "assets/img/logo-black.png",
-  "favicon": "assets/img/favicon.png"
+  "favicon": "assets/img/favicon.png",
+  "logoLight": "assets/img/logo-official-light.png"
  },
  "pages": {
   "help": [
@@ -1990,7 +1991,8 @@
    "col": "just-bee-raw-vitamin-honey",
    "img": "assets/img/campaign-wide.jpg",
    "eyebrow": "Shop the edit",
-   "title": "ALL HONEY"
+   "title": "ALL HONEY",
+   "fit": "natural"
   },
   "feature": {
    "col": "christmas-gift-range",

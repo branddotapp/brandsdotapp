@@ -50,6 +50,21 @@ def ocr_words(src):
       ws.append((c[11], int(c[6]), int(c[7]), int(c[8]), int(c[9])))
   ocr_cache[src] = ws; return ws
 fails = []; warns = []
+# logo sanity: the official logo is a wordmark/mark with few colours, never a photo or product shot
+def logo_check():
+  import re as _re
+  from PIL import Image
+  js = open(os.path.join(os.path.dirname(__file__), '..', a.slug, 'assets', 'brand.js')).read()
+  for k in ('logoDark', 'logoLight', 'appIcon'):
+    m = _re.search(r'"%s":"([^"]+)"' % k, js)
+    if not m: (fails.append('logo: %s missing' % k) if k != 'appIcon' else None); continue
+    fp = os.path.join(os.path.dirname(__file__), '..', a.slug, m.group(1))
+    if not os.path.exists(fp): fails.append('logo: %s file missing (%s)' % (k, m.group(1))); continue
+    im = Image.open(fp).convert('RGBA'); bb = im.getbbox() or (0, 0, 1, 1); w, h = bb[2] - bb[0], bb[3] - bb[1]
+    cols = len(set(im.crop(bb).resize((min(w, 200), max(1, int(min(w, 200) * h / max(w, 1))))).convert('RGB').getdata()))
+    opaque = sum(1 for px in im.crop(bb).resize((50, 50)).getdata() if px[3] > 250) / 2500
+    if k != 'appIcon' and opaque > .9 and cols > 400: fails.append('logo: %s looks like a photo (%d colours, %d%% opaque): %s' % (k, cols, opaque * 100, m.group(1)))
+logo_check()
 with sync_playwright() as pw:
   br = pw.chromium.launch(executable_path='/usr/bin/google-chrome')
   for size in a.sizes.split(','):

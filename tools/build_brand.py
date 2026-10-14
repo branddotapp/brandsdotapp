@@ -1053,6 +1053,26 @@ def make_app_icon(out_dir, B, th):
     except Exception as e:
         log('  ✗ app icon: %s' % e)
 
+def strip_counts(B):
+    """Menu labels sometimes carry a product count ("Bracelets 79", "Watches 4"): never show those in titles.
+    Opt-in per brand (brand.overrides.json -> "stripMenuCounts": true) because real names carry numbers too (Omega 3, Size 43)."""
+    if not B.get('stripMenuCounts'): return
+    cnt = re.compile(r'(?<=[A-Za-z)])\s+\d{1,4}(?=\s|$)(?!\s*(?:%|cm|mm|g|ml|ct|pieces?|styles?)\b)')
+    known = {c['t'] for c in B.get('collections', [])}
+    for c in B.get('collections', []): c['t'] = cnt.sub('', c['t']).strip()
+    for sect, keys in (('shop', ('featureCats', 'featureEdits')), ('home', ('feature', 'editorial', 'hero'))):
+        for k in keys:
+            d = (B.get(sect) or {}).get(k)
+            if isinstance(d, dict):
+                for f in ('title', 'cta', 'eyebrow'):
+                    if isinstance(d.get(f), str): d[f] = cnt.sub('', d[f]).strip()
+    for t in known:
+        n = cnt.sub('', t).strip()
+        if n == t: continue
+        for sect, k in (('home', 'newSub'), ('home', 'bestSub'), ('copy', 'emptyBag')):
+            v = (B.get(sect) or {}).get(k)
+            if isinstance(v, str) and t in v: B[sect][k] = v.replace(t + ' pieces', n).replace(t, n)
+
 def theme_css(th):
     font = th.get('font')
     pairs = [('ink', th['ink']), ('bg', th['bg']), ('bg-rgb', th['bgRgb']), ('text', th['text']), ('muted', th['muted']), ('line', th['line']),
@@ -1142,6 +1162,7 @@ def main():
         for c in B.get('collections', []):
             if c['h'] in (B.get('collectionTitles') or {}): c['t'] = B['collectionTitles'][c['h']]
         log('· Applied overrides from %s' % os.path.relpath(ov, a.root))
+    strip_counts(B)
     strip_name_tags(B)
     split_colours(B)
     strip_name_prefix(B)

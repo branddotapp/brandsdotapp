@@ -116,5 +116,10 @@
   "copy": {
     "about": "Elegant jewellery, handmade in London."
   },
-  "_about": "Footer line from their own meta description (scraped value was a heading or Title Case)."
+  "_about": "Footer line from their own meta description (scraped value was a heading or Title Case).",
+  "scrape": {
+    "extraCollections": [
+      "rings"
+    ]
+  }
 }

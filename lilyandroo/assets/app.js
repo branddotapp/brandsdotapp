@@ -160,6 +160,8 @@ function toggleWish(h){
 // ---------- sizes ----------
 const SIZE_GROUPS = (B.sizes && B.sizes.groups) || [];
 // option naming: brands with no size preferences (supplements, food, most jewellery) never say "size" in the UI
+// Shopify product types are sometimes internal codes (BLAZERS_TWILL, 2024-AW): hide those rather than show them
+const cleanType = t => { if (!t) return ''; const m = /^([A-Z][A-Z-]+)_[A-Z_]+$/.exec(t); if (m) return m[1].charAt(0)+m[1].slice(1).toLowerCase(); return /[_#/\\]|\d{3,}/.test(t) ? '' : t; };
 const NO_SIZE_VERT = /food|supplement/.test(B.vertical||'');
 const isSizeOptOf = p => !NO_SIZE_VERT && (!p.on || /size|waist|fit/i.test(p.on));
 const optLblOf = p => isSizeOptOf(p) ? 'Size' : (p.on && !/size/i.test(p.on) ? p.on : (B.optionLabel || 'Option'));
@@ -426,10 +428,13 @@ function heroEl(){
   const hero = H.hero || {};
   const d = document.createElement('div');
   d.className = 'hero';
+  // artwork with its own baked-in headline/button: no overlay copy, the whole hero is the tap target
+  const baked = hero.baked && hero.col && colBy(hero.col);
+  if (baked){ d.dataset.act = 'col'; d.dataset.v = hero.col; d.classList.add('baked'); d.setAttribute('role','link'); d.setAttribute('aria-label', hero.cta || 'Shop now'); }
   const v = hero.video ? '<video autoplay muted loop playsinline preload="metadata" disablepictureinpicture disableremoteplayback'+(hero.poster?' poster="'+esc(hero.poster)+'"':'')+(hero.videoW?' width="'+hero.videoW+'" height="'+hero.videoH+'"':'')+'>'+
     '<source data-src="'+esc(hero.video)+'" type="video/mp4">'+(hero.videoWebm?'<source data-src="'+esc(hero.videoWebm)+'" type="video/webm">':'')+'</video>' : '';
   d.innerHTML = '<img class="poster" src="'+esc(hero.poster||'')+'" alt="">'+v+
-    '<div class="hero-copy"><div class="eyebrow">'+esc(hero.eyebrow||'')+'</div>'+(hero.title===''?'':'<div class="hero-title">'+esc(hero.title||NAME)+'</div>')+(hero.col&&colBy(hero.col)?'<button class="btn btn-light" data-act="col" data-v="'+esc(hero.col)+'">'+esc(hero.cta||'Shop now')+'</button>':'')+'</div>'+
+    (baked ? '' : '<div class="hero-copy"><div class="eyebrow">'+esc(hero.eyebrow||'')+'</div>'+(hero.title===''?'':'<div class="hero-title">'+esc(hero.title||NAME)+'</div>')+(hero.col&&colBy(hero.col)?'<button class="btn btn-light" data-act="col" data-v="'+esc(hero.col)+'">'+esc(hero.cta||'Shop now')+'</button>':'')+'</div>')+
     marquee();
   const vid = $('video', d);
   if (vid){
@@ -655,7 +660,7 @@ function PDP(el, h){
       (coming?'<span class="g-badge">Coming soon · First look</span>':pd?'<span class="g-badge drop">Price drop</span>':'')+
       '<div class="gdots">'+p.im.map((_,i)=>'<i class="'+(i?'':'on')+'"></i>').join('')+'</div><span class="gcount">1 / '+p.im.length+'</span></div>'+
     '<div class="pdp-info">'+
-      '<div class="ptype">'+esc(p.ty || NAME)+'</div><h1>'+esc(p.n)+'</h1>'+(p.c?'<div class="pc">'+esc(p.c)+'</div>':'')+
+      '<div class="ptype">'+esc(cleanType(p.ty) || NAME)+'</div><h1>'+esc(p.n)+'</h1>'+(p.c?'<div class="pc">'+esc(p.c)+'</div>':'')+
       (sale ? '<div class="price sale"><b>'+money(p.p)+'</b><s>'+money(p.cp)+'</s>'+(pd?'<span class="pd-badge">Price drop</span>':'')+'</div>' : '<div class="price">'+money(p.p)+'</div>')+
       (pays('klarna') ? '<div class="klarna">Or 3 payments of '+money(p.p/3)+' with Klarna</div>' : '')+proofHTML(true)+
       (coming ? '<div class="soon-note">'+I.drop+'<div><b>DROP '+esc(DR.num)+' / '+esc(DR.name)+'</b><span>App early access '+fmtDay(dropTimes().app)+'. Website 24 hours later.</span></div></div>' : '')+

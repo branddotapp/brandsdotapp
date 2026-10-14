@@ -6,7 +6,8 @@
       "title": "LUXURY YOU CAN LIVE IN",
       "cta": "Shop bestsellers",
       "col": "best-sellers"
-    }
+    },
+    "newSub": "The latest bracelets"
   },
   "_drop": "No season drop is published on the site, so the Drops tab features their real New In collection; the date is the rolling placeholder.",
   "drop": {
@@ -85,7 +86,38 @@
   },
   "_shipping": "From their shipping page: UK Standard £3.50, free over £75; Express 1-2 days £3.95 (AED options belong to their UAE store and were dropped).",
   "copy": {
-    "about": "A London-based waterproof jewellery brand: high-quality, affordable rings, bracelets, earrings and necklaces that do not fade."
+    "about": "A London-based waterproof jewellery brand: high-quality, affordable rings, bracelets, earrings and necklaces that do not fade.",
+    "emptyBag": "Start with the latest bracelets."
   },
-  "_about": "Footer line from their own meta description (scraped value was a heading or Title Case)."
+  "_about": "Footer line from their own meta description (scraped value was a heading or Title Case).",
+  "assets": {
+    "logoDark": "assets/img/logo-official-dark.png",
+    "logoLight": "assets/img/logo-official-light.png"
+  },
+  "_assets": "Official logo from their site header: DLO_Logotype_-_Charcoal.png. (Scraper had picked a product/hero image.)",
+  "shop": {
+    "cats": [
+      "necklaces",
+      "bracelet",
+      "rings",
+      "hoop-earrings",
+      "huggie-earrings",
+      "stud-earrings",
+      "statement-earrings",
+      "charms",
+      "watches-1",
+      "engravable"
+    ],
+    "edits": [
+      "new-in",
+      "best-sellers",
+      "gifts-for-anniversaries",
+      "silver",
+      "last-chance",
+      "tennis-necklaces",
+      "tennis-bracelets"
+    ]
+  },
+  "_shop": "Product types as categories, campaigns/gifting as edits.",
+  "stripMenuCounts": true
 }

@@ -10,16 +10,11 @@
   },
   "home": {
     "hero": {
-      "video": "assets/hero.mp4",
-      "poster": "assets/img/hero-poster.jpg",
-      "videoW": 504,
-      "videoH": 800,
-      "videoWebm": "assets/hero.webm",
-      "eyebrow": "Wardrobe Edits",
+      "baked": true,
+      "eyebrow": "",
       "title": "",
       "cta": "Shop New In",
-      "col": "new-in",
-      "_why": "hero video already carries the \"Layering Season\" headline, so no overlaid title"
+      "col": "new-in"
     }
   },
   "_drop": "No season drop is published on the site, so the Drops tab features their real Burgundy Edit collection; the date is the rolling placeholder.",
@@ -63,11 +58,33 @@
   "perks": [
     "10% off your first order with email sign up",
     "Free UK shipping on orders over £99",
-    "30-day returns",
-    "Rated 4.7 ★★★★★ from 6,051 reviews"
+    "30-day returns"
   ],
   "copy": {
     "about": "Thoughtfully designed, sustainable women's clothing made for modern living, carefully designed with a low environmental impact."
   },
-  "_about": "Footer line from their own meta description (scraped value was a heading or Title Case)."
+  "_about": "Footer line from their own meta description (scraped value was a heading or Title Case).",
+  "assets": {
+    "logoDark": "assets/img/logo-official-dark.png",
+    "logoLight": "assets/img/logo-official-light.png"
+  },
+  "_assets": "Official logo from their site header: header PNG (albaray_284e6c8d…). (Scraper had picked a product/hero image.)",
+  "_hero": "Their hero video has its own \"Layering Season / Shop New In\" lettering baked in, so no overlay copy; the whole hero opens New In.",
+  "shop": {
+    "cats": [
+      "knitwear",
+      "skirts",
+      "outerwear",
+      "tops",
+      "dresses",
+      "trousers-shorts",
+      "evening-wear",
+      "denim",
+      "checks-tartans",
+      "black-tailoring",
+      "workwear",
+      "organic-cotton"
+    ]
+  },
+  "_shop": "'View All' removed from categories; Re-Loved sub-collections live under the Re-Loved edit, not as product categories."
 }

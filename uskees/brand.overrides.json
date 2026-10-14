@@ -78,5 +78,40 @@
   "copy": {
     "about": "A UK brand specialising in joyful riffs on classic fashion: workwear-inspired garments, suiting and one-off collections, for a rich and fulfilling life."
   },
-  "_about": "Footer line from their own meta description (scraped value was a heading or Title Case)."
+  "_about": "Footer line from their own meta description (scraped value was a heading or Title Case).",
+  "assets": {
+    "logoDark": "assets/img/logo-official-dark.png",
+    "logoLight": "assets/img/logo-official-light.png"
+  },
+  "_assets": "Official Uskees_Logotype.svg from their header, rasterised.",
+  "shop": {
+    "cats": [
+      "suits",
+      "overshirts",
+      "shirts",
+      "knitted-cotton",
+      "blazers",
+      "coats",
+      "jackets",
+      "t-shirts",
+      "jumpers",
+      "sweatshirts",
+      "cardigans",
+      "vests",
+      "pants",
+      "shorts",
+      "beanies",
+      "caps",
+      "socks",
+      "scarves",
+      "ties",
+      "goods"
+    ],
+    "edits": [
+      "issue-2-26",
+      "evo",
+      "sweats"
+    ]
+  },
+  "_shop": "Single-product collection (3001 buttoned overshirt) removed from categories; Evo/Sweats are edits."
 }

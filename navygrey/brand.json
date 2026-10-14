@@ -4319,8 +4319,8 @@
   "fontHref": null
  },
  "assets": {
-  "logoLight": "assets/img/logo-white.png",
-  "logoDark": "assets/img/logo-black.png",
+  "logoLight": "assets/img/logo-official-light.png",
+  "logoDark": "assets/img/logo-official-dark.png",
   "favicon": "assets/img/favicon.png"
  },
  "pages": {
@@ -4422,11 +4422,12 @@
   "bestCol": null,
   "newSub": "The latest arrivals",
   "hero": {
-   "poster": "assets/img/hero-poster.jpg",
+   "poster": "assets/img/hero-mobile.jpg",
    "eyebrow": "Newest arrivals and restocks",
    "title": "NEW IN",
    "cta": "Discover more",
-   "col": "new-in"
+   "col": "new-in",
+   "video": null
   },
   "tiles": [
    [
