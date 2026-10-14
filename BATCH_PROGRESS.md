@@ -14,3 +14,14 @@ Checklist key: L logo/splash/icon/push · V vertical features · T text padding/
 
 | brand | L | V | T | I | F | P | C | S | status |
 |---|---|---|---|---|---|---|---|---|---|
+| wawwa | fixed (official) | pass (clothing sizes) | pass | fixed (editorial natural, hero swapped) | OPEN: welcome card logo sits over face | fixed (Previous/Next announcement perks, "ф" name) | fixed (shipping £3.50/free £80) | pass | not done |
+| uskees | fixed (official SVG) | pass | pass | pass | pass | fixed (BLAZERS_TWILL types, code search chips) | fixed (shipping free £90) | pass | needs final 375 pass |
+| albaray | fixed (official) | pass (UK 8-18) | pass | fixed (baked hero video: no overlay) | pass | fixed (View All category, CSS perk) | fixed (free £99) | pass | needs final 375 pass |
+| navygrey | fixed (official SVG) | pass | pass | fixed (split hero swapped) | OPEN: Shop "New arrivals" banner crops a forehead | pass | fixed (free £250) | pass | not done |
+| lilyandroo | pass | fixed (rings now included; Ring size only, filter only on sized collections) | pass | pass (3-slide hero) | fixed (editorial removed) | pass | pass | pass | needs final 375 pass |
+| dlouise | fixed (official) | fixed (ring sizes) | pass | fixed (editorial matches image) | pass | fixed (menu counts "Bracelets 79", CSS perks) | fixed (UK shipping, free £75 now applied in bag) | pass | needs final 375 pass |
+| justbee | fixed (light logo for splash) | fixed (no size anywhere, packshot) | pass | fixed (editorial natural, jars uncropped) | pass | pass | OPEN: free-delivery threshold not verified | pass | not done |
+| solebliss | fixed (official, was a globe) | pass (UK/EU shoe sizes) | pass | fixed (packshot: shoes uncropped) | pass (legs-only hero is intentional) | fixed (Size EU 43 as feature) | pass | pass | needs final 375 pass |
+| avo | pass | pass | pass | fixed (baked hero: no overlay, welcome uses product) | pass | fixed (heading-as-about) | pass | pass | needs final 375 pass |
+| barebiology | fixed (real SVG wordmark, app icon) | fixed (Pack not Size, no size wording, packshot) | pass | fixed (editorial natural) | pass | fixed (cookie table page, -83% badges) | fixed (free delivery on all orders) | pass | needs final 375 pass |
+Automated: visual_check.py 0 fail / 0 crop warnings on all 10 (393x852 + 375x667) as of 09:15.

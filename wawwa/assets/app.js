@@ -1250,7 +1250,7 @@ function welcomeImg(){
 }
 function showWelcome(){
   const m = $('#welcome');
-  m.innerHTML = '<div class="wl-card"><div class="wl-top">'+(welcomeImg() ? '<img src="'+esc(welcomeImg())+'" alt="">' : '')+'<img src="'+LOGO_L+'" alt="'+esc(NAME)+'" class="wl-logo'+(B.assets.logoLight?'':' inv')+'"></div><div class="wl-body">'+
+  m.innerHTML = '<div class="wl-card"><div class="wl-top">'+(welcomeImg() ? '<img src="'+esc(welcomeImg())+'" alt=""'+(B.welcomeFocus?' style="object-position:'+esc(B.welcomeFocus)+'"':'')+'>' : '')+'<img src="'+LOGO_L+'" alt="'+esc(NAME)+'" class="wl-logo'+(B.assets.logoLight?'':' inv')+'"></div><div class="wl-body">'+
     '<small>Welcome to the app</small><h2>'+DISC.pct+'% off your first order</h2>'+
     '<button class="wl-code" id="wlCode"><span>'+esc(DISC.code)+'</span><em>'+I.copy+'Tap to copy</em></button>'+
     '<button class="btn btn-dark btn-block" id="wlGo">Start shopping</button><button class="wl-skip" id="wlSkip">Maybe later</button></div></div>';

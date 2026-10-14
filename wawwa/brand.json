@@ -7681,5 +7681,6 @@
    "Drop date is not published anywhere: countdown uses a rolling placeholder (app early access Wed 19:00, website Thu 19:00)"
   ]
  },
- "vertical": "apparel"
+ "vertical": "apparel",
+ "welcomeFocus": "center 55%"
 }
