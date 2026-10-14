@@ -1,90 +1,96 @@
 {
-  "home": {
-    "hero": {
-      "poster": "assets/img/hero-poster.jpg",
-      "eyebrow": "Designed For Comfort",
-      "title": "PAIN-FREE, FASHIONABLE SHOES",
-      "cta": "Shop New Arrivals",
-      "col": "new-arrivals"
-    },
-    "newSub": "The latest arrivals",
-    "editorial": null
+ "home": {
+  "hero": {
+   "poster": "assets/img/hero-poster.jpg",
+   "eyebrow": "Designed For Comfort",
+   "title": "PAIN-FREE, FASHIONABLE SHOES",
+   "cta": "Shop New Arrivals",
+   "col": "new-arrivals"
   },
-  "_drop": "No season drop is published on the site, so the Drops tab features their real shop new arrivals collection; the date is the rolling placeholder.",
-  "drop": {
-    "num": "01",
-    "name": "NEW ARRIVALS",
-    "title": "New Arrivals",
-    "col": "new-arrivals",
-    "products": [
-      "fen-black-patent",
-      "fen-tan-suede",
-      "denver-fur-black-patent-suede-luxe-leopard",
-      "destiny-fur-black-patent-suede-luxe-leopard",
-      "liza-black-velvet",
-      "venezia-black-velvet",
-      "ronnie-berry-velvet",
-      "ronnie-black-velvet"
-    ],
-    "weekday": 4,
-    "hour": 19,
-    "earlyHours": 24,
-    "previous": null
-  },
-  "_sizes": "UK 3-9 from real variants",
-  "sizes": {
-    "groups": [
-      {
-        "key": "shoe",
-        "label": "Shoe size",
-        "opts": [
-          "UK 3 / EU 36",
-          "UK 4 / EU 37",
-          "UK 5 / EU 38",
-          "UK 6 / EU 39",
-          "UK 7 / EU 40",
-          "UK 8 / EU 41",
-          "UK 9 / EU 42"
-        ]
-      }
+  "newSub": "The latest arrivals",
+  "editorial": null
+ },
+ "_drop": "No season drop is published on the site, so the Drops tab features their real shop new arrivals collection; the date is the rolling placeholder.",
+ "drop": {
+  "num": "01",
+  "name": "NEW ARRIVALS",
+  "title": "New Arrivals",
+  "col": "new-arrivals",
+  "products": [
+   "fen-black-patent",
+   "fen-tan-suede",
+   "denver-fur-black-patent-suede-luxe-leopard",
+   "destiny-fur-black-patent-suede-luxe-leopard",
+   "liza-black-velvet",
+   "venezia-black-velvet",
+   "ronnie-berry-velvet",
+   "ronnie-black-velvet"
+  ],
+  "weekday": 4,
+  "hour": 19,
+  "earlyHours": 24,
+  "previous": null
+ },
+ "_sizes": "UK 3-9 from real variants",
+ "sizes": {
+  "groups": [
+   {
+    "key": "shoe",
+    "label": "Shoe size",
+    "opts": [
+     "UK 3 / EU 36",
+     "UK 4 / EU 37",
+     "UK 5 / EU 38",
+     "UK 6 / EU 39",
+     "UK 7 / EU 40",
+     "UK 8 / EU 41",
+     "UK 9 / EU 42"
     ]
+   }
+  ]
+ },
+ "vertical": "footwear",
+ "assets": {
+  "logoDark": "assets/img/logo-official-dark.png",
+  "logoLight": "assets/img/logo-official-light.png"
+ },
+ "_assets": "Official logo from their site header: Logo_2233b8a1….svg (header). (Scraper had picked a product/hero image.)",
+ "shop": {
+  "cats": [
+   "trainers",
+   "heels",
+   "loafers",
+   "boots",
+   "sandals",
+   "platform-heels",
+   "mother-of-the-bride-shoes",
+   "all-bags",
+   "matching-shoes-handbags"
+  ],
+  "featureCats": {
+   "col": "trainers",
+   "title": "Trainers",
+   "cta": "Shop trainers",
+   "idx": 1
   },
-  "vertical": "footwear",
-  "assets": {
-    "logoDark": "assets/img/logo-official-dark.png",
-    "logoLight": "assets/img/logo-official-light.png"
-  },
-  "_assets": "Official logo from their site header: Logo_2233b8a1….svg (header). (Scraper had picked a product/hero image.)",
-  "shop": {
-    "cats": [
-      "trainers",
-      "heels",
-      "loafers",
-      "boots",
-      "sandals",
-      "platform-heels",
-      "mother-of-the-bride-shoes",
-      "all-bags",
-      "matching-shoes-handbags"
-    ],
-    "featureCats": {
-      "col": "trainers",
-      "title": "Trainers",
-      "cta": "Shop trainers",
-      "idx": 1
-    }
-  },
-  "_shop": "Duplicate bags collection removed.",
-  "packshots": true,
-  "_home": "Editorial removed (it repeated the hero image); Shop feature is Trainers, not the EU 43 size collection. Product shots shown uncropped (shoes were cut at toe/heel).",
-  "search": {
-    "trending": [
-      "Trainers",
-      "Boots",
-      "Loafers",
-      "Heels",
-      "Sandals",
-      "Bag"
-    ]
-  }
+  "edits": [
+   "new-arrivals",
+   "resort-collection",
+   "bridal-shoes",
+   "matching-shoes-handbags"
+  ]
+ },
+ "_shop": "Duplicate bags collection removed.",
+ "packshots": true,
+ "_home": "Editorial removed (it repeated the hero image); Shop feature is Trainers, not the EU 43 size collection. Product shots shown uncropped (shoes were cut at toe/heel).",
+ "search": {
+  "trending": [
+   "Trainers",
+   "Boots",
+   "Loafers",
+   "Heels",
+   "Sandals",
+   "Bag"
+  ]
+ }
 }

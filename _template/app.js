@@ -23,6 +23,9 @@ function pushAppIconHTML(){
   return '<div class="push-icon letter" aria-hidden="true">'+letter+'</div>';
 }
 const colBy = h => COLS.find(c => c.h === h);
+// Collection titles a product sits in, so a search for 'Trainers' finds shoes titled 'Metro: Bordeau Suede'.
+let _cto;
+const colTitlesOf = p => { if (!_cto){ _cto={}; COLS.forEach(c => (c.p||[]).forEach(h => { (_cto[h]=_cto[h]||[]).push(c.t); })); } return (_cto[p.h]||[]).join(' '); };
 const $ = (s, r=document) => r.querySelector(s);
 const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -851,7 +854,7 @@ function Search(el, q0){
     field.classList.toggle('has', !!q);
     if (!q) return idle();
     const terms = q.split(/\s+/);
-    const res = ALL.filter(p => { const hay = (p.t+' '+p.ty).toLowerCase(); return terms.every(t => hay.includes(t)); });
+    const res = ALL.filter(p => { const hay = (p.t+' '+p.ty+' '+colTitlesOf(p)).toLowerCase(); return terms.every(t => hay.includes(t) || (t.length>3 && /s$/.test(t) && hay.includes(t.slice(0,-1)))); });
     if (commit){ recent = [inp.value.trim(), ...recent.filter(r=>r.toLowerCase()!==q)].slice(0,5); store.set('recent', recent); }
     const re = new RegExp('('+terms.map(t=>t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')','ig');
     body.innerHTML = res.length
