@@ -38,3 +38,4 @@ Automated: visual_check.py 0 fail / 0 crop warnings on all 10 (393x852 + 375x667
 - avo — DONE. 48 screens at 375x667 re-read. Fix: the bag said delivery was 'Free' on a £47 order, but avoactivewear.com/pages/shipping-information says free Royal Mail Tracked 48 only over £90 and doesn't publish the under-£90 price. So the option now shows 'At checkout' below £90 (the template supports unknown prices, price:null) and a spend-£43-more bar. Stacked logo gets the logo-tall sizing. All items pass.
 - solebliss (re-check) — the bag also said 'Free' at £189. Corrected from solebliss.com/pages/shipping-returns: UK £5.95, free over £200. Still DONE.
 - navygrey (re-check) — the scraped 'UK delivery £60' was wrong. Corrected from navygrey.co/pages/orders-delivery: Royal Mail £5.75 (free over £250), DPD £7.00, DPD Premium £10.00. Still DONE.
+- barebiology — DONE. 42 screens at 375x667 re-read. 'Pack' options (no sizes), free Express Royal Mail, real copy. All items pass.
