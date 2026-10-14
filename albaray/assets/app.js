@@ -853,7 +853,7 @@ function Search(el, q0){
     if (commit){ recent = [inp.value.trim(), ...recent.filter(r=>r.toLowerCase()!==q)].slice(0,5); store.set('recent', recent); }
     const re = new RegExp('('+terms.map(t=>t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')','ig');
     body.innerHTML = res.length
-      ? '<div class="count" style="padding-top:4px">'+res.length+(res.length===1?' result':' results')+' for “'+esc(inp.value.trim())+'”</div><div class="s-res">'+res.slice(0,40).map(p=>'<div class="s-row" data-act="pdp" data-v="'+esc(p.h)+'"><img loading="lazy" decoding="async" '+srcs(p.im[0],150,56)+' alt=""><div><b>'+esc(p.n).replace(re,'<mark>$1</mark>')+'</b><small>'+[p.c, tcase(p.ty)].filter(Boolean).map(esc).join(' · ').replace(re,'<mark>$1</mark>')+'</small></div>'+priceHTML(p)+'</div>').join('')+'</div>'
+      ? '<div class="count" style="padding-top:4px">'+res.length+(res.length===1?' result':' results')+' for “'+esc(inp.value.trim())+'”</div><div class="s-res">'+res.slice(0,40).map(p=>'<div class="s-row" data-act="pdp" data-v="'+esc(p.h)+'"><img loading="lazy" decoding="async" '+srcs(p.im[0],150,56)+' alt=""><div><b>'+esc(p.n).replace(re,'<mark>$1</mark>')+'</b><small>'+[p.c, tcase(cleanType(p.ty))].filter(Boolean).map(esc).join(' · ').replace(re,'<mark>$1</mark>')+'</small></div>'+priceHTML(p)+'</div>').join('')+'</div>'
       : '<div class="empty" style="padding-top:40px"><div class="eic">'+I.search+'</div><h3>No results</h3><p>Nothing matched “'+esc(inp.value.trim())+'”. Try a trending search instead.</p><div class="chips" style="justify-content:center;flex-wrap:wrap">'+TR.slice(0,4).map(r=>'<button class="chip" data-q="'+esc(r)+'">'+esc(r)+'</button>').join('')+'</div></div>';
     bindQ();
   };
@@ -1243,6 +1243,8 @@ const Demo = {
 // welcome card photo: the hero, unless the hero artwork carries its own lettering (then the editorial image or a product shot)
 function welcomeImg(){
   if (B.welcomeImg) return B.welcomeImg;
+  // default: no photo; the logo sits on the brand colour (a centred logo over a campaign photo kept landing on faces)
+  if (!B.welcomePhoto) return '';
   const h = H.hero || {};
   if (h.poster && !h.baked && h.title !== '') return h.poster;
   if (H.editorial && H.editorial.img && H.editorial.fit !== 'natural') return H.editorial.img;
