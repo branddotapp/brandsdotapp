@@ -62,7 +62,7 @@ function applyDept(id){
 const prods = h => ((colBy(h) || {}).p || []).map(x => P[x]).filter(p => p && deptOk(p));
 let ALL = Object.values(P);
 const FREE_SHIP = SHIP.freeOver || 0;
-const IG = B.socials && B.socials.instagram;
+const IG = B.socials && B.socials.instagram && String(B.socials.instagram).replace(/^https?:\/\/(www\.)?instagram\.com\//i,'').replace(/^@/,'').split(/[/?#]/)[0];
 // Community (opt-in per brand: brand.json -> community). Events are real (scraped from the brand's site); the forum is demo content.
 const CM = B.community && (B.community.events || B.community.forum) ? B.community : null;
 const EV = CM && CM.events && (CM.events.items || []).length ? CM.events : null;

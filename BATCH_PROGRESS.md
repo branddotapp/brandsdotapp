@@ -32,3 +32,4 @@ Automated: visual_check.py 0 fail / 0 crop warnings on all 10 (393x852 + 375x667
 - albaray — DONE. 49 screens at 375x667 re-read (splash checked separately at 900ms: logo fades in, fine). All items pass.
 - navygrey — DONE. 45 screens at 375x667 re-read. Shop 'New arrivals' banner now framed at 12% (face whole); all items pass.
 - lilyandroo — DONE. 44 screens at 375x667 re-read. Fixed the restock push saying 'back in size A' (initial letter): it now picks a product with a real size option (bracelet Small/Medium). Ring size kept because they sell rings. All items pass.
+- dlouise — DONE. 46 screens at 375x667 re-read. Fixed the Account footer showing the raw Instagram URL; it now reads @d.louise (handle normalised in the template). Ring sizes kept (they sell rings); shipping matches their page (free Standard over £75). All items pass.
