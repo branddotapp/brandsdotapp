@@ -1,0 +1,44 @@
+{
+  "home": {
+    "hero": {
+      "poster": "assets/img/hero-poster.jpg",
+      "eyebrow": "Buy 2, Get 1 Free",
+      "title": "LUXURY YOU CAN LIVE IN",
+      "cta": "Shop bestsellers",
+      "col": "best-sellers"
+    }
+  },
+  "_drop": "No season drop is published on the site, so the Drops tab features their real New In collection; the date is the rolling placeholder.",
+  "drop": {
+    "num": "01",
+    "name": "NEW IN",
+    "title": "New In",
+    "col": "new-in",
+    "products": [
+      "bezel-trilogy-ring-tanzanite",
+      "multi-stone-ring-clear",
+      "bezel-trilogy-ring-ruby",
+      "bezel-trilogy-ring-clear",
+      "oval-bezel-stacking-ring",
+      "marquise-stacking-ring-sapphire-tanzanite",
+      "marquise-stacking-ring",
+      "oval-bezel-stacking-ring-sapphire-tanzanite"
+    ],
+    "weekday": 4,
+    "hour": 19,
+    "earlyHours": 24,
+    "previous": null
+  },
+  "socials": {
+    "instagram": "https://www.instagram.com/d.louise/"
+  },
+  "instagram": {
+    "handle": "d.louise",
+    "url": "https://www.instagram.com/d.louise/",
+    "posts": []
+  },
+  "theme": {
+    "sale": "#c62f2f"
+  },
+  "_theme": "colours adjusted for WCAG AA contrast"
+}

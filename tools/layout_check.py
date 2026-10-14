@@ -237,7 +237,7 @@ def run(pw, w, h):
     top('[data-act="back"]').click(); p.wait_for_timeout(400); top('[data-act="signup"]').click(); check('signup')
     top('[data-act="back"]').click(); p.wait_for_timeout(400); top('[data-act="back"]').click(); p.wait_for_timeout(400)
     top('[data-act="rewards"]').click(); check('rewards')
-    if m: p.click('#demoFab'); check('demo-sheet'); p.click('#sheetBackdrop'); p.wait_for_timeout(400)
+    if m: p.click('#demoFab'); check('demo-sheet'); p.click('#sheetBackdrop', position={'x': 10, 'y': 10}); p.wait_for_timeout(400)
     p.evaluate("window.__app.Demo.drop()"); check('push', 900)
     br.close()
 

@@ -1,0 +1,32 @@
+{
+  "home": {
+    "hero": {
+      "poster": "assets/img/hero-poster.jpg",
+      "eyebrow": "Same honey, fresh new look",
+      "title": "MEET THE NEW JUST BEE",
+      "cta": "Shop Now",
+      "col": "just-bee-raw-vitamin-honey"
+    }
+  },
+  "_drop": "No season drop is published on the site, so the Drops tab features their real Christmas Gifts collection; the date is the rolling placeholder.",
+  "drop": {
+    "num": "01",
+    "name": "CHRISTMAS GIFT RANGE",
+    "title": "Christmas Gifts",
+    "col": "christmas-gift-range",
+    "products": [
+      "the-festive-flavours-trio-gift",
+      "the-daily-wellness-collection",
+      "the-immunity-selection-gift",
+      "the-flavour-discover-hamper"
+    ],
+    "weekday": 4,
+    "hour": 19,
+    "earlyHours": 24,
+    "previous": null
+  },
+  "theme": {
+    "muted": "#5c5845"
+  },
+  "_theme": "muted text darkened to pass WCAG AA"
+}

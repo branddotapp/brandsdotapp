@@ -400,7 +400,7 @@ function heroEl(){
   const v = hero.video ? '<video autoplay muted loop playsinline preload="metadata" disablepictureinpicture disableremoteplayback'+(hero.poster?' poster="'+esc(hero.poster)+'"':'')+(hero.videoW?' width="'+hero.videoW+'" height="'+hero.videoH+'"':'')+'>'+
     '<source data-src="'+esc(hero.video)+'" type="video/mp4">'+(hero.videoWebm?'<source data-src="'+esc(hero.videoWebm)+'" type="video/webm">':'')+'</video>' : '';
   d.innerHTML = '<img class="poster" src="'+esc(hero.poster||'')+'" alt="">'+v+
-    '<div class="hero-copy"><div class="eyebrow">'+esc(hero.eyebrow||'')+'</div><div class="hero-title">'+esc(hero.title||NAME)+'</div>'+(hero.col&&colBy(hero.col)?'<button class="btn btn-light" data-act="col" data-v="'+esc(hero.col)+'">'+esc(hero.cta||'Shop now')+'</button>':'')+'</div>'+
+    '<div class="hero-copy"><div class="eyebrow">'+esc(hero.eyebrow||'')+'</div>'+(hero.title===''?'':'<div class="hero-title">'+esc(hero.title||NAME)+'</div>')+(hero.col&&colBy(hero.col)?'<button class="btn btn-light" data-act="col" data-v="'+esc(hero.col)+'">'+esc(hero.cta||'Shop now')+'</button>':'')+'</div>'+
     marquee();
   const vid = $('video', d);
   if (vid){

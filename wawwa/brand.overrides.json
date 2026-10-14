@@ -1,0 +1,38 @@
+{
+  "_reviews": "Real site-wide score from Judge.me, checked 14 Oct 2026.",
+  "reviews": {
+    "score": 4.8,
+    "count": 3864,
+    "label": "on Judge.me",
+    "source": "Judge.me",
+    "url": "https://judge.me/reviews/stores/wawwaclothing.com",
+    "checked": "14 Oct 2026"
+  },
+  "_drop": "No season drop is published on the site, so the Drops tab features their real Brick Camo collection; the date is the rolling placeholder.",
+  "drop": {
+    "num": "01",
+    "name": "BRICK CAMO",
+    "title": "Brick Camo",
+    "col": "brick-camo",
+    "products": [
+      "roam-raglan-jacket-bracken",
+      "garment-dyed-atlas-pants-fawn-brown",
+      "roam-raglan-jacket-black",
+      "garment-dyed-atlas-pants-powder-blue",
+      "raglan-range-waffle-knit-chocolate-brown-w-powder-blue-contrast",
+      "water-resistant-messenger-bag-blue-brick-camo",
+      "raglan-range-waffle-knit-signal-red-w-ecru",
+      "water-resistant-zama-pants-black"
+    ],
+    "weekday": 4,
+    "hour": 19,
+    "earlyHours": 24,
+    "previous": null
+  },
+  "home": {
+    "newCol": "studio-workers-collection",
+    "newSub": "Studio Worker's Collection",
+    "bestCol": "moleskin-at-the-mill",
+    "bestSub": "Moleskin at the Mill"
+  }
+}

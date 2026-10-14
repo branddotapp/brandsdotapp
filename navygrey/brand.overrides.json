@@ -1,0 +1,30 @@
+{
+  "home": {
+    "hero": {
+      "poster": "assets/img/hero-poster.jpg",
+      "eyebrow": "Newest arrivals and restocks",
+      "title": "NEW IN",
+      "cta": "Discover more",
+      "col": "new-in"
+    }
+  },
+  "_drop": "No season drop is published on the site, so the Drops tab features their real Francli Bags collection; the date is the rolling placeholder.",
+  "drop": {
+    "num": "01",
+    "name": "NAVYGREY X FRANCLI",
+    "title": "Francli Bags",
+    "col": "navygrey-x-francli",
+    "products": [
+      "navygrey-x-francli-blue",
+      "navygrey-x-francli-red"
+    ],
+    "weekday": 4,
+    "hour": 19,
+    "earlyHours": 24,
+    "previous": null
+  },
+  "theme": {
+    "sand2": "#eceded"
+  },
+  "_theme": "colours adjusted for WCAG AA contrast"
+}

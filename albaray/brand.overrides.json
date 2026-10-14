@@ -1,0 +1,62 @@
+{
+  "_reviews": "Real site-wide score from Yotpo, checked 14 Oct 2026.",
+  "reviews": {
+    "score": 4.7,
+    "count": 6148,
+    "label": "on Yotpo",
+    "source": "Yotpo",
+    "url": "https://albaray.co.uk",
+    "checked": "14 Oct 2026"
+  },
+  "home": {
+    "hero": {
+      "video": "assets/hero.mp4",
+      "poster": "assets/img/hero-poster.jpg",
+      "videoW": 504,
+      "videoH": 800,
+      "videoWebm": "assets/hero.webm",
+      "eyebrow": "Wardrobe Edits",
+      "title": "",
+      "cta": "Shop New In",
+      "col": "new-in",
+      "_why": "hero video already carries the \"Layering Season\" headline, so no overlaid title"
+    }
+  },
+  "_drop": "No season drop is published on the site, so the Drops tab features their real Burgundy Edit collection; the date is the rolling placeholder.",
+  "drop": {
+    "num": "01",
+    "name": "THE BURGUNDY EDIT",
+    "title": "Burgundy Edit",
+    "col": "the-burgundy-edit",
+    "products": [
+      "burgundy-fair-isle-crew-cardigan-aw26",
+      "burgundy-cosy-button-tank-aw26",
+      "burgundy-rib-v-neck-long-sleeve-top-aw26",
+      "burgundy-v-bardot-long-sleeve-rib-top-aw26",
+      "burgundy-cord-a-line-skirt-aw26",
+      "burgundy-cord-barrel-trouser-aw26",
+      "burgundy-cosy-relaxed-cardigan-aw26"
+    ],
+    "weekday": 4,
+    "hour": 19,
+    "earlyHours": 24,
+    "previous": null
+  },
+  "_sizes": "UK 8-18 from real variants",
+  "sizes": {
+    "groups": [
+      {
+        "key": "top",
+        "label": "Clothing size (UK)",
+        "opts": [
+          "8",
+          "10",
+          "12",
+          "14",
+          "16",
+          "18"
+        ]
+      }
+    ]
+  }
+}

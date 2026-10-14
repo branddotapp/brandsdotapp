@@ -367,8 +367,17 @@ def normalise_theme(th):
     """Re-derive muted/line from ink + bg so older brand.json files (line was 10% instead of 90% toward the page,
     muted was too light) render correctly on --rebuild."""
     th = dict(th); ink, bg = rgb_of(th['ink']), rgb_of(th['bg'])
-    if ink and bg: th['muted'] = hexc(mix(ink, bg, MUTED_T)); th['line'] = hexc(mix(ink, bg, LINE_T))
+    if ink and bg:
+        t = MUTED_T
+        while t > 0 and contrast_ratio(mix(ink, bg, t), bg) < 4.6: t -= .02   # keep muted text WCAG AA on the page for lighter inks
+        th['muted'] = hexc(mix(ink, bg, max(t, 0))); th['line'] = hexc(mix(ink, bg, LINE_T))
     return th
+
+def contrast_ratio(a, b):
+    def L(c):
+        c = [v / 255 for v in c[:3]]; c = [v / 12.92 if v <= .03928 else ((v + .055) / 1.055) ** 2.4 for v in c]
+        return .2126 * c[0] + .7152 * c[1] + .0722 * c[2]
+    x, y = sorted([L(a), L(b)], reverse=True); return (x + .05) / (y + .05)
 
 def build_theme(t):
     ink = t['text'] or (17, 17, 17)

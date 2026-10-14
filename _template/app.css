@@ -258,7 +258,7 @@ svg{display:block}
 .size.sm{min-width:auto;font-size:11.5px;height:40px}
 .size.on{background:var(--ink);color:#fff;border-color:var(--ink)}
 .size.out{color:#b3aea7;background:#f6f5f3;overflow:hidden}
-.size.out::after{content:"";position:absolute;left:-10%;right:-10%;top:50%;height:1px;background:#cfc9c1;transform:rotate(-24deg)}
+.size.out::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:#cfc9c1;transform:rotate(-24deg)}
 .sizes.shake{animation:shake .4s}
 @keyframes shake{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
 .size-hint{font-size:11.5px;color:var(--muted);margin-top:10px;display:flex;align-items:center;gap:6px}

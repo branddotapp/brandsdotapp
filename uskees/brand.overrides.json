@@ -1,0 +1,77 @@
+{
+  "_reviews": "Real site-wide score from Judge.me, checked 14 Oct 2026.",
+  "reviews": {
+    "score": 4.8,
+    "count": 2197,
+    "label": "on Judge.me",
+    "source": "Judge.me",
+    "url": "https://judge.me/reviews/stores/uskees.com",
+    "checked": "14 Oct 2026"
+  },
+  "_drop": "No season drop is published on the site, so the Drops tab features their real Evo collection; the date is the rolling placeholder.",
+  "drop": {
+    "num": "01",
+    "name": "EVO",
+    "title": "Evo",
+    "col": "evo",
+    "products": [
+      "3049-evo-shell-coat-army-green",
+      "3050-evo-liner-jacket-army-green",
+      "3049-evo-shell-coat-midnight-blue",
+      "3050-evo-liner-jacket-midnight-blue"
+    ],
+    "weekday": 4,
+    "hour": 19,
+    "earlyHours": 24,
+    "previous": null
+  },
+  "_pages": "Removed pages that 404 or only render with JS (no readable text): https://uskees.com/pages/cookie-policy",
+  "pages": {
+    "help": [
+      {
+        "t": "Shipping",
+        "url": "https://uskees.com/pages/shipping-policy",
+        "sum": "Have it how you want it\nDue to the costs of our providers, there are delivery charges on all Uskees orders regardless of quantity. You can choose your preferred postage method at checkout, details in the dropdowns below.\nPlease note, all deliveries are fully tracked. We also send out orders from Monday to Friday, however arrival timescales are estimates counted from the day of dispatch.\nUK delivery\nFree Standard shipping on all orders over £90\nStandard shipping: 2-4 working days from dispatch, £2.99\nExpress shipping: 1-2 working days from dispatch, £4.99\nEU delivery (except Sweden and Denmark)\nStandard shipping via FedEx: 3-5 working days from dispatch, €12,99 (unfortunately we cannot ship to the Canary Islands)\nExpress shipping via FedEx: 2-4 working days from dispatch, €18,99 (unfortunately we cannot ship to the Canary Islands)\nDelivered duty paid. All taxes and duties are included (shown at checkout)"
+      },
+      {
+        "t": "FAQs",
+        "url": "https://uskees.com/pages/faqs",
+        "sum": "For any query not covered below, please message us via our contact pages.\nGeneral\nHow do I use my discount code?\nEnter your code into the discount box at checkout, then select “Apply\". If your code isn’t applied at this point, we can’t assign it later. You can however use it for a further order.\nCan I amend my order?\nYes. Contact info@uskees.com and we’ll do our best to accommodate your request.\nWhat do I do if I can't access the site or make a purchase?\nAny problems with the site, please email info@uskees.com\nWhat do I do if the product I'm looking for is unavailable?\nIt’s best to email info@uskees.com. That way we can tell you if and when an item’s going to be restocked or help you find a similar item if it was a limited-edition piece. Alternatively, use the ‘notify me...’ button on the product page. This triggers an email to let you know when the item’s back in rotation.\nHow will I know when my order's been shipped?"
+      },
+      {
+        "t": "Contact",
+        "url": "https://uskees.com/pages/contact-us",
+        "sum": "Talk to us\nTo get in touch, please use the contact form below or email info@uskees.com. You can also try our AI Chat Assistant and FAQ page.\nWe aim to answer all queries within 24 hours, but please note the customer service team's working hours are Monday to Friday, 8am till 4pm GMT.\nAddress\nP and C Retail UK Limited\nUnit 8, Park Road Estate\nPark Road\nTimperley\nCheshire\nWA14 5QH: United Kingdom\nRegistered office\nAlex House\n260 - 268 Chapel Street\nSalford\nManchester\nM3 5JZ: Company Reg + VAT no\nCompany number: 06869627\nVAT number: GB974349088"
+      }
+    ],
+    "about": [
+      {
+        "t": "About us",
+        "url": "https://uskees.com/pages/about-us",
+        "sum": "About us\nFor a rich and fulfilling life\nUskees is a UK brand that specialises in contemporary workwear and high functioning menswear. Through a core range of overshirts, essentials, suiting and seasonal collections, we emphasise timelessness, utility and integrity. We make lasting, stylish things for your comfort and contentment — for every aspect of a life lived well and to the fullest.\nStory\nWe began in 2019 as an experiment in workwear.\nFrom our studio in Manchester, we put together a new take on the French chore coat, a hardwearing jacket brought to prominence by artisans and labourers of the 20th Century.\nExecuted with an absolute commitment to integrity, simplicity and invention, what became known as the 3001 overshirt was made to be worn well and lived fully in - understated craftsmanship playfully expressed.\nFast forward to today and the love of heritage, creativity and materials we poured into that 3001 now floods all kinds of fashion genres, styles, fabrics and accessories."
+      },
+      {
+        "t": "Stockists",
+        "url": "https://uskees.com/pages/stockists",
+        "sum": "Our stockists\nFind our stores\nTATE Modern\nBankside, London SE1 9TG\n020 7887 8888\nV&A Museum\nCromwell Rd, London SW7 2RL\n020 7942 2000\nNational Portrait Gallery\nSt. Martin's Pl, London WC2H 0HE\n020 7306 0055\nWerkhaus Margate\n30 High St, Margate CT9 1DS\n07946 517287\nYards Store\n13 Old Bank St, Manchester M2 7PE\nCloset & Botts\n37 High St, Lewes BN7 2LU\n01273 471486\nBeasley's\n17 Hepworth Arcade, Silver St, Hull HU1 1JU\n01482 210018\nHomeleigh Vintage\nRegent House, 4 Silverdale Rd, Arnside, Carnforth LA5 0AB\n07720 647812\nPaisley & Friends\n56 Kings Rd, Saint Leonards-on-sea TN37 6DY\n01424 421616\n69b Boutique Ltd\n69b Broadway Market, London E8 4PH\nArnold & Son\n474 Ecclesall Road\nSheffield\nS11 8PX: 0114 268 0230\nArtifacts Apparel\n14-16 Leather Lane\nLondon\nEc1n 7Su: Bohemian Folk\n3 Market Street hay-on-Wye\nHereford\nLD3 5Af: Entertaining Elephants\n43 High Street, Church Stretton\nShropshire SY6 6BX\nFlatspot\nUnit 5 Richmond Place\nLee Mill\nIvybridge"
+      }
+    ],
+    "legal": [
+      {
+        "t": "Privacy policy",
+        "url": "https://uskees.com/pages/privacy-policy",
+        "sum": "This Privacy Policy describes how your personal information is collected, used, and shared when you visit or make a purchase from uskees.com (the “Site”).\nPersonal information we collect\nWe collect Device Information using the following technologies:\n“Log files” track actions occurring on the Site, and collect data including your IP address, browser type, Internet service provider, referring/exit pages, and date/time stamps.\n“Web beacons”, “tags”, and “pixels” are electronic files used to record information about how you browse the Site.\nAdditionally when you make a purchase or attempt to make a purchase through the Site, we collect certain information from you, including your name, billing address, shipping address, payment information (including credit card numbers), email address, and phone number. We refer to this information as “Order Information”. When we talk about “Personal Information” in this Privacy Policy, we are talking both about Device Information and Order Information."
+      },
+      {
+        "t": "Terms of service",
+        "url": "https://uskees.com/pages/terms-of-service",
+        "sum": "Overview\nThis website is operated by P & C Retail UK Limited. Throughout the site, the terms “we”, “us” and “our” refer to P & C Retail UK Limited. P & C Retail UK Limited offers this website, including all information, tools and services available from this site to you, the user, conditioned upon your acceptance of all terms, conditions, policies and notices stated here.\nBy visiting our site and/ or purchasing something from us, you engage in our “Service” and agree to be bound by the following terms and conditions (“Terms of Service”, “Terms”), including those additional terms and conditions and policies referenced herein and/or available by hyperlink. These Terms of Service apply to all users of the site, including without limitation users who are browsers, vendors, customers, merchants, and/ or contributors of content.\nPlease read these Terms of Service carefully before accessing or…"
+      },
+      {
+        "t": "Refund policy",
+        "url": "https://uskees.com/pages/refund-policy",
+        "sum": "Refunds and returns\nIn short...\nYou can return full-price items to Uskees within 30 days of receiving them, and still receive a full refund.\nIf you'd like to return an item bought in sale, you must let us know your intention to return it within 14 days of delivery. You must then send it back within 14 days of letting us know.\nThis is in addition to your legal right to cancel an online order within 14 days of delivery, which applies to all customers in the UK and EU (see Ts & Cs below).\nCondition of returns\nPlease return items unworn, with their labels and repair kits still attached, and in the condition you received them. You're welcome to try items on as you would in a shop. If an item comes back worn, washed or damaged, we may reduce your refund to reflect the loss in value.\nItems are your responsibility until they reach us, so we recommend using a tracked service.\nThis returns policy does not affect your statutory rights."
+      }
+    ]
+  }
+}
