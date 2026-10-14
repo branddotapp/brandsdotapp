@@ -1038,3 +1038,13 @@ img.img-err{visibility:hidden}
 .packshot .cat-tile img{object-fit:contain;padding:8% 8% 24%;box-sizing:border-box}
 .packshot .feature-card img{object-fit:contain;object-position:right center;padding:4% 2% 4% 40%;box-sizing:border-box}
 .wl-top:not(:has(img:not(.wl-logo))){height:110px}
+
+/* stacked/square logos */
+.logo-tall .tb-logo{height:30px}
+.logo-tall .wl-logo{height:52px}
+.logo-tall .rc-top img{height:34px;width:auto}
+.logo-tall .auth-logo{height:44px}
+.logo-tall .acct-foot img{height:40px;width:auto}
+/* white logo on dark surfaces: flatten to pure white so colour logos don't invert to odd hues */
+.home-head .tb-logo{filter:brightness(0) invert(1) drop-shadow(0 1px 2px rgba(0,0,0,.28))}
+.home-head.deep .tb-logo,.rcard .rc-top img{filter:brightness(0) invert(1)}

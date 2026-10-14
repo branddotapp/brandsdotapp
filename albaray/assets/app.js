@@ -11,6 +11,8 @@ const NAME = B.name, SITE = B.site;
 // payment methods the brand's checkout shows (footer payment icons); unknown → the template's default set
 const PAY = Array.isArray(B.payments) && B.payments.length ? B.payments : null, pays = id => !PAY || PAY.includes(id);
 const LOGO = B.assets.logoDark, LOGO_L = B.assets.logoLight || B.assets.logoDark;
+// Stacked / square logos read as a speck at wordmark heights: flag them so CSS sizes them up.
+(function(){ const t=new Image(); t.onload=()=>{ if (t.naturalWidth/t.naturalHeight < 2.6) document.documentElement.classList.add('logo-tall'); }; t.src=LOGO; })();
 // Push toast app icon: brand logo (light on dark tile when available) with letter fallback.
 function pushAppIconHTML(){
   if (B.assets && B.assets.appIcon) return '<img src="'+B.assets.appIcon+'" alt="" class="push-icon appicon">';
@@ -833,7 +835,7 @@ function Wishlist(el, mode){
 // ---------- SEARCH ----------
 function Search(el, q0){
   const TR = SRCH.trending || [];
-  const POP = (SRCH.popular || []).filter(h => prods(h).length);
+  const POP = (SRCH.popular || []).filter((h,i,a) => prods(h).length && a.indexOf(h)===i && a.findIndex(x => (colBy(x)||{}).t===(colBy(h)||{}).t)===i);
   el.innerHTML = '<div class="searchbar"><button class="icon-btn" data-act="back" aria-label="Back">'+I.back+'</button><label class="sfield">'+I.search+'<input id="sq" type="search" placeholder="Search '+esc(NAME)+'" autocomplete="off" enterkeyhint="search"><button class="clear" id="sclear" aria-label="Clear">×</button></label></div><div id="sbody"></div>';
   const inp = $('#sq', el), body = $('#sbody', el), field = $('.sfield', el);
   const bindQ = () => $$('[data-q]', body).forEach(b => b.addEventListener('click', () => { inp.value = b.dataset.q; run(true); }));
