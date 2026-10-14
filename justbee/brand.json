@@ -1881,23 +1881,31 @@
  "shipping": {
   "options": [
    {
-    "id": "priority-delivery",
-    "name": "Priority delivery",
-    "desc": "",
-    "price": 3.99,
-    "short": "Priority delivery"
+    "id": "std",
+    "name": "Standard delivery",
+    "desc": "£3.50 or free on orders over £40",
+    "price": 3.5,
+    "freeOver": 40,
+    "short": "Standard"
    },
    {
-    "id": "first-class-delivery",
+    "id": "pri",
+    "name": "Priority delivery",
+    "desc": "£3.99",
+    "price": 3.99,
+    "short": "Priority"
+   },
+   {
+    "id": "fc",
     "name": "First Class delivery",
-    "desc": "Does Just Bee Honey deliver outside the UK?",
+    "desc": "£5.99",
     "price": 5.99,
-    "short": "Class delivery"
+    "short": "First Class"
    }
   ],
   "notes": [],
-  "freeOver": null,
-  "region": ""
+  "freeOver": 40,
+  "region": "UK"
  },
  "currency": {
   "code": "GBP",
@@ -1928,6 +1936,7 @@
   "checked": "2026-10-14"
  },
  "perks": [
+  "Free UK delivery over £40",
   "Same honey, new look",
   "14-day returns"
  ],

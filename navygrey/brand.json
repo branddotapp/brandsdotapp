@@ -4479,9 +4479,10 @@
   ],
   "featureCats": {
    "col": "new-in",
-   "title": "NEW ARRIVALS",
+   "title": "New arrivals",
    "cta": "Shop now",
-   "idx": 1
+   "idx": 1,
+   "focus": "center 12%"
   },
   "featureEdits": null
  },

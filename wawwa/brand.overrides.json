@@ -126,5 +126,7 @@
     ]
   },
   "_pages": "Stockists page dropped (it is a JS store-locator widget, nothing readable).",
-  "welcomeFocus": "center 55%"
+  "welcomeFocus": "center 40%",
+  "welcomeImg": "assets/img/welcome.jpg",
+  "_welcome": "Welcome card uses their own rear-view product shot so the centred logo never sits on a face."
 }

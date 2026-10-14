@@ -74,5 +74,14 @@
     "notes": [],
     "freeOver": 250,
     "region": "UK"
+  },
+  "shop": {
+    "featureCats": {
+      "col": "new-in",
+      "title": "New arrivals",
+      "cta": "Shop now",
+      "idx": 1,
+      "focus": "center 12%"
+    }
   }
 }

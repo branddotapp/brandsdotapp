@@ -7682,5 +7682,6 @@
   ]
  },
  "vertical": "apparel",
- "welcomeFocus": "center 55%"
+ "welcomeFocus": "center 40%",
+ "welcomeImg": "assets/img/welcome.jpg"
 }

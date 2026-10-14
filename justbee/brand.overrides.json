@@ -53,5 +53,40 @@
     "logoDark": "assets/img/logo-black.png",
     "logoLight": "assets/img/logo-official-light.png"
   },
-  "_editorial": "Editorial image has baked-in lettering: shown uncropped."
+  "_editorial": "Editorial image has baked-in lettering: shown uncropped.",
+  "shipping": {
+    "options": [
+      {
+        "id": "std",
+        "name": "Standard delivery",
+        "desc": "£3.50 or free on orders over £40",
+        "price": 3.5,
+        "freeOver": 40,
+        "short": "Standard"
+      },
+      {
+        "id": "pri",
+        "name": "Priority delivery",
+        "desc": "£3.99",
+        "price": 3.99,
+        "short": "Priority"
+      },
+      {
+        "id": "fc",
+        "name": "First Class delivery",
+        "desc": "£5.99",
+        "price": 5.99,
+        "short": "First Class"
+      }
+    ],
+    "notes": [],
+    "freeOver": 40,
+    "region": "UK"
+  },
+  "perks": [
+    "Free UK delivery over £40",
+    "Same honey, new look",
+    "14-day returns"
+  ],
+  "_shipping": "Confirmed 14 Oct on justbeehoney.co.uk/pages/just-bee-honey-delivery-information: Standard £3.50 or FREE over £40; Priority £3.99; First Class £5.99."
 }

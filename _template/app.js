@@ -530,7 +530,7 @@ function Home(el){
       (tiles.length ? '<section class="section"><div class="sec-head"><div><h2>Shop by Category</h2></div><button class="link" data-act="tab" data-v="shop">All</button></div><div class="cat-grid">'+tiles.map(t=>'<div class="cat-tile" data-act="col" data-v="'+esc(t[0])+'"><img loading="lazy" decoding="async" fetchpriority="high" data-prio '+cover(t[0])+' alt=""><span>'+esc(t[1])+'</span></div>').join('')+'</div></section>' : '')+
       (H.editorial && H.editorial.img && colBy(H.editorial.col) ? '<div class="editorial'+(H.editorial.fit==='natural'?' natural':'')+'" data-act="col" data-v="'+esc(H.editorial.col)+'"><img loading="lazy" src="'+esc(H.editorial.img)+'" alt=""><div class="hero-copy"><div class="eyebrow">'+esc(H.editorial.eyebrow||'')+'</div><div class="hero-title">'+esc(H.editorial.title||'')+'</div><span class="btn btn-light">Shop now</span></div></div>' : '')+
       (best.length ? '<section class="section"><div class="sec-head"><div><h2>'+esc(H.bestTitle||'Best Sellers')+'</h2><p>'+esc(H.bestSub||(NOUN[0]==='piece'?'The pieces everyone’s wearing':'Our customers’ favourites'))+'</p></div><button class="link" data-act="col" data-v="'+esc(H.bestCol)+'">View all</button></div><div class="hscroll">'+best.map(p=>pcard(p,{w:400})).join('')+'</div></section>' : '')+
-      (fc ? '<div class="feature-card" style="margin-top:28px" data-act="col" data-v="'+esc(H.feature.col)+'"><img loading="lazy" src="'+(H.feature.img ? esc(H.feature.img) : img(fc.im[1]||fc.im[0],700))+'" alt=""><div><b>'+esc(H.feature.title)+'</b><span class="btn btn-light btn-sm">'+esc(H.feature.cta||'Shop now')+'</span></div></div>' : '')+
+      (fc ? '<div class="feature-card" style="margin-top:28px" data-act="col" data-v="'+esc(H.feature.col)+'"><img loading="lazy" src="'+(H.feature.img ? esc(H.feature.img) : img(fc.im[1]||fc.im[0],700))+'" alt=""'+(H.feature.focus?' style="object-position:'+esc(H.feature.focus)+'"':'')+'><div><b>'+esc(H.feature.title)+'</b><span class="btn btn-light btn-sm">'+esc(H.feature.cta||'Shop now')+'</span></div></div>' : '')+
       proofHTML()+
       igHTML()+
       commTeaser()+
@@ -583,7 +583,7 @@ function Shop(el, seg){
     const list = (s === 'cats' ? SH.cats : SH.edits) || [];
     const f = s === 'cats' ? SH.featureCats : SH.featureEdits;
     const fp = f && prods(f.col)[f.idx||0];
-    return (fp ? '<div class="feature-card" data-act="col" data-v="'+esc(f.col)+'"><img src="'+(f.img ? esc(f.img) : img(fp.im[0],700))+'" alt=""><div><b>'+esc(f.title)+'</b><span class="btn btn-light btn-sm">'+esc(f.cta||'Shop now')+'</span></div></div>' : '')+
+    return (fp ? '<div class="feature-card" data-act="col" data-v="'+esc(f.col)+'"><img src="'+(f.img ? esc(f.img) : img(fp.im[0],700))+'" alt=""'+(f.focus?' style="object-position:'+esc(f.focus)+'"':'')+'><div><b>'+esc(f.title)+'</b><span class="btn btn-light btn-sm">'+esc(f.cta||'Shop now')+'</span></div></div>' : '')+
       '<div class="cat-list">'+list.map(row).join('')+'</div>'+(list.length?'':'<div class="empty"><h3>No collections found</h3></div>');
   };
   el.innerHTML = topbar({ title:'', right:'<div class="tb-r">'+searchBtn()+wishBtn()+bagBtn()+'</div>', left:'<span style="width:40px"></span>' }) +
